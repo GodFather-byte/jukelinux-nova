@@ -29,7 +29,7 @@ public class DescompilarJukeLinux extends GhidraScript {
                 String nome = f.getName();
                 if (!(nome.startsWith("JUKELINUX1_") || nome.contains("_TFORM1_"))) continue;
                 if (monitor.isCancelled()) break;
-                DecompileResults r = dec.decompileFunction(f, 180, monitor);
+                DecompileResults r = dec.decompileFunction(f, 900, monitor);
                 String c = (r != null && r.decompileCompleted()) ? r.getDecompiledFunction().getC()
                         : "/* falhou: " + (r == null ? "?" : r.getErrorMessage()) + " */\n";
                 if (r == null || !r.decompileCompleted()) falhas++;
