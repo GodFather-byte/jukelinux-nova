@@ -1,0 +1,22 @@
+object Form1: TForm1
+  Left = 0
+  Height = 768
+  Top = 0
+  Width = 1024
+  BorderStyle = bsNone
+  Caption = 'JukeLinux'
+  Color = clBlack
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  object LabelVersao: TLabel
+    Left = 24
+    Height = 32
+    Top = 24
+    Width = 600
+    Caption = 'JukeLinux Nova'
+    Font.Color = clWhite
+    Font.Height = -24
+    ParentColor = False
+    ParentFont = False
+  end
+end

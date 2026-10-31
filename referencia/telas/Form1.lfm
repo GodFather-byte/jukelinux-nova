@@ -1,0 +1,1828 @@
+object Form1: TForm1
+  Left = 605
+  Height = 546
+  Top = 181
+  Width = 701
+  ActiveControl = PanelBloqueio
+  Caption = 'JukeLinux'
+  ClientHeight = 546
+  ClientWidth = 701
+  KeyPreview = True
+  OnActivate = FormActivate
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  ShowHint = True
+  LCLVersion = '1.2.4.0'
+  object Panelabertura: TPanel
+    Left = 356
+    Height = 49
+    Top = 62
+    Width = 58
+    BevelOuter = bvNone
+    ClientHeight = 49
+    ClientWidth = 58
+    Color = clBlack
+    ParentColor = False
+    TabOrder = 1
+    OnClick = PanelaberturaClick
+    object Labelrodape: TLabel
+      Left = 0
+      Height = 19
+      Top = 30
+      Width = 58
+      Align = alBottom
+      Alignment = taCenter
+      Caption = 'Labelrodape'
+      Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Serif'
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object Labelabertura: TLabel
+      Left = 1
+      Height = 21
+      Top = 30
+      Width = 58
+      Alignment = taCenter
+      Caption = 'Label1'
+      Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Serif'
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object Labelaberturatempo: TLabel
+      Left = 0
+      Height = 21
+      Top = 0
+      Width = 58
+      Align = alTop
+      Alignment = taRightJustify
+      Caption = 'Label1'
+      Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Serif'
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object Labelabertura1: TLabel
+      Left = 1
+      Height = 21
+      Top = 62
+      Width = 58
+      Alignment = taCenter
+      Caption = 'Label1'
+      Color = clBlack
+      Font.Height = -17
+      Font.Name = 'Serif'
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+  end
+  object PanelLendo: TPanel
+    Left = 355
+    Height = 264
+    Top = 112
+    Width = 144
+    BevelOuter = bvNone
+    ClientHeight = 264
+    ClientWidth = 144
+    TabOrder = 2
+    object ImageLendo: TImage
+      Left = 3
+      Height = 74
+      Top = 3
+      Width = 78
+      Stretch = True
+    end
+    object LabelLendo: TLabel
+      Left = 0
+      Height = 33
+      Top = 231
+      Width = 144
+      Align = alBottom
+      Alignment = taCenter
+      Caption = 'Carregando CDs e DVDs...'
+      Color = clBlack
+      Font.Color = clWhite
+      Font.Height = -27
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object PanelVersao: TPanel
+      Left = 3
+      Height = 30
+      Top = 85
+      Width = 79
+      BevelOuter = bvNone
+      Caption = 'Vers'#195#163'o'
+      Color = clBlack
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+    end
+    object ImageLendo1: TImage
+      Left = 84
+      Height = 52
+      Top = 3
+      Width = 55
+      Picture.Data = {imagem 1347208 bytes}
+      Stretch = True
+    end
+    object ImageLendo2: TImage
+      Left = 84
+      Height = 52
+      Top = 57
+      Width = 55
+      Picture.Data = {imagem 935596 bytes}
+      Stretch = True
+    end
+    object ImageLendo3: TImage
+      Left = 84
+      Height = 52
+      Top = 111
+      Width = 55
+      Picture.Data = {imagem 636179 bytes}
+      Stretch = True
+    end
+    object ImageLendo4: TImage
+      Left = 84
+      Height = 52
+      Top = 165
+      Width = 55
+      Picture.Data = {imagem 1315926 bytes}
+      Stretch = True
+    end
+    object ImageLendo5: TImage
+      Left = 19
+      Height = 52
+      Top = 165
+      Width = 55
+      Picture.Data = {imagem 496768 bytes}
+      Stretch = True
+    end
+    object ImageLendo6: TImage
+      Left = 19
+      Height = 52
+      Top = 116
+      Width = 55
+      Picture.Data = {imagem 896481 bytes}
+      Stretch = True
+    end
+  end
+  object PanelErro: TPanel
+    Left = 351
+    Height = 172
+    Top = 448
+    Width = 148
+    BevelInner = bvLowered
+    BevelWidth = 3
+    ClientHeight = 172
+    ClientWidth = 148
+    Color = clRed
+    ParentColor = False
+    TabOrder = 3
+    OnClick = PanelErroClick
+    object LabelErro1: TLabel
+      Left = 6
+      Height = 113
+      Top = 6
+      Width = 136
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Erro'
+      Font.Color = clWhite
+      Font.Height = -96
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelErro1Click
+    end
+    object LabelErro2: TLabel
+      Left = 6
+      Height = 583
+      Top = 119
+      Width = 136
+      Align = alTop
+      Alignment = taCenter
+      Caption = '00'
+      Font.Color = clBlack
+      Font.Height = -500
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelErro2Click
+    end
+    object MemoErro: TMemo
+      Left = 6
+      Height = 50
+      Top = 116
+      Width = 136
+      Align = alBottom
+      Color = clYellow
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      Lines.Strings = ('Descri'#195#167#195#163'o do Erro')
+      OnClick = MemoErroClick
+      ParentFont = False
+      TabOrder = 0
+    end
+  end
+  object FileListBox1: TFileListBox
+    Left = 353
+    Height = 83
+    Top = 350
+    Width = 146
+    Directory = '/home/jkb/musicas'
+    FileType = [ftDirectory, ftArchive, ftNormal]
+    ItemHeight = 21
+    TabOrder = 5
+  end
+  object PanelTV: TPanel
+    Left = 424
+    Height = 49
+    Top = 62
+    Width = 75
+    BevelOuter = bvNone
+    ClientHeight = 49
+    ClientWidth = 75
+    Color = clBlack
+    ParentColor = False
+    TabOrder = 8
+    object ImageTV: TImage
+      Left = 17
+      Height = 55
+      Top = 16
+      Width = 63
+    end
+  end
+  object Play: TMPlayerControl
+    Left = 357
+    Height = 45
+    Top = 10
+    Width = 56
+    Loop = 0
+    Volume = 0
+  end
+  object PanelAtivacao: TPanel
+    Left = 512
+    Height = 425
+    Top = 8
+    Width = 153
+    BevelInner = bvLowered
+    BevelWidth = 4
+    ClientHeight = 425
+    ClientWidth = 153
+    Font.Color = clActiveBorder
+    ParentFont = False
+    TabOrder = 0
+    object LabelAtivacao2: TLabel
+      Left = 8
+      Height = 79
+      Top = 118
+      Width = 137
+      Align = alTop
+      Alignment = taCenter
+      Caption = '0000-????-????-????'
+      Font.Color = clPurple
+      Font.Height = -67
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelAtivacao1: TLabel
+      Left = 8
+      Height = 76
+      Top = 8
+      Width = 137
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Troca de PenDrive Chave'
+      Font.Color = clBlue
+      Font.Height = -64
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelAtivacao3: TLabel
+      Left = 8
+      Height = 34
+      Top = 84
+      Width = 137
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Ligue para a Empresa e Informe o N'#195#186'mero Abaixo'
+      Font.Color = clPurple
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelAtivacao4: TLabel
+      Left = 8
+      Height = 23
+      Top = 197
+      Width = 137
+      Align = alTop
+      Alignment = taCenter
+      Caption = ' Digite o N'#195#186'mero Informado pela Empresa no Campo Abaixo e Clique em Ativar'
+      Font.Color = clTeal
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object EditSenhaAtivacao: TEdit
+      Left = 8
+      Height = 86
+      Top = 220
+      Width = 137
+      Align = alTop
+      Font.Color = clBlack
+      Font.Height = -64
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      OnKeyPress = EditSenhaAtivacaoKeyPress
+      ParentFont = False
+      TabOrder = 0
+    end
+    object ButtonAtivar: TButton
+      Left = 8
+      Height = 89
+      Top = 306
+      Width = 137
+      Align = alTop
+      Caption = 'Ativar'
+      Font.Color = clLime
+      Font.Height = -75
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      OnClick = ButtonAtivarClick
+      ParentFont = False
+      TabOrder = 1
+    end
+  end
+  object PanelAutoTeste: TPanel
+    Left = 505
+    Height = 172
+    Top = 448
+    Width = 376
+    BorderWidth = 5
+    ClientHeight = 172
+    ClientWidth = 376
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 10
+    object Image1: TImage
+      Left = 6
+      Height = 26
+      Top = 48
+      Width = 364
+      Align = alClient
+      Picture.Data = {imagem 7384 bytes}
+      Stretch = True
+    end
+    object LabelAT1: TLabel
+      Left = 6
+      Height = 42
+      Top = 6
+      Width = 364
+      Align = alTop
+      Alignment = taCenter
+      Caption = 'Auto Teste'
+      Color = clBlack
+      Font.Color = clYellow
+      Font.Height = -35
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object ImageAT1: TImage
+      Left = 32
+      Height = 290
+      Top = 86
+      Width = 290
+    end
+    object ImageAT2: TImage
+      Left = 396
+      Height = 145
+      Top = 86
+      Width = 145
+    end
+    object LabelAT2: TLabel
+      Left = 17
+      Height = 118
+      Top = 386
+      Width = 602
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Nome do CD/DVD'
+      Font.Color = clYellow
+      Font.Height = -27
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object LabelAT3: TLabel
+      Left = 6
+      Height = 92
+      Top = 74
+      Width = 364
+      Align = alBottom
+      Alignment = taCenter
+      Caption = 'Aten'#195#167#195#163'o: Se aparecer uma tela de Erro, favor Desligar e Ligar a Jukebox para o Sistema fazer a Corre'#195#167#195#163'o do Erro.'
+      Color = clGray
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+      WordWrap = True
+    end
+  end
+  object playtv: TMPlayerControl
+    Left = 424
+    Height = 45
+    Top = 10
+    Width = 75
+    Loop = 0
+    Volume = 0
+  end
+  object PanelBloqueio: TPanel
+    Left = 624
+    Height = 44
+    Top = 9
+    Width = 256
+    BevelOuter = bvNone
+    BevelWidth = 10
+    Caption = 'Tocou xxxx m'#195#186'sicas, Sistema Bloqueado'
+    Color = clYellow
+    Font.Color = clBlack
+    Font.Height = -27
+    Font.Name = 'Sans'
+    Font.Style = [fsBold, fsItalic]
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 12
+    OnClick = PanelBloqueioClick
+  end
+  object PanelCJ: TPanel
+    Left = 624
+    Height = 192
+    Top = 68
+    Width = 255
+    BevelOuter = bvNone
+    ClientHeight = 192
+    ClientWidth = 255
+    TabOrder = 13
+    object Image2: TImage
+      Left = 0
+      Height = 158
+      Top = 0
+      Width = 261
+      Picture.Data = {imagem 35472 bytes}
+    end
+    object CreditoCJSombra: TLabel
+      Left = 5
+      Height = 86
+      Top = 22
+      Width = 244
+      Alignment = taCenter
+      AutoSize = False
+      Caption = '000'
+      Font.Color = clBlack
+      Font.Height = -75
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object CreditoCJ: TLabel
+      Left = 3
+      Height = 86
+      Top = 20
+      Width = 244
+      Alignment = taCenter
+      AutoSize = False
+      Caption = '000'
+      Font.Color = clSilver
+      Font.Height = -75
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object ImageBonus: TImage
+      Left = 1
+      Height = 65
+      Top = 77
+      Width = 67
+      Picture.Data = {imagem 7238 bytes}
+      Transparent = True
+    end
+    object ImageGratis: TImage
+      Left = 182
+      Height = 65
+      Top = 77
+      Width = 67
+      Picture.Data = {imagem 6498 bytes}
+      Transparent = True
+    end
+  end
+  object PanelCadastro: TPanel
+    Left = 816
+    Height = 368
+    Top = 224
+    Width = 336
+    ClientHeight = 368
+    ClientWidth = 336
+    Color = clSilver
+    Font.Height = -21
+    Font.Name = 'Sans'
+    ParentColor = False
+    ParentFont = False
+    TabOrder = 4
+    object CadastroObrigatorio: TLabel
+      Left = 100
+      Height = 51
+      Top = 7
+      Width = 515
+      Caption = 'Cadastro Obrigat'#195#179'rio'
+      Font.Color = clRed
+      Font.Height = -43
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object CodigodaMaquina: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 104
+      Width = 236
+      EditLabel.AnchorSideLeft.Control = CodigodaMaquina
+      EditLabel.AnchorSideRight.Control = CodigodaMaquina
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = CodigodaMaquina
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 76
+      EditLabel.Width = 236
+      EditLabel.Caption = 'C'#195#179'digo da M'#195#161'quina'
+      EditLabel.ParentColor = False
+      EditLabel.ParentFont = False
+      EditLabel.Font.Height = -21
+      EditLabel.Font.Name = 'Sans'
+      EditLabel.Font.Style = [fsBold, fsItalic]
+      Font.Height = -21
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 0
+    end
+    object NomeDoPonto: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 184
+      Width = 792
+      EditLabel.AnchorSideLeft.Control = NomeDoPonto
+      EditLabel.AnchorSideRight.Control = NomeDoPonto
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = NomeDoPonto
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 156
+      EditLabel.Width = 792
+      EditLabel.Caption = 'Nome do Ponto'
+      EditLabel.ParentColor = False
+      MaxLength = 50
+      TabOrder = 1
+    end
+    object Cliente: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 257
+      Width = 792
+      EditLabel.AnchorSideLeft.Control = Cliente
+      EditLabel.AnchorSideRight.Control = Cliente
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Cliente
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 229
+      EditLabel.Width = 792
+      EditLabel.Caption = 'Cliente'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 2
+    end
+    object RG: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 328
+      Width = 372
+      EditLabel.AnchorSideLeft.Control = RG
+      EditLabel.AnchorSideRight.Control = RG
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = RG
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 300
+      EditLabel.Width = 372
+      EditLabel.Caption = 'RG do Cliente'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 3
+    end
+    object Endereco: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 485
+      Width = 792
+      EditLabel.AnchorSideLeft.Control = Endereco
+      EditLabel.AnchorSideRight.Control = Endereco
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Endereco
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 457
+      EditLabel.Width = 792
+      EditLabel.Caption = 'Endere'#195#167'o'
+      EditLabel.ParentColor = False
+      MaxLength = 50
+      TabOrder = 6
+    end
+    object DataDaInstalacao: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 643
+      Width = 203
+      EditLabel.AnchorSideLeft.Control = DataDaInstalacao
+      EditLabel.AnchorSideRight.Control = DataDaInstalacao
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = DataDaInstalacao
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 615
+      EditLabel.Width = 203
+      EditLabel.Caption = 'Data da Instala'#195#167#195#163'o'
+      EditLabel.ParentColor = False
+      MaxLength = 20
+      TabOrder = 9
+    end
+    object ButtonGravarOsDados: TButton
+      Left = 505
+      Height = 52
+      Top = 693
+      Width = 387
+      Caption = 'Gravar os Dados do Cadastro'
+      Font.Height = -21
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      OnClick = ButtonGravarOsDadosClick
+      ParentFont = False
+      TabOrder = 11
+    end
+    object CPF: TLabeledEdit
+      Left = 504
+      Height = 35
+      Top = 328
+      Width = 388
+      EditLabel.AnchorSideLeft.Control = CPF
+      EditLabel.AnchorSideRight.Control = CPF
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = CPF
+      EditLabel.Left = 504
+      EditLabel.Height = 25
+      EditLabel.Top = 300
+      EditLabel.Width = 388
+      EditLabel.Caption = 'CPF do Cliente'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 4
+    end
+    object Telefones: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 405
+      Width = 792
+      EditLabel.AnchorSideLeft.Control = Telefones
+      EditLabel.AnchorSideRight.Control = Telefones
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Telefones
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 377
+      EditLabel.Width = 792
+      EditLabel.Caption = 'Telefones'
+      EditLabel.ParentColor = False
+      MaxLength = 50
+      TabOrder = 5
+    end
+    object Bairro: TLabeledEdit
+      Left = 100
+      Height = 35
+      Top = 563
+      Width = 372
+      EditLabel.AnchorSideLeft.Control = Bairro
+      EditLabel.AnchorSideRight.Control = Bairro
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Bairro
+      EditLabel.Left = 100
+      EditLabel.Height = 25
+      EditLabel.Top = 535
+      EditLabel.Width = 372
+      EditLabel.Caption = 'Bairro'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 7
+    end
+    object Cidade: TLabeledEdit
+      Left = 503
+      Height = 35
+      Top = 561
+      Width = 388
+      EditLabel.AnchorSideLeft.Control = Cidade
+      EditLabel.AnchorSideRight.Control = Cidade
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Cidade
+      EditLabel.Left = 503
+      EditLabel.Height = 25
+      EditLabel.Top = 533
+      EditLabel.Width = 388
+      EditLabel.Caption = 'Cidade'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 8
+    end
+    object Selos: TLabeledEdit
+      Left = 504
+      Height = 35
+      Top = 643
+      Width = 387
+      EditLabel.AnchorSideLeft.Control = Selos
+      EditLabel.AnchorSideRight.Control = Selos
+      EditLabel.AnchorSideRight.Side = asrBottom
+      EditLabel.AnchorSideBottom.Control = Selos
+      EditLabel.Left = 504
+      EditLabel.Height = 25
+      EditLabel.Top = 615
+      EditLabel.Width = 387
+      EditLabel.Caption = 'Selos'
+      EditLabel.ParentColor = False
+      MaxLength = 30
+      TabOrder = 10
+    end
+    object PanelCOTeste: TPanel
+      Left = 392
+      Height = 33
+      Top = 105
+      Width = 499
+      BevelWidth = 3
+      Caption = 'Testar o Software sem fazer o Cadastro Obrigat'#195#179'rio'
+      Color = clGreen
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 12
+      OnClick = PanelCOTesteClick
+    end
+    object PanelQrcodeCadastro: TPanel
+      Left = 504
+      Height = 484
+      Top = 188
+      Width = 386
+      BevelInner = bvLowered
+      BevelWidth = 5
+      ClientHeight = 484
+      ClientWidth = 386
+      TabOrder = 13
+      object LabelQrCodeCadastro1: TLabel
+        Left = 49
+        Height = 77
+        Top = 24
+        Width = 295
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'QrCode com as informa'#195#167#195#181'es do Cadastro Obrigat'#195#179'rio'
+        Font.Color = clYellow
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold, fsItalic]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ImageQrcode1: TImage
+        Left = 49
+        Height = 296
+        Top = 110
+        Width = 296
+        Stretch = True
+      end
+      object ButtonCOQrCode: TButton
+        Left = 49
+        Height = 45
+        Top = 415
+        Width = 296
+        Caption = 'Sair do Cadastro Obrigat'#195#179'rio'
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold, fsItalic]
+        OnClick = ButtonCOQrCodeClick
+        ParentFont = False
+        TabOrder = 0
+      end
+    end
+  end
+  object PanelTela1: TPanel
+    Left = 24
+    Height = 104
+    Top = 32
+    Width = 776
+    HelpContext = 400
+    BevelOuter = bvNone
+    ClientHeight = 104
+    ClientWidth = 776
+    Color = clTeal
+    ParentColor = False
+    TabOrder = 6
+    object ImageTela1: TImage
+      Left = 12
+      Height = 55
+      Top = 9
+      Width = 72
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CDSelecionado: TImage
+      Left = 1050
+      Height = 290
+      Top = 240
+      Width = 290
+    end
+    object CapaSelecionada: TImage
+      Left = 1000
+      Height = 322
+      Top = 223
+      Width = 357
+      OnClick = CapaSelecionadaClick
+      Picture.Data = {imagem 20728 bytes}
+      Transparent = True
+    end
+    object CDMenos1: TImage
+      Left = 984
+      Height = 145
+      Top = 57
+      Width = 145
+    end
+    object CDMenos2: TImage
+      Left = 777
+      Height = 145
+      Top = 18
+      Width = 145
+    end
+    object CapaMenos1: TImage
+      Left = 960
+      Height = 160
+      Top = 48
+      Width = 174
+      OnClick = CapaMenos1Click
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CapaMenos2: TImage
+      Left = 752
+      Height = 160
+      Top = 10
+      Width = 174
+      OnClick = CapaMenos2Click
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMenos3: TImage
+      Left = 563
+      Height = 145
+      Top = 18
+      Width = 145
+    end
+    object CapaMenos3: TImage
+      Left = 538
+      Height = 160
+      Top = 10
+      Width = 174
+      OnClick = CapaMenos3Click
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMenos4: TImage
+      Left = 347
+      Height = 145
+      Top = 18
+      Width = 145
+    end
+    object CapaMenos4: TImage
+      Left = 322
+      Height = 160
+      Top = 10
+      Width = 174
+      OnClick = CapaMenos4Click
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMenos5: TImage
+      Left = 138
+      Height = 145
+      Top = 18
+      Width = 145
+    end
+    object CapaMenos5: TImage
+      Left = 114
+      Height = 161
+      Top = 9
+      Width = 178
+      OnClick = CapaMenos5Click
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMais1: TImage
+      Left = 982
+      Height = 145
+      Top = 567
+      Width = 145
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CapaMais1: TImage
+      Left = 960
+      Height = 160
+      Top = 560
+      Width = 174
+      OnClick = CapaMais1Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMais2: TImage
+      Left = 777
+      Height = 145
+      Top = 600
+      Width = 145
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CapaMais2: TImage
+      Left = 752
+      Height = 160
+      Top = 593
+      Width = 174
+      OnClick = CapaMais2Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMais3: TImage
+      Left = 562
+      Height = 145
+      Top = 600
+      Width = 145
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CapaMais3: TImage
+      Left = 538
+      Height = 160
+      Top = 592
+      Width = 174
+      OnClick = CapaMais3Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMais4: TImage
+      Left = 347
+      Height = 145
+      Top = 600
+      Width = 145
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CapaMais4: TImage
+      Left = 322
+      Height = 160
+      Top = 592
+      Width = 174
+      OnClick = CapaMais4Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object CDMais5: TImage
+      Left = 138
+      Height = 145
+      Top = 600
+      Width = 145
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object CapaMais5: TImage
+      Left = 112
+      Height = 160
+      Top = 592
+      Width = 174
+      OnClick = CapaMais5Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 7392 bytes}
+    end
+    object Musica1: TLabel
+      Left = 432
+      Height = 34
+      Top = 212
+      Width = 532
+      Caption = '01 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica1Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica2: TLabel
+      Left = 433
+      Height = 34
+      Top = 241
+      Width = 532
+      Caption = '02 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica2Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica3: TLabel
+      Left = 433
+      Height = 34
+      Top = 269
+      Width = 532
+      Caption = '03 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica3Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica4: TLabel
+      Left = 433
+      Height = 34
+      Top = 297
+      Width = 532
+      Caption = '04 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica4Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica5: TLabel
+      Left = 433
+      Height = 34
+      Top = 325
+      Width = 532
+      Caption = '05 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica5Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica6: TLabel
+      Left = 433
+      Height = 34
+      Top = 353
+      Width = 532
+      Caption = '06 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica6Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica7: TLabel
+      Left = 433
+      Height = 34
+      Top = 381
+      Width = 532
+      Caption = '07 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica7Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica8: TLabel
+      Left = 433
+      Height = 34
+      Top = 409
+      Width = 532
+      Caption = '08 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica8Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica9: TLabel
+      Left = 433
+      Height = 34
+      Top = 437
+      Width = 532
+      Caption = '09 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica9Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica10: TLabel
+      Left = 433
+      Height = 34
+      Top = 465
+      Width = 532
+      Caption = '10 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica10Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica11: TLabel
+      Left = 433
+      Height = 34
+      Top = 493
+      Width = 532
+      Caption = '11 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica11Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object Musica12: TLabel
+      Left = 433
+      Height = 34
+      Top = 520
+      Width = 532
+      Caption = '12 - 67890123456780123456780'
+      Font.Color = clWhite
+      Font.Height = -29
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      OnClick = Musica12Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+    end
+    object LabelLM1: TLabel
+      Left = 924
+      Height = 221
+      Top = 192
+      Width = 121
+      Caption = 'A'
+      Font.Color = clWhite
+      Font.Height = -160
+      Font.Name = 'Century Schoolbook L'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelLM2: TLabel
+      Left = 920
+      Height = 221
+      Top = 192
+      Width = 121
+      Caption = 'A'
+      Font.Color = 4408136
+      Font.Height = -160
+      Font.Name = 'Century Schoolbook L'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object SetaBaixo: TImage
+      Left = 464
+      Height = 52
+      Top = 528
+      Width = 52
+      ParentShowHint = False
+      Picture.Data = {imagem 2677 bytes}
+      ShowHint = True
+    end
+    object NumCD: TLabel
+      Left = 1291
+      Height = 26
+      Top = 550
+      Width = 61
+      Alignment = taRightJustify
+      AutoSize = False
+      Caption = '0000'
+      Font.Color = clWhite
+      Font.Height = -21
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelCreditos: TLabel
+      Left = 1172
+      Height = 77
+      Top = 659
+      Width = 174
+      Alignment = taCenter
+      AutoSize = False
+      Caption = '00'
+      Font.Color = clCream
+      Font.Height = -64
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelLM3: TLabel
+      Left = 976
+      Height = 30
+      Top = 424
+      Width = 20
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'A'
+      Font.Color = clWhite
+      Font.Height = -21
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object ImagePNG: TImage
+      Left = 0
+      Height = 51
+      Top = 213
+      Width = 40
+    end
+    object LabelCDDVD: TLabel
+      Left = 1188
+      Height = 38
+      Top = 88
+      Width = 129
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'DVD'
+      Font.Color = clBlack
+      Font.Height = -32
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelRitmo: TLabel
+      Left = 1171
+      Height = 47
+      Top = 131
+      Width = 162
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'RITMO MUSICAL'
+      Font.Color = clBlack
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object LabelRitmo1: TLabel
+      Left = 1173
+      Height = 47
+      Top = 130
+      Width = 162
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'RITMO MUSICAL'
+      Font.Color = clLime
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+      OnClick = LabelRitmo1Click
+    end
+    object LabelCDDVD1: TLabel
+      Left = 1190
+      Height = 38
+      Top = 86
+      Width = 129
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'DVD'
+      Font.Color = clYellow
+      Font.Height = -32
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object ShapeDisplay: TShape
+      Left = 28
+      Height = 60
+      Top = 182
+      Width = 381
+      Brush.Color = clBlack
+      Pen.Color = clSilver
+      Pen.Width = 2
+    end
+    object LabelDisplay: TLabel
+      Left = 32
+      Height = 45
+      Top = 191
+      Width = 365
+      AutoSize = False
+      Caption = 'Bem Vindo...'
+      Color = clBlack
+      Font.Color = clRed
+      Font.Height = -35
+      Font.Name = 'Erbos Draco 1st Open NBP'
+      ParentColor = False
+      ParentFont = False
+      Transparent = False
+    end
+    object ShapeFila: TShape
+      Left = 41
+      Height = 18
+      Top = 273
+      Width = 55
+      Pen.Color = clWhite
+    end
+    object ShapeFilaNum: TShape
+      Left = 96
+      Height = 18
+      Top = 273
+      Width = 43
+      Brush.Color = clYellow
+      Pen.Color = clYellow
+    end
+    object LabelFila: TLabel
+      Left = 41
+      Height = 38
+      Top = 273
+      Width = 98
+      Caption = 'Fila 00'
+      Font.Color = clBlack
+      Font.Height = -32
+      Font.Name = 'Erbos Draco 1st NBP'
+      ParentColor = False
+      ParentFont = False
+    end
+    object Imagemsg: TImage
+      Left = 224
+      Height = 100
+      Top = 461
+      Width = 180
+    end
+    object LabelMsg1: TLabel
+      AnchorSideLeft.Side = asrCenter
+      Left = 224
+      Height = 68
+      Top = 461
+      Width = 127
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Msg'
+      Font.Color = clWhite
+      Font.Height = -48
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      WordWrap = True
+    end
+    object ImageJPG: TImage
+      Left = 16
+      Height = 40
+      Top = 312
+      Width = 48
+    end
+    object PanelCDTocando: TPanel
+      Left = 80
+      Height = 176
+      Top = 304
+      Width = 288
+      BevelOuter = bvNone
+      ClientHeight = 176
+      ClientWidth = 288
+      Color = clBlack
+      ParentColor = False
+      TabOrder = 0
+      object ImageTocando: TImage
+        Left = -1
+        Height = 208
+        Top = -5
+        Width = 131
+      end
+      object ImageCDTocando: TImage
+        Left = 199
+        Height = 146
+        Top = 11
+        Width = 146
+      end
+      object ImageCAPATocando: TImage
+        Left = 176
+        Height = 160
+        Top = 3
+        Width = 176
+        Picture.Data = {imagem 7392 bytes}
+        Transparent = True
+      end
+      object LabelNomedaMusicaTocando: TLabel
+        Left = 4
+        Height = 40
+        Top = 165
+        Width = 355
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Nome da M'#195#186'sica Tocando'
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object LabelNomedaMusicaTocando1: TLabel
+        Left = 3
+        Height = 40
+        Top = 163
+        Width = 355
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Nome da M'#195#186'sica Tocando'
+        Font.Color = clYellow
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+    end
+    object ImgLan: TImage
+      Left = 1010
+      Height = 135
+      Top = 230
+      Width = 137
+      OnClick = CapaSelecionadaClick
+      Picture.Data = {imagem 20010 bytes}
+    end
+    object ImgLanMenos1: TImage
+      Left = 962
+      Height = 90
+      Top = 51
+      Width = 90
+      OnClick = CapaMenos1Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMenos2: TImage
+      Left = 756
+      Height = 90
+      Top = 15
+      Width = 90
+      OnClick = CapaMenos2Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMenos3: TImage
+      Left = 543
+      Height = 90
+      Top = 17
+      Width = 90
+      OnClick = CapaMenos3Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMenos4: TImage
+      Left = 325
+      Height = 90
+      Top = 16
+      Width = 90
+      OnClick = CapaMenos4Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMenos5: TImage
+      Left = 120
+      Height = 90
+      Top = 15
+      Width = 90
+      OnClick = CapaMenos5Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMais1: TImage
+      Left = 962
+      Height = 90
+      Top = 565
+      Width = 90
+      OnClick = CapaMais1Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMais2: TImage
+      Left = 752
+      Height = 90
+      Top = 599
+      Width = 90
+      OnClick = CapaMais2Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMais3: TImage
+      Left = 539
+      Height = 90
+      Top = 599
+      Width = 90
+      OnClick = CapaMais3Click
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMais4: TImage
+      Left = 322
+      Height = 90
+      Top = 599
+      Width = 90
+      OnClick = CapaMais4Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object ImgLanMais5: TImage
+      Left = 112
+      Height = 90
+      Top = 598
+      Width = 90
+      OnClick = CapaMais5Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 4676 bytes}
+    end
+    object CapaSelecionadaMsg: TImage
+      Left = 325
+      Height = 72
+      Top = 448
+      Width = 80
+      Picture.Data = {imagem 345250 bytes}
+      Transparent = True
+    end
+    object CDSelecionadoMsg: TImage
+      Left = 288
+      Height = 90
+      Top = 480
+      Width = 90
+    end
+    object ImageSetaMsg: TImage
+      Left = 325
+      Height = 50
+      Top = 496
+      Width = 50
+      Picture.Data = {imagem 14544 bytes}
+      Stretch = True
+    end
+    object NomeDoCD: TLabel
+      Left = 1010
+      Height = 24
+      Top = 543
+      Width = 342
+      AutoSize = False
+      Caption = 'Nome do CD'
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object Img50: TImage
+      Left = 1038
+      Height = 135
+      Top = 258
+      Width = 137
+      OnClick = CapaSelecionadaClick
+      Picture.Data = {imagem 15963 bytes}
+    end
+    object Img50Menos1: TImage
+      Left = 990
+      Height = 90
+      Top = 79
+      Width = 90
+      OnClick = CapaMenos1Click
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Menos2: TImage
+      Left = 784
+      Height = 90
+      Top = 43
+      Width = 90
+      OnClick = CapaMenos2Click
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Menos3: TImage
+      Left = 571
+      Height = 90
+      Top = 45
+      Width = 90
+      OnClick = CapaMenos3Click
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Menos4: TImage
+      Left = 353
+      Height = 90
+      Top = 44
+      Width = 90
+      OnClick = CapaMenos4Click
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Menos5: TImage
+      Left = 144
+      Height = 90
+      Top = 32
+      Width = 90
+      OnClick = CapaMenos5Click
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Mais1: TImage
+      Left = 990
+      Height = 90
+      Top = 593
+      Width = 90
+      OnClick = CapaMais1Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Mais2: TImage
+      Left = 780
+      Height = 90
+      Top = 627
+      Width = 90
+      OnClick = CapaMais2Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Mais3: TImage
+      Left = 567
+      Height = 90
+      Top = 627
+      Width = 90
+      OnClick = CapaMais3Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Mais4: TImage
+      Left = 350
+      Height = 90
+      Top = 627
+      Width = 90
+      OnClick = CapaMais4Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object Img50Mais5: TImage
+      Left = 140
+      Height = 90
+      Top = 626
+      Width = 90
+      OnClick = CapaMais5Click
+      OnMouseDown = ImageTela1MouseDown
+      OnMouseUp = ImageTela1MouseUp
+      Picture.Data = {imagem 8181 bytes}
+    end
+    object PanelSorteio: TPanel
+      Left = 24
+      Height = 89
+      Top = 51
+      Width = 72
+      BevelOuter = bvNone
+      ClientHeight = 89
+      ClientWidth = 72
+      Color = clGreen
+      ParentColor = False
+      TabOrder = 2
+      object ImageSorteio: TImage
+        Left = 16
+        Height = 50
+        Top = 16
+        Width = 58
+        Stretch = True
+      end
+      object CDSorteio1: TImage
+        Left = 252
+        Height = 145
+        Top = 31
+        Width = 145
+      end
+      object CDSorteio2: TImage
+        Left = 280
+        Height = 145
+        Top = 59
+        Width = 145
+      end
+      object CDSorteio3: TImage
+        Left = 308
+        Height = 145
+        Top = 87
+        Width = 145
+      end
+      object CDSorteio4: TImage
+        Left = 336
+        Height = 145
+        Top = 115
+        Width = 145
+      end
+      object CapaSorteio4: TImage
+        Left = 107
+        Height = 161
+        Top = 196
+        Width = 178
+        Picture.Data = {imagem 7392 bytes, 6078 não recuperados}
+        gAMA = nil
+        object ®;AJÎýÛ#­uá¤2ÈVïX$"´°\â{ê¶6Æ{·ÄZøuaUÏä)|km7(U8üÉ¿Í÷½erÁÍËÙ[9Þ×L§Z{®Âyç+B¸\uàb>)áÖ}ÿþ¥_à/ ÃÏ>ü L: |ûQ    cHRM  z%    ùÿ  é  u0  ê`  :  o_ÅF  :IDATxÚbüÿÿ?Ã(C Óh¡
+ ] &:FHeq1ëh0x:÷,Yºä-L  µU³Ã0A×Ã2ÓÓ^t/²cl±]v´(éKkô6BÏAbÄúÛ {#÷8¾!}

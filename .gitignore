@@ -1,0 +1,10 @@
+# Saída do Lazarus / Free Pascal
+lib/
+backup/
+*.o
+*.ppu
+*.compiled
+*.res
+*.lps
+/jukelinux
+/jukelinux.exe
