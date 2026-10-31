@@ -421,15 +421,7 @@ procedure TForm1.EditTocarKeyDown(Sender: TObject; var Key: Word; Shift: TShiftS
 begin
 end;
 
-procedure TForm1.FormActivate(Sender: TObject);
-begin
-end;
-
 procedure TForm1.FormClose(Sender: TObject; var CloseAction: TCloseAction);
-begin
-end;
-
-procedure TForm1.FormCreate(Sender: TObject);
 begin
 end;
 
@@ -561,10 +553,6 @@ procedure TForm1.Musica9Click(Sender: TObject);
 begin
 end;
 
-procedure TForm1.PanelaberturaClick(Sender: TObject);
-begin
-end;
-
 procedure TForm1.PanelBloqueioClick(Sender: TObject);
 begin
 end;
@@ -606,10 +594,6 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
-begin
-end;
-
-procedure TForm1.TimeraberturaTimer(Sender: TObject);
 begin
 end;
 

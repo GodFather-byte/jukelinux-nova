@@ -1,0 +1,12 @@
+// JUKELINUX1_TFORM1_$__TIMERSENHAERRADATIMER$TOBJECT  @ 080e56b0
+
+void JUKELINUX1_TFORM1____TIMERSENHAERRADATIMER_TOBJECT(void)
+
+{
+  int in_EAX;
+  
+  (**(code **)(*Form1.LabelPress + 0xd8))();
+  CONTROLS_TCONTROL____HIDE();
+  return;
+}
+

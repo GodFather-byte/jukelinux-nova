@@ -35,7 +35,14 @@ A CI (GitHub Actions → **Build**) compila a cada push e publica o executável 
 - `referencia/funcoes.txt`: as funções da original com endereço e tamanho no binário.
 - `referencia/telas/Form1.lfm`: a tela principal completa (478 componentes), remontada na ordem exata a partir da
   função `JUKELINUX1_init`, que registra os pedaços do `.lrs`. As imagens embutidas vêm junto como binário.
-- `referencia/descompilado/`: as funções descompiladas pelo Ghidra 12.2 (C aproximado, um arquivo por função).
-  Ainda faltam os argumentos das chamadas em convenção *register* do FPC (comparações de texto), e o
-  `FORMCREATE` precisa de nova rodada com mais tempo.
+- `referencia/descompilado/funcoes/`: as funções descompiladas pelo Ghidra 12.2 (C aproximado, um arquivo
+  por função). Ainda faltam os argumentos das chamadas em convenção *register* do FPC (comparações de texto
+  e Left/Top/Width/Caption).
+- `referencia/descompilado/legivel/`: a mesma saída com o nome do componente no lugar do deslocamento
+  (`Form1.Timerabertura` em vez de `FORM1 + 0xbc4`). Os textos `__JUKELINUX1__LdNNN` continuam com o
+  rótulo: trocá-los pede o binário `jukelinux` (`python textos_ld.py jukelinux textos_ld.json` e de novo
+  `trocar_textos.py`).
+- Das 266 funções, o Ghidra gravou 265. A que falhou é `TForm1.FORMCREATE` (55.544 bytes, timeout de 900 s
+  em `080b73d0`). `MOSTRA_COORDENADAS_TOUCHSCREEN` não saiu em arquivo. A abertura da tela (contador do
+  `Timerabertura` e `INICIA_TELA`) já está reescrita em `src/jukelinux1.pas`.
 - `ferramentas/extracao/`: os scripts que geraram tudo isso a partir do binário `jukelinux`.
