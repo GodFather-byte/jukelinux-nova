@@ -1,0 +1,5 @@
+*.lfm text eol=lf
+*.pas text eol=lf
+*.inc text eol=lf
+*.lpi text eol=lf
+*.lpr text eol=lf

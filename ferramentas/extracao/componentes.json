@@ -1,0 +1,4082 @@
+{
+ "componentes": [
+  {
+   "nome": "Form1",
+   "classe": "TForm1",
+   "pai": null
+  },
+  {
+   "nome": "Panelabertura",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Labelrodape",
+   "classe": "TLabel",
+   "pai": "Panelabertura"
+  },
+  {
+   "nome": "Labelabertura",
+   "classe": "TLabel",
+   "pai": "Panelabertura"
+  },
+  {
+   "nome": "Labelaberturatempo",
+   "classe": "TLabel",
+   "pai": "Panelabertura"
+  },
+  {
+   "nome": "Labelabertura1",
+   "classe": "TLabel",
+   "pai": "Panelabertura"
+  },
+  {
+   "nome": "PanelLendo",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "ImageLendo",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "LabelLendo",
+   "classe": "TLabel",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "PanelVersao",
+   "classe": "TPanel",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo1",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo2",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo3",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo4",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo5",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "ImageLendo6",
+   "classe": "TImage",
+   "pai": "PanelLendo"
+  },
+  {
+   "nome": "PanelErro",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "LabelErro1",
+   "classe": "TLabel",
+   "pai": "PanelErro"
+  },
+  {
+   "nome": "LabelErro2",
+   "classe": "TLabel",
+   "pai": "PanelErro"
+  },
+  {
+   "nome": "MemoErro",
+   "classe": "TMemo",
+   "pai": "PanelErro"
+  },
+  {
+   "nome": "FileListBox1",
+   "classe": "TFileListBox",
+   "pai": "Form1"
+  },
+  {
+   "nome": "PanelTV",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "ImageTV",
+   "classe": "TImage",
+   "pai": "PanelTV"
+  },
+  {
+   "nome": "Play",
+   "classe": "TMPlayerControl",
+   "pai": "Form1"
+  },
+  {
+   "nome": "PanelAtivacao",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "LabelAtivacao2",
+   "classe": "TLabel",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "LabelAtivacao1",
+   "classe": "TLabel",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "LabelAtivacao3",
+   "classe": "TLabel",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "LabelAtivacao4",
+   "classe": "TLabel",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "EditSenhaAtivacao",
+   "classe": "TEdit",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "ButtonAtivar",
+   "classe": "TButton",
+   "pai": "PanelAtivacao"
+  },
+  {
+   "nome": "PanelAutoTeste",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Image1",
+   "classe": "TImage",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "LabelAT1",
+   "classe": "TLabel",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "ImageAT1",
+   "classe": "TImage",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "ImageAT2",
+   "classe": "TImage",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "LabelAT2",
+   "classe": "TLabel",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "LabelAT3",
+   "classe": "TLabel",
+   "pai": "PanelAutoTeste"
+  },
+  {
+   "nome": "playtv",
+   "classe": "TMPlayerControl",
+   "pai": "Form1"
+  },
+  {
+   "nome": "PanelBloqueio",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "PanelCJ",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Image2",
+   "classe": "TImage",
+   "pai": "PanelCJ"
+  },
+  {
+   "nome": "CreditoCJSombra",
+   "classe": "TLabel",
+   "pai": "PanelCJ"
+  },
+  {
+   "nome": "CreditoCJ",
+   "classe": "TLabel",
+   "pai": "PanelCJ"
+  },
+  {
+   "nome": "ImageBonus",
+   "classe": "TImage",
+   "pai": "PanelCJ"
+  },
+  {
+   "nome": "ImageGratis",
+   "classe": "TImage",
+   "pai": "PanelCJ"
+  },
+  {
+   "nome": "PanelCadastro",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "CadastroObrigatorio",
+   "classe": "TLabel",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "CodigodaMaquina",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "NomeDoPonto",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Cliente",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "RG",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Endereco",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "DataDaInstalacao",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "ButtonGravarOsDados",
+   "classe": "TButton",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "CPF",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Telefones",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Bairro",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Cidade",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "Selos",
+   "classe": "TLabeledEdit",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "PanelCOTeste",
+   "classe": "TPanel",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "PanelQrcodeCadastro",
+   "classe": "TPanel",
+   "pai": "PanelCadastro"
+  },
+  {
+   "nome": "LabelQrCodeCadastro1",
+   "classe": "TLabel",
+   "pai": "PanelQrcodeCadastro"
+  },
+  {
+   "nome": "ImageQrcode1",
+   "classe": "TImage",
+   "pai": "PanelQrcodeCadastro"
+  },
+  {
+   "nome": "ButtonCOQrCode",
+   "classe": "TButton",
+   "pai": "PanelQrcodeCadastro"
+  },
+  {
+   "nome": "PanelTela1",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "ImageTela1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDSelecionado",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaSelecionada",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMenos1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMenos2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMenos1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMenos2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMenos3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMenos3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMenos4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMenos4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMenos5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMenos5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMais1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMais1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMais2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMais2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMais3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMais3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMais4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMais4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDMais5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaMais5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica1",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica2",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica3",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica4",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica5",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica6",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica7",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica8",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica9",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica10",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica11",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Musica12",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelLM1",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelLM2",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "SetaBaixo",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "NumCD",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelCreditos",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelLM3",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImagePNG",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelCDDVD",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelRitmo",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelRitmo1",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelCDDVD1",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ShapeDisplay",
+   "classe": "TShape",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelDisplay",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ShapeFila",
+   "classe": "TShape",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ShapeFilaNum",
+   "classe": "TShape",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelFila",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Imagemsg",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelMsg1",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageJPG",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "PanelCDTocando",
+   "classe": "TPanel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageTocando",
+   "classe": "TImage",
+   "pai": "PanelCDTocando"
+  },
+  {
+   "nome": "ImageCDTocando",
+   "classe": "TImage",
+   "pai": "PanelCDTocando"
+  },
+  {
+   "nome": "ImageCAPATocando",
+   "classe": "TImage",
+   "pai": "PanelCDTocando"
+  },
+  {
+   "nome": "LabelNomedaMusicaTocando",
+   "classe": "TLabel",
+   "pai": "PanelCDTocando"
+  },
+  {
+   "nome": "LabelNomedaMusicaTocando1",
+   "classe": "TLabel",
+   "pai": "PanelCDTocando"
+  },
+  {
+   "nome": "ImgLan",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMenos1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMenos2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMenos3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMenos4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMenos5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMais1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMais2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMais3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMais4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgLanMais5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CapaSelecionadaMsg",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "CDSelecionadoMsg",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageSetaMsg",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "NomeDoCD",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Menos1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Menos2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Menos3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Menos4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Menos5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Mais1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Mais2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Mais3",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Mais4",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Img50Mais5",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "PanelSorteio",
+   "classe": "TPanel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageSorteio",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CDSorteio1",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CDSorteio2",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CDSorteio3",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CDSorteio4",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CapaSorteio4",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CapaSorteio3",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CapaSorteio2",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "CapaSorteio1",
+   "classe": "TImage",
+   "pai": "PanelSorteio"
+  },
+  {
+   "nome": "ShapePalhinha",
+   "classe": "TShape",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImagePalhinha",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelQtdPalhinha",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "LabelTempoAindaTocandoAPalhinha",
+   "classe": "TLabel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImgDVD",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageGrandePng",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Button1",
+   "classe": "TButton",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Panel1",
+   "classe": "TPanel",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "Label1",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label3",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label4",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label2",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label5",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label6",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label7",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label8",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label9",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "Label10",
+   "classe": "TLabel",
+   "pai": "Panel1"
+  },
+  {
+   "nome": "ImageSetasPaginacao1",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageSetasPaginacao2",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageSetabrgCima",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "ImageSetabrgBaixo",
+   "classe": "TImage",
+   "pai": "PanelTela1"
+  },
+  {
+   "nome": "PanelMenu",
+   "classe": "TPanel",
+   "pai": "Form1"
+  },
+  {
+   "nome": "ImageFundoMenu",
+   "classe": "TImage",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "Labelversao",
+   "classe": "TLabel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelCliente",
+   "classe": "TLabel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu1",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "Label1024",
+   "classe": "TLabel",
+   "pai": "PanelMenu1"
+  },
+  {
+   "nome": "PanelMenu2",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu3",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelListaTocados",
+   "classe": "TLabel",
+   "pai": "PanelMenu3"
+  },
+  {
+   "nome": "PanelMenu4",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu5",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu1c",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu2c",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu3c",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu4c",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu5c",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelSenha",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelMenuDS",
+   "classe": "TLabel",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "LabelMenuDSErro",
+   "classe": "TLabel",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS1",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS2",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS3",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS4",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS5",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS6",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS7",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS8",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS9",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS0",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "BS10",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "EditSenha",
+   "classe": "TEdit",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "ButtonOkSenha",
+   "classe": "TButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "RadioButton1",
+   "classe": "TRadioButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "RadioButton2",
+   "classe": "TRadioButton",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "LabelMenuSenhaSair",
+   "classe": "TLabel",
+   "pai": "PanelSenha"
+  },
+  {
+   "nome": "LabelMDataHora",
+   "classe": "TLabel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "PanelMenu5grande",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelSairDoMenu5",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonZerarCreditos",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ComboBox18",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB18",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB19",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ComboBox19",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ComboBox20",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB20",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ComboBox21",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase1",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase2",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase3",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase4",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase5",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase6",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase7",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase8",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase9",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "EditFrase10",
+   "classe": "TEdit",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonSalvarFrases",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "Shape1",
+   "classe": "TShape",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB21",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonUpgrade",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelUpg",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonZerarFila",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonXML",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ComboBox22",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB22",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "ButtonQrCodeCadastroMenu",
+   "classe": "TButton",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "PanelQrcodeCadastro1",
+   "classe": "TPanel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelQrCodeMenu",
+   "classe": "TLabel",
+   "pai": "PanelQrcodeCadastro1"
+  },
+  {
+   "nome": "ImageQrcode2",
+   "classe": "TImage",
+   "pai": "PanelQrcodeCadastro1"
+  },
+  {
+   "nome": "ButtonZeraCadastro",
+   "classe": "TButton",
+   "pai": "PanelQrcodeCadastro1"
+  },
+  {
+   "nome": "ComboBox23",
+   "classe": "TComboBox",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "LabelCB23",
+   "classe": "TLabel",
+   "pai": "PanelMenu5grande"
+  },
+  {
+   "nome": "PanelMenu1grande",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelSairDoMenu1",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB1",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB2",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB3",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB4",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB5",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB6",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox1",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox2",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox3",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox4",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox5",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox6",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB7",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox7",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox8",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB8",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox9",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB9",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox10",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB10",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox11",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB11",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox12",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB12",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB13",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox14",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB14",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox15",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox16",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB16",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "CheckBoxResolucaoMonitor",
+   "classe": "TCheckBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "ComboBox13",
+   "classe": "TComboBox",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "LabelCB15",
+   "classe": "TLabel",
+   "pai": "PanelMenu1grande"
+  },
+  {
+   "nome": "PanelMenu3grande",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "ButtonExcluirCDs1",
+   "classe": "TButton",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "LabelSairDoMenu3",
+   "classe": "TLabel",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "ButtonCarregarCD",
+   "classe": "TButton",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "ButtonExcluirCDs",
+   "classe": "TButton",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "ButtonEsconderRitmos",
+   "classe": "TButton",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "PanelEsconderRitmos",
+   "classe": "TPanel",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "LabelETit1",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "ButtonEA",
+   "classe": "TButton",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "ButtonEI",
+   "classe": "TButton",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "ListBoxRAtivo",
+   "classe": "TListBox",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "LabelEGA",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "LabelEGI",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "ListBoxRInativo",
+   "classe": "TListBox",
+   "pai": "PanelEsconderRitmos"
+  },
+  {
+   "nome": "PanelEsconderRitmos1",
+   "classe": "TPanel",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "ImageCapaMT",
+   "classe": "TImage",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "LabelETit2",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "ButtonEA1",
+   "classe": "TButton",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "ListBoxRGeneros",
+   "classe": "TListBox",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "LabelEGA1",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "LabelEGI1",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "ListBoxRCds",
+   "classe": "TListBox",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "LabelMTocou",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "CapaMT",
+   "classe": "TImage",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "ImgLanMT",
+   "classe": "TImage",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "LabelCDMt",
+   "classe": "TLabel",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "ButtonZera50",
+   "classe": "TButton",
+   "pai": "PanelEsconderRitmos1"
+  },
+  {
+   "nome": "PanelExcluirMusica",
+   "classe": "TPanel",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "LabelETit",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE1",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEO1",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEO2",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEO3",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE1",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE2",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE3",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE4",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE5",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "LabelE6",
+   "classe": "TLabel",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE2",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE3",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE4",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE5",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CDE6",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE1",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE2",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE3",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE4",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE5",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "CapaE6",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX1",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE1",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE2",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE3",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE4",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE5",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ImgLanE6",
+   "classe": "TImage",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX2",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX3",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX4",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX5",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ButtonEX6",
+   "classe": "TButton",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG1",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG2",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG3",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG4",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG5",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "ComboBoxMG6",
+   "classe": "TComboBox",
+   "pai": "PanelExcluirMusica"
+  },
+  {
+   "nome": "PanelCarregarMusica",
+   "classe": "TPanel",
+   "pai": "PanelMenu3grande"
+  },
+  {
+   "nome": "LabelMusDias",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusUltima1",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusHD",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusAtu",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusNomeCD",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "PanelMusCapa",
+   "classe": "TPanel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "ImageMusCapa",
+   "classe": "TImage",
+   "pai": "PanelMusCapa"
+  },
+  {
+   "nome": "ButtonMusCarregar",
+   "classe": "TButton",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "ComboBoxMusPeriodo",
+   "classe": "TComboBox",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "CheckBoxSubstituir",
+   "classe": "TCheckBox",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusUltima2",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "LabelMusCopia",
+   "classe": "TLabel",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "ButtonMusExcluirAuto",
+   "classe": "TButton",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "ShellTreeViewCC",
+   "classe": "TShellTreeView",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "EditCC",
+   "classe": "TEdit",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "CheckBox1",
+   "classe": "TCheckBox",
+   "pai": "PanelCarregarMusica"
+  },
+  {
+   "nome": "PanelMenu4grande",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelSairDoMenu4",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelMusicaMenos",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditMusicaMenos",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCDMenos",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCdMenos",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditMusicaMais",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelMusicaMais",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCdMais",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCDMais",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelRitmo2",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditRitmo",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelTocar",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditTocar",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCancelar",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCancelar",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCredito",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCredito",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditMenuTecla",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelMenu",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCRMenos",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCRMais",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCRMais",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCRMenos",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "ButtonInterface",
+   "classe": "TButton",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelIntInfo",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCreditoVIP",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCreditoVIP",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "ButtonInt1",
+   "classe": "TButton",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "ButtonInt2",
+   "classe": "TButton",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelIntInfo1",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditCredito2",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelCredito1",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "EditKaraoke",
+   "classe": "TEdit",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "LabelKaraoke",
+   "classe": "TLabel",
+   "pai": "PanelMenu4grande"
+  },
+  {
+   "nome": "PanelMenu2grande",
+   "classe": "TPanel",
+   "pai": "PanelMenu"
+  },
+  {
+   "nome": "LabelRT",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelRP",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelPor",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelVP",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelVE",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelUF1",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelUF2",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "ComboBoxPorcento",
+   "classe": "TComboBox",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "ButtonQR",
+   "classe": "TButton",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "ImageQrcode",
+   "classe": "TImage",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "ButtonZRP",
+   "classe": "TButton",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelPress",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelPress1",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelPress2",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelNaoQR",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelSairDoMenu2",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "PanelMusRelogio",
+   "classe": "TPanel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelMusR",
+   "classe": "TLabel",
+   "pai": "PanelMusRelogio"
+  },
+  {
+   "nome": "LabelMusTot",
+   "classe": "TLabel",
+   "pai": "PanelMusRelogio"
+  },
+  {
+   "nome": "PanelMusR",
+   "classe": "TPanel",
+   "pai": "PanelMusRelogio"
+  },
+  {
+   "nome": "ImageMusR",
+   "classe": "TImage",
+   "pai": "PanelMusR"
+  },
+  {
+   "nome": "LabelPress3",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelEntrarNoMenu",
+   "classe": "TLabel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "PanelUpgrade1",
+   "classe": "TPanel",
+   "pai": "PanelMenu2grande"
+  },
+  {
+   "nome": "LabelUpgrade1",
+   "classe": "TLabel",
+   "pai": "PanelUpgrade1"
+  },
+  {
+   "nome": "LabelUpgradetit",
+   "classe": "TLabel",
+   "pai": "PanelUpgrade1"
+  },
+  {
+   "nome": "ImageLendo7",
+   "classe": "TImage",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Timerabertura",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerCadastro",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPaginaMenos",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPaginaMais",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerMostraNomeDeMusicas",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Timer1",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPiscaSeta",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPiscaCreditos",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerGravaPenDrive",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerSelecionaRitmoAutomatico",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerSelecionaLetraAutomatico",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPropaganda",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPaginaSozinho",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerEscondeMsg",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerRodaDisplay",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerFrases",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerNomeMusicaGrande",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTocar",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTocando",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTelaCheia",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerSenhaErrada",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerMusicaGratis",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "Timer1Minuto",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerVolume22hs",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerConfigInterface",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerAcionaVolume",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerUmMinuto",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTocandoTv",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerSorteio",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPalhinha",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerPalhinhaTocando",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTouchScreen",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerUmMilesegundo",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerDesativaVolume",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerCedulas",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerVolumeMais",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerVolumeMenos",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerTocandoPalhinhaESeleTocar",
+   "classe": "TTimer",
+   "pai": "Form1"
+  },
+  {
+   "nome": "TimerSetaVermelha",
+   "classe": "TTimer",
+   "pai": "Form1"
+  }
+ ],
+ "eventos": [
+  {
+   "componente": "Form1",
+   "classe": "TForm1",
+   "evento": "OnActivate",
+   "metodo": "FormActivate"
+  },
+  {
+   "componente": "Form1",
+   "classe": "TForm1",
+   "evento": "OnClose",
+   "metodo": "FormClose"
+  },
+  {
+   "componente": "Form1",
+   "classe": "TForm1",
+   "evento": "OnCreate",
+   "metodo": "FormCreate"
+  },
+  {
+   "componente": "Form1",
+   "classe": "TForm1",
+   "evento": "OnKeyDown",
+   "metodo": "FormKeyDown"
+  },
+  {
+   "componente": "Form1",
+   "classe": "TForm1",
+   "evento": "OnKeyUp",
+   "metodo": "FormKeyUp"
+  },
+  {
+   "componente": "Panelabertura",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelaberturaClick"
+  },
+  {
+   "componente": "PanelErro",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelErroClick"
+  },
+  {
+   "componente": "LabelErro1",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelErro1Click"
+  },
+  {
+   "componente": "LabelErro2",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelErro2Click"
+  },
+  {
+   "componente": "MemoErro",
+   "classe": "TMemo",
+   "evento": "OnClick",
+   "metodo": "MemoErroClick"
+  },
+  {
+   "componente": "EditSenhaAtivacao",
+   "classe": "TEdit",
+   "evento": "OnKeyPress",
+   "metodo": "EditSenhaAtivacaoKeyPress"
+  },
+  {
+   "componente": "ButtonAtivar",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonAtivarClick"
+  },
+  {
+   "componente": "PanelBloqueio",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelBloqueioClick"
+  },
+  {
+   "componente": "ButtonGravarOsDados",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonGravarOsDadosClick"
+  },
+  {
+   "componente": "PanelCOTeste",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelCOTesteClick"
+  },
+  {
+   "componente": "ButtonCOQrCode",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonCOQrCodeClick"
+  },
+  {
+   "componente": "ImageTela1",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "ImageTela1",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaSelecionada",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaSelecionadaClick"
+  },
+  {
+   "componente": "CapaMenos1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos1Click"
+  },
+  {
+   "componente": "CapaMenos2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos2Click"
+  },
+  {
+   "componente": "CapaMenos3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos3Click"
+  },
+  {
+   "componente": "CapaMenos4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos4Click"
+  },
+  {
+   "componente": "CapaMenos5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos5Click"
+  },
+  {
+   "componente": "CDMais1",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CDMais1",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaMais1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais1Click"
+  },
+  {
+   "componente": "CapaMais1",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CapaMais1",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CDMais2",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CDMais2",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaMais2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais2Click"
+  },
+  {
+   "componente": "CapaMais2",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CapaMais2",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CDMais3",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CDMais3",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaMais3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais3Click"
+  },
+  {
+   "componente": "CapaMais3",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CapaMais3",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CDMais4",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CDMais4",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaMais4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais4Click"
+  },
+  {
+   "componente": "CapaMais4",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CapaMais4",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CDMais5",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CDMais5",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "CapaMais5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais5Click"
+  },
+  {
+   "componente": "CapaMais5",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "CapaMais5",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica1",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica1Click"
+  },
+  {
+   "componente": "Musica1",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica1",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica2",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica2Click"
+  },
+  {
+   "componente": "Musica2",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica2",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica3",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica3Click"
+  },
+  {
+   "componente": "Musica3",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica3",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica4",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica4Click"
+  },
+  {
+   "componente": "Musica4",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica4",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica5",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica5Click"
+  },
+  {
+   "componente": "Musica5",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica5",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica6",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica6Click"
+  },
+  {
+   "componente": "Musica6",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica6",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica7",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica7Click"
+  },
+  {
+   "componente": "Musica7",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica7",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica8",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica8Click"
+  },
+  {
+   "componente": "Musica8",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica8",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica9",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica9Click"
+  },
+  {
+   "componente": "Musica9",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica9",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica10",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica10Click"
+  },
+  {
+   "componente": "Musica10",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica10",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica11",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica11Click"
+  },
+  {
+   "componente": "Musica11",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica11",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Musica12",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Musica12Click"
+  },
+  {
+   "componente": "Musica12",
+   "classe": "TLabel",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Musica12",
+   "classe": "TLabel",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "LabelRitmo1",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelRitmo1Click"
+  },
+  {
+   "componente": "ImgLan",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaSelecionadaClick"
+  },
+  {
+   "componente": "ImgLanMenos1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos1Click"
+  },
+  {
+   "componente": "ImgLanMenos2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos2Click"
+  },
+  {
+   "componente": "ImgLanMenos3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos3Click"
+  },
+  {
+   "componente": "ImgLanMenos4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos4Click"
+  },
+  {
+   "componente": "ImgLanMenos5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos5Click"
+  },
+  {
+   "componente": "ImgLanMais1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais1Click"
+  },
+  {
+   "componente": "ImgLanMais1",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "ImgLanMais1",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "ImgLanMais2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais2Click"
+  },
+  {
+   "componente": "ImgLanMais2",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "ImgLanMais2",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "ImgLanMais3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais3Click"
+  },
+  {
+   "componente": "ImgLanMais4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais4Click"
+  },
+  {
+   "componente": "ImgLanMais4",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "ImgLanMais4",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "ImgLanMais5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais5Click"
+  },
+  {
+   "componente": "ImgLanMais5",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "ImgLanMais5",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Img50",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaSelecionadaClick"
+  },
+  {
+   "componente": "Img50Menos1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos1Click"
+  },
+  {
+   "componente": "Img50Menos2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos2Click"
+  },
+  {
+   "componente": "Img50Menos3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos3Click"
+  },
+  {
+   "componente": "Img50Menos4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos4Click"
+  },
+  {
+   "componente": "Img50Menos5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMenos5Click"
+  },
+  {
+   "componente": "Img50Mais1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais1Click"
+  },
+  {
+   "componente": "Img50Mais1",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Img50Mais1",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Img50Mais2",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais2Click"
+  },
+  {
+   "componente": "Img50Mais2",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Img50Mais2",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Img50Mais3",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais3Click"
+  },
+  {
+   "componente": "Img50Mais3",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Img50Mais3",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Img50Mais4",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais4Click"
+  },
+  {
+   "componente": "Img50Mais4",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Img50Mais4",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "Img50Mais5",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaMais5Click"
+  },
+  {
+   "componente": "Img50Mais5",
+   "classe": "TImage",
+   "evento": "OnMouseDown",
+   "metodo": "ImageTela1MouseDown"
+  },
+  {
+   "componente": "Img50Mais5",
+   "classe": "TImage",
+   "evento": "OnMouseUp",
+   "metodo": "ImageTela1MouseUp"
+  },
+  {
+   "componente": "ImgDVD",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaSelecionadaClick"
+  },
+  {
+   "componente": "Button1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "Button1Click"
+  },
+  {
+   "componente": "Labelversao",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelversaoClick"
+  },
+  {
+   "componente": "LabelCliente",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelClienteClick"
+  },
+  {
+   "componente": "PanelMenu1",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "Label1024",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "Label1024Click"
+  },
+  {
+   "componente": "PanelMenu2",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu2Click"
+  },
+  {
+   "componente": "PanelMenu3",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu3Click"
+  },
+  {
+   "componente": "PanelMenu4",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu4Click"
+  },
+  {
+   "componente": "PanelMenu5",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu5Click"
+  },
+  {
+   "componente": "PanelMenu1c",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "PanelMenu2c",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "PanelMenu3c",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "PanelMenu4c",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "PanelMenu5c",
+   "classe": "TPanel",
+   "evento": "OnClick",
+   "metodo": "PanelMenu1Click"
+  },
+  {
+   "componente": "BS1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS1Click"
+  },
+  {
+   "componente": "BS2",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS2Click"
+  },
+  {
+   "componente": "BS3",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS3Click"
+  },
+  {
+   "componente": "BS4",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS4Click"
+  },
+  {
+   "componente": "BS5",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS5Click"
+  },
+  {
+   "componente": "BS6",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS6Click"
+  },
+  {
+   "componente": "BS7",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS7Click"
+  },
+  {
+   "componente": "BS8",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS8Click"
+  },
+  {
+   "componente": "BS9",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS9Click"
+  },
+  {
+   "componente": "BS0",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS0Click"
+  },
+  {
+   "componente": "BS10",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "BS10Click"
+  },
+  {
+   "componente": "EditSenha",
+   "classe": "TEdit",
+   "evento": "OnKeyPress",
+   "metodo": "EditSenhaKeyPress"
+  },
+  {
+   "componente": "ButtonOkSenha",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonOkSenhaClick"
+  },
+  {
+   "componente": "LabelMenuSenhaSair",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelMenuSenhaSairClick"
+  },
+  {
+   "componente": "LabelSairDoMenu5",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelSairDoMenu5Click"
+  },
+  {
+   "componente": "ButtonZerarCreditos",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonZerarCreditosClick"
+  },
+  {
+   "componente": "ComboBox18",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox18Change"
+  },
+  {
+   "componente": "ComboBox19",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox19Change"
+  },
+  {
+   "componente": "ComboBox20",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox20Change"
+  },
+  {
+   "componente": "ComboBox21",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox20Change"
+  },
+  {
+   "componente": "ButtonSalvarFrases",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonSalvarFrasesClick"
+  },
+  {
+   "componente": "ButtonUpgrade",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonUpgradeClick"
+  },
+  {
+   "componente": "ButtonZerarFila",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonZerarFilaClick"
+  },
+  {
+   "componente": "ButtonXML",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonXMLClick"
+  },
+  {
+   "componente": "ComboBox22",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox22Change"
+  },
+  {
+   "componente": "ButtonQrCodeCadastroMenu",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonQrCodeCadastroMenuClick"
+  },
+  {
+   "componente": "ButtonZeraCadastro",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonZeraCadastroClick"
+  },
+  {
+   "componente": "ComboBox23",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox23Change"
+  },
+  {
+   "componente": "LabelSairDoMenu1",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelSairDoMenu1Click"
+  },
+  {
+   "componente": "ComboBox1",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox1Change"
+  },
+  {
+   "componente": "ComboBox2",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox2Change"
+  },
+  {
+   "componente": "ComboBox3",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox3Change"
+  },
+  {
+   "componente": "ComboBox4",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox4Change"
+  },
+  {
+   "componente": "ComboBox5",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox5Change"
+  },
+  {
+   "componente": "ComboBox6",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox6Change"
+  },
+  {
+   "componente": "ComboBox7",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox7Change"
+  },
+  {
+   "componente": "ComboBox8",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox8Change"
+  },
+  {
+   "componente": "ComboBox9",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox9Change"
+  },
+  {
+   "componente": "ComboBox10",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox10Change"
+  },
+  {
+   "componente": "ComboBox11",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox11Change"
+  },
+  {
+   "componente": "ComboBox12",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox12Change"
+  },
+  {
+   "componente": "ComboBox14",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox14Change"
+  },
+  {
+   "componente": "ComboBox15",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox15Change"
+  },
+  {
+   "componente": "ComboBox16",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox16Change"
+  },
+  {
+   "componente": "CheckBoxResolucaoMonitor",
+   "classe": "TCheckBox",
+   "evento": "OnChange",
+   "metodo": "CheckBoxResolucaoMonitorChange"
+  },
+  {
+   "componente": "ComboBox13",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBox13Change"
+  },
+  {
+   "componente": "ButtonExcluirCDs1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonExcluirCDs1Click"
+  },
+  {
+   "componente": "LabelSairDoMenu3",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelSairDoMenu3Click"
+  },
+  {
+   "componente": "ButtonCarregarCD",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonCarregarCDClick"
+  },
+  {
+   "componente": "ButtonExcluirCDs",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonExcluirCDsClick"
+  },
+  {
+   "componente": "ButtonEsconderRitmos",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEsconderRitmosClick"
+  },
+  {
+   "componente": "ButtonEA",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEAClick"
+  },
+  {
+   "componente": "ButtonEI",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEIClick"
+  },
+  {
+   "componente": "ButtonEA1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEA1Click"
+  },
+  {
+   "componente": "ListBoxRGeneros",
+   "classe": "TListBox",
+   "evento": "OnClick",
+   "metodo": "ListBoxRGenerosClick"
+  },
+  {
+   "componente": "ListBoxRCds",
+   "classe": "TListBox",
+   "evento": "OnClick",
+   "metodo": "ListBoxRCdsClick"
+  },
+  {
+   "componente": "ButtonZera50",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonZera50Click"
+  },
+  {
+   "componente": "ButtonEO1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEO1Click"
+  },
+  {
+   "componente": "ButtonEO2",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEO2Click"
+  },
+  {
+   "componente": "ButtonEO3",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEO3Click"
+  },
+  {
+   "componente": "CapaE1",
+   "classe": "TImage",
+   "evento": "OnClick",
+   "metodo": "CapaE1Click"
+  },
+  {
+   "componente": "ButtonEX1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX1Click"
+  },
+  {
+   "componente": "ButtonEX2",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX2Click"
+  },
+  {
+   "componente": "ButtonEX3",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX3Click"
+  },
+  {
+   "componente": "ButtonEX4",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX4Click"
+  },
+  {
+   "componente": "ButtonEX5",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX5Click"
+  },
+  {
+   "componente": "ButtonEX6",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonEX6Click"
+  },
+  {
+   "componente": "ComboBoxMG1",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG1Change"
+  },
+  {
+   "componente": "ComboBoxMG2",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG2Change"
+  },
+  {
+   "componente": "ComboBoxMG3",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG3Change"
+  },
+  {
+   "componente": "ComboBoxMG4",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG4Change"
+  },
+  {
+   "componente": "ComboBoxMG5",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG5Change"
+  },
+  {
+   "componente": "ComboBoxMG6",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMG6Change"
+  },
+  {
+   "componente": "ButtonMusCarregar",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonMusCarregarClick"
+  },
+  {
+   "componente": "ComboBoxMusPeriodo",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxMusPeriodoChange"
+  },
+  {
+   "componente": "ButtonMusExcluirAuto",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonMusExcluirAutoClick"
+  },
+  {
+   "componente": "ShellTreeViewCC",
+   "classe": "TShellTreeView",
+   "evento": "OnChange",
+   "metodo": "ShellTreeViewCCChange"
+  },
+  {
+   "componente": "CheckBox1",
+   "classe": "TCheckBox",
+   "evento": "OnChange",
+   "metodo": "CheckBox1Change"
+  },
+  {
+   "componente": "LabelSairDoMenu4",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelSairDoMenu4Click"
+  },
+  {
+   "componente": "EditMusicaMenos",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditMusicaMenosKeyDown"
+  },
+  {
+   "componente": "EditCDMenos",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCDMenosKeyDown"
+  },
+  {
+   "componente": "EditMusicaMais",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditMusicaMaisKeyDown"
+  },
+  {
+   "componente": "EditCDMais",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCDMaisKeyDown"
+  },
+  {
+   "componente": "EditRitmo",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditRitmoKeyDown"
+  },
+  {
+   "componente": "EditTocar",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditTocarKeyDown"
+  },
+  {
+   "componente": "EditCancelar",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCancelarKeyDown"
+  },
+  {
+   "componente": "EditCredito",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCreditoKeyDown"
+  },
+  {
+   "componente": "EditMenuTecla",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditMenuTeclaKeyDown"
+  },
+  {
+   "componente": "EditCRMais",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCRMaisKeyDown"
+  },
+  {
+   "componente": "EditCRMenos",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCRMenosKeyDown"
+  },
+  {
+   "componente": "ButtonInterface",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonInterfaceClick"
+  },
+  {
+   "componente": "EditCreditoVIP",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCreditoVIPKeyDown"
+  },
+  {
+   "componente": "ButtonInt1",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonInt1Click"
+  },
+  {
+   "componente": "ButtonInt2",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonInt2Click"
+  },
+  {
+   "componente": "EditCredito2",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditCredito2KeyDown"
+  },
+  {
+   "componente": "EditKaraoke",
+   "classe": "TEdit",
+   "evento": "OnKeyDown",
+   "metodo": "EditTocarKeyDown"
+  },
+  {
+   "componente": "ComboBoxPorcento",
+   "classe": "TComboBox",
+   "evento": "OnChange",
+   "metodo": "ComboBoxPorcentoChange"
+  },
+  {
+   "componente": "ButtonQR",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonQRClick"
+  },
+  {
+   "componente": "ButtonZRP",
+   "classe": "TButton",
+   "evento": "OnClick",
+   "metodo": "ButtonZRPClick"
+  },
+  {
+   "componente": "LabelSairDoMenu2",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelSairDoMenu2Click"
+  },
+  {
+   "componente": "LabelEntrarNoMenu",
+   "classe": "TLabel",
+   "evento": "OnClick",
+   "metodo": "LabelEntrarNoMenuClick"
+  },
+  {
+   "componente": "Timerabertura",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimeraberturaTimer"
+  },
+  {
+   "componente": "TimerCadastro",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerCadastroTimer"
+  },
+  {
+   "componente": "TimerPaginaMenos",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPaginaMenosTimer"
+  },
+  {
+   "componente": "TimerPaginaMais",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPaginaMaisTimer"
+  },
+  {
+   "componente": "TimerMostraNomeDeMusicas",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerMostraNomeDeMusicasTimer"
+  },
+  {
+   "componente": "Timer1",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "Timer1Timer"
+  },
+  {
+   "componente": "TimerPiscaSeta",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPiscaSetaTimer"
+  },
+  {
+   "componente": "TimerPiscaCreditos",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPiscaCreditosTimer"
+  },
+  {
+   "componente": "TimerGravaPenDrive",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerGravaPenDriveTimer"
+  },
+  {
+   "componente": "TimerSelecionaRitmoAutomatico",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerSelecionaRitmoAutomaticoTimer"
+  },
+  {
+   "componente": "TimerSelecionaLetraAutomatico",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerSelecionaLetraAutomaticoTimer"
+  },
+  {
+   "componente": "TimerPropaganda",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPropagandaTimer"
+  },
+  {
+   "componente": "TimerPaginaSozinho",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPaginaSozinhoTimer"
+  },
+  {
+   "componente": "TimerEscondeMsg",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerEscondeMsgTimer"
+  },
+  {
+   "componente": "TimerRodaDisplay",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerRodaDisplayTimer"
+  },
+  {
+   "componente": "TimerFrases",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerFrasesTimer"
+  },
+  {
+   "componente": "TimerNomeMusicaGrande",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerNomeMusicaGrandeTimer"
+  },
+  {
+   "componente": "TimerTocar",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTocarTimer"
+  },
+  {
+   "componente": "TimerTocando",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTocandoTimer"
+  },
+  {
+   "componente": "TimerTelaCheia",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTelaCheiaTimer"
+  },
+  {
+   "componente": "TimerSenhaErrada",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerSenhaErradaTimer"
+  },
+  {
+   "componente": "TimerMusicaGratis",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerMusicaGratisTimer"
+  },
+  {
+   "componente": "Timer1Minuto",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "Timer1MinutoTimer"
+  },
+  {
+   "componente": "TimerVolume22hs",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerVolume22hsTimer"
+  },
+  {
+   "componente": "TimerConfigInterface",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerConfigInterfaceTimer"
+  },
+  {
+   "componente": "TimerAcionaVolume",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerAcionaVolumeTimer"
+  },
+  {
+   "componente": "TimerUmMinuto",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerUmMinutoTimer"
+  },
+  {
+   "componente": "TimerTocandoTv",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTocandoTvTimer"
+  },
+  {
+   "componente": "TimerSorteio",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerSorteioTimer"
+  },
+  {
+   "componente": "TimerPalhinha",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPalhinhaTimer"
+  },
+  {
+   "componente": "TimerPalhinhaTocando",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerPalhinhaTocandoTimer"
+  },
+  {
+   "componente": "TimerTouchScreen",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTouchScreenTimer"
+  },
+  {
+   "componente": "TimerUmMilesegundo",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerUmMilesegundoTimer"
+  },
+  {
+   "componente": "TimerDesativaVolume",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerDesativaVolumeTimer"
+  },
+  {
+   "componente": "TimerCedulas",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerCedulasTimer"
+  },
+  {
+   "componente": "TimerVolumeMais",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerVolumeMaisTimer"
+  },
+  {
+   "componente": "TimerVolumeMenos",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerVolumeMenosTimer"
+  },
+  {
+   "componente": "TimerTocandoPalhinhaESeleTocar",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerTocandoPalhinhaESeleTocarTimer"
+  },
+  {
+   "componente": "TimerSetaVermelha",
+   "classe": "TTimer",
+   "evento": "OnTimer",
+   "metodo": "TimerSetaVermelhaTimer"
+  }
+ ]
+}
