@@ -1,0 +1,14 @@
+// JUKELINUX1_TFORM1_$__PANELCOTESTECLICK$TOBJECT  @ 080c7780
+
+void JUKELINUX1_TFORM1____PANELCOTESTECLICK_TOBJECT(void)
+
+{
+  int in_EAX;
+  
+  CONTROLS_TCONTROL____HIDE();
+  (**(code **)(**(int **)(in_EAX + 0xbc8) + 0xd8))();
+  U_JUKELINUX1_ALTERANDOFRASES = 0;
+  (**(code **)(*U_JUKELINUX1_FORM1 + 0x430))();
+  return;
+}
+

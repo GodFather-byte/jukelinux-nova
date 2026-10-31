@@ -33,4 +33,9 @@ A CI (GitHub Actions → **Build**) compila a cada push e publica o executável 
 ## Referência
 
 - `referencia/funcoes.txt`: as funções da original com endereço e tamanho no binário.
-- `referencia/telas/`: formulários extraídos do binário (o `Form1.lfm` ainda está parcial).
+- `referencia/telas/Form1.lfm`: a tela principal completa (478 componentes), remontada na ordem exata a partir da
+  função `JUKELINUX1_init`, que registra os pedaços do `.lrs`. As imagens embutidas vêm junto como binário.
+- `referencia/descompilado/`: as funções descompiladas pelo Ghidra 12.2 (C aproximado, um arquivo por função).
+  Ainda faltam os argumentos das chamadas em convenção *register* do FPC (comparações de texto), e o
+  `FORMCREATE` precisa de nova rodada com mais tempo.
+- `ferramentas/extracao/`: os scripts que geraram tudo isso a partir do binário `jukelinux`.

@@ -1,0 +1,167 @@
+// JUKELINUX1_TFORM1_$__TIMERPALHINHATIMER$TOBJECT  @ 080e31d0
+
+void JUKELINUX1_TFORM1____TIMERPALHINHATIMER_TOBJECT(void)
+
+{
+  char cVar1;
+  int in_EAX;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  
+  fpc_pushexceptaddr();
+  iVar2 = fpc_setjmp();
+  if (iVar2 != 0) goto LAB_080e3a45;
+  U_JUKELINUX1_TEMCREDITO = '\0';
+  iVar3 = fpc_ansistr_compare_equal();
+  if (iVar3 == 0) {
+    U_JUKELINUX1_TEMCREDITO = '\x01';
+  }
+  else if (0 < U_JUKELINUX1_CREDITOS) {
+    U_JUKELINUX1_TEMCREDITO = '\x01';
+  }
+  U_JUKELINUX1_TEMPOPALHINHA = U_JUKELINUX1_TEMPOPALHINHA + 1;
+  if ((((U_JUKELINUX1_TEMPOPALHINHA != U_JUKELINUX1_TEMPOPARAINICIARAPALHINHA) ||
+       (U_JUKELINUX1_PALHINHASPORREAL < 1)) || (U_JUKELINUX1_ESTANOMENU != '\0')) ||
+     (((U_JUKELINUX1_TOCANDOMUSICA != '\0' || (U_JUKELINUX1_TEMCREDITO == '\0')) ||
+      ((U_JUKELINUX1_MUSICASELECIONADA < 1 || (iVar3 = fpc_ansistr_compare_equal(), iVar3 == 0))))))
+  goto LAB_080e3a45;
+  (**(code **)(**(int **)(in_EAX + 0xb64) + 0xd8))();
+  iVar3 = U_JUKELINUX1_MUSICASELECIONADA;
+  iVar4 = U_JUKELINUX1_KMAT + 5;
+  fpc_ansistr_incr_ref();
+  fpc_ansistr_decr_ref();
+  U_JUKELINUX1_ORIGEMPALHINHA = *(undefined4 *)(iVar4 * 0x240 + 0x8e91144 + iVar3 * 4);
+  cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN();
+  if (cVar1 != '\0') {
+    switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA) {
+    case 1:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 2:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 3:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 4:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 5:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 6:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 7:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 8:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 9:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 10:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 0xb:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+      break;
+    case 0xc:
+      CONTROLS_TCONTROL____SETLEFT_LONGINT();
+      CONTROLS_TCONTROL____SETTOP_LONGINT();
+    }
+    CONTROLS_TCONTROL____SETWIDTH_LONGINT();
+    CONTROLS_TCONTROL____SETHEIGHT_LONGINT();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+    CONTROLS_TCONTROL____SHOW();
+    (**(code **)(**(int **)(in_EAX + 0x67c) + 0x2fc))();
+    U_JUKELINUX1_KSHAPE = 0;
+    do {
+      U_JUKELINUX1_KSHAPE = U_JUKELINUX1_KSHAPE + 5;
+      CONTROLS_TCONTROL____SETHEIGHT_LONGINT();
+      (**(code **)(**(int **)(in_EAX + 0x67c) + 0x2fc))();
+    } while (U_JUKELINUX1_KSHAPE != 0x41);
+    CONTROLS_TCONTROL____SETLEFT_LONGINT();
+    CONTROLS_TCONTROL____SETTOP_LONGINT();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+    CONTROLS_TCONTROL____SHOW();
+    fpc_ansistr_decr_ref();
+    SYSUTILS_INTTOSTR_LONGINT__ANSISTRING();
+    CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING();
+    CONTROLS_TCONTROL____SETLEFT_LONGINT();
+    CONTROLS_TCONTROL____SETTOP_LONGINT();
+    CONTROLS_TCONTROL____SETLEFT_LONGINT();
+    CONTROLS_TCONTROL____SETTOP_LONGINT();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+    CONTROLS_TCONTROL____SHOW();
+    fpc_ansistr_decr_ref();
+    SYSUTILS_INTTOSTR_LONGINT__ANSISTRING();
+    CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+    CONTROLS_TCONTROL____SHOW();
+    U_JUKELINUX1_PALHINHASPORREAL = U_JUKELINUX1_PALHINHASPORREAL + -1;
+  }
+  (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))();
+  JUKELINUX1_DESCRIPTOGRAFA_ANSISTRING_ANSISTRING();
+  CONTROLS_TCONTROL____SHOW();
+  MPLAYERCTRL_TCUSTOMMPLAYERCONTROL____SETFILENAME_ANSISTRING();
+  MPLAYERCTRL_TCUSTOMMPLAYERCONTROL____PLAY();
+  MPLAYERCTRL_TCUSTOMMPLAYERCONTROL____SETVOLUME_LONGINT();
+  MPLAYERCTRL_TCUSTOMMPLAYERCONTROL____SETVOLUME_LONGINT();
+  CONTROLS_TCONTROL____HIDE();
+  U_JUKELINUX1_TOCANDOPALHINHA = 1;
+  fpc_ansistr_decr_ref();
+  fpc_ansistr_decr_ref();
+  SYSUTILS_EXTRACTFILEEXT_ANSISTRING__ANSISTRING();
+  SYSUTILS_UPPERCASE_ANSISTRING__ANSISTRING();
+  iVar3 = fpc_ansistr_compare_equal();
+  if (iVar3 == 0) {
+LAB_080e39d9:
+    JUKELINUX1_DESATIVA_PROPAGANDA();
+    CONTROLS_TCONTROL____SHOW();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+  }
+  else {
+    fpc_ansistr_decr_ref();
+    fpc_ansistr_decr_ref();
+    SYSUTILS_EXTRACTFILEEXT_ANSISTRING__ANSISTRING();
+    SYSUTILS_UPPERCASE_ANSISTRING__ANSISTRING();
+    iVar3 = fpc_ansistr_compare_equal();
+    if (iVar3 == 0) goto LAB_080e39d9;
+    fpc_ansistr_decr_ref();
+    fpc_ansistr_decr_ref();
+    SYSUTILS_EXTRACTFILEEXT_ANSISTRING__ANSISTRING();
+    SYSUTILS_UPPERCASE_ANSISTRING__ANSISTRING();
+    iVar3 = fpc_ansistr_compare_equal();
+    if (iVar3 == 0) goto LAB_080e39d9;
+  }
+  fpc_ansistr_incr_ref();
+  fpc_ansistr_decr_ref();
+  U_JUKELINUX1_MUSICAQUEJATOCOUAPALHINHA = U_JUKELINUX1_ORIGEMPALHINHA;
+  U_JUKELINUX1_CONTADORTEMPOPALHINHA = 0;
+  U_JUKELINUX1_MUDOUDECDOUMUSICA = 0;
+  (**(code **)(**(int **)(in_EAX + 0xb60) + 0xd8))();
+LAB_080e3a45:
+  fpc_popaddrstack();
+  fpc_ansistr_decr_ref();
+  fpc_ansistr_decr_ref();
+  fpc_ansistr_decr_ref();
+  if (iVar2 != 0) {
+    fpc_reraise();
+  }
+  return;
+}
+

@@ -1,0 +1,12 @@
+// JUKELINUX1_TFORM1_$__TIMERSENHAERRADATIMER$TOBJECT  @ 080e56b0
+
+void JUKELINUX1_TFORM1____TIMERSENHAERRADATIMER_TOBJECT(void)
+
+{
+  int in_EAX;
+  
+  (**(code **)(**(int **)(in_EAX + 0xb84) + 0xd8))();
+  CONTROLS_TCONTROL____HIDE();
+  return;
+}
+

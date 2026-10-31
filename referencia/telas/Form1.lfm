@@ -140,7 +140,7 @@ object Form1: TForm1
       Height = 52
       Top = 3
       Width = 55
-      Picture.Data = {imagem 1347208 bytes}
+      Picture.Data = {binário 1347208 bytes}
       Stretch = True
     end
     object ImageLendo2: TImage
@@ -148,7 +148,7 @@ object Form1: TForm1
       Height = 52
       Top = 57
       Width = 55
-      Picture.Data = {imagem 935596 bytes}
+      Picture.Data = {binário 935596 bytes}
       Stretch = True
     end
     object ImageLendo3: TImage
@@ -156,7 +156,7 @@ object Form1: TForm1
       Height = 52
       Top = 111
       Width = 55
-      Picture.Data = {imagem 636179 bytes}
+      Picture.Data = {binário 636179 bytes}
       Stretch = True
     end
     object ImageLendo4: TImage
@@ -164,7 +164,7 @@ object Form1: TForm1
       Height = 52
       Top = 165
       Width = 55
-      Picture.Data = {imagem 1315926 bytes}
+      Picture.Data = {binário 1315926 bytes}
       Stretch = True
     end
     object ImageLendo5: TImage
@@ -172,7 +172,7 @@ object Form1: TForm1
       Height = 52
       Top = 165
       Width = 55
-      Picture.Data = {imagem 496768 bytes}
+      Picture.Data = {binário 496768 bytes}
       Stretch = True
     end
     object ImageLendo6: TImage
@@ -180,7 +180,7 @@ object Form1: TForm1
       Height = 52
       Top = 116
       Width = 55
-      Picture.Data = {imagem 896481 bytes}
+      Picture.Data = {binário 896481 bytes}
       Stretch = True
     end
   end
@@ -400,7 +400,7 @@ object Form1: TForm1
       Top = 48
       Width = 364
       Align = alClient
-      Picture.Data = {imagem 7384 bytes}
+      Picture.Data = {binário 7384 bytes}
       Stretch = True
     end
     object LabelAT1: TLabel
@@ -507,7 +507,7 @@ object Form1: TForm1
       Height = 158
       Top = 0
       Width = 261
-      Picture.Data = {imagem 35472 bytes}
+      Picture.Data = {binário 35472 bytes}
     end
     object CreditoCJSombra: TLabel
       Left = 5
@@ -544,7 +544,7 @@ object Form1: TForm1
       Height = 65
       Top = 77
       Width = 67
-      Picture.Data = {imagem 7238 bytes}
+      Picture.Data = {binário 7238 bytes}
       Transparent = True
     end
     object ImageGratis: TImage
@@ -552,7 +552,7 @@ object Form1: TForm1
       Height = 65
       Top = 77
       Width = 67
-      Picture.Data = {imagem 6498 bytes}
+      Picture.Data = {binário 6498 bytes}
       Transparent = True
     end
   end
@@ -897,7 +897,7 @@ object Form1: TForm1
       Top = 223
       Width = 357
       OnClick = CapaSelecionadaClick
-      Picture.Data = {imagem 20728 bytes}
+      Picture.Data = {binário 20728 bytes}
       Transparent = True
     end
     object CDMenos1: TImage
@@ -918,7 +918,7 @@ object Form1: TForm1
       Top = 48
       Width = 174
       OnClick = CapaMenos1Click
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CapaMenos2: TImage
       Left = 752
@@ -926,7 +926,7 @@ object Form1: TForm1
       Top = 10
       Width = 174
       OnClick = CapaMenos2Click
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMenos3: TImage
       Left = 563
@@ -940,7 +940,7 @@ object Form1: TForm1
       Top = 10
       Width = 174
       OnClick = CapaMenos3Click
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMenos4: TImage
       Left = 347
@@ -954,7 +954,7 @@ object Form1: TForm1
       Top = 10
       Width = 174
       OnClick = CapaMenos4Click
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMenos5: TImage
       Left = 138
@@ -968,7 +968,7 @@ object Form1: TForm1
       Top = 9
       Width = 178
       OnClick = CapaMenos5Click
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMais1: TImage
       Left = 982
@@ -986,7 +986,7 @@ object Form1: TForm1
       OnClick = CapaMais1Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMais2: TImage
       Left = 777
@@ -1004,7 +1004,7 @@ object Form1: TForm1
       OnClick = CapaMais2Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMais3: TImage
       Left = 562
@@ -1022,7 +1022,7 @@ object Form1: TForm1
       OnClick = CapaMais3Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMais4: TImage
       Left = 347
@@ -1040,7 +1040,7 @@ object Form1: TForm1
       OnClick = CapaMais4Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object CDMais5: TImage
       Left = 138
@@ -1058,7 +1058,7 @@ object Form1: TForm1
       OnClick = CapaMais5Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 7392 bytes}
+      Picture.Data = {binário 7392 bytes}
     end
     object Musica1: TLabel
       Left = 432
@@ -1284,7 +1284,7 @@ object Form1: TForm1
       Top = 528
       Width = 52
       ParentShowHint = False
-      Picture.Data = {imagem 2677 bytes}
+      Picture.Data = {binário 2677 bytes}
       ShowHint = True
     end
     object NumCD: TLabel
@@ -1509,7 +1509,7 @@ object Form1: TForm1
         Height = 160
         Top = 3
         Width = 176
-        Picture.Data = {imagem 7392 bytes}
+        Picture.Data = {binário 7392 bytes}
         Transparent = True
       end
       object LabelNomedaMusicaTocando: TLabel
@@ -1551,7 +1551,7 @@ object Form1: TForm1
       Top = 230
       Width = 137
       OnClick = CapaSelecionadaClick
-      Picture.Data = {imagem 20010 bytes}
+      Picture.Data = {binário 20010 bytes}
     end
     object ImgLanMenos1: TImage
       Left = 962
@@ -1559,7 +1559,7 @@ object Form1: TForm1
       Top = 51
       Width = 90
       OnClick = CapaMenos1Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMenos2: TImage
       Left = 756
@@ -1567,7 +1567,7 @@ object Form1: TForm1
       Top = 15
       Width = 90
       OnClick = CapaMenos2Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMenos3: TImage
       Left = 543
@@ -1575,7 +1575,7 @@ object Form1: TForm1
       Top = 17
       Width = 90
       OnClick = CapaMenos3Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMenos4: TImage
       Left = 325
@@ -1583,7 +1583,7 @@ object Form1: TForm1
       Top = 16
       Width = 90
       OnClick = CapaMenos4Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMenos5: TImage
       Left = 120
@@ -1591,7 +1591,7 @@ object Form1: TForm1
       Top = 15
       Width = 90
       OnClick = CapaMenos5Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMais1: TImage
       Left = 962
@@ -1601,7 +1601,7 @@ object Form1: TForm1
       OnClick = CapaMais1Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMais2: TImage
       Left = 752
@@ -1611,7 +1611,7 @@ object Form1: TForm1
       OnClick = CapaMais2Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMais3: TImage
       Left = 539
@@ -1619,7 +1619,7 @@ object Form1: TForm1
       Top = 599
       Width = 90
       OnClick = CapaMais3Click
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMais4: TImage
       Left = 322
@@ -1629,7 +1629,7 @@ object Form1: TForm1
       OnClick = CapaMais4Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object ImgLanMais5: TImage
       Left = 112
@@ -1639,14 +1639,14 @@ object Form1: TForm1
       OnClick = CapaMais5Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 4676 bytes}
+      Picture.Data = {binário 4676 bytes}
     end
     object CapaSelecionadaMsg: TImage
       Left = 325
       Height = 72
       Top = 448
       Width = 80
-      Picture.Data = {imagem 345250 bytes}
+      Picture.Data = {binário 345250 bytes}
       Transparent = True
     end
     object CDSelecionadoMsg: TImage
@@ -1660,7 +1660,7 @@ object Form1: TForm1
       Height = 50
       Top = 496
       Width = 50
-      Picture.Data = {imagem 14544 bytes}
+      Picture.Data = {binário 14544 bytes}
       Stretch = True
     end
     object NomeDoCD: TLabel
@@ -1683,7 +1683,7 @@ object Form1: TForm1
       Top = 258
       Width = 137
       OnClick = CapaSelecionadaClick
-      Picture.Data = {imagem 15963 bytes}
+      Picture.Data = {binário 15963 bytes}
     end
     object Img50Menos1: TImage
       Left = 990
@@ -1691,7 +1691,7 @@ object Form1: TForm1
       Top = 79
       Width = 90
       OnClick = CapaMenos1Click
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Menos2: TImage
       Left = 784
@@ -1699,7 +1699,7 @@ object Form1: TForm1
       Top = 43
       Width = 90
       OnClick = CapaMenos2Click
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Menos3: TImage
       Left = 571
@@ -1707,7 +1707,7 @@ object Form1: TForm1
       Top = 45
       Width = 90
       OnClick = CapaMenos3Click
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Menos4: TImage
       Left = 353
@@ -1715,7 +1715,7 @@ object Form1: TForm1
       Top = 44
       Width = 90
       OnClick = CapaMenos4Click
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Menos5: TImage
       Left = 144
@@ -1723,7 +1723,7 @@ object Form1: TForm1
       Top = 32
       Width = 90
       OnClick = CapaMenos5Click
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Mais1: TImage
       Left = 990
@@ -1733,7 +1733,7 @@ object Form1: TForm1
       OnClick = CapaMais1Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Mais2: TImage
       Left = 780
@@ -1743,7 +1743,7 @@ object Form1: TForm1
       OnClick = CapaMais2Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Mais3: TImage
       Left = 567
@@ -1753,7 +1753,7 @@ object Form1: TForm1
       OnClick = CapaMais3Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Mais4: TImage
       Left = 350
@@ -1763,7 +1763,7 @@ object Form1: TForm1
       OnClick = CapaMais4Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object Img50Mais5: TImage
       Left = 140
@@ -1773,7 +1773,7 @@ object Form1: TForm1
       OnClick = CapaMais5Click
       OnMouseDown = ImageTela1MouseDown
       OnMouseUp = ImageTela1MouseUp
-      Picture.Data = {imagem 8181 bytes}
+      Picture.Data = {binário 8181 bytes}
     end
     object PanelSorteio: TPanel
       Left = 24
@@ -1822,7 +1822,3704 @@ object Form1: TForm1
         Height = 161
         Top = 196
         Width = 178
-        Picture.Data = {imagem 7392 bytes, 6078 não recuperados}
-        gAMA = nil
-        object ®;AJÎýÛ#­uá¤2ÈVïX$"´°\â{ê¶6Æ{·ÄZøuaUÏä)|km7(U8üÉ¿Í÷½erÁÍËÙ[9Þ×L§Z{®Âyç+B¸\uàb>)áÖ}ÿþ¥_à/ ÃÏ>ü L: |ûQ    cHRM  z%    ùÿ  é  u0  ê`  :  o_ÅF  :IDATxÚbüÿÿ?Ã(C Óh¡
- ] &:FHeq1ëh0x:÷,Yºä-L  µU³Ã0A×Ã2ÓÓ^t/²cl±]v´(éKkô6BÏAbÄúÛ {#÷8¾!}
+        Picture.Data = {binário 7392 bytes}
+      end
+      object CapaSorteio3: TImage
+        Left = 79
+        Height = 161
+        Top = 168
+        Width = 178
+        Picture.Data = {binário 7392 bytes}
+      end
+      object CapaSorteio2: TImage
+        Left = 51
+        Height = 161
+        Top = 140
+        Width = 178
+        Picture.Data = {binário 7392 bytes}
+      end
+      object CapaSorteio1: TImage
+        Left = 23
+        Height = 161
+        Top = 112
+        Width = 178
+        Picture.Data = {binário 7392 bytes}
+      end
+    end
+    object ShapePalhinha: TShape
+      Left = 372
+      Height = 58
+      Top = 239
+      Width = 63
+      Brush.Color = clLime
+      Shape = stCircle
+    end
+    object ImagePalhinha: TImage
+      Left = 383
+      Height = 35
+      Top = 246
+      Width = 37
+      Picture.Data = {binário 3648 bytes}
+    end
+    object LabelQtdPalhinha: TLabel
+      Left = 402
+      Height = 24
+      Top = 269
+      Width = 14
+      Caption = '6'
+      Font.Color = clRed
+      Font.Height = -20
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+    end
+    object LabelTempoAindaTocandoAPalhinha: TLabel
+      Left = 378
+      Height = 17
+      Top = 261
+      Width = 18
+      Caption = '00'
+      Font.Height = -13
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object ImgDVD: TImage
+      Left = 1222
+      Height = 133
+      Top = 419
+      Width = 145
+      OnClick = CapaSelecionadaClick
+      Picture.Data = {binário 10703 bytes}
+    end
+    object ImageGrandePng: TImage
+      Left = 16
+      Height = 90
+      Top = 392
+      Width = 90
+    end
+    object Button1: TButton
+      Left = 59
+      Height = 25
+      Top = 156
+      Width = 75
+      Caption = 'PNG'
+      OnClick = Button1Click
+      TabOrder = 3
+    end
+    object Panel1: TPanel
+      Left = 12
+      Height = 205
+      Top = 294
+      Width = 347
+      ClientHeight = 205
+      ClientWidth = 347
+      Color = clRed
+      Font.Color = clCream
+      Font.Height = -13
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      object Label1: TLabel
+        Left = 9
+        Height = 17
+        Top = 7
+        Width = 48
+        Caption = 'Label1'
+        ParentColor = False
+      end
+      object Label3: TLabel
+        Left = 9
+        Height = 17
+        Top = 54
+        Width = 48
+        Caption = 'Label3'
+        ParentColor = False
+      end
+      object Label4: TLabel
+        Left = 9
+        Height = 17
+        Top = 75
+        Width = 48
+        Caption = 'Label4'
+        ParentColor = False
+      end
+      object Label2: TLabel
+        Left = 9
+        Height = 17
+        Top = 31
+        Width = 48
+        Caption = 'Label2'
+        ParentColor = False
+      end
+      object Label5: TLabel
+        Left = 11
+        Height = 17
+        Top = 104
+        Width = 48
+        Caption = 'Label5'
+        ParentColor = False
+      end
+      object Label6: TLabel
+        Left = 10
+        Height = 17
+        Top = 128
+        Width = 48
+        Caption = 'Label6'
+        ParentColor = False
+      end
+      object Label7: TLabel
+        Left = 10
+        Height = 17
+        Top = 143
+        Width = 48
+        Caption = 'Label7'
+        ParentColor = False
+      end
+      object Label8: TLabel
+        Left = 7
+        Height = 17
+        Top = 165
+        Width = 48
+        Caption = 'Label8'
+        ParentColor = False
+      end
+      object Label9: TLabel
+        Left = 10
+        Height = 17
+        Top = 184
+        Width = 48
+        Caption = 'Label9'
+        ParentColor = False
+      end
+      object Label10: TLabel
+        Left = 280
+        Height = 17
+        Top = 139
+        Width = 57
+        Caption = 'Label10'
+        ParentColor = False
+      end
+    end
+    object ImageSetasPaginacao1: TImage
+      Left = 704
+      Height = 87
+      Top = 136
+      Width = 52
+      Picture.Data = {binário 83575 bytes}
+      Stretch = True
+    end
+    object ImageSetasPaginacao2: TImage
+      Left = 504
+      Height = 84
+      Top = -64
+      Width = 56
+      Picture.Data = {binário 104705 bytes}
+      Stretch = True
+    end
+    object ImageSetabrgCima: TImage
+      Left = 353
+      Height = 107
+      Top = 64
+      Width = 161
+      Picture.Data = {binário 9456 bytes}
+    end
+    object ImageSetabrgBaixo: TImage
+      Left = 380
+      Height = 107
+      Top = 92
+      Width = 161
+      Picture.Data = {binário 9335 bytes}
+    end
+  end
+  object PanelMenu: TPanel
+    Left = 680
+    Height = 206
+    Top = 496
+    Width = 256
+    BevelInner = bvSpace
+    BevelOuter = bvSpace
+    BorderStyle = bsSingle
+    ClientHeight = 204
+    ClientWidth = 254
+    Color = clWhite
+    ParentColor = False
+    TabOrder = 7
+    object ImageFundoMenu: TImage
+      Left = 0
+      Height = 146
+      Top = -1
+      Width = 239
+      Picture.Data = {binário 240254 bytes}
+    end
+    object Labelversao: TLabel
+      Left = 32
+      Height = 19
+      Top = 100
+      Width = 196
+      Caption = 'Vers'#195#163'o de 00/00/0000'
+      Font.Color = clYellow
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelversaoClick
+    end
+    object LabelCliente: TLabel
+      Left = 32
+      Height = 20
+      Top = 121
+      Width = 204
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Cliente '
+      Font.Color = clWhite
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+      OnClick = LabelClienteClick
+    end
+    object PanelMenu1: TPanel
+      Left = 32
+      Height = 110
+      Top = 151
+      Width = 197
+      BevelOuter = bvNone
+      Caption = 'Configura'#195#167#195#181'es'
+      ClientHeight = 110
+      ClientWidth = 197
+      Color = clGreen
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 0
+      OnClick = PanelMenu1Click
+      object Label1024: TLabel
+        Left = 2
+        Height = 17
+        Top = 1
+        Width = 71
+        Caption = '1024x768'
+        Color = clGreen
+        Font.Color = clYellow
+        Font.Height = -13
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = Label1024Click
+      end
+    end
+    object PanelMenu2: TPanel
+      Left = 32
+      Height = 110
+      Top = 268
+      Width = 197
+      BevelOuter = bvNone
+      Caption = 'Rel'#195#179'gios'
+      Color = clBlue
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 1
+      OnClick = PanelMenu2Click
+    end
+    object PanelMenu3: TPanel
+      Left = 32
+      Height = 110
+      Top = 386
+      Width = 197
+      BevelOuter = bvNone
+      Caption = 'M'#195#186'sicas'
+      ClientHeight = 110
+      ClientWidth = 197
+      Color = clPurple
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 2
+      OnClick = PanelMenu3Click
+      object LabelListaTocados: TLabel
+        Left = 5
+        Height = 34
+        Top = 71
+        Width = 192
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Aguarde, lendos a lista de CD Mais Tocados...'
+        Font.Color = clYellow
+        Font.Height = -12
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+    end
+    object PanelMenu4: TPanel
+      Left = 32
+      Height = 110
+      Top = 504
+      Width = 197
+      BevelOuter = bvNone
+      Caption = 'Interface'
+      Color = clTeal
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 3
+      OnClick = PanelMenu4Click
+    end
+    object PanelMenu5: TPanel
+      Left = 32
+      Height = 110
+      Top = 622
+      Width = 197
+      BevelOuter = bvNone
+      Caption = 'Outros'
+      Color = clRed
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 4
+      OnClick = PanelMenu5Click
+    end
+    object PanelMenu1c: TPanel
+      Left = 229
+      Height = 110
+      Top = 151
+      Width = 8
+      BevelOuter = bvNone
+      Color = clGreen
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 6
+      OnClick = PanelMenu1Click
+    end
+    object PanelMenu2c: TPanel
+      Left = 229
+      Height = 110
+      Top = 268
+      Width = 8
+      BevelOuter = bvNone
+      Color = clBlue
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 7
+      OnClick = PanelMenu1Click
+    end
+    object PanelMenu3c: TPanel
+      Left = 229
+      Height = 110
+      Top = 386
+      Width = 8
+      BevelOuter = bvNone
+      Color = clPurple
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 9
+      OnClick = PanelMenu1Click
+    end
+    object PanelMenu4c: TPanel
+      Left = 229
+      Height = 110
+      Top = 504
+      Width = 8
+      BevelOuter = bvNone
+      Color = clTeal
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 11
+      OnClick = PanelMenu1Click
+    end
+    object PanelMenu5c: TPanel
+      Left = 229
+      Height = 110
+      Top = 622
+      Width = 8
+      BevelOuter = bvNone
+      Color = clRed
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 13
+      OnClick = PanelMenu1Click
+    end
+    object PanelSenha: TPanel
+      Left = 464
+      Height = 98
+      Top = 10
+      Width = 309
+      BevelOuter = bvNone
+      ClientHeight = 98
+      ClientWidth = 309
+      Color = clBlack
+      ParentColor = False
+      TabOrder = 15
+      object LabelMenuDS: TLabel
+        Left = 241
+        Height = 23
+        Top = 58
+        Width = 161
+        Caption = 'Digite a Senha'
+        Font.Color = clYellow
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelMenuDSErro: TLabel
+        Left = 245
+        Height = 23
+        Top = 241
+        Width = 146
+        Caption = 'Senha Errada'
+        Font.Color = clRed
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object BS1: TButton
+        Left = 11
+        Height = 65
+        Top = 13
+        Width = 65
+        Caption = '1'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS1Click
+        ParentFont = False
+        TabOrder = 0
+      end
+      object BS2: TButton
+        Left = 83
+        Height = 65
+        Top = 13
+        Width = 65
+        Caption = '2'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS2Click
+        ParentFont = False
+        TabOrder = 1
+      end
+      object BS3: TButton
+        Left = 155
+        Height = 65
+        Top = 13
+        Width = 65
+        Caption = '3'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS3Click
+        ParentFont = False
+        TabOrder = 2
+      end
+      object BS4: TButton
+        Left = 11
+        Height = 65
+        Top = 85
+        Width = 65
+        Caption = '4'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS4Click
+        ParentFont = False
+        TabOrder = 3
+      end
+      object BS5: TButton
+        Left = 83
+        Height = 65
+        Top = 85
+        Width = 65
+        Caption = '5'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS5Click
+        ParentFont = False
+        TabOrder = 4
+      end
+      object BS6: TButton
+        Left = 155
+        Height = 65
+        Top = 85
+        Width = 65
+        Caption = '6'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS6Click
+        ParentFont = False
+        TabOrder = 5
+      end
+      object BS7: TButton
+        Left = 11
+        Height = 65
+        Top = 157
+        Width = 65
+        Caption = '7'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS7Click
+        ParentFont = False
+        TabOrder = 6
+      end
+      object BS8: TButton
+        Left = 83
+        Height = 65
+        Top = 157
+        Width = 65
+        Caption = '8'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS8Click
+        ParentFont = False
+        TabOrder = 7
+      end
+      object BS9: TButton
+        Left = 155
+        Height = 65
+        Top = 157
+        Width = 65
+        Caption = '9'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS9Click
+        ParentFont = False
+        TabOrder = 8
+      end
+      object BS0: TButton
+        Left = 11
+        Height = 65
+        Top = 229
+        Width = 65
+        Caption = '0'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS0Click
+        ParentFont = False
+        TabOrder = 9
+      end
+      object BS10: TButton
+        Left = 83
+        Height = 65
+        Top = 229
+        Width = 137
+        Caption = 'Delete'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = BS10Click
+        ParentFont = False
+        TabOrder = 10
+      end
+      object EditSenha: TEdit
+        Left = 241
+        Height = 35
+        Top = 94
+        Width = 154
+        EchoMode = emPassword
+        Font.Height = -21
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyPress = EditSenhaKeyPress
+        ParentFont = False
+        PasswordChar = '*'
+        TabOrder = 11
+      end
+      object ButtonOkSenha: TButton
+        Left = 275
+        Height = 65
+        Top = 157
+        Width = 85
+        Caption = 'OK'
+        Font.Height = -33
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonOkSenhaClick
+        ParentFont = False
+        TabOrder = 12
+      end
+      object RadioButton1: TRadioButton
+        Left = 268
+        Height = 22
+        Top = 15
+        Width = 62
+        Caption = 'Senha'
+        Checked = True
+        Font.Color = clWhite
+        ParentFont = False
+        TabOrder = 14
+        TabStop = True
+      end
+      object RadioButton2: TRadioButton
+        Left = 268
+        Height = 22
+        Top = 35
+        Width = 106
+        Caption = 'Senha Master'
+        Font.Color = clWhite
+        ParentFont = False
+        TabOrder = 13
+      end
+      object LabelMenuSenhaSair: TLabel
+        Left = 246
+        Height = 23
+        Top = 274
+        Width = 144
+        Caption = 'Sair do Menu'
+        Font.Color = clGray
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        OnClick = LabelMenuSenhaSairClick
+      end
+    end
+    object LabelMDataHora: TLabel
+      Left = 29
+      Height = 19
+      Top = 7
+      Width = 197
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Data e Hora'
+      Font.Color = clYellow
+      Font.Height = -16
+      Font.Name = 'Sans'
+      Font.Style = [fsBold, fsItalic]
+      ParentColor = False
+      ParentFont = False
+    end
+    object PanelMenu5grande: TPanel
+      Left = 243
+      Height = 623
+      Top = -486
+      Width = 792
+      BevelOuter = bvNone
+      ClientHeight = 623
+      ClientWidth = 792
+      Color = clRed
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 14
+      object LabelSairDoMenu5: TLabel
+        Left = 412
+        Height = 33
+        Top = 10
+        Width = 252
+        Caption = '   Sair do Menu   '
+        Color = clBlack
+        Font.Color = clYellow
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = LabelSairDoMenu5Click
+      end
+      object ButtonZerarCreditos: TButton
+        Left = 18
+        Height = 37
+        Top = 60
+        Width = 300
+        Caption = 'Zerar Cr'#195#169'ditos'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonZerarCreditosClick
+        ParentFont = False
+        TabOrder = 0
+      end
+      object ComboBox18: TComboBox
+        Left = 18
+        Height = 35
+        Top = 336
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('0' '2' '5' '10' '15' '20')
+        OnChange = ComboBox18Change
+        ParentFont = False
+        TabOrder = 1
+      end
+      object LabelCB18: TLabel
+        Left = 19
+        Height = 42
+        Top = 295
+        Width = 298
+        AutoSize = False
+        Caption = 'Quantidade de Cr'#195#169'ditos Gr'#195#161'tis no Fechamento de Caixa'
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object LabelCB19: TLabel
+        Left = 19
+        Height = 42
+        Top = 379
+        Width = 307
+        AutoSize = False
+        Caption = 'Quantidade de Cr'#195#169'ditos Gr'#195#161'tisVIP no Fechamento de Caixa'
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ComboBox19: TComboBox
+        Left = 18
+        Height = 35
+        Top = 420
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('0' '2' '5' '10')
+        OnChange = ComboBox19Change
+        ParentFont = False
+        TabOrder = 2
+      end
+      object ComboBox20: TComboBox
+        Left = 18
+        Height = 35
+        Top = 559
+        Width = 140
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('800' '1280')
+        OnChange = ComboBox20Change
+        ParentFont = False
+        TabOrder = 3
+      end
+      object LabelCB20: TLabel
+        Left = 20
+        Height = 26
+        Top = 531
+        Width = 298
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Resolu'#195#167#195#163'o da TV '
+        Font.Color = clWhite
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ComboBox21: TComboBox
+        Left = 178
+        Height = 35
+        Top = 558
+        Width = 140
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('600' '720')
+        OnChange = ComboBox20Change
+        ParentFont = False
+        TabOrder = 4
+      end
+      object EditFrase1: TEdit
+        Left = 363
+        Height = 30
+        Top = 91
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 5
+      end
+      object EditFrase2: TEdit
+        Left = 363
+        Height = 30
+        Top = 124
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 6
+      end
+      object EditFrase3: TEdit
+        Left = 363
+        Height = 30
+        Top = 157
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 7
+      end
+      object EditFrase4: TEdit
+        Left = 363
+        Height = 30
+        Top = 190
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 8
+      end
+      object EditFrase5: TEdit
+        Left = 363
+        Height = 30
+        Top = 223
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 9
+      end
+      object EditFrase6: TEdit
+        Left = 363
+        Height = 30
+        Top = 256
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 10
+      end
+      object EditFrase7: TEdit
+        Left = 363
+        Height = 30
+        Top = 289
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 11
+      end
+      object EditFrase8: TEdit
+        Left = 363
+        Height = 30
+        Top = 322
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 12
+      end
+      object EditFrase9: TEdit
+        Left = 363
+        Height = 30
+        Top = 355
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 13
+      end
+      object EditFrase10: TEdit
+        Left = 363
+        Height = 30
+        Top = 387
+        Width = 373
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentFont = False
+        TabOrder = 14
+      end
+      object ButtonSalvarFrases: TButton
+        Left = 363
+        Height = 28
+        Top = 425
+        Width = 373
+        Caption = 'Clique Aqui para Alterar as Frases'
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonSalvarFrasesClick
+        ParentFont = False
+        TabOrder = 15
+      end
+      object Shape1: TShape
+        Left = 363
+        Height = 25
+        Top = 60
+        Width = 373
+        Brush.Color = clBlack
+        Pen.Color = clWhite
+        Pen.Width = 2
+      end
+      object LabelCB21: TLabel
+        Left = 366
+        Height = 19
+        Top = 64
+        Width = 366
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Frases do Display de Led'
+        Color = clBlack
+        Font.Color = clRed
+        Font.Height = -16
+        Font.Name = 'Erbos Draco 1st Open NBP'
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        WordWrap = True
+      end
+      object ButtonUpgrade: TButton
+        Left = 18
+        Height = 37
+        Top = 255
+        Width = 300
+        Caption = 'Ler PenDrive de Upgrade'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonUpgradeClick
+        ParentFont = False
+        TabOrder = 16
+      end
+      object LabelUpg: TLabel
+        Left = 18
+        Height = 42
+        Top = 201
+        Width = 298
+        AutoSize = False
+        Caption = '...'
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ButtonZerarFila: TButton
+        Left = 18
+        Height = 37
+        Top = 109
+        Width = 300
+        Caption = 'Zerar Fila'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonZerarFilaClick
+        ParentFont = False
+        TabOrder = 17
+      end
+      object ButtonXML: TButton
+        Left = 18
+        Height = 37
+        Top = 157
+        Width = 300
+        Caption = 'Salvar XML no Pendrive'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonXMLClick
+        ParentFont = False
+        TabOrder = 18
+      end
+      object ComboBox22: TComboBox
+        Left = 18
+        Height = 35
+        Top = 631
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Sim' 'N'#195#163'o')
+        OnChange = ComboBox22Change
+        ParentFont = False
+        TabOrder = 19
+      end
+      object LabelCB22: TLabel
+        Left = 19
+        Height = 23
+        Top = 605
+        Width = 267
+        Caption = 'Fazer AutoTeste ao Ligar'
+        ParentColor = False
+      end
+      object ButtonQrCodeCadastroMenu: TButton
+        Left = 363
+        Height = 37
+        Top = 545
+        Width = 373
+        Caption = 'QrCode do Cadastro Obrigat'#195#179'rio'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonQrCodeCadastroMenuClick
+        ParentFont = False
+        TabOrder = 20
+      end
+      object PanelQrcodeCadastro1: TPanel
+        Left = 357
+        Height = 481
+        Top = 57
+        Width = 386
+        BevelInner = bvLowered
+        BevelWidth = 5
+        ClientHeight = 481
+        ClientWidth = 386
+        TabOrder = 21
+        object LabelQrCodeMenu: TLabel
+          Left = 48
+          Height = 77
+          Top = 31
+          Width = 295
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'QrCode com as informa'#195#167#195#181'es do Cadastro Obrigat'#195#179'rio'
+          Font.Color = clYellow
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold, fsItalic]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object ImageQrcode2: TImage
+          Left = 49
+          Height = 296
+          Top = 117
+          Width = 296
+          Stretch = True
+        end
+        object ButtonZeraCadastro: TButton
+          Left = 49
+          Height = 34
+          Top = 425
+          Width = 298
+          Caption = 'Zerar Cadastro'
+          Font.Color = clBlack
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonZeraCadastroClick
+          ParentFont = False
+          TabOrder = 0
+        end
+      end
+      object ComboBox23: TComboBox
+        Left = 19
+        Height = 35
+        Top = 489
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Ativado' 'Desativado')
+        OnChange = ComboBox23Change
+        ParentFont = False
+        TabOrder = 22
+      end
+      object LabelCB23: TLabel
+        Left = 20
+        Height = 23
+        Top = 462
+        Width = 209
+        Caption = 'Volume pelo Painel'
+        ParentColor = False
+      end
+    end
+    object PanelMenu1grande: TPanel
+      Left = 247
+      Height = 200
+      Top = 66
+      Width = 810
+      BevelOuter = bvNone
+      ClientHeight = 200
+      ClientWidth = 810
+      Color = clGreen
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 5
+      object LabelSairDoMenu1: TLabel
+        Left = 412
+        Height = 33
+        Top = 10
+        Width = 252
+        Caption = '   Sair do Menu   '
+        Color = clBlack
+        Font.Color = clYellow
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = LabelSairDoMenu1Click
+      end
+      object LabelCB1: TLabel
+        Left = 16
+        Height = 23
+        Top = 628
+        Width = 174
+        Caption = 'Reais X M'#195#186'sicas'
+        ParentColor = False
+      end
+      object LabelCB2: TLabel
+        Left = 16
+        Height = 23
+        Top = 129
+        Width = 176
+        Caption = 'Exibir Videos no'
+        ParentColor = False
+      end
+      object LabelCB3: TLabel
+        Left = 16
+        Height = 23
+        Top = 212
+        Width = 168
+        Caption = 'Ordem dos CDS'
+        ParentColor = False
+      end
+      object LabelCB4: TLabel
+        Left = 16
+        Height = 23
+        Top = 295
+        Width = 147
+        Caption = 'M'#195#186'sica Gr'#195#161'tis'
+        ParentColor = False
+      end
+      object LabelCB5: TLabel
+        Left = 16
+        Height = 23
+        Top = 380
+        Width = 219
+        Caption = 'Tipo de Propaganda'
+        ParentColor = False
+      end
+      object LabelCB6: TLabel
+        Left = 16
+        Height = 23
+        Top = 466
+        Width = 332
+        Caption = 'Limitar Volume das 22 as 09hs'
+        ParentColor = False
+      end
+      object ComboBox1: TComboBox
+        Left = 16
+        Height = 35
+        Top = 655
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('1x1' '1x2' '2x1' '1x1, 2x3, 5x10' 'Livre')
+        OnChange = ComboBox1Change
+        ParentFont = False
+        TabOrder = 0
+      end
+      object ComboBox2: TComboBox
+        Left = 16
+        Height = 35
+        Top = 156
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('MONITOR' 'TV')
+        OnChange = ComboBox2Change
+        ParentFont = False
+        TabOrder = 1
+      end
+      object ComboBox3: TComboBox
+        Left = 16
+        Height = 35
+        Top = 239
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Ritmo + Alfabetica' 'Alfabetica')
+        OnChange = ComboBox3Change
+        ParentFont = False
+        TabOrder = 2
+      end
+      object ComboBox4: TComboBox
+        Left = 16
+        Height = 35
+        Top = 322
+        Width = 300
+        HelpType = htKeyword
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Sem Musica Gratis' 'Continua' '01 Minutos / Inteira' '02 Minutos / Inteira' '03 Minutos / Inteira' '04 Minutos / Inteira' '05 Minutos / Inteira' '10 Minutos / Inteira' '15 Minutos / Inteira' '20 Minutos / Inteira' '25 Minutos / Inteira' '30 Minutos / Inteira' '45 Minutos / Inteira' '01 Minutos / 1 Minuto' '02 Minutos / 1 Minuto' '03 Minutos / 1 Minuto' '04 Minutos / 1 Minuto' '05 Minutos / 1 Minuto' '10 Minutos / 1 Minuto' '15 Minutos / 1 Minuto' '20 Minutos / 1 Minuto' '25 Minutos / 1 Minuto' '30 Minutos / 1 Minuto' '45 Minutos / 1 Minuto')
+        OnChange = ComboBox4Change
+        ParentFont = False
+        TabOrder = 3
+      end
+      object ComboBox5: TComboBox
+        Left = 16
+        Height = 35
+        Top = 408
+        Width = 300
+        HelpType = htKeyword
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Sem Propaganda' 'Fotos PNG no Monitor' 'Fotos para Bar no Monitor' 'Fotos para Boate no Monitor' 'Fotos para Bar na TV' 'Fotos para Boate na TV' 'Videos para Bar na TV/Monitor' 'Videos para Boate na TV/Monitor' 'Videos para Bar na TV/Monitor enquanto Toca CD' 'Videos para Boate na TV/Monitor enquanto Toca CD')
+        OnChange = ComboBox5Change
+        ParentFont = False
+        TabOrder = 4
+      end
+      object ComboBox6: TComboBox
+        Left = 16
+        Height = 35
+        Top = 493
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('N'#195#163'o Limitar Volume' 'Limitar o Volume: 10' 'Limitar o Volume: 15' 'Limitar o Volume: 20' 'Limitar o Volume: 25' 'Limitar o Volume: 30' 'Limitar o Volume: 35' 'Limitar o Volume: 40' 'Limitar o Volume: 45' 'Limitar o Volume: 50' 'Limitar o Volume: 55' 'Limitar o Volume: 60' 'Limitar o Volume: 65' 'Limitar o Volume: 70' 'Limitar o Volume: 75' 'Limitar o Volume: 80' 'Limitar o Volume: 85' 'Limitar o Volume: 90' 'Limitar o Volume: 95')
+        OnChange = ComboBox6Change
+        ParentFont = False
+        TabOrder = 5
+      end
+      object LabelCB7: TLabel
+        Left = 16
+        Height = 23
+        Top = 46
+        Width = 235
+        Caption = 'Resolu'#195#167#195#163'o do Monitor'
+        ParentColor = False
+      end
+      object ComboBox7: TComboBox
+        Left = 16
+        Height = 35
+        Top = 73
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('1024x768 (4:3)' '1366x768 (16:9)' '1440x900 (16:10)' 'Automatico')
+        OnChange = ComboBox7Change
+        ParentFont = False
+        TabOrder = 6
+      end
+      object ComboBox8: TComboBox
+        Left = 370
+        Height = 35
+        Top = 73
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('N'#195#163'o Bloquear Nunca' '500' '1000' '2000' '3000' '4000' '5000' '6000' '7000' '8000' '9000' '10000')
+        OnChange = ComboBox8Change
+        ParentFont = False
+        TabOrder = 7
+      end
+      object LabelCB8: TLabel
+        Left = 370
+        Height = 19
+        Top = 49
+        Width = 301
+        Caption = 'Bloquear Quando Tocar (M'#195#186'sicas)'
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object ComboBox9: TComboBox
+        Left = 16
+        Height = 35
+        Top = 578
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Paginando' 'Um Toque')
+        OnChange = ComboBox9Change
+        ParentFont = False
+        TabOrder = 8
+      end
+      object LabelCB9: TLabel
+        Left = 16
+        Height = 23
+        Top = 551
+        Width = 327
+        Caption = 'Forma de Selecionar o G'#195#170'nero'
+        ParentColor = False
+      end
+      object ComboBox10: TComboBox
+        Left = 370
+        Height = 35
+        Top = 156
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Desativado' 'Boate' 'Bar')
+        OnChange = ComboBox10Change
+        ParentFont = False
+        TabOrder = 9
+      end
+      object LabelCB10: TLabel
+        Left = 370
+        Height = 23
+        Top = 129
+        Width = 163
+        Caption = 'Cart'#195#163'o Jukebox'
+        Font.Color = clWhite
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ComboBox11: TComboBox
+        Left = 370
+        Height = 35
+        Top = 239
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Aleatoria' '50 Musicas +Tocadas')
+        OnChange = ComboBox11Change
+        ParentFont = False
+        TabOrder = 10
+      end
+      object LabelCB11: TLabel
+        Left = 370
+        Height = 23
+        Top = 212
+        Width = 272
+        Caption = 'Sele'#195#167#195#163'o de M'#195#186'sica Gr'#195#161'tis'
+        ParentColor = False
+      end
+      object ComboBox12: TComboBox
+        Left = 370
+        Height = 35
+        Top = 322
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Hor'#195#161'rio' 'Anti-Hor'#195#161'rio')
+        OnChange = ComboBox12Change
+        ParentFont = False
+        TabOrder = 11
+      end
+      object LabelCB12: TLabel
+        Left = 370
+        Height = 23
+        Top = 295
+        Width = 236
+        Caption = 'Sentido da Pagina'#195#167#195#163'o'
+        ParentColor = False
+      end
+      object LabelCB13: TLabel
+        Left = 370
+        Height = 23
+        Top = 380
+        Width = 209
+        Caption = 'Sorteio de Cr'#195#169'ditos'
+        Font.Color = clWhite
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object ComboBox14: TComboBox
+        Left = 370
+        Height = 35
+        Top = 493
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Sem Palhinha Musical' 'Palhinha de 10 Segundos' 'Palhinha de 15 Segundos' 'Palhinha de 20 Segundos' 'Palhinha de 25 Segundos' 'Palhinha de 30 Segundos' '')
+        OnChange = ComboBox14Change
+        ParentFont = False
+        TabOrder = 12
+      end
+      object LabelCB14: TLabel
+        Left = 370
+        Height = 23
+        Top = 466
+        Width = 184
+        Caption = 'Palhinha Musical'
+        ParentColor = False
+      end
+      object ComboBox15: TComboBox
+        Left = 370
+        Height = 35
+        Top = 578
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Continua' 'Dentro do Ritmo')
+        OnChange = ComboBox15Change
+        ParentFont = False
+        TabOrder = 13
+      end
+      object ComboBox16: TComboBox
+        Left = 369
+        Height = 35
+        Top = 655
+        Width = 300
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Um Toque' 'Pressionando')
+        OnChange = ComboBox16Change
+        ParentFont = False
+        TabOrder = 14
+      end
+      object LabelCB16: TLabel
+        Left = 370
+        Height = 42
+        Top = 615
+        Width = 308
+        AutoSize = False
+        Caption = 'Forma de Aumentar/Diminuir o Volume do Controle Remoto'
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object CheckBoxResolucaoMonitor: TCheckBox
+        Left = 16
+        Height = 22
+        Top = 24
+        Width = 250
+        AutoSize = False
+        Caption = 'Alterar Resolu'#195#167#195#163'o do Linux'
+        Font.Color = clYellow
+        Font.Height = -13
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnChange = CheckBoxResolucaoMonitorChange
+        ParentFont = False
+        TabOrder = 15
+      end
+      object ComboBox13: TComboBox
+        Left = 371
+        Height = 37
+        Top = 408
+        Width = 300
+        HelpType = htKeyword
+        Font.Color = clBlack
+        Font.Height = -21
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('Sem Sorteio' '2 Reais' '5 Reais' '10 Reais')
+        OnChange = ComboBox13Change
+        ParentFont = False
+        TabOrder = 16
+      end
+      object LabelCB15: TLabel
+        Left = 370
+        Height = 23
+        Top = 551
+        Width = 219
+        Caption = 'Forma de Pagina'#195#167#195#163'o'
+        ParentColor = False
+      end
+    end
+    object PanelMenu3grande: TPanel
+      Left = 247
+      Height = 109
+      Top = 386
+      Width = 681
+      BevelOuter = bvNone
+      ClientHeight = 109
+      ClientWidth = 681
+      Color = clPurple
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 10
+      object ButtonExcluirCDs1: TButton
+        Left = 127
+        Height = 80
+        Top = 350
+        Width = 500
+        Caption = 'Cds e DVDs Mais Tocados'
+        Font.Color = clBlack
+        Font.Height = -29
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonExcluirCDs1Click
+        ParentFont = False
+        TabOrder = 6
+      end
+      object LabelSairDoMenu3: TLabel
+        Left = 412
+        Height = 33
+        Top = 10
+        Width = 252
+        Caption = '   Sair do Menu   '
+        Color = clBlack
+        Font.Color = clYellow
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = LabelSairDoMenu3Click
+      end
+      object ButtonCarregarCD: TButton
+        Left = 127
+        Height = 80
+        Top = 163
+        Width = 500
+        Caption = 'Carregar Atualiza'#195#167#195#163'o'
+        Font.Color = clBlack
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonCarregarCDClick
+        ParentFont = False
+        TabOrder = 1
+      end
+      object ButtonExcluirCDs: TButton
+        Left = 127
+        Height = 80
+        Top = 256
+        Width = 500
+        Caption = 'Excluir CDs e DVDs'
+        Font.Color = clBlack
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonExcluirCDsClick
+        ParentFont = False
+        TabOrder = 2
+      end
+      object ButtonEsconderRitmos: TButton
+        Left = 127
+        Height = 80
+        Top = 444
+        Width = 500
+        Caption = 'Ativar/Desativar G'#195#170'neros'
+        Font.Color = clBlack
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonEsconderRitmosClick
+        ParentFont = False
+        TabOrder = 4
+      end
+      object PanelEsconderRitmos: TPanel
+        Left = 286
+        Height = 332
+        Top = 57
+        Width = 109
+        BorderWidth = 3
+        ClientHeight = 332
+        ClientWidth = 109
+        Color = clSilver
+        ParentColor = False
+        TabOrder = 5
+        object LabelETit1: TLabel
+          Left = 4
+          Height = 23
+          Top = 4
+          Width = 101
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Ativar/Desativar G'#195#170'neros'
+          Color = clGray
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object ButtonEA: TButton
+          Left = 22
+          Height = 39
+          Top = 295
+          Width = 240
+          Caption = 'Desativar G'#195#170'nero'
+          Font.Color = clGray
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEAClick
+          ParentFont = False
+          TabOrder = 0
+        end
+        object ButtonEI: TButton
+          Left = 292
+          Height = 39
+          Top = 295
+          Width = 240
+          Caption = 'Ativar G'#195#170'nero'
+          Font.Color = clTeal
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEIClick
+          ParentFont = False
+          TabOrder = 1
+        end
+        object ListBoxRAtivo: TListBox
+          Left = 22
+          Height = 200
+          Top = 83
+          Width = 240
+          Font.Color = clTeal
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          ParentFont = False
+          ScrollWidth = 238
+          TabOrder = 2
+          TopIndex = -1
+        end
+        object LabelEGA: TLabel
+          Left = 24
+          Height = 23
+          Top = 49
+          Width = 240
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'G'#195#170'neros Ativos'
+          Font.Color = clTeal
+          Font.Height = -24
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelEGI: TLabel
+          Left = 292
+          Height = 23
+          Top = 49
+          Width = 240
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'G'#195#170'neros Inativos'
+          Font.Color = clGray
+          Font.Height = -24
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object ListBoxRInativo: TListBox
+          Left = 292
+          Height = 200
+          Top = 83
+          Width = 240
+          Font.Color = clGray
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          ParentFont = False
+          ScrollWidth = 238
+          TabOrder = 3
+          TopIndex = -1
+        end
+      end
+      object PanelEsconderRitmos1: TPanel
+        Left = 435
+        Height = 458
+        Top = 59
+        Width = 120
+        BorderWidth = 3
+        ClientHeight = 458
+        ClientWidth = 120
+        Color = clSilver
+        ParentColor = False
+        TabOrder = 7
+        object ImageCapaMT: TImage
+          Left = 527
+          Height = 145
+          Top = 409
+          Width = 145
+        end
+        object LabelETit2: TLabel
+          Left = 4
+          Height = 23
+          Top = 4
+          Width = 112
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'CDs e DVDs Mais Tocados'
+          Color = clGray
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object ButtonEA1: TButton
+          Left = 22
+          Height = 39
+          Top = 420
+          Width = 240
+          Caption = 'Excluir CD/DVD'
+          Font.Color = clGray
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEA1Click
+          ParentFont = False
+          TabOrder = 0
+        end
+        object ListBoxRGeneros: TListBox
+          Left = 22
+          Height = 311
+          Top = 83
+          Width = 240
+          Font.Color = clTeal
+          Font.Height = -16
+          Font.Name = 'Sans'
+          ItemHeight = 0
+          OnClick = ListBoxRGenerosClick
+          ParentFont = False
+          ScrollWidth = 238
+          TabOrder = 1
+          TopIndex = -1
+        end
+        object LabelEGA1: TLabel
+          Left = 24
+          Height = 23
+          Top = 49
+          Width = 240
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'G'#195#170'neros'
+          Font.Color = clWhite
+          Font.Height = -24
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelEGI1: TLabel
+          Left = 276
+          Height = 23
+          Top = 49
+          Width = 404
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'CDs e DVDs'
+          Font.Color = clWhite
+          Font.Height = -24
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object ListBoxRCds: TListBox
+          Left = 276
+          Height = 311
+          Top = 83
+          Width = 406
+          Font.Color = clGray
+          Font.Height = -13
+          Font.Name = 'Sans'
+          ItemHeight = 0
+          OnClick = ListBoxRCdsClick
+          ParentFont = False
+          ScrollWidth = 404
+          Sorted = True
+          TabOrder = 2
+          TopIndex = -1
+        end
+        object LabelMTocou: TLabel
+          Left = 280
+          Height = 17
+          Top = 60
+          Width = 47
+          Caption = '(Tocou)'
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Sans'
+          ParentColor = False
+          ParentFont = False
+        end
+        object CapaMT: TImage
+          Left = 504
+          Height = 161
+          Top = 401
+          Width = 178
+          Picture.Data = {binário 7392 bytes}
+        end
+        object ImgLanMT: TImage
+          Left = 510
+          Height = 90
+          Top = 405
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object LabelCDMt: TLabel
+          Left = 506
+          Height = 18
+          Top = 569
+          Width = 28
+          Caption = 'De:'
+          Font.Color = clWhite
+          Font.Height = -15
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object ButtonZera50: TButton
+          Left = 22
+          Height = 27
+          Top = 516
+          Width = 292
+          Caption = 'Zerar Lista de 50 + Tocados'
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonZera50Click
+          ParentFont = False
+          TabOrder = 3
+        end
+      end
+      object PanelExcluirMusica: TPanel
+        Left = 19
+        Height = 437
+        Top = 58
+        Width = 355
+        BevelInner = bvLowered
+        BevelWidth = 2
+        BorderWidth = 2
+        ClientHeight = 437
+        ClientWidth = 355
+        Color = clBlack
+        ParentColor = False
+        TabOrder = 3
+        object LabelETit: TLabel
+          Left = 6
+          Height = 23
+          Top = 6
+          Width = 343
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Exclus'#195#163'o de CDs/DVDs'
+          Color = clGray
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          Transparent = False
+        end
+        object CDE1: TImage
+          Left = 54
+          Height = 145
+          Top = 60
+          Width = 145
+        end
+        object ButtonEO1: TButton
+          Left = 31
+          Height = 32
+          Top = 506
+          Width = 172
+          Caption = '< P'#195#161'gina Anterior'
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEO1Click
+          ParentFont = False
+          TabOrder = 0
+        end
+        object ButtonEO2: TButton
+          Left = 496
+          Height = 32
+          Top = 506
+          Width = 172
+          Caption = 'Pr'#195#179'xima Pagina >'
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEO2Click
+          ParentFont = False
+          TabOrder = 1
+        end
+        object ButtonEO3: TButton
+          Left = 267
+          Height = 32
+          Top = 506
+          Width = 172
+          Caption = 'Pr'#195#179'ximo G'#195#170'nero'
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEO3Click
+          ParentFont = False
+          TabOrder = 2
+        end
+        object LabelE1: TLabel
+          Left = 32
+          Height = 51
+          Top = 215
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelE2: TLabel
+          Left = 265
+          Height = 51
+          Top = 215
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelE3: TLabel
+          Left = 496
+          Height = 51
+          Top = 215
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelE4: TLabel
+          Left = 31
+          Height = 51
+          Top = 429
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelE5: TLabel
+          Left = 265
+          Height = 51
+          Top = 429
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelE6: TLabel
+          Left = 496
+          Height = 51
+          Top = 429
+          Width = 171
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Tocou: 000 De:_00/00/0000'
+          Font.Color = clWhite
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object CDE2: TImage
+          Left = 288
+          Height = 145
+          Top = 60
+          Width = 145
+        end
+        object CDE3: TImage
+          Left = 519
+          Height = 145
+          Top = 60
+          Width = 145
+        end
+        object CDE4: TImage
+          Left = 54
+          Height = 145
+          Top = 276
+          Width = 145
+        end
+        object CDE5: TImage
+          Left = 288
+          Height = 145
+          Top = 276
+          Width = 145
+        end
+        object CDE6: TImage
+          Left = 519
+          Height = 145
+          Top = 276
+          Width = 145
+        end
+        object CapaE1: TImage
+          Left = 32
+          Height = 160
+          Top = 53
+          Width = 174
+          OnClick = CapaE1Click
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object CapaE2: TImage
+          Left = 265
+          Height = 160
+          Top = 52
+          Width = 174
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object CapaE3: TImage
+          Left = 496
+          Height = 160
+          Top = 52
+          Width = 174
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object CapaE4: TImage
+          Left = 32
+          Height = 160
+          Top = 269
+          Width = 175
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object CapaE5: TImage
+          Left = 265
+          Height = 160
+          Top = 269
+          Width = 174
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object CapaE6: TImage
+          Left = 496
+          Height = 160
+          Top = 269
+          Width = 174
+          Picture.Data = {binário 84018 bytes}
+          Transparent = True
+        end
+        object ButtonEX1: TButton
+          Left = 83
+          Height = 28
+          Top = 139
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX1Click
+          ParentFont = False
+          TabOrder = 3
+        end
+        object ImgLanE1: TImage
+          Left = 37
+          Height = 90
+          Top = 56
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ImgLanE2: TImage
+          Left = 270
+          Height = 90
+          Top = 56
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ImgLanE3: TImage
+          Left = 501
+          Height = 90
+          Top = 56
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ImgLanE4: TImage
+          Left = 37
+          Height = 90
+          Top = 274
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ImgLanE5: TImage
+          Left = 270
+          Height = 90
+          Top = 274
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ImgLanE6: TImage
+          Left = 501
+          Height = 90
+          Top = 274
+          Width = 90
+          Picture.Data = {binário 4676 bytes}
+        end
+        object ButtonEX2: TButton
+          Left = 316
+          Height = 28
+          Top = 139
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX2Click
+          ParentFont = False
+          TabOrder = 4
+        end
+        object ButtonEX3: TButton
+          Left = 549
+          Height = 28
+          Top = 139
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX3Click
+          ParentFont = False
+          TabOrder = 5
+        end
+        object ButtonEX4: TButton
+          Left = 83
+          Height = 28
+          Top = 356
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX4Click
+          ParentFont = False
+          TabOrder = 6
+        end
+        object ButtonEX5: TButton
+          Left = 316
+          Height = 28
+          Top = 356
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX5Click
+          ParentFont = False
+          TabOrder = 7
+        end
+        object ButtonEX6: TButton
+          Left = 549
+          Height = 28
+          Top = 356
+          Width = 90
+          Caption = 'Excluir'
+          Font.Color = clRed
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonEX6Click
+          ParentFont = False
+          TabOrder = 8
+        end
+        object ComboBoxMG1: TComboBox
+          Left = 60
+          Height = 29
+          Top = 171
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG1Change
+          ParentFont = False
+          TabOrder = 9
+          Text = 'ComboBoxMG1'
+        end
+        object ComboBoxMG2: TComboBox
+          Left = 293
+          Height = 29
+          Top = 171
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG2Change
+          ParentFont = False
+          TabOrder = 10
+          Text = 'ComboBoxMG2'
+        end
+        object ComboBoxMG3: TComboBox
+          Left = 523
+          Height = 29
+          Top = 171
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG3Change
+          ParentFont = False
+          TabOrder = 11
+          Text = 'ComboBoxMG3'
+        end
+        object ComboBoxMG4: TComboBox
+          Left = 60
+          Height = 29
+          Top = 388
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG4Change
+          ParentFont = False
+          TabOrder = 12
+          Text = 'ComboBoxMG4'
+        end
+        object ComboBoxMG5: TComboBox
+          Left = 293
+          Height = 29
+          Top = 388
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG5Change
+          ParentFont = False
+          TabOrder = 13
+          Text = 'ComboBoxMG5'
+        end
+        object ComboBoxMG6: TComboBox
+          Left = 523
+          Height = 29
+          Top = 388
+          Width = 136
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          OnChange = ComboBoxMG6Change
+          ParentFont = False
+          TabOrder = 14
+          Text = 'ComboBoxMG6'
+        end
+      end
+      object PanelCarregarMusica: TPanel
+        Left = 320
+        Height = 322
+        Top = 247
+        Width = 184
+        ClientHeight = 322
+        ClientWidth = 184
+        Color = clSilver
+        ParentColor = False
+        TabOrder = 0
+        object LabelMusDias: TLabel
+          Left = 20
+          Height = 70
+          Top = 359
+          Width = 290
+          AutoSize = False
+          Caption = 'Quantidade de Dias a Partir de Hoje [00/00/0000] para os CDs/DVDs que Ser'#195#163'o Carregados Permanecerem no G'#195#170'nero Lan'#195#167'amentos'
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelMusUltima1: TLabel
+          Left = 20
+          Height = 19
+          Top = 553
+          Width = 180
+          Caption = #195#154'ltima Atualiza'#195#167#195#163'o: '
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelMusHD: TLabel
+          Left = 333
+          Height = 17
+          Top = 374
+          Width = 22
+          Caption = 'HD'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelMusAtu: TLabel
+          Left = 334
+          Height = 17
+          Top = 393
+          Width = 85
+          Caption = 'Atualiza'#195#167#195#163'o'
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelMusNomeCD: TLabel
+          Left = 14
+          Height = 33
+          Top = 7
+          Width = 11
+          Caption = '-'
+          Font.Color = clBlack
+          Font.Height = -27
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object PanelMusCapa: TPanel
+          Left = 9
+          Height = 308
+          Top = 47
+          Width = 308
+          BevelInner = bvSpace
+          BevelWidth = 4
+          BorderWidth = 1
+          ClientHeight = 308
+          ClientWidth = 308
+          TabOrder = 0
+          object ImageMusCapa: TImage
+            Left = 9
+            Height = 290
+            Top = 9
+            Width = 290
+            Align = alClient
+          end
+        end
+        object ButtonMusCarregar: TButton
+          Left = 17
+          Height = 33
+          Top = 447
+          Width = 288
+          Caption = 'Carregar CDs/DVDs Novos'
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonMusCarregarClick
+          ParentFont = False
+          TabOrder = 1
+        end
+        object ComboBoxMusPeriodo: TComboBox
+          Left = 228
+          Height = 31
+          Top = 413
+          Width = 75
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ItemHeight = 0
+          ItemIndex = 2
+          Items.Strings = ('15' '30' '45' '60' '90')
+          OnChange = ComboBoxMusPeriodoChange
+          ParentFont = False
+          TabOrder = 2
+          Text = '45'
+        end
+        object CheckBoxSubstituir: TCheckBox
+          Left = 17
+          Height = 22
+          Top = 480
+          Width = 230
+          AutoSize = False
+          Caption = 'Substituir CDs/DVDs'
+          DragKind = dkDock
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 3
+        end
+        object LabelMusUltima2: TLabel
+          Left = 20
+          Height = 19
+          Top = 578
+          Width = 270
+          Caption = '00/00/0000 - Qtd. de Cds: 000'
+          Font.Color = clPurple
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object LabelMusCopia: TLabel
+          Left = 333
+          Height = 299
+          Top = 51
+          Width = 351
+          AutoSize = False
+          Caption = '...'
+          ParentColor = False
+          WordWrap = True
+        end
+        object ButtonMusExcluirAuto: TButton
+          Left = 17
+          Height = 33
+          Top = 515
+          Width = 288
+          Caption = 'Excluir CDs/DVDs da Lista'
+          Font.Height = -16
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnClick = ButtonMusExcluirAutoClick
+          ParentFont = False
+          TabOrder = 4
+        end
+        object ShellTreeViewCC: TShellTreeView
+          Left = 328
+          Height = 145
+          Top = 447
+          Width = 352
+          Font.Color = clPurple
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          FileSortType = fstNone
+          ParentFont = False
+          TabOrder = 5
+          OnChange = ShellTreeViewCCChange
+          ObjectTypes = [otFolders]
+        end
+        object EditCC: TEdit
+          Left = 327
+          Height = 24
+          Top = 420
+          Width = 353
+          Font.Color = clPurple
+          Font.Height = -11
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 6
+        end
+        object CheckBox1: TCheckBox
+          Left = 17
+          Height = 22
+          Top = 422
+          Width = 191
+          AutoSize = False
+          Caption = 'Procurar Pen Drive'
+          Font.Color = clPurple
+          Font.Height = -13
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          OnChange = CheckBox1Change
+          ParentFont = False
+          TabOrder = 7
+        end
+      end
+    end
+    object PanelMenu4grande: TPanel
+      Left = 241
+      Height = 261
+      Top = 513
+      Width = 769
+      BevelOuter = bvNone
+      ClientHeight = 261
+      ClientWidth = 769
+      Color = clTeal
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 12
+      object LabelSairDoMenu4: TLabel
+        Left = 412
+        Height = 33
+        Top = 10
+        Width = 252
+        Caption = '   Sair do Menu   '
+        Color = clBlack
+        Font.Color = clYellow
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = LabelSairDoMenu4Click
+      end
+      object LabelMusicaMenos: TLabel
+        Left = 186
+        Height = 14
+        Top = 157
+        Width = 42
+        Caption = 'Musica-'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditMusicaMenos: TEdit
+        Left = 178
+        Height = 33
+        Top = 211
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditMusicaMenosKeyDown
+        ParentFont = False
+        TabOrder = 0
+      end
+      object EditCDMenos: TEdit
+        Left = 103
+        Height = 33
+        Top = 168
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCDMenosKeyDown
+        ParentFont = False
+        TabOrder = 1
+      end
+      object LabelCdMenos: TLabel
+        Left = 119
+        Height = 14
+        Top = 202
+        Width = 20
+        Caption = 'CD-'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditMusicaMais: TEdit
+        Left = 178
+        Height = 33
+        Top = 122
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditMusicaMaisKeyDown
+        ParentFont = False
+        TabOrder = 2
+      end
+      object LabelMusicaMais: TLabel
+        Left = 186
+        Height = 14
+        Top = 246
+        Width = 47
+        Caption = 'Musica+'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelCdMais: TLabel
+        Left = 269
+        Height = 14
+        Top = 202
+        Width = 25
+        Caption = 'CD+'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditCDMais: TEdit
+        Left = 254
+        Height = 33
+        Top = 168
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCDMaisKeyDown
+        ParentFont = False
+        TabOrder = 3
+      end
+      object LabelRitmo2: TLabel
+        Left = 38
+        Height = 14
+        Top = 202
+        Width = 33
+        Caption = 'Ritmo'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditRitmo: TEdit
+        Left = 28
+        Height = 33
+        Top = 168
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditRitmoKeyDown
+        ParentFont = False
+        TabOrder = 4
+      end
+      object LabelTocar: TLabel
+        Left = 340
+        Height = 14
+        Top = 202
+        Width = 30
+        Caption = 'Tocar'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditTocar: TEdit
+        Left = 328
+        Height = 33
+        Top = 168
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditTocarKeyDown
+        ParentFont = False
+        TabOrder = 5
+      end
+      object EditCancelar: TEdit
+        Left = 28
+        Height = 33
+        Top = 288
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCancelarKeyDown
+        ParentFont = False
+        TabOrder = 6
+      end
+      object LabelCancelar: TLabel
+        Left = 33
+        Height = 14
+        Top = 323
+        Width = 50
+        Caption = 'Cancelar'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditCredito: TEdit
+        Left = 103
+        Height = 33
+        Top = 289
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCreditoKeyDown
+        ParentFont = False
+        TabOrder = 7
+      end
+      object LabelCredito: TLabel
+        Left = 109
+        Height = 14
+        Top = 323
+        Width = 41
+        Caption = 'Cr'#195#169'dito'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditMenuTecla: TEdit
+        Left = 178
+        Height = 33
+        Top = 289
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditMenuTeclaKeyDown
+        ParentFont = False
+        TabOrder = 8
+      end
+      object LabelMenu: TLabel
+        Left = 189
+        Height = 14
+        Top = 323
+        Width = 30
+        Caption = 'Menu'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelCRMenos: TLabel
+        Left = 255
+        Height = 14
+        Top = 323
+        Width = 60
+        Caption = 'C.Remoto-'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelCRMais: TLabel
+        Left = 331
+        Height = 14
+        Top = 323
+        Width = 65
+        Caption = 'C.Remoto+'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditCRMais: TEdit
+        Left = 328
+        Height = 33
+        Top = 288
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCRMaisKeyDown
+        ParentFont = False
+        TabOrder = 9
+      end
+      object EditCRMenos: TEdit
+        Left = 253
+        Height = 33
+        Top = 289
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCRMenosKeyDown
+        ParentFont = False
+        TabOrder = 10
+      end
+      object ButtonInterface: TButton
+        Left = 28
+        Height = 44
+        Top = 427
+        Width = 360
+        Caption = 'Salvar Letras da Interface'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonInterfaceClick
+        ParentFont = False
+        TabOrder = 11
+      end
+      object LabelIntInfo: TLabel
+        Left = 29
+        Height = 75
+        Top = 26
+        Width = 359
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Clique no Campo e Pressione a Tecla'
+        Font.Color = clWhite
+        Font.Height = -24
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object LabelCreditoVIP: TLabel
+        Left = 160
+        Height = 14
+        Top = 389
+        Width = 107
+        Caption = 'Cr'#195#169'ditos Gr'#195#161'tis VIP'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditCreditoVIP: TEdit
+        Left = 181
+        Height = 33
+        Top = 354
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCreditoVIPKeyDown
+        ParentFont = False
+        TabOrder = 12
+      end
+      object ButtonInt1: TButton
+        Left = 459
+        Height = 44
+        Top = 296
+        Width = 236
+        Caption = 'Interface LL PS2'
+        Font.Color = clTeal
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonInt1Click
+        ParentFont = False
+        TabOrder = 13
+      end
+      object ButtonInt2: TButton
+        Left = 459
+        Height = 44
+        Top = 364
+        Width = 236
+        Caption = 'Interface LL USB'
+        Font.Color = clTeal
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonInt2Click
+        ParentFont = False
+        TabOrder = 14
+      end
+      object LabelIntInfo1: TLabel
+        Left = 459
+        Height = 102
+        Top = 168
+        Width = 235
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Configure a Interface pelo Modelo'
+        Font.Color = clWhite
+        Font.Height = -24
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        WordWrap = True
+      end
+      object EditCredito2: TEdit
+        Left = 65
+        Height = 33
+        Top = 354
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditCredito2KeyDown
+        ParentFont = False
+        TabOrder = 15
+      end
+      object LabelCredito1: TLabel
+        Left = 71
+        Height = 14
+        Top = 388
+        Width = 48
+        Caption = 'Cr'#195#169'dito2'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+      object EditKaraoke: TEdit
+        Left = 328
+        Height = 33
+        Top = 355
+        Width = 60
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnKeyDown = EditTocarKeyDown
+        ParentFont = False
+        TabOrder = 16
+      end
+      object LabelKaraoke: TLabel
+        Left = 335
+        Height = 14
+        Top = 389
+        Width = 46
+        Caption = 'Karaoke'
+        Font.Height = -11
+        Font.Name = 'Sans'
+        ParentColor = False
+        ParentFont = False
+      end
+    end
+    object PanelMenu2grande: TPanel
+      Left = 248
+      Height = 198
+      Top = 268
+      Width = 769
+      BevelOuter = bvNone
+      ClientHeight = 198
+      ClientWidth = 769
+      Color = clBlue
+      Font.Color = clWhite
+      Font.Height = -19
+      Font.Name = 'Sans'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      TabOrder = 8
+      object LabelRT: TLabel
+        Left = 15
+        Height = 38
+        Top = 37
+        Width = 439
+        Caption = 'Rel'#195#179'gio Total: R$ 000,00'
+        Font.Color = clWhite
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelRP: TLabel
+        Left = 15
+        Height = 38
+        Top = 85
+        Width = 474
+        Caption = 'Rel'#195#179'gio Parcial: R$ 000,00'
+        Font.Color = clWhite
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelPor: TLabel
+        Left = 15
+        Height = 38
+        Top = 140
+        Width = 217
+        Caption = '% do Ponto:'
+        Font.Color = clWhite
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelVP: TLabel
+        Left = 15
+        Height = 66
+        Top = 241
+        Width = 825
+        Caption = 'Valor do Ponto: R$ 000,00'
+        Font.Color = clYellow
+        Font.Height = -56
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelVE: TLabel
+        Left = 15
+        Height = 38
+        Top = 191
+        Width = 522
+        Caption = 'Valor do Empresa: R$ 000,00'
+        Font.Color = clWhite
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelUF1: TLabel
+        Left = 15
+        Height = 23
+        Top = 586
+        Width = 218
+        Caption = #195#154'ltimo Fechamento:'
+        Font.Color = clGray
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object LabelUF2: TLabel
+        Left = 15
+        Height = 23
+        Top = 617
+        Width = 129
+        Caption = 'Data e Hora'
+        Font.Color = clGray
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+      end
+      object ComboBoxPorcento: TComboBox
+        Left = 246
+        Height = 35
+        Top = 139
+        Width = 87
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ItemHeight = 0
+        Items.Strings = ('30' '35' '40' '45' '50')
+        OnChange = ComboBoxPorcentoChange
+        ParentFont = False
+        TabOrder = 0
+        Text = '00'
+      end
+      object ButtonQR: TButton
+        Left = 354
+        Height = 46
+        Top = 115
+        Width = 173
+        Caption = 'QR Code'
+        Font.Color = clBlack
+        Font.Height = -32
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonQRClick
+        ParentFont = False
+        TabOrder = 1
+      end
+      object ImageQrcode: TImage
+        Left = 555
+        Height = 296
+        Top = 212
+        Width = 296
+        Stretch = True
+      end
+      object ButtonZRP: TButton
+        Left = 538
+        Height = 31
+        Top = 124
+        Width = 253
+        Caption = 'Zerar o Rel'#195#179'gio Parcial'
+        Font.Color = clBlack
+        Font.Height = -19
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        OnClick = ButtonZRPClick
+        ParentFont = False
+        TabOrder = 2
+      end
+      object LabelPress: TLabel
+        Left = 15
+        Height = 23
+        Top = 381
+        Width = 522
+        Caption = 'Pressione o Bot'#195#163'o OK para Zerar Rel'#195#179'gio Parcial'
+        ParentColor = False
+      end
+      object LabelPress1: TLabel
+        Left = 15
+        Height = 23
+        Top = 411
+        Width = 595
+        Caption = 'Pressione o Bot'#195#163'o M'#195#154'SICA para Carregar a Atualiza'#195#167#195#163'o'
+        ParentColor = False
+      end
+      object LabelPress2: TLabel
+        Left = 15
+        Height = 64
+        Top = 442
+        Width = 647
+        AutoSize = False
+        Caption = 'Pressione o Bot'#195#163'o G'#195#138'NERO para deixar 10 Cr'#195#169'ditos Gr'#195#161'tis'
+        ParentColor = False
+        WordWrap = True
+      end
+      object LabelNaoQR: TLabel
+        Left = 491
+        Height = 23
+        Top = 326
+        Width = 264
+        Caption = 'QRCode N'#195#163'o Encontrado'
+        ParentColor = False
+      end
+      object LabelSairDoMenu2: TLabel
+        Left = 412
+        Height = 33
+        Top = 10
+        Width = 252
+        Caption = '   Sair do Menu   '
+        Color = clBlack
+        Font.Color = clYellow
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        OnClick = LabelSairDoMenu2Click
+      end
+      object PanelMusRelogio: TPanel
+        Left = 482
+        Height = 335
+        Top = 364
+        Width = 234
+        BevelOuter = bvNone
+        BorderWidth = 10
+        ClientHeight = 335
+        ClientWidth = 234
+        Color = clPurple
+        ParentColor = False
+        TabOrder = 3
+        object LabelMusR: TLabel
+          Left = 10
+          Height = 110
+          Top = 215
+          Width = 214
+          Align = alBottom
+          AutoSize = False
+          Caption = '...'
+          Font.Color = clWhite
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          WordWrap = True
+        end
+        object LabelMusTot: TLabel
+          Left = 10
+          Height = 24
+          Top = 10
+          Width = 214
+          Align = alTop
+          Alignment = taCenter
+          AutoSize = False
+          Caption = '...'
+          Font.Color = clYellow
+          Font.Height = -19
+          Font.Name = 'Sans'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+        object PanelMusR: TPanel
+          Left = 53
+          Height = 159
+          Top = 55
+          Width = 159
+          BevelWidth = 4
+          BorderWidth = 3
+          ClientHeight = 159
+          ClientWidth = 159
+          Color = clBlack
+          ParentColor = False
+          TabOrder = 0
+          object ImageMusR: TImage
+            Left = 7
+            Height = 145
+            Top = 7
+            Width = 145
+            Align = alClient
+          end
+        end
+      end
+      object LabelPress3: TLabel
+        Left = 17
+        Height = 23
+        Top = 349
+        Width = 536
+        Caption = 'Coloque Cr'#195#169'ditos para Testar Noteiro e Moedeiro:'
+        ParentColor = False
+      end
+      object LabelEntrarNoMenu: TLabel
+        Left = 412
+        Height = 33
+        Top = 54
+        Width = 253
+        Alignment = taCenter
+        AutoSize = False
+        Caption = ' Entrar no Menu '
+        Color = clRed
+        Font.Color = clWhite
+        Font.Height = -27
+        Font.Name = 'Sans'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        Transparent = False
+        WordWrap = True
+        OnClick = LabelEntrarNoMenuClick
+      end
+      object PanelUpgrade1: TPanel
+        Left = 56
+        Height = 159
+        Top = 367
+        Width = 426
+        ClientHeight = 159
+        ClientWidth = 426
+        Color = clRed
+        ParentColor = False
+        TabOrder = 4
+        object LabelUpgrade1: TLabel
+          Left = 16
+          Height = 77
+          Top = 64
+          Width = 392
+          Alignment = taCenter
+          AutoSize = False
+          Caption = '...'
+          ParentColor = False
+          WordWrap = True
+        end
+        object LabelUpgradetit: TLabel
+          Left = 20
+          Height = 30
+          Top = 17
+          Width = 392
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'Carregando Arquivos de Upgrade'
+          ParentColor = False
+          WordWrap = True
+        end
+      end
+    end
+  end
+  object ImageLendo7: TImage
+    Left = 292
+    Height = 52
+    Top = 257
+    Width = 55
+    Picture.Data = {binário 2597748 bytes}
+    Stretch = True
+  end
+  object Timerabertura: TTimer
+    OnTimer = TimeraberturaTimer
+    left = 1083
+    top = 30
+  end
+  object TimerCadastro: TTimer
+    Interval = 300
+    OnTimer = TimerCadastroTimer
+    left = 1083
+    top = 142
+  end
+  object TimerPaginaMenos: TTimer
+    Interval = 1
+    OnTimer = TimerPaginaMenosTimer
+    left = 1083
+    top = 670
+  end
+  object TimerPaginaMais: TTimer
+    Interval = 1
+    OnTimer = TimerPaginaMaisTimer
+    left = 1083
+    top = 244
+  end
+  object TimerMostraNomeDeMusicas: TTimer
+    Interval = 500
+    OnTimer = TimerMostraNomeDeMusicasTimer
+    left = 1083
+    top = 518
+  end
+  object Timer1: TTimer
+    Interval = 500
+    OnTimer = Timer1Timer
+    left = 969
+    top = 281
+  end
+  object TimerPiscaSeta: TTimer
+    Interval = 750
+    OnTimer = TimerPiscaSetaTimer
+    left = 1083
+    top = 734
+  end
+  object TimerPiscaCreditos: TTimer
+    Interval = 250
+    OnTimer = TimerPiscaCreditosTimer
+    left = 965
+    top = 712
+  end
+  object TimerGravaPenDrive: TTimer
+    Interval = 3000
+    OnTimer = TimerGravaPenDriveTimer
+    left = 1083
+    top = 414
+  end
+  object TimerSelecionaRitmoAutomatico: TTimer
+    Interval = 2000
+    OnTimer = TimerSelecionaRitmoAutomaticoTimer
+    left = 1083
+    top = 302
+  end
+  object TimerSelecionaLetraAutomatico: TTimer
+    Interval = 2000
+    OnTimer = TimerSelecionaLetraAutomaticoTimer
+    left = 965
+    top = 489
+  end
+  object TimerPropaganda: TTimer
+    OnTimer = TimerPropagandaTimer
+    left = 1083
+    top = 622
+  end
+  object TimerPaginaSozinho: TTimer
+    OnTimer = TimerPaginaSozinhoTimer
+    left = 1083
+    top = 194
+  end
+  object TimerEscondeMsg: TTimer
+    Interval = 2500
+    OnTimer = TimerEscondeMsgTimer
+    left = 1083
+    top = 86
+  end
+  object TimerRodaDisplay: TTimer
+    Interval = 150
+    OnTimer = TimerRodaDisplayTimer
+    left = 1083
+    top = 574
+  end
+  object TimerFrases: TTimer
+    Interval = 500
+    OnTimer = TimerFrasesTimer
+    left = 1083
+    top = 462
+  end
+  object TimerNomeMusicaGrande: TTimer
+    Interval = 200
+    OnTimer = TimerNomeMusicaGrandeTimer
+    left = 967
+    top = 664
+  end
+  object TimerTocar: TTimer
+    OnTimer = TimerTocarTimer
+    left = 971
+    top = 72
+  end
+  object TimerTocando: TTimer
+    Interval = 100
+    OnTimer = TimerTocandoTimer
+    left = 970
+    top = 128
+  end
+  object TimerTelaCheia: TTimer
+    OnTimer = TimerTelaCheiaTimer
+    left = 965
+    top = 543
+  end
+  object TimerSenhaErrada: TTimer
+    OnTimer = TimerSenhaErradaTimer
+    left = 970
+    top = 16
+  end
+  object TimerMusicaGratis: TTimer
+    OnTimer = TimerMusicaGratisTimer
+    left = 967
+    top = 335
+  end
+  object Timer1Minuto: TTimer
+    OnTimer = Timer1MinutoTimer
+    left = 967
+    top = 600
+  end
+  object TimerVolume22hs: TTimer
+    OnTimer = TimerVolume22hsTimer
+    left = 967
+    top = 389
+  end
+  object TimerConfigInterface: TTimer
+    Interval = 250
+    OnTimer = TimerConfigInterfaceTimer
+    left = 965
+    top = 442
+  end
+  object TimerAcionaVolume: TTimer
+    Interval = 150
+    OnTimer = TimerAcionaVolumeTimer
+    left = 1083
+    top = 358
+  end
+  object TimerUmMinuto: TTimer
+    Interval = 60000
+    OnTimer = TimerUmMinutoTimer
+    left = 970
+    top = 230
+  end
+  object TimerTocandoTv: TTimer
+    OnTimer = TimerTocandoTvTimer
+    left = 969
+    top = 180
+  end
+  object TimerSorteio: TTimer
+    OnTimer = TimerSorteioTimer
+    left = 1175
+    top = 27
+  end
+  object TimerPalhinha: TTimer
+    OnTimer = TimerPalhinhaTimer
+    left = 1180
+    top = 96
+  end
+  object TimerPalhinhaTocando: TTimer
+    Interval = 250
+    OnTimer = TimerPalhinhaTocandoTimer
+    left = 1189
+    top = 163
+  end
+  object TimerTouchScreen: TTimer
+    Interval = 10
+    OnTimer = TimerTouchScreenTimer
+    left = 1218
+    top = 223
+  end
+  object TimerUmMilesegundo: TTimer
+    Interval = 1
+    OnTimer = TimerUmMilesegundoTimer
+    left = 1229
+    top = 276
+  end
+  object TimerDesativaVolume: TTimer
+    Interval = 5000
+    OnTimer = TimerDesativaVolumeTimer
+    left = 897
+    top = 14
+  end
+  object TimerCedulas: TTimer
+    Interval = 2000
+    OnTimer = TimerCedulasTimer
+    left = 1223
+    top = 368
+  end
+  object TimerVolumeMais: TTimer
+    Interval = 500
+    OnTimer = TimerVolumeMaisTimer
+    left = 1217
+    top = 464
+  end
+  object TimerVolumeMenos: TTimer
+    Interval = 500
+    OnTimer = TimerVolumeMenosTimer
+    left = 1216
+    top = 552
+  end
+  object TimerTocandoPalhinhaESeleTocar: TTimer
+    OnTimer = TimerTocandoPalhinhaESeleTocarTimer
+    left = 763
+    top = 39
+  end
+  object TimerSetaVermelha: TTimer
+    OnTimer = TimerSetaVermelhaTimer
+    left = 898
+    top = 94
+  end
+end

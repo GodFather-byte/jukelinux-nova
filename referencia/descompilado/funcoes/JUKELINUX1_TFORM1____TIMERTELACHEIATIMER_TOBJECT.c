@@ -1,0 +1,36 @@
+// JUKELINUX1_TFORM1_$__TIMERTELACHEIATIMER$TOBJECT  @ 080e5ae0
+
+void JUKELINUX1_TFORM1____TIMERTELACHEIATIMER_TOBJECT(void)
+
+{
+  int iVar1;
+  
+  iVar1 = fpc_ansistr_compare_equal();
+  if (((iVar1 == 0) && (U_JUKELINUX1_TOCANDOMUSICA != '\0')) &&
+     (*(int *)(*(int *)(U_JUKELINUX1_FORM1 + 0xa84) + 0x128) == U_JUKELINUX1_POSL)) {
+    JUKELINUX1_DESSELECIONAMUSICA();
+    U_JUKELINUX1_MUSICASELECIONADA = 0;
+    U_JUKELINUX1_MUSICASELECIONADAPOSTELA = 0;
+    U_JUKELINUX1_MUSICASELECIONADATS = 0;
+    JUKELINUX1_SELECIONAMUSICA();
+    CONTROLS_TCONTROL____SETLEFT_LONGINT();
+    CONTROLS_TCONTROL____SETTOP_LONGINT();
+    CONTROLS_TCONTROL____SETWIDTH_LONGINT();
+    CONTROLS_TCONTROL____SETHEIGHT_LONGINT();
+    CONTROLS_TCONTROL____BRINGTOFRONT();
+    U_JUKELINUX1_ESTAEMTELACHEIA = 1;
+    (**(code **)(**(int **)(U_JUKELINUX1_FORM1 + 0xb88) + 0xdc))();
+    (**(code **)(**(int **)(U_JUKELINUX1_FORM1 + 0xb9c) + 0xd8))();
+    (**(code **)(**(int **)(U_JUKELINUX1_FORM1 + 0xb94) + 0xd8))();
+    (**(code **)(**(int **)(U_JUKELINUX1_FORM1 + 0xbbc) + 0xd8))();
+    if (U_JUKELINUX1_TOCANDOMUSICA != '\0') {
+      iVar1 = fpc_ansistr_compare_equal();
+      if ((iVar1 == 0) && (U_JUKELINUX1_ESTANOMENU != '\0')) {
+        CONTROLS_TCONTROL____SHOW();
+        CONTROLS_TCONTROL____BRINGTOFRONT();
+      }
+    }
+  }
+  return;
+}
+
