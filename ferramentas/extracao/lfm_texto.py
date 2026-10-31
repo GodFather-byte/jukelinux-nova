@@ -79,7 +79,7 @@ def valor(ind, prop=''):
     if t == 3: return str(num('h', 2))
     if t == 4: return str(num('i', 4))
     if t == 5: return extended(take(10))
-    if t == 6: return texto_lfm(take(b()).decode('latin1'))
+    if t == 6: return texto_lfm(utf8(take(b())))
     if t == 7: return sstr()
     if t == 8: return 'False'
     if t == 9: return 'True'
@@ -91,7 +91,7 @@ def valor(ind, prop=''):
             if not s: break
             it.append(s)
         return '[' + ', '.join(it) + ']'
-    if t == 12: n = num('I', 4); return texto_lfm(take(n).decode('latin1'))
+    if t == 12: n = num('I', 4); return texto_lfm(utf8(take(n)))
     if t == 13: return 'nil'
     if t == 14:
         linhas = ['<']
