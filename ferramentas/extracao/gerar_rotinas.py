@@ -79,6 +79,8 @@ def tipos_locais(locs, linhas):
         tipos[l] = 'Text' if re.search(ARQ + l + r'\b', s) else tipo_local(l, linhas)
     conhecido = dict(tipos_globais)
     conhecido.update({k.upper(): v for k, v in retornos.items()})
+    conhecido.update({'SENDER': 'TObject', 'SELF': 'TForm1'})
+    passa = ('AnsiString', 'ShortString', 'TObject', 'TForm1')
     mudou = True
     while mudou:
         mudou = False
@@ -91,10 +93,10 @@ def tipos_locais(locs, linhas):
             a, b = m.group(1), m.group(2)
             tb = tipos.get(b) or conhecido.get(b.upper())
             ta = tipos.get(a) or conhecido.get(a.upper())
-            if a in tipos and tb in ('AnsiString', 'ShortString') and tipos[a] == 'LongInt':
-                tipos[a] = 'AnsiString'; mudou = True
-            if b in tipos and not m.group(3) and ta in ('AnsiString', 'ShortString') and tipos[b] == 'LongInt':
-                tipos[b] = 'AnsiString'; mudou = True
+            if a in tipos and tb in passa and tipos[a] == 'LongInt':
+                tipos[a] = 'AnsiString' if tb == 'ShortString' else tb; mudou = True
+            if b in tipos and not m.group(3) and ta in passa and tipos[b] == 'LongInt':
+                tipos[b] = 'AnsiString' if ta == 'ShortString' else ta; mudou = True
     return tipos
 
 
@@ -112,6 +114,10 @@ def higienizar(linhas, conhecidos):
     saida = []
     for l in linhas:
         cod = l.split('//', 1)[0]
+        m_at = re.match(r'\s*(.+?) := ', cod)
+        if m_at and not re.fullmatch(r'[A-Za-z_][\w.]*(\[[^\]]+\])?', m_at.group(1).strip()):
+            saida.append(l[:len(l) - len(l.lstrip())] + '// ?: ' + l.strip())
+            continue
         cod_sem_txt = re.sub(r"'(?:[^']|'')*'|\{[^}]*\}|#\d+", ' ', cod)
         nomes = re.findall(r'(?<![.\w#$])([A-Za-z_]\w*)', cod_sem_txt)
         ruins = [n for n in nomes if n.lower() not in conhecidos and not n.startswith('LAB_')]

@@ -181,6 +181,7 @@ def expr(e):
     e = re.sub(r'(?<![<>=:])!(?!=)', 'not ', e)
     e = re.sub(r'@T(\d+)@', lambda m: texto_pas(m.group(1)), e)
     e = {'#0': '0', '#1': '1'}.get(e, e)
+    e = re.sub(r'(?<=[=<>] )#(\d+)\b', r'\1', e)  # char do C comparado com número
     # operador vírgula do C, ex.: (k = k + 1, k < 501): parênteses com vírgula que não são de chamada
     if re.search(r'(?<![\w\]])\(([^()]*,[^()]*)\)', e):
         return None
@@ -279,6 +280,8 @@ def chamada(c, valor=False):
     m2 = re.fullmatch(r'CONTROLS_TCONTROL____(SETLEFT|SETTOP|SETWIDTH|SETHEIGHT)_LONGINT', g)
     if m2 and len(a) == 2 and None not in ae:
         return f'{ae[0]}.{PROPS[m2.group(1)]} := {ae[1]};'
+    if g == 'CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING' and len(a) == 2 and ae[1] == '0':
+        ae[1] = "''"  # texto nil do FPC
     if g == 'CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING' and len(a) == 2 and None not in ae:
         return f'{ae[0]}.Caption := {ae[1]};'
     if g == 'CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING' and len(a) == 2 and None not in ae:
@@ -366,7 +369,7 @@ def cond_ou_falso(c):
     r = condicao(c)
     if r:
         return r
-    return 'False { C: ' + re.sub(r'@T(\d+)@', lambda x: textos[int(x.group(1))], c).replace('}', ')') + ' }'
+    return 'False { C: ' + re.sub(r'@T(\d+)@', lambda x: textos[int(x.group(1))], c).replace('}', ')').replace('{', '(') + ' }'
 
 
 

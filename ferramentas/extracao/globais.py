@@ -47,7 +47,9 @@ def tipo(n, tam):
         return 'Byte'  # a original grava 0/1 nelas, o que o Boolean do Pascal não aceita
     if tam == 4:
         if re.search(r'fpc_ansistr_\w+\(&?' + re.escape(g) + r'\b|fpc_ansistr_\w+\([^;]*,' + re.escape(g) + r'\b|'
-                     + re.escape(g) + r' = "|(STR|_ANSISTRING|COMPARE_EQUAL)\w*\(' + re.escape(g) + r'\b', u):
+                     # primeiro parâmetro texto (FILEEXISTS_ANSISTRING__...), não resultado (INTTOSTR_LONGINT__ANSISTRING)
+                     + re.escape(g) + r' = "|(?<!_)_(ANSISTRING|SHORTSTRING)\w*\(' + re.escape(g) + r'\b|'
+                     r'COMPARE_EQUAL\w*\([^;]*' + re.escape(g) + r'\b', u):
             if not re.search(re.escape(g) + r' (<|>|<=|>=|[+-]) \d|' + re.escape(g) + r' == \d', u):
                 return 'AnsiString'
         if re.search(r'TPROCESS____\w+\(' + re.escape(g) + r'\b|' + re.escape(g) + r' = \(int \*\)[^;]*TPROCESS', u):
