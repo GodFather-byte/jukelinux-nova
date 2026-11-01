@@ -1737,7 +1737,7 @@ begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
     // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_148);
     iVar4 := TOTMMCARTAO;
-    if CODIGODOCARTAO = 8 then begin
+    if Length(CODIGODOCARTAO) = 8 then begin
       local_8 := 0;
       local_c := 1;
       if 0 < TOTMMCARTAO then begin
@@ -2261,7 +2261,7 @@ begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
     // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_144);
     iVar3 := TOTMMCARTAO;
-    if CODIGODOCARTAO = 8 then begin
+    if Length(CODIGODOCARTAO) = 8 then begin
       local_8 := 0;
       local_c := 1;
       if 0 < TOTMMCARTAO then begin
