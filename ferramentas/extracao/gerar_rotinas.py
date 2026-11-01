@@ -71,7 +71,7 @@ def evidencias(n, s, funcs_texto):
     txt = re.search(N + r" := '|" + N + r" \+ '|' \+ " + n + r'\b|' + N + r' := (' + STR_FUNCS + funcs_texto +
                     r')\(|' + N + r' := [\w.]+\.(Caption|Items\[)|Caption := ' + n + r';|(Gravalog|ShowMessage|' +
                     BOOL_FUNCS + r'|LoadFromFile|AssignFile\(\w+,|Read\(\w+,|Pos\([^,]+,)\s*\(?' + n + r'\)|Pos\(' + n +
-                    r',|' + N + r" (=|<>) '|'\s*(=|<>) " + N, s)
+                    r',|' + N + r" (=|<>) '|'\s*(=|<>) " + N + r'|Length\(' + n + r'\)|Ord\(' + n + r'\[|Copy\(' + n + r',', s)
     boo = re.search(N + r' := (' + BOOL_FUNCS + r')\(', s)
     return bool(num), bool(txt), bool(boo)
 

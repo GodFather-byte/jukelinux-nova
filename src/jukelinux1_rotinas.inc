@@ -8742,9 +8742,9 @@ end;
 { JUKELINUX1_ROTINA_TOCAR }
 procedure Rotina_Tocar;
 var
-  local_12c, local_130, local_134, local_138, local_13c, local_140, local_240, local_244, local_248: AnsiString;
+  iVar4, local_12c, local_130, local_134, local_138, local_13c, local_140, local_240, local_244, local_248: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, uVar1: LongInt;
+  iVar5, uVar1: LongInt;
 begin
   local_248 := '';
   local_244 := '';
@@ -8760,7 +8760,7 @@ begin
     if ESTANOMENU = 0 then begin
       // C: iVar4 = *(int * )((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91144 + U_JUKELINUX1_MUSICASELECIONADA * 4);
       iVar5 := 0;
-      if iVar4 <> 0 then begin
+      if iVar4 <> '' then begin
         iVar5 := Length(iVar4);
       end;
       if iVar5 < 1 then begin
@@ -11743,9 +11743,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONGRAVAROSDADOSCLICK$TOBJECT }
 procedure TForm1.ButtonGravarOsDadosClick(Sender: TObject);
 var
-  local_4c0, local_4c4, local_4f4, local_4f8, local_4fc, local_500, local_504, local_508, local_50c, local_510, local_514, local_5f4, local_5f8: AnsiString;
+  local_4c0, local_4c4, local_4f0, local_4f4, local_4f8, local_4fc, local_500, local_504, local_508, local_50c, local_510, local_514, local_5f4, local_5f8: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_18, local_4f0: LongInt;
+  iVar3, local_10, local_14, local_18: LongInt;
   local_c: TForm1;
   local_8: TObject;
 begin
@@ -11753,15 +11753,15 @@ begin
   local_4c4 := '';
   local_5f8 := '';
   local_4f4 := '';
-  local_4f0 := 0;
+  local_4f0 := '';
   local_c := Self;
   local_8 := Sender;
   begin
     local_18 := 0;
-    local_4f0 := 0;
+    local_4f0 := '';
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.CodigodaMaquina,local_4f0);
     iVar3 := 0;
-    if local_4f0 <> 0 then begin
+    if local_4f0 <> '' then begin
       iVar3 := Length(local_4f0);
     end;
     if iVar3 = 0 then begin
@@ -11773,10 +11773,10 @@ begin
     cVar1 := FileExists(local_4f4);
     if cVar1 then begin
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.NomeDoPonto,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11785,10 +11785,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.Cliente,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11797,10 +11797,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.RG,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11809,10 +11809,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.CPF,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11821,10 +11821,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.Telefones,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11833,10 +11833,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.Endereco,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11845,10 +11845,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.Bairro,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11857,10 +11857,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.Cidade,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -11869,10 +11869,10 @@ begin
         end;
       end;
       if local_18 = 0 then begin
-        local_4f0 := 0;
+        local_4f0 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.DataDaInstalacao,local_4f0);
         iVar3 := 0;
-        if local_4f0 <> 0 then begin
+        if local_4f0 <> '' then begin
           iVar3 := Length(local_4f0);
         end;
         if iVar3 = 0 then begin
@@ -12089,7 +12089,7 @@ begin
   end;
   local_5f8 := '';
   local_4f4 := '';
-  local_4f0 := 0;
+  local_4f0 := '';
   local_4c0 := '';
   local_4c4 := '';
 end;
@@ -23765,13 +23765,13 @@ end;
 { JUKELINUX1_TFORM1_$__TIMERNOMEMUSICAGRANDETIMER$TOBJECT }
 procedure TForm1.TimerNomeMusicaGrandeTimer(Sender: TObject);
 var
-  local_3c: AnsiString;
-  iVar1, iVar2, local_38: LongInt;
+  local_38, local_3c: AnsiString;
+  iVar1, iVar2: LongInt;
   local_c: TForm1;
   local_8: TObject;
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
@@ -23783,10 +23783,10 @@ begin
         iVar2 := Length(NOMEMUSICAORIGINALGRANDE);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica1,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23814,10 +23814,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dc4 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica2,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23845,10 +23845,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dc8 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica3,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23876,10 +23876,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dcc + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica4,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23907,10 +23907,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dd0 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica5,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23938,10 +23938,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dd4 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica6,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -23969,10 +23969,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dd8 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica7,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -24000,10 +24000,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301ddc + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica8,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -24031,10 +24031,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301de0 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica9,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -24062,10 +24062,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301de4 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica10,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -24093,10 +24093,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301de8 + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica11,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 11 then begin
@@ -24124,10 +24124,10 @@ begin
         // C: iVar2 = *(int * )(DAT_09301dec + -4);
         end;
         if TAMANHOMUSICAGRANDE < iVar2 then begin
-        local_38 := 0;
+        local_38 := '';
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica12,local_38);
         iVar2 := 0;
-        if local_38 <> 0 then begin
+        if local_38 <> '' then begin
           iVar2 := Length(local_38);
         end;
         if iVar2 < 13 then begin
@@ -24152,7 +24152,7 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   if iVar1 <> 0 then begin
   end;
 end;
