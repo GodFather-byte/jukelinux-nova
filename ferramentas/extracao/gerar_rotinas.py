@@ -67,6 +67,37 @@ def tipo_local(nome, linhas):
     return 'LongInt'
 
 
+ARQ = r'(AssignFile|Rewrite|Reset|Append|Flush|CloseFile|Readln|Writeln|Read|Write|Eof)\('
+retornos = {}  # nome da rotina (minúsculo) -> tipo do resultado, preenchido antes de traduzir
+
+
+def tipos_locais(locs, linhas):
+    """Tipo de cada local: heurística por linha e depois propagação pelas atribuições (a := b, a := F(...))."""
+    tipos = {}
+    for l in locs:
+        s = '\n'.join(x for x in linhas if re.search(r'\b' + l + r'\b', x) and not x.lstrip().startswith('//'))
+        tipos[l] = 'Text' if re.search(ARQ + l + r'\b', s) else tipo_local(l, linhas)
+    conhecido = dict(tipos_globais)
+    conhecido.update({k.upper(): v for k, v in retornos.items()})
+    mudou = True
+    while mudou:
+        mudou = False
+        for x in linhas:
+            if x.lstrip().startswith('//'):
+                continue
+            m = re.match(r'\s*(\w+) := (\w+)(\(.*\))?;$', x)
+            if not m:
+                continue
+            a, b = m.group(1), m.group(2)
+            tb = tipos.get(b) or conhecido.get(b.upper())
+            ta = tipos.get(a) or conhecido.get(a.upper())
+            if a in tipos and tb in ('AnsiString', 'ShortString') and tipos[a] == 'LongInt':
+                tipos[a] = 'AnsiString'; mudou = True
+            if b in tipos and not m.group(3) and ta in ('AnsiString', 'ShortString') and tipos[b] == 'LongInt':
+                tipos[b] = 'AnsiString'; mudou = True
+    return tipos
+
+
 PALAVRAS = set('''and array begin case const div do downto else end file for function goto if in label mod nil not of or
 packed procedure program record repeat set then to type until var while with shl shr xor exit break continue result
 true false self form1 sender key shift button x y closeaction node alnone altop albottom alleft alright alclient
@@ -108,6 +139,13 @@ def parse_nome(simbolo):
     partes = s.split('$')
     return partes[0], partes[1:], ret
 
+
+for arq in os.listdir(pasta_c):  # tipos de retorno de todas as rotinas, para deduzir o tipo das locais
+    if arq.endswith('.c') and not arq.startswith('JUKELINUX1_TFORM1'):
+        simb = open(os.path.join(pasta_c, arq), encoding='utf-8').readline()[3:].split('  @')[0].strip()
+        if '$$' in simb:
+            n, _, r = parse_nome(simb)
+            retornos[n.title().lower()] = TIPOS.get(r, r)
 
 rotinas, metodos, forwards, feitos_eventos = [], [], [], []
 for arq in sorted(os.listdir(pasta_c)):
@@ -167,9 +205,14 @@ for arq in sorted(os.listdir(pasta_c)):
         corpo = ['  // DESBALANCEADO: ' + l.strip() for l in corpo]
     decl = ''
     if locs:
+        tipos = tipos_locais(locs, corpo)
+        # No C, zerar um texto é pôr nil: "s := 0" vira "s := ''".
+        textos_l = {l for l, t in tipos.items() if t in ('AnsiString', 'ShortString')}
+        corpo = [re.sub(r'^(\s*)(\w+) := 0;$', lambda m: f"{m.group(1)}{m.group(2)} := '';"
+                        if m.group(2) in textos_l else m.group(0), x) for x in corpo]
         por_tipo = {}
-        for l in locs:
-            por_tipo.setdefault(tipo_local(l, corpo), []).append(l)
+        for l, t in tipos.items():
+            por_tipo.setdefault(t, []).append(l)
         decl = 'var\n' + ''.join(f'  {", ".join(v)}: {t};\n' for t, v in sorted(por_tipo.items()))
     if transpilar.rotulos:
         decl = 'label\n  ' + ', '.join(sorted(transpilar.rotulos)) + ';\n' + decl

@@ -72,7 +72,7 @@
       </Options>
     </Linking>
     <Other>
-      <CustomOptions Value="-dLCL -Se500"/>
+      <CustomOptions Value="-dLCL -Se5000"/>
     </Other>
   </CompilerOptions>
 </CONFIG>

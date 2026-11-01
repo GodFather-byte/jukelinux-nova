@@ -168,6 +168,7 @@ def expr(e):
     e = re.sub(r'\(\(int\)\((\w+(?:\.\w+\?)?) \+ \(\1 >> 0x1f & 1U\)\) >> 1\)', r'(\1 div 2)', e)
     e = re.sub(r'\(\(int\)\((\w+(?:\.\w+\?)?) \+ \(\1 >> 0x1f & 3U\)\) >> 2\)', r'(\1 div 4)', e)
     e = re.sub(r'\b(local_\w+)\[0\]', r'\1', e)
+    e = re.sub(r'@DT_(\w+?)_(\w+)', lambda m: f'{m.group(1).title()}ToStr({m.group(2).title()})', e)
     for k, v in GLOBAIS_RTL.items():
         e = e.replace(k, v)
     e = re.sub(r'\bU_JUKELINUX1_(\w+)', lambda m: globais.add(m.group(1)) or m.group(1), e)
@@ -343,7 +344,7 @@ def comando(c):
     m = re.fullmatch(r'([\w.]+) = (.+)', c)
     if m and not re.fullmatch(r'(uVar|puVar|extraout_)\w*', m.group(1)):
         a, b = expr(m.group(1)), expr(m.group(2))
-        if a and b:
+        if a and b and re.fullmatch(r'[A-Za-z_][\w.]*', a):  # destino tem de ser um nome, não endereço calculado
             return f'{a} := {b};'
     return '// C: ' + re.sub(r'@T(\d+)@', lambda m: textos[int(m.group(1))], c) + ';'
 
@@ -390,6 +391,9 @@ def traduzir(src):
     corpo = re.sub(r'\s+', ' ', corpo)
     # Rótulos de goto viram comandos próprios (senão grudam na chave seguinte).
     corpo = re.sub(r'\b(LAB_\w+):', r'\1@ROTULO;', corpo)
+    # Data e hora voltam pela pilha do FPU: "Date(); DateToStr(&s);" -> "s := DateToStr(Date)".
+    corpo = re.sub(r'SYSUTILS_(DATE|TIME|NOW)__TDATETIME\(\); SYSUTILS_(DATE|TIME|DATETIME)TOSTR_TDATETIME__ANSISTRING'
+                   r'\(&?(\w+)\);', lambda m: f'{m.group(3)} = @DT_{m.group(2)}_{m.group(1)};', corpo)
     # iVar = fpc_ansistr_compare_equal(a,b); if (iVar == 0)  ->  if (STREQ(a,b))
     corpo = re.sub(r'(\w+) = (?:fpc_ansistr_compare_equal|FPC_SHORTSTR_COMPARE_EQUAL|fpc_shortstr_compare_equal)'
                    r'\(([^;]+)\);(?: uVar\d+ = [^;]+;)? if \(\1 (==|!=) 0\)',

@@ -206,9 +206,9 @@ end;
 { JUKELINUX1_BACKUPCARTAOCCC }
 procedure Backupcartaoccc;
 var
-  local_10, local_3c, local_44, local_48, local_8: AnsiString;
+  local_10, local_3c, local_40, local_44, local_48, local_8: AnsiString;
   cVar2: Boolean;
-  local_40, local_4c, local_c, uVar1: LongInt;
+  local_4c, local_c, uVar1: LongInt;
 begin
   begin
     local_3c := PASTACHAVE + 'cartao';
@@ -241,9 +241,9 @@ end;
 { JUKELINUX1_CARREGANDO_CARTOES }
 procedure Carregando_Cartoes;
 var
-  local_150, local_154, local_158, local_160, local_168, local_258, local_48, local_4c: AnsiString;
+  local_150, local_154, local_158, local_160, local_168, local_16c, local_18, local_1c, local_258, local_48, local_4c, local_50: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_15c, local_164, local_16c, local_18, local_1c, local_25c, local_260, local_50, local_8, local_c: LongInt;
+  iVar3, local_10, local_14, local_15c, local_164, local_25c, local_260, local_8, local_c: LongInt;
 begin
   begin
     repeat
@@ -301,8 +301,7 @@ begin
       local_150 := NOMEARQ;
       // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
       // C: FPC_REWRITE_TYPED(U_JUKELINUX1_ARQCARTAOM,0x26);
-      Date;
-      local_154 := DateToStr();
+      local_154 := DateToStr(Date);
       local_50 := Cripta(local_154);
       ACARM := local_50;
       ACARM := local_154;
@@ -386,27 +385,27 @@ procedure Carregando_Cds;
 label
   LAB_0809cd38;
 var
-  iStack_478b24, iStack_478b68, iStack_478c6c, iStack_478c70, iStack_478c74, iStack_478c78, iStack_478c7c, iStack_478d8c, local_28, uStack_478b20, uStack_478b64, uStack_478c80, uStack_478c84, uStack_478d88, uStack_478e90, uStack_478e94, uStack_478f98, uStack_478f9c: AnsiString;
+  iStack_465288, iStack_478b24, iStack_478b68, iStack_478c6c, iStack_478c70, iStack_478c74, iStack_478c78, iStack_478c7c, iStack_478d8c, iVar3, iVar4, iVar6, iVar7, local_10, local_18, local_1c, local_20, local_28, local_34, local_38, local_8, local_c, uStack_478b20, uStack_478b64, uStack_478c80, uStack_478c84, uStack_478d88, uStack_478d98, uStack_478da0, uStack_478e90, uStack_478e94, uStack_478f98, uStack_478f9c: AnsiString;
   cVar1: Boolean;
-  iStack_465288, iStack_474c90, iStack_474c94, iStack_474c98, iStack_478b28, iStack_478b60, iVar3, iVar4, iVar6, iVar7, local_10, local_14, local_18, local_1c, local_20, local_24, local_278, local_2c, local_30, local_34, local_38, local_8, local_c, uStack_478d94, uStack_478d98, uStack_478da0, uVar5: LongInt;
+  iStack_474c90, iStack_474c94, iStack_474c98, iStack_478b28, iStack_478b60, local_14, local_24, local_278, local_2c, local_30, uStack_478d94, uVar5: LongInt;
 begin
   // C: aiStack_474c8c[0] = 0;
-  uStack_478b20 := 0;
-  iStack_478b24 := 0;
-  uStack_478f9c := 0;
-  uStack_478f98 := 0;
-  uStack_478e94 := 0;
-  uStack_478e90 := 0;
-  iStack_478d8c := 0;
-  uStack_478d88 := 0;
-  uStack_478c84 := 0;
-  uStack_478c80 := 0;
-  iStack_478c7c := 0;
-  iStack_478c78 := 0;
-  iStack_478c74 := 0;
-  iStack_478c70 := 0;
-  iStack_478c6c := 0;
-  iStack_478b68 := 0;
+  uStack_478b20 := '';
+  iStack_478b24 := '';
+  uStack_478f9c := '';
+  uStack_478f98 := '';
+  uStack_478e94 := '';
+  uStack_478e90 := '';
+  iStack_478d8c := '';
+  uStack_478d88 := '';
+  uStack_478c84 := '';
+  uStack_478c80 := '';
+  iStack_478c7c := '';
+  iStack_478c78 := '';
+  iStack_478c74 := '';
+  iStack_478c70 := '';
+  iStack_478c6c := '';
+  iStack_478b68 := '';
   // C: aiStack_478b58[0] = 0;
   begin
     FORM1.Refresh;
@@ -473,23 +472,23 @@ begin
             uStack_478b64 := PASTAMUSICAS;
             // C: aiStack_478b58[0] = 0;
             // C: piVar8 = aiStack_478b58;
-            iStack_478b68 := 0;
+            iStack_478b68 := '';
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,&iStack_478b68, piVar8);
-            iVar7 := 0;
+            iVar7 := '';
             if iStack_478b68 <> 0 then begin
               // C: iVar7 = *(int *)(iStack_478b68 + -4);
             end;
-            iStack_478b68 := 0;
+            iStack_478b68 := '';
             iStack_478b68 := Form1.FileListBox1.Items[local_8];
             // C: fpc_ansistr_copy(iStack_478b68,2,iVar7 + -2,piVar8);
             // C: iStack_478b60 = aiStack_478b58[0];
             // C: puStack_478b5c = "/";
             // C: fpc_ansistr_concat_multi(U_JUKELINUX1_KMAT * 0x240 + 0x8e91118,&uStack_478b64,2);
-            iStack_478b68 := 0;
+            iStack_478b68 := '';
             // C: piVar8 = &iStack_478b68;
             // C: aiStack_478b58[0] = 0;
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,aiStack_478b58, piVar8);
-            iVar7 := 0;
+            iVar7 := '';
             if False { C: aiStack_478b58[0] != 0 } then begin
               // C: iVar7 = *(int *)(aiStack_478b58[0] + -4);
             end;
@@ -497,7 +496,7 @@ begin
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,aiStack_478b58);
             // C: fpc_ansistr_copy(aiStack_478b58[0],2,iVar7 + -2,piVar8);
             KMAT * 576 + 149491996 := iStack_478b68 + '/';
-            iStack_478b68 := 0;
+            iStack_478b68 := '';
             // C: SYSUTILS_UPPERCASE_ANSISTRING__ANSISTRING (*(undefined4 *)(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x1fc), &iStack_478b68);
             iVar7 := KMAT * 576;
             // C: *(int *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc) = iStack_478b68;
@@ -518,7 +517,7 @@ begin
     if 0 < TOTALCDS then begin
       repeat
         local_8 := local_8 + 1;
-        iStack_478b68 := 0;
+        iStack_478b68 := '';
         iStack_478b68 := PASTA + 'ultimocdlido.txt';
         // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478c68,0xff,iStack_478b68);
         // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478c68);
@@ -536,33 +535,33 @@ begin
             local_c := -1;
             repeat
               local_c := local_c + 1;
-              iStack_478b68 := 0;
+              iStack_478b68 := '';
               iStack_478b68 := Form1.FileListBox1.Items[local_c];
               if False { C: STRNE(iStack_478b68,"[.]") } then begin
-                iStack_478b68 := 0;
+                iStack_478b68 := '';
                 // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c,&iStack_478b68 );
                 if False { C: STRNE(iStack_478b68,"[..]") } then begin
-                  iStack_478b68 := 0;
-                  iStack_478c6c := 0;
-                  iStack_478c70 := 0;
+                  iStack_478b68 := '';
+                  iStack_478c6c := '';
+                  iStack_478c70 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70);
                   iStack_478c6c := ExtractFileExt(iStack_478c70);
                   iStack_478b68 := UpperCase(iStack_478c6c);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478b68,".MP3");
                   if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
-                    iStack_478c70 := 0;
+                    iStack_478c70 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70);
                     // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91144 + U_JUKELINUX1_KMATMUSICA * 4, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), iStack_478c70);
-                    iStack_478c70 := 0;
+                    iStack_478c70 := '';
                     // C: piVar8 = &iStack_478c70;
-                    iStack_478c6c := 0;
+                    iStack_478c6c := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c6c,piVar8);
-                    iVar3 := 0;
+                    iVar3 := '';
                     if iStack_478c6c <> 0 then begin
                       // C: iVar3 = *(int *)(iStack_478c6c + -4);
                     end;
-                    iStack_478c6c := 0;
+                    iStack_478c6c := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c6c);
                     // C: fpc_ansistr_copy(iStack_478c6c,1,iVar3 + -4,piVar8);
                     iVar4 := local_8;
@@ -571,27 +570,27 @@ begin
                     // C: (&U_JUKELINUX1_PASTACHAVE9)[iVar4 * 0x90 + iVar3] = iStack_478c70;
                     // C: FPC_SHORTSTR_TO_SHORTSTR (&U_JUKELINUX1_SERIAL + local_8 * 0x90,3,"CD");
                   end;
-                  iStack_478c70 := 0;
-                  iStack_478c6c := 0;
-                  iStack_478c74 := 0;
+                  iStack_478c70 := '';
+                  iStack_478c6c := '';
+                  iStack_478c74 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74);
                   iStack_478c6c := ExtractFileExt(iStack_478c74);
                   iStack_478c70 := UpperCase(iStack_478c6c);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c70,".MPG");
                   if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
-                    iStack_478c74 := 0;
+                    iStack_478c74 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74);
                     // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91144 + U_JUKELINUX1_KMATMUSICA * 4, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), iStack_478c74);
-                    iStack_478c74 := 0;
+                    iStack_478c74 := '';
                     // C: piVar8 = &iStack_478c74;
-                    iStack_478c70 := 0;
+                    iStack_478c70 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70,piVar8);
-                    iVar3 := 0;
+                    iVar3 := '';
                     if iStack_478c70 <> 0 then begin
                       // C: iVar3 = *(int *)(iStack_478c70 + -4);
                     end;
-                    iStack_478c70 := 0;
+                    iStack_478c70 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70);
                     // C: fpc_ansistr_copy(iStack_478c70,1,iVar3 + -4,piVar8);
                     iVar4 := local_8;
@@ -600,27 +599,27 @@ begin
                     // C: (&U_JUKELINUX1_PASTACHAVE9)[iVar4 * 0x90 + iVar3] = iStack_478c74;
                     // C: FPC_SHORTSTR_TO_SHORTSTR (&U_JUKELINUX1_SERIAL + local_8 * 0x90,3,"DVD");
                   end;
-                  iStack_478c74 := 0;
-                  iStack_478c70 := 0;
-                  iStack_478c78 := 0;
+                  iStack_478c74 := '';
+                  iStack_478c70 := '';
+                  iStack_478c78 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78);
                   iStack_478c70 := ExtractFileExt(iStack_478c78);
                   iStack_478c74 := UpperCase(iStack_478c70);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c74,".MP4");
                   if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
-                    iStack_478c78 := 0;
+                    iStack_478c78 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78);
                     // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91144 + U_JUKELINUX1_KMATMUSICA * 4, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), iStack_478c78);
-                    iStack_478c78 := 0;
+                    iStack_478c78 := '';
                     // C: piVar8 = &iStack_478c78;
-                    iStack_478c74 := 0;
+                    iStack_478c74 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74,piVar8);
-                    iVar3 := 0;
+                    iVar3 := '';
                     if iStack_478c74 <> 0 then begin
                       // C: iVar3 = *(int *)(iStack_478c74 + -4);
                     end;
-                    iStack_478c74 := 0;
+                    iStack_478c74 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74);
                     // C: fpc_ansistr_copy(iStack_478c74,1,iVar3 + -4,piVar8);
                     iVar4 := local_8;
@@ -629,27 +628,27 @@ begin
                     // C: (&U_JUKELINUX1_PASTACHAVE9)[iVar4 * 0x90 + iVar3] = iStack_478c78;
                     // C: FPC_SHORTSTR_TO_SHORTSTR (&U_JUKELINUX1_SERIAL + local_8 * 0x90,3,"DVD");
                   end;
-                  iStack_478c78 := 0;
-                  iStack_478c74 := 0;
-                  iStack_478c7c := 0;
+                  iStack_478c78 := '';
+                  iStack_478c74 := '';
+                  iStack_478c7c := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c);
                   iStack_478c74 := ExtractFileExt(iStack_478c7c);
                   iStack_478c78 := UpperCase(iStack_478c74);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c78,".MKV");
                   if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
-                    iStack_478c7c := 0;
+                    iStack_478c7c := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c);
                     // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91144 + U_JUKELINUX1_KMATMUSICA * 4, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), iStack_478c7c);
-                    iStack_478c7c := 0;
+                    iStack_478c7c := '';
                     // C: piVar8 = &iStack_478c7c;
-                    iStack_478c78 := 0;
+                    iStack_478c78 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78,piVar8);
-                    iVar3 := 0;
+                    iVar3 := '';
                     if iStack_478c78 <> 0 then begin
                       // C: iVar3 = *(int *)(iStack_478c78 + -4);
                     end;
-                    iStack_478c78 := 0;
+                    iStack_478c78 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78);
                     // C: fpc_ansistr_copy(iStack_478c78,1,iVar3 + -4,piVar8);
                     iVar4 := local_8;
@@ -658,27 +657,27 @@ begin
                     // C: (&U_JUKELINUX1_PASTACHAVE9)[iVar4 * 0x90 + iVar3] = iStack_478c7c;
                     // C: FPC_SHORTSTR_TO_SHORTSTR (&U_JUKELINUX1_SERIAL + local_8 * 0x90,3,"DVD");
                   end;
-                  iStack_478c7c := 0;
-                  iStack_478c78 := 0;
-                  uStack_478c80 := 0;
+                  iStack_478c7c := '';
+                  iStack_478c78 := '';
+                  uStack_478c80 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                   iStack_478c78 := ExtractFileExt(uStack_478c80);
                   iStack_478c7c := UpperCase(iStack_478c78);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c7c,".WMA");
                   if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
-                    uStack_478c80 := 0;
+                    uStack_478c80 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                     // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91144 + U_JUKELINUX1_KMATMUSICA * 4, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478c80);
-                    uStack_478c80 := 0;
+                    uStack_478c80 := '';
                     // C: puVar9 = &uStack_478c80;
-                    iStack_478c7c := 0;
+                    iStack_478c7c := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c,puVar9);
-                    iVar3 := 0;
+                    iVar3 := '';
                     if iStack_478c7c <> 0 then begin
                       // C: iVar3 = *(int *)(iStack_478c7c + -4);
                     end;
-                    iStack_478c7c := 0;
+                    iStack_478c7c := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c);
                     // C: fpc_ansistr_copy(iStack_478c7c,1,iVar3 + -4,puVar9);
                     iVar4 := local_8;
@@ -687,41 +686,41 @@ begin
                     // C: (&U_JUKELINUX1_PASTACHAVE9)[iVar4 * 0x90 + iVar3] = uStack_478c80;
                     // C: FPC_SHORTSTR_TO_SHORTSTR (&U_JUKELINUX1_SERIAL + local_8 * 0x90,3,"CD");
                   end;
-                  uStack_478c80 := 0;
-                  iStack_478c7c := 0;
-                  uStack_478c84 := 0;
+                  uStack_478c80 := '';
+                  iStack_478c7c := '';
+                  uStack_478c84 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c84);
                   iStack_478c7c := ExtractFileExt(uStack_478c84);
                   uStack_478c80 := UpperCase(iStack_478c7c);
                   if uStack_478c80 = '.JPG' then begin
-                    uStack_478c84 := 0;
-                    uStack_478c80 := 0;
+                    uStack_478c84 := '';
+                    uStack_478c80 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                     uStack_478c84 := ExtractFileName(uStack_478c80);
                     if uStack_478c84 = 'capapequena.jpg' then begin
-                      uStack_478c84 := 0;
+                      uStack_478c84 := '';
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c84);
                       // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91124, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478c84);
                     end
                     else begin
-                      uStack_478c84 := 0;
+                      uStack_478c84 := '';
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c84);
                       // C: fpc_ansistr_concat(local_8 * 0x240 + 0x8e91120, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478c84);
                     end;
                   end;
-                  uStack_478c84 := 0;
-                  uStack_478c80 := 0;
+                  uStack_478c84 := '';
+                  uStack_478c80 := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                   uStack_478c84 := UpperCase(uStack_478c80);
                   if uStack_478c84 = 'GENERO.TXT' then begin
-                    uStack_478c84 := 0;
-                    uStack_478c80 := 0;
+                    uStack_478c84 := '';
+                    uStack_478c80 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                     // C: fpc_ansistr_concat(&uStack_478c84, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478c80);
                     cVar1 := FileExists(uStack_478c84);
                     if cVar1 then begin
-                      uStack_478c84 := 0;
-                      uStack_478c80 := 0;
+                      uStack_478c84 := '';
+                      uStack_478c80 := '';
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
                       // C: fpc_ansistr_concat(&uStack_478c84, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478c80);
                       // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478d84,0xff,uStack_478c84);
@@ -730,13 +729,13 @@ begin
                       Read(ARQTEXTO, local_28);
                       Readln(ARQTEXTO);
                       CloseFile(ARQTEXTO);
-                      uStack_478c84 := 0;
+                      uStack_478c84 := '';
                       // C: puVar9 = &uStack_478c84;
-                      uStack_478c80 := 0;
+                      uStack_478c80 := '';
                       uStack_478c80 := UpperCase(local_28);
                       // C: fpc_ansistr_copy(uStack_478c80,1,2,puVar9);
                       if uStack_478c84 = 'AX' then begin
-                        iVar3 := 0;
+                        iVar3 := '';
                         if False { C: local_28 != (char *)0x0 } then begin
                           // C: iVar3 = *(int *)(local_28 + -4);
                         end;
@@ -744,13 +743,13 @@ begin
                           local_28 := 'AXE';
                         end;
                       end;
-                      uStack_478c84 := 0;
+                      uStack_478c84 := '';
                       // C: puVar9 = &uStack_478c84;
-                      uStack_478d88 := 0;
+                      uStack_478d88 := '';
                       uStack_478d88 := UpperCase(local_28);
                       // C: fpc_ansistr_copy(uStack_478d88,1,4,puVar9);
                       if uStack_478c84 = 'FORR' then begin
-                        iVar3 := 0;
+                        iVar3 := '';
                         if False { C: local_28 != (char *)0x0 } then begin
                           // C: iVar3 = *(int *)(local_28 + -4);
                         end;
@@ -760,49 +759,49 @@ begin
                       end;
                       // C: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_LETRASEXE,"BRG");
                       if iVar3 <> 0 then begin
-                        uStack_478d88 := 0;
+                        uStack_478d88 := '';
                         // C: puVar9 = &uStack_478d88;
-                        uStack_478c84 := 0;
+                        uStack_478c84 := '';
                         uStack_478c84 := UpperCase(local_28);
                         // C: fpc_ansistr_copy(uStack_478c84,1,6,puVar9);
                         if uStack_478d88 = 'REEGAE' then begin
                           local_28 := 'REGGAE';
                         end;
                       end;
-                      uStack_478d88 := 0;
+                      uStack_478d88 := '';
                       local_8 * 576 + 149492008 := uStack_478d88;
                       if uStack_478d88 <> ' LANCAMENTOS' then begin
-                        uStack_478d88 := 0;
+                        uStack_478d88 := '';
                         uStack_478d88 := UpperCase(local_28);
                         local_8 * 576 + 149492008 := uStack_478d88;
                       end;
                     end;
                   end;
-                  uStack_478d88 := 0;
-                  uStack_478c84 := 0;
-                  iStack_478d8c := 0;
+                  uStack_478d88 := '';
+                  uStack_478c84 := '';
+                  iStack_478d8c := '';
                   // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478d8c);
                   uStack_478c84 := ExtractFileExt(iStack_478d8c);
                   uStack_478d88 := UpperCase(uStack_478c84);
                   if uStack_478d88 = '.ATU' then begin
-                    iStack_478d8c := 0;
+                    iStack_478d8c := '';
                     iStack_478d8c := PASTA + 'apagaatu.txt';
                     cVar1 := FileExists(iStack_478d8c);
                     if cVar1 then begin
-                      iStack_478d8c := 0;
-                      uStack_478d88 := 0;
+                      iStack_478d8c := '';
+                      uStack_478d88 := '';
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478d88);
                       // C: fpc_ansistr_concat(&iStack_478d8c, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478d88);
                       DeleteFile(iStack_478d8c);
                     end;
-                    iStack_478d8c := 0;
-                    uStack_478d88 := 0;
+                    iStack_478d8c := '';
+                    uStack_478d88 := '';
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478d88);
                     // C: fpc_ansistr_concat(&iStack_478d8c, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478d88);
                     cVar1 := FileExists(iStack_478d8c);
                     if cVar1 then begin
-                      iStack_478d8c := 0;
-                      uStack_478d88 := 0;
+                      iStack_478d8c := '';
+                      uStack_478d88 := '';
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478d88);
                       // C: fpc_ansistr_concat(&iStack_478d8c, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8), uStack_478d88);
                       // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478e8c,0xff,iStack_478d8c);
@@ -815,7 +814,7 @@ begin
                       CloseFile(ARQTEXTO);
                       BAIRROSTR + local_8 * 144 := iStack_478b24;
                       iStack_478b28 := StrToIntDef(uStack_478b20, 0);
-                      iStack_478d8c := 0;
+                      iStack_478d8c := '';
                       iStack_478d8c := iStack_478b24;
                       // C: uVar5 = 0;
                       if iStack_478b24 <> 0 then begin
@@ -831,11 +830,11 @@ begin
                       // ?: in_ST7 := in_ST6;
                       // C: iVar3 = DATEUTILS_DAYSBETWEEN_TDATETIME_TDATETIME__LONGINT();
                       if iVar3 < iStack_478b28 then begin
-                        iStack_478d8c := 0;
+                        iStack_478d8c := '';
                         local_8 * 576 + 149492008 := iStack_478d8c;
                         if iStack_478d8c = 0 then begin
                           // C: *(undefined2 *)((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
-                          iStack_478d8c := 0;
+                          iStack_478d8c := '';
                           iStack_478d8c := UpperCase(' LANCAMENTOS');
                           local_8 * 576 + 149492008 := iStack_478d8c;
                         end
@@ -846,10 +845,10 @@ begin
                             local_10 := -1;
                             repeat
                               local_10 := local_10 + 1;
-                              iStack_478d8c := 0;
+                              iStack_478d8c := '';
                               iStack_478d8c := Form1.ListBoxRInativo.Items[local_10];
                               iVar4 := iStack_478d8c;
-                              uStack_478e90 := 0;
+                              uStack_478e90 := '';
                               local_8 * 576 + 149492008 := uStack_478e90;
                               if uStack_478e90 = iVar4 then begin
                                 // ?: cStack_478b2c := 1;
@@ -858,7 +857,7 @@ begin
                           end;
                           if False then begin // ?: cStack_478b2c = 0
                             // C: *(undefined2 *)((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
-                            uStack_478e90 := 0;
+                            uStack_478e90 := '';
                             uStack_478e90 := UpperCase(' LANCAMENTOS');
                             local_8 * 576 + 149492008 := uStack_478e90;
                           end;
@@ -885,7 +884,7 @@ begin
       until not (local_8 < iVar6);
     end;
     iVar6 := TOTALCDS;
-    iStack_465288 := 0;
+    iStack_465288 := '';
     local_20 := TOTALCDS;
     if 0 < TOTALCDS then begin
       repeat
@@ -896,10 +895,10 @@ begin
           local_c := -1;
           repeat
             local_c := local_c + 1;
-            uStack_478e90 := 0;
+            uStack_478e90 := '';
             uStack_478e90 := Form1.ListBoxRInativo.Items[local_c];
             // C: uVar5 = uStack_478e90;
-            iStack_478d8c := 0;
+            iStack_478d8c := '';
             local_8 * 576 + 149492008 := iStack_478d8c;
             if iStack_478d8c = uVar5 then begin
               // ?: cStack_478b2c := 1;
@@ -936,17 +935,17 @@ begin
       if 0 < iVar6 then begin
         repeat
           local_8 := local_8 + 1;
-          uStack_478e90 := 0;
+          uStack_478e90 := '';
           uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e90 = 'R' then begin
-            uStack_478e90 := 0;
+            uStack_478e90 := '';
             local_8 * 576 + 149492008 := uStack_478e90;
             // C: fpc_ansistr_concat(&local_34,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc));
-            uStack_478e90 := 0;
+            uStack_478e90 := '';
             (local_8 + 1) * 576 + 149492008 := uStack_478e90;
             // C: fpc_ansistr_concat(&local_38,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x1fc));
           end;
-          uStack_478e90 := 0;
+          uStack_478e90 := '';
           uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e90 = 'A' then begin
             iVar7 := local_8 * 576;
@@ -965,7 +964,7 @@ begin
       end;
       local_20 := local_20 + -1;
     until not (local_2c <> 0);
-    uStack_478e90 := 0;
+    uStack_478e90 := '';
     uStack_478e90 := PASTA + 'tocados.txt';
     cVar1 := FileExists(uStack_478e90);
     iVar6 := TOTALCDS;
@@ -977,7 +976,7 @@ begin
           // C: (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] = 0;
         until not (local_18 < iVar6);
       end;
-      uStack_478e90 := 0;
+      uStack_478e90 := '';
       uStack_478e90 := PASTA + 'tocados.txt';
       // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478e8c,0xff,uStack_478e90);
       // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478e8c);
@@ -1070,26 +1069,26 @@ begin
                     local_10 := local_10 + 1;
                     // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_10 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
                     // C: FPC_SHORTSTR_TO_SHORTSTR(local_10 * 0x240 + 0x8e91128,0x1e,"50+TOCADOS");
-                    uStack_478e90 := 0;
+                    uStack_478e90 := '';
                     uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
                     if uStack_478e90 = 'A' then begin
                       // C: puStack_478da4 = " ";
-                      uStack_478e90 := 0;
+                      uStack_478e90 := '';
                       uStack_478e90 := IntToStr(local_c);
                       uStack_478da0 := uStack_478e90;
                       // ?: pcStack_478d9c := 'o. - ';
-                      uStack_478e94 := 0;
+                      uStack_478e94 := '';
                       // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e94);
                       uStack_478d98 := uStack_478e94;
                       // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
                       // C: fpc_ansistr_concat_multi(local_10 * 0x240 + 0x8e9111c,&puStack_478da4,5);
                     end
                     else begin
-                      uStack_478e94 := 0;
+                      uStack_478e94 := '';
                       uStack_478e94 := IntToStr(local_c);
                       uStack_478da0 := uStack_478e94;
                       // ?: pcStack_478d9c := 'o. - ';
-                      uStack_478e90 := 0;
+                      uStack_478e90 := '';
                       // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e90);
                       uStack_478d98 := uStack_478e90;
                       // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
@@ -1156,7 +1155,7 @@ begin
           local_20 := local_20 + -1;
         until not (local_2c <> 0);
         TOTALMG := 0;
-        uStack_478e94 := 0;
+        uStack_478e94 := '';
         uStack_478e94 := PASTA + '50musicasmaistocadas.txt';
         // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
         // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
@@ -1172,7 +1171,7 @@ begin
             TOTALMG := TOTALMG + 1;
             // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,aiStack_478b1c[local_8 + 2000]);
             Writeln(ARQTEXTO);
-            uStack_478e94 := 0;
+            uStack_478e94 := '';
             // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_478b1c[local_8],&uStack_478e94);
             Write(ARQTEXTO, uStack_478e94);
             Writeln(ARQTEXTO);
@@ -1182,11 +1181,11 @@ begin
         until not (local_8 < 50);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
-        uStack_478e94 := 0;
+        uStack_478e94 := '';
         uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
         cVar1 := FileExists(uStack_478e94);
         if not cVar1 then begin
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
           // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
           // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
@@ -1197,11 +1196,11 @@ begin
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
         end;
-        uStack_478e94 := 0;
+        uStack_478e94 := '';
         uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
         cVar1 := FileExists(uStack_478e94);
         if cVar1 then begin
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
           // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
           // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
@@ -1214,11 +1213,11 @@ begin
         if LIMITEARQ < TOTALMG then begin
           TOTALMG := LIMITEARQ;
         end;
-        uStack_478e94 := 0;
+        uStack_478e94 := '';
         uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
         cVar1 := FileExists(uStack_478e94);
         if not cVar1 then begin
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
           // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
           // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
@@ -1228,11 +1227,11 @@ begin
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
         end;
-        uStack_478e94 := 0;
+        uStack_478e94 := '';
         uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
         cVar1 := FileExists(uStack_478e94);
         if cVar1 then begin
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
           // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
           // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
@@ -1260,17 +1259,17 @@ begin
       if 0 < iVar6 then begin
         repeat
           local_8 := local_8 + 1;
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e94 = 'R' then begin
-            uStack_478e94 := 0;
+            uStack_478e94 := '';
             local_8 * 576 + 149492008 := uStack_478e94;
             local_34 := uStack_478e94;
-            uStack_478e94 := 0;
+            uStack_478e94 := '';
             (local_8 + 1) * 576 + 149492008 := uStack_478e94;
             local_38 := uStack_478e94;
           end;
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e94 = 'A' then begin
             iVar7 := local_8 * 576;
@@ -1308,11 +1307,11 @@ begin
         local_30 := 0;
         repeat
           local_c := local_c + 1;
-          uStack_478e94 := 0;
+          uStack_478e94 := '';
           // C: SYSUTILS_LOWERCASE_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[local_c],&uStack_478e94);
           // C: uVar5 = uStack_478e94;
-          uStack_478f98 := 0;
-          uStack_478f9c := 0;
+          uStack_478f98 := '';
+          uStack_478f9c := '';
           // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f9c);
           uStack_478f98 := LowerCase(uStack_478f9c);
           if uStack_478f98 = uVar5 then begin
@@ -1321,8 +1320,8 @@ begin
         until not (local_c < 100);
         if (local_30 = #0)  and  (TOTALMMLETRA < 101) then begin
           TOTALMMLETRA := TOTALMMLETRA + 1;
-          uStack_478f9c := 0;
-          uStack_478f98 := 0;
+          uStack_478f9c := '';
+          uStack_478f98 := '';
           // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f98);
           uStack_478f9c := LowerCase(uStack_478f98);
           iVar7 := TOTALMMLETRA;
@@ -1330,7 +1329,7 @@ begin
         end;
       until not (local_8 < iVar6);
     end;
-    uStack_478f9c := 0;
+    uStack_478f9c := '';
     uStack_478f9c := PASTA + 'letras.txt';
     // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
     // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
@@ -1365,7 +1364,7 @@ begin
         local_30 := 0;
         repeat
           local_c := local_c + 1;
-          uStack_478f9c := 0;
+          uStack_478f9c := '';
           local_8 * 576 + 149492008 := uStack_478f9c;
           // C: iVar7 = fpc_ansistr_compare_equal (uStack_478f9c,*(undefined4 *)(&DAT_092fffac + local_c * 4));
           if iVar7 = 0 then begin
@@ -1374,7 +1373,7 @@ begin
         until not (local_c < 100);
         if (local_30 = #0)  and  (TOTALMMRITMO < 101) then begin
           TOTALMMRITMO := TOTALMMRITMO + 1;
-          uStack_478f9c := 0;
+          uStack_478f9c := '';
           local_8 * 576 + 149492008 := uStack_478f9c;
           iVar7 := TOTALMMRITMO;
           // C: *(undefined4 *)(&DAT_092fffac + iVar7 * 4) = uStack_478f9c;
@@ -1388,7 +1387,7 @@ begin
     // C: (**(code **)(**(int **)(Form1.ComboBoxMG4 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG4 + 0x36c));
     // C: (**(code **)(**(int **)(Form1.ComboBoxMG5 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG5 + 0x36c));
     // C: (**(code **)(**(int **)(Form1.ComboBoxMG6 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG6 + 0x36c));
-    uStack_478f9c := 0;
+    uStack_478f9c := '';
     uStack_478f9c := PASTA + 'ritmos.txt';
     // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
     // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
@@ -1412,24 +1411,24 @@ begin
     Flush(ARQTEXTO);
     CloseFile(ARQTEXTO);
   end;
-  uStack_478f9c := 0;
-  uStack_478f98 := 0;
-  uStack_478e94 := 0;
-  uStack_478e90 := 0;
-  iStack_478d8c := 0;
-  uStack_478d88 := 0;
-  uStack_478c84 := 0;
-  uStack_478c80 := 0;
-  iStack_478c7c := 0;
-  iStack_478c78 := 0;
-  iStack_478c74 := 0;
-  iStack_478c70 := 0;
-  iStack_478c6c := 0;
-  iStack_478b68 := 0;
+  uStack_478f9c := '';
+  uStack_478f98 := '';
+  uStack_478e94 := '';
+  uStack_478e90 := '';
+  iStack_478d8c := '';
+  uStack_478d88 := '';
+  uStack_478c84 := '';
+  uStack_478c80 := '';
+  iStack_478c7c := '';
+  iStack_478c78 := '';
+  iStack_478c74 := '';
+  iStack_478c70 := '';
+  iStack_478c6c := '';
+  iStack_478b68 := '';
   // C: aiStack_478b58[0] = 0;
   // C: aiStack_474c8c[0] = 0;
-  uStack_478b20 := 0;
-  iStack_478b24 := 0;
+  uStack_478b20 := '';
+  iStack_478b24 := '';
 end;
 
 { JUKELINUX1_CARREGANDO_KARAOKES }
@@ -2632,8 +2631,8 @@ end;
 { JUKELINUX1_CRIPTASUPER$ANSISTRING$$ANSISTRING }
 function Criptasuper(P1: AnsiString): AnsiString;
 var
-  local_20: AnsiString;
-  iVar2, local_10, local_14, local_18, local_1c, local_4c, local_8, local_c: LongInt;
+  local_20, local_4c: AnsiString;
+  iVar2, local_10, local_14, local_18, local_1c, local_8, local_c: LongInt;
 begin
   local_c := Result;
   local_8 := P1;
@@ -2903,8 +2902,8 @@ end;
 { JUKELINUX1_DESCRIPTASUPER$ANSISTRING$$ANSISTRING }
 function Descriptasuper(P1: AnsiString): AnsiString;
 var
-  local_40: AnsiString;
-  iVar4, local_10, local_14, local_8, local_c, uVar3: LongInt;
+  local_40, local_8: AnsiString;
+  iVar4, local_10, local_14, local_c, uVar3: LongInt;
 begin
   local_c := Result;
   local_8 := P1;
@@ -3173,9 +3172,9 @@ end;
 { JUKELINUX1_EXCLUICDPELALISTA }
 procedure Excluicdpelalista;
 var
-  local_10e0, local_10e4, local_10e8, local_10ec, local_10f4, local_10f8, local_fe0, local_fe4, local_fe8, local_fec, local_ff0: AnsiString;
+  local_10e0, local_10e4, local_10e8, local_10ec, local_10f0, local_10f4, local_10f8, local_fe0, local_fe4, local_fe8, local_fec, local_ff0: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, local_10f0, local_7d4, local_7d8, local_7dc, local_fac, local_fb0, local_fb4: LongInt;
+  iVar1, iVar4, local_7d4, local_7d8, local_7dc, local_fac, local_fb0, local_fb4: LongInt;
 begin
   begin
     local_fe0 := NOMEPASTACDNOVOLISTA + 'listadeexclusao.txt';
@@ -3418,9 +3417,9 @@ end;
 { JUKELINUX1_GRAVACREDITONOCARTAO$ANSISTRING$LONGINT }
 procedure Gravacreditonocartao(P1: AnsiString; P2: LongInt);
 var
-  local_158, local_160, local_168, local_20, local_25c: AnsiString;
+  local_10, local_150, local_154, local_158, local_160, local_164, local_168, local_20, local_258, local_25c, local_28: AnsiString;
   cVar1: Boolean;
-  local_10, local_14, local_150, local_154, local_15c, local_164, local_18, local_24, local_258, local_28, local_8, local_c: LongInt;
+  local_14, local_15c, local_18, local_24, local_8, local_c: LongInt;
 begin
   local_c := P2;
   local_8 := P1;
@@ -3487,9 +3486,9 @@ end;
 { JUKELINUX1_GRAVALOG$ANSISTRING }
 procedure Gravalog(P1: AnsiString);
 var
-  local_134, local_138, local_13c, local_140, local_144, local_34, local_3c, local_44: AnsiString;
+  local_134, local_138, local_13c, local_140, local_144, local_34, local_3c, local_40, local_44, local_48: AnsiString;
   cVar1: Boolean;
-  local_38, local_40, local_48, local_8: LongInt;
+  local_38, local_8: LongInt;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -3501,12 +3500,10 @@ begin
       local_134 := local_34;
       AssignFile(ARQLOG, local_134);
       Append(ARQLOG);
-      Date;
-      local_138 := DateToStr();
+      local_138 := DateToStr(Date);
       local_48 := local_138;
       local_44 := ' ';
-      Time;
-      local_13c := TimeToStr();
+      local_13c := TimeToStr(Time);
       local_40 := local_13c;
       local_3c := ' - ';
       local_38 := local_8;
@@ -3523,12 +3520,10 @@ begin
       local_134 := local_13c;
       AssignFile(ARQLOG, local_134);
       Append(ARQLOG);
-      Date;
-      local_140 := DateToStr();
+      local_140 := DateToStr(Date);
       local_48 := local_140;
       local_44 := ' ';
-      Time;
-      local_144 := TimeToStr();
+      local_144 := TimeToStr(Time);
       local_40 := local_144;
       local_3c := ' - ';
       local_38 := local_8;
@@ -3546,7 +3541,7 @@ end;
 procedure Grava_Hd_Porcentagem;
 var
   local_380, local_384: AnsiString;
-  local_254: LongInt;
+  local_254: Text;
 begin
   begin
     local_384 := PASTA + 'porcentagemdoponto.txt';
@@ -3564,7 +3559,7 @@ end;
 procedure Grava_Hd_Relogiogratis;
 var
   local_284, local_384: AnsiString;
-  local_254: LongInt;
+  local_254: Text;
 begin
   begin
     local_284 := IntToStr(RELOGIOGRATIS);
@@ -3585,7 +3580,7 @@ end;
 procedure Grava_Hd_Relogiogratisvip;
 var
   local_284, local_384: AnsiString;
-  local_254: LongInt;
+  local_254: Text;
 begin
   begin
     local_284 := IntToStr(RELOGIOGRATISVIP);
@@ -3605,8 +3600,8 @@ end;
 { JUKELINUX1_GRAVA_HD_RELOGIOS }
 procedure Grava_Hd_Relogios;
 var
-  local_258, local_384, local_388: AnsiString;
-  local_254, local_25c: LongInt;
+  local_258, local_25c, local_384, local_388: AnsiString;
+  local_254: Text;
 begin
   begin
     local_258 := IntToStr(RELOGIOTOTAL);
@@ -3637,9 +3632,10 @@ end;
 { JUKELINUX1_GRAVA_PENDRIVE_CONTADORES }
 procedure Grava_Pendrive_Contadores;
 var
-  local_290, local_298, local_2a0, local_2a8, local_2b0, local_2b8, local_2bc, local_2c0, local_390, local_394, local_398, local_39c, local_3a0, local_3a4: AnsiString;
+  local_10, local_290, local_294, local_298, local_29c, local_2a0, local_2a4, local_2a8, local_2ac, local_2b0, local_2b4, local_2b8, local_2bc, local_2c0, local_390, local_394, local_398, local_39c, local_3a0, local_3a4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_264, local_294, local_29c, local_2a4, local_2ac, local_2b4, local_8, local_c: LongInt;
+  iVar3, local_8, local_c: LongInt;
+  local_264: Text;
 begin
   begin
     local_290 := PASTACHAVE + 'jukebox.contadores';
@@ -3741,9 +3737,8 @@ end;
 { JUKELINUX1_INICIA_TELA }
 procedure Inicia_Tela;
 var
-  local_30, local_34, local_38, local_3c, local_44, local_48: AnsiString;
+  local_30, local_34, local_38, local_3c, local_40, local_44, local_48: AnsiString;
   cVar1: Boolean;
-  local_40: LongInt;
 begin
   begin
     Gravalog('Inico da Rotina: Inicia_Tela');
@@ -3856,9 +3851,9 @@ end;
 { JUKELINUX1_LECREDITODOCARTAO$ANSISTRING$$LONGINT }
 function Lecreditodocartao(P1: AnsiString): LongInt;
 var
-  local_14c, local_1c: AnsiString;
+  local_10, local_148, local_14c, local_1c, local_20: AnsiString;
   cVar1: Boolean;
-  local_10, local_14, local_148, local_18, local_20, local_8, local_c: LongInt;
+  local_14, local_18, local_8, local_c: LongInt;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -5381,9 +5376,9 @@ end;
 { JUKELINUX1_MOSTRA_CD_EXCLUSAO$LONGINT }
 procedure Mostra_Cd_Exclusao(P1: LongInt);
 var
-  local_38, local_3c, local_44, local_4c, local_50, local_54, local_58, local_64, local_68, local_6c, local_70, local_78, local_7c, local_84, local_98, local_a0, local_a4, local_ac, local_c0, local_c8, local_cc, local_d4: AnsiString;
+  local_38, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_64, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90, local_94, local_98, local_9c, local_a0, local_a4, local_a8, local_ac, local_b0, local_b4, local_b8, local_bc, local_c0, local_c8, local_cc, local_d0, local_d4, local_d8: AnsiString;
   cVar3: Boolean;
-  iVar5, local_40, local_48, local_5c, local_60, local_74, local_8, local_80, local_88, local_8c, local_90, local_94, local_9c, local_a8, local_b0, local_b4, local_b8, local_bc, local_c, local_c4, local_d0, local_d8, local_dc, local_e0, uVar1: LongInt;
+  iVar5, local_8, local_c, local_c4, local_dc, local_e0, uVar1: LongInt;
 begin
   local_8 := P1;
   begin
@@ -5672,9 +5667,9 @@ end;
 { JUKELINUX1_MOSTRA_FILA }
 procedure Mostra_Fila;
 var
-  local_134, local_138, local_13c, local_140, local_144, local_14c, local_150, local_34: AnsiString;
+  local_134, local_138, local_13c, local_140, local_144, local_148, local_14c, local_150, local_34: AnsiString;
   cVar1: Boolean;
-  local_148, local_8, uVar4: LongInt;
+  local_8, uVar4: LongInt;
 begin
   begin
     local_34 := PASTA + 'tocar.txt';
@@ -6187,9 +6182,9 @@ procedure Mostra_Tela_Carregando_Cds;
 label
   LAB_080ae298, LAB_080ae417, LAB_080ae769;
 var
-  local_30, local_34, local_3c, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_68, local_70, local_78, local_84, local_88, local_8c, local_94: AnsiString;
+  local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_68, local_6c, local_70, local_74, local_78, local_7c, local_84, local_88, local_8c, local_94: AnsiString;
   cVar1: Boolean;
-  iVar2, local_38, local_40, local_64, local_6c, local_74, local_7c, local_80, local_90: LongInt;
+  iVar2, local_64, local_80, local_90: LongInt;
 begin
   // C: iVar2 = fpc_setjmp();
   if iVar2 <> 0 then begin goto LAB_080ae769; end;
@@ -6241,13 +6236,11 @@ begin
   local_4c := ' ';
   local_48 := VERSAO;
   local_44 := '     Data do Computador: ';
-  Date;
-  local_50 := DateToStr();
+  local_50 := DateToStr(Date);
   local_40 := local_50;
   local_3c := '  ';
   // C: puVar4 = &local_54;
-  Time;
-  local_58 := TimeToStr();
+  local_58 := TimeToStr(Time);
   // C: fpc_ansistr_copy(local_58,1,5,puVar4);
   local_38 := local_54;
   local_34 := 'hs';
@@ -6265,13 +6258,11 @@ begin
     local_54 := IntToStr(BLOQUEARQUANDOTOCAR);
     local_74 := local_54;
     local_70 := ' ]     Data do Computador: ';
-    Date;
-    local_8c := DateToStr();
+    local_8c := DateToStr(Date);
     local_6c := local_8c;
     local_68 := '  ';
     // C: puVar4 = &local_90;
-    Time;
-    local_94 := TimeToStr();
+    local_94 := TimeToStr(Time);
     // C: fpc_ansistr_copy(local_94,1,5,puVar4);
     local_64 := local_90;
     local_60 := 'hs';
@@ -6787,8 +6778,8 @@ end;
 { JUKELINUX1_ROTINA_CREDITOSVIP }
 procedure Rotina_Creditosvip;
 var
-  local_130, local_134, local_13c, local_140, local_30: AnsiString;
-  local_138, uVar1: LongInt;
+  local_130, local_134, local_138, local_13c, local_140, local_30: AnsiString;
+  uVar1: LongInt;
 begin
   begin
     if CREDITOSVIP < 1 then begin
@@ -6867,8 +6858,8 @@ end;
 { JUKELINUX1_ROTINA_CREDITOS$ANSISTRING }
 procedure Rotina_Creditos(P1: AnsiString);
 var
-  local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_150, local_244, local_248, local_24c, local_8: AnsiString;
-  iVar3, local_14c, local_154, local_158, uVar1: LongInt;
+  local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_14c, local_150, local_154, local_244, local_248, local_24c, local_8: AnsiString;
+  iVar3, local_158, uVar1: LongInt;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -7004,9 +6995,9 @@ end;
 { JUKELINUX1_ROTINA_MENU }
 procedure Rotina_Menu;
 var
-  local_15c, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_54, local_5c: AnsiString;
+  local_15c, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_50, local_54, local_5c: AnsiString;
   cVar1: Boolean;
-  local_48, local_50, local_58: LongInt;
+  local_48, local_58: LongInt;
 begin
   begin
     if ESTANOMENU = 0 then begin
@@ -7060,13 +7051,11 @@ begin
         local_38 := JC_CODIGODAMAQUINA;
         local_34 := local_40 + local_3c + local_38;
         Form1.LabelCliente.Caption := local_34;
-        Date;
-        local_54 := DateToStr();
+        local_54 := DateToStr(Date);
         local_50 := local_54;
         local_4c := '  ';
         // C: puVar4 = &local_58;
-        Time;
-        local_5c := TimeToStr();
+        local_5c := TimeToStr(Time);
         // C: fpc_ansistr_copy(local_5c,1,5,puVar4);
         local_48 := local_58;
         local_44 := 'hs';
@@ -7197,8 +7186,8 @@ end;
 { JUKELINUX1_ROTINA_RITMOS }
 procedure Rotina_Ritmos;
 var
-  iVar3, local_150, local_154, local_158, local_15c, local_160, local_164, local_30, local_34, local_38, local_3c, local_44, local_4c, local_50, local_54, local_5c, local_64: AnsiString;
-  iVar4, local_40, local_48, local_58, local_60, uVar1: LongInt;
+  iVar3, local_150, local_154, local_158, local_15c, local_160, local_164, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_64: AnsiString;
+  iVar4, uVar1: LongInt;
 begin
   begin
     if ESTANOMENU = 0 then begin
@@ -8696,9 +8685,10 @@ end;
 { JUKELINUX1_TELA_DE_AUTOTESTE }
 procedure Tela_De_Autoteste;
 var
-  local_4b0, local_4b4, local_4b8, local_4bc, local_4c0, local_4c4, local_68c, local_78c, local_790, local_794, local_798, local_79c, local_7a0: AnsiString;
+  iVar3, local_4b0, local_4b4, local_4b8, local_4bc, local_4c0, local_4c4, local_65c, local_68c, local_78c, local_790, local_794, local_798, local_79c, local_7a0: AnsiString;
   cVar1: Boolean;
-  iVar3, local_25c, local_4ac, local_4c8, local_658, local_65c, local_660, local_8, local_c: LongInt;
+  local_4c8, local_658, local_660, local_8, local_c: LongInt;
+  local_25c, local_4ac: Text;
 begin
   begin
     Form1.PanelAutoTeste.Width := 637;
@@ -9282,8 +9272,8 @@ procedure TForm1.ButtonAtivarClick(Sender: TObject);
 label
   LAB_080cc102;
 var
-  local_17c, local_180, local_184, local_188, local_18c, local_190, local_194, local_20, local_24, local_28, local_28c, local_2c, local_48, local_78, local_7c, local_80, local_84, local_88, local_8c: AnsiString;
-  iVar3, local_10, local_198, local_1c, local_290, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_8, local_c, uVar1: LongInt;
+  local_17c, local_180, local_184, local_188, local_18c, local_190, local_194, local_20, local_24, local_28, local_28c, local_290, local_2c, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_78, local_7c, local_80, local_84, local_88, local_8c: AnsiString;
+  iVar3, local_10, local_198, local_1c, local_4c, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -9757,8 +9747,8 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONCARREGARCDCLICK$TOBJECT }
 procedure TForm1.ButtonCarregarCDClick(Sender: TObject);
 var
-  local_1fa0, local_1fa4, local_1fb0: AnsiString;
-  local_1fa8, local_1fac, local_8, local_c: LongInt;
+  local_1fa0, local_1fa4, local_1fa8, local_1fb0: AnsiString;
+  local_1fac, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -9772,8 +9762,7 @@ begin
     Form1.ButtonMusCarregar.Visible := True;
     Form1.ButtonMusCarregar.Caption := 'Carregar CDs/DVDs Novos';
     // C: local_1fac = "Quantidade de Dias a Partir de Hoje [";
-    Date;
-    local_1fb0 := DateToStr();
+    local_1fb0 := DateToStr(Date);
     local_1fa8 := local_1fb0;
     local_1fa4 := '] para os CDs/DVDs que Serão Carregados Permanecerem no Gênero Lançamentos';
     local_1fa0 := local_1fac + local_1fa8 + local_1fa4;
@@ -10140,9 +10129,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONGRAVAROSDADOSCLICK$TOBJECT }
 procedure TForm1.ButtonGravarOsDadosClick(Sender: TObject);
 var
-  local_4f4, local_4f8, local_4fc, local_500, local_504, local_508, local_50c, local_510, local_514, local_5f4, local_5f8: AnsiString;
+  local_4c4, local_4f4, local_4f8, local_4fc, local_500, local_504, local_508, local_50c, local_510, local_514, local_5f4, local_5f8: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_18, local_4c0, local_4c4, local_4f0, local_8, local_c: LongInt;
+  iVar3, local_10, local_14, local_18, local_4c0, local_4f0, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -10367,12 +10356,10 @@ begin
       local_514 := 'JukeLinux ';
       local_510 := VERSAO;
       local_50c := '   Data:';
-      Date;
-      local_5f8 := DateToStr();
+      local_5f8 := DateToStr(Date);
       local_508 := local_5f8;
       local_504 := '   Hora:';
-      Time;
-      local_4f4 := TimeToStr();
+      local_4f4 := TimeToStr(Time);
       local_500 := local_4f4;
       local_4fc := '   Máquina:';
       local_4f8 := JC_CODIGODAMAQUINA;
@@ -10934,9 +10921,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONMUSCARREGARCLICK$TOBJECT }
 procedure TForm1.ButtonMusCarregarClick(Sender: TObject);
 var
-  local_1004, local_100c, local_1014, local_1018, local_101c, local_1024, local_102c, local_111c, local_1120, local_1124, local_1128, local_112c, local_1130, local_1138, local_ff4, local_ff8, local_ffc: AnsiString;
+  local_1004, local_1008, local_100c, local_1010, local_1014, local_1018, local_101c, local_1020, local_1024, local_102c, local_111c, local_1120, local_1124, local_1128, local_112c, local_1130, local_1134, local_1138, local_ff4, local_ff8, local_ffc: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, iVar6, local_10, local_1000, local_1008, local_1010, local_1020, local_1028, local_1134, local_14, local_18, local_1c, local_20, local_8, local_c, local_fc0, local_fc4, local_fd0, local_ff0, uVar7: LongInt;
+  iVar4, iVar5, iVar6, local_10, local_1000, local_1028, local_14, local_18, local_1c, local_20, local_8, local_c, local_fc0, local_fc4, local_fd0, local_ff0, uVar7: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11137,8 +11124,7 @@ begin
                 Rewrite(ARQTEXTO);
                 Write(ARQTEXTO, PERIODOSTR);
                 Writeln(ARQTEXTO);
-                Date;
-                local_1018 := DateToStr();
+                local_1018 := DateToStr(Date);
                 Write(ARQTEXTO, local_1018);
                 Writeln(ARQTEXTO);
                 Flush(ARQTEXTO);
@@ -11231,8 +11217,7 @@ begin
           local_111c := local_1138;
           AssignFile(ARQTEXTO, local_111c);
           Rewrite(ARQTEXTO);
-          Date;
-          local_1138 := DateToStr();
+          local_1138 := DateToStr(Date);
           Write(ARQTEXTO, local_1138);
           Writeln(ARQTEXTO);
           local_1138 := IntToStr(local_20);
@@ -11423,9 +11408,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONQRCLICK$TOBJECT }
 procedure TForm1.ButtonQRClick(Sender: TObject);
 var
-  local_14, local_16c, local_170, local_174, local_17c, local_18, local_180, local_184, local_188, local_18c, local_1c, local_20, local_24, local_28, local_28c, local_290, local_294, local_2c, local_30, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, uVar4: AnsiString;
+  local_10, local_14, local_16c, local_170, local_174, local_178, local_17c, local_18, local_180, local_184, local_188, local_18c, local_190, local_1c, local_20, local_24, local_28, local_288, local_28c, local_290, local_294, local_2c, local_30, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, uVar4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_178, local_190, local_288, local_8, local_c: LongInt;
+  iVar3, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11473,10 +11458,8 @@ begin
           Readln(ARQTEXTO);
           CloseFile(ARQTEXTO);
         end;
-        Date;
-        local_2c := DateToStr();
-        Time;
-        local_30 := TimeToStr();
+        local_2c := DateToStr(Date);
+        local_30 := TimeToStr(Time);
         local_6c := IntToStr(MINUTOSLIGADA);
         MINUTOSLIGADASTR := local_6c;
         // C: local_70 = (undefined *) SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(U_JUKELINUX1_MINUTOSLIGADASTR,0);
@@ -11579,9 +11562,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONQRCODECADASTROMENUCLICK$TOBJECT }
 procedure TForm1.ButtonQrCodeCadastroMenuClick(Sender: TObject);
 var
-  local_160, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60: AnsiString;
+  local_10, local_160, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60: AnsiString;
   cVar1: Boolean;
-  local_10, local_8, local_c: LongInt;
+  local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11589,12 +11572,10 @@ begin
     local_58 := 'JukeLinux ';
     local_54 := VERSAO;
     local_50 := '   Data:';
-    Date;
-    local_5c := DateToStr();
+    local_5c := DateToStr(Date);
     local_4c := local_5c;
     local_48 := '   Hora:';
-    Time;
-    local_60 := TimeToStr();
+    local_60 := TimeToStr(Time);
     local_44 := local_60;
     local_40 := '   Máquina:';
     local_3c := JC_CODIGODAMAQUINA;
@@ -11757,9 +11738,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONUPGRADECLICK$TOBJECT }
 procedure TForm1.ButtonUpgradeClick(Sender: TObject);
 var
-  local_1b4, local_1e0, local_1e4, local_1e8, local_1ec, local_1f4, local_1f8, local_1fc, local_200, local_208, local_210: AnsiString;
+  local_1b4, local_1e0, local_1e4, local_1e8, local_1ec, local_1f0, local_1f4, local_1f8, local_1fc, local_200, local_204, local_208, local_20c, local_210: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8, local_1ac, local_1b0, local_1f0, local_204, local_20c, local_8, local_c, uVar1: LongInt;
+  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8, local_1ac, local_1b0, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12046,8 +12027,7 @@ begin
       local_138 := NOMEARQ;
       AssignFile(ARQTEXTO, local_138);
       Rewrite(ARQTEXTO);
-      Date;
-      local_38 := DateToStr();
+      local_38 := DateToStr(Date);
       Write(ARQTEXTO, local_38);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
@@ -12258,8 +12238,8 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONZRPCLICK$TOBJECT }
 procedure TForm1.ButtonZRPClick(Sender: TObject);
 var
-  local_138, local_13c, local_140, local_14c, local_150, local_158, local_15c, local_38, local_3c, local_40, local_44, local_4c, uVar3: AnsiString;
-  iVar2, local_154, local_48, local_8, local_c: LongInt;
+  local_138, local_13c, local_140, local_14c, local_150, local_154, local_158, local_15c, local_38, local_3c, local_40, local_44, local_48, local_4c, uVar3: AnsiString;
+  iVar2, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12280,12 +12260,10 @@ begin
       local_13c := IntToStr(RELOGIOPARCIAL);
       Write(ARQTEXTO, local_13c);
       Writeln(ARQTEXTO);
-      Date;
-      local_13c := DateToStr();
+      local_13c := DateToStr(Date);
       Write(ARQTEXTO, local_13c);
       Writeln(ARQTEXTO);
-      Time;
-      local_13c := TimeToStr();
+      local_13c := TimeToStr(Time);
       Write(ARQTEXTO, local_13c);
       Writeln(ARQTEXTO);
       local_13c := IntToStr(PORCENTAGEMDOPONTO);
@@ -12638,8 +12616,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX10CHANGE$TOBJECT }
 procedure TForm1.ComboBox10Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40: AnsiString;
-  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12832,8 +12810,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX14CHANGE$TOBJECT }
 procedure TForm1.ComboBox14Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40: AnsiString;
-  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12979,8 +12957,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX18CHANGE$TOBJECT }
 procedure TForm1.ComboBox18Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_3c, local_40: AnsiString;
-  local_10, local_44, local_48, local_8, local_c: LongInt;
+  local_13c, local_140, local_144, local_3c, local_40, local_44: AnsiString;
+  local_10, local_48, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13017,8 +12995,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX19CHANGE$TOBJECT }
 procedure TForm1.ComboBox19Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_3c, local_40: AnsiString;
-  local_10, local_44, local_48, local_8, local_c: LongInt;
+  local_13c, local_140, local_144, local_3c, local_40, local_44: AnsiString;
+  local_10, local_48, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13055,8 +13033,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX1CHANGE$TOBJECT }
 procedure TForm1.ComboBox1Change(Sender: TObject);
 var
-  local_188, local_38, local_3c, local_40, local_44, local_4c, local_58, local_64, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90: AnsiString;
-  iVar3, local_48, local_50, local_54, local_5c, local_60, local_68, local_6c, local_8, local_94, local_c, uVar1: LongInt;
+  local_188, local_38, local_3c, local_40, local_44, local_4c, local_50, local_54, local_58, local_5c, local_60, local_64, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90: AnsiString;
+  iVar3, local_48, local_8, local_94, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13232,8 +13210,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX22CHANGE$TOBJECT }
 procedure TForm1.ComboBox22Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40: AnsiString;
-  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13281,8 +13259,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX23CHANGE$TOBJECT }
 procedure TForm1.ComboBox23Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40: AnsiString;
-  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13610,8 +13588,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX7CHANGE$TOBJECT }
 procedure TForm1.ComboBox7Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_148, local_248, local_3c, local_40: AnsiString;
-  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_144, local_148, local_248, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14362,9 +14340,9 @@ end;
 { JUKELINUX1_TFORM1_$__FORMACTIVATE$TOBJECT }
 procedure TForm1.FormActivate(Sender: TObject);
 var
-  local_104, local_1f4, local_1f8, local_1fc, local_200, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_5c, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, local_98, local_a0, local_a8, local_ac, local_b0, local_b8, local_c0, local_c4, local_c8, local_d0, local_d8, local_dc, local_e0, local_e8, local_f0, local_f4, local_f8, local_fc: AnsiString;
+  local_100, local_104, local_1f4, local_1f8, local_1fc, local_200, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_64, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90, local_94, local_98, local_9c, local_a0, local_a4, local_a8, local_ac, local_b0, local_b4, local_b8, local_bc, local_c0, local_c4, local_c8, local_cc, local_d0, local_d4, local_d8, local_dc, local_e0, local_e4, local_e8, local_ec, local_f0, local_f4, local_f8, local_fc: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_100, local_58, local_60, local_64, local_8, local_90, local_9c, local_a4, local_b4, local_bc, local_c, local_cc, local_d4, local_e4, local_ec: LongInt;
+  iVar3, local_10, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14898,9 +14876,9 @@ end;
 { JUKELINUX1_TFORM1_$__FORMCREATE$TOBJECT }
 procedure TForm1.FormCreate(Sender: TObject);
 var
-  local_200, local_208, local_2fc, local_300, local_304, local_308, local_30c, local_314, local_408, local_40c, local_410, local_414, local_418, local_41c, local_420, local_424, local_428, local_42c, local_430, local_438, local_440, local_514, local_518, local_51c, local_520, local_524, local_528, local_52c, local_620, local_624, local_628, local_630, local_634, local_638, local_63c, local_73c, local_740, local_748, local_74c, local_750, local_754, local_758, local_75c, local_760, local_764, local_768, local_858, local_85c, local_860, local_864, local_868, local_e4: AnsiString;
+  local_200, local_204, local_208, local_20c, local_2fc, local_300, local_304, local_308, local_30c, local_310, local_314, local_318, local_408, local_40c, local_410, local_414, local_418, local_41c, local_420, local_424, local_428, local_42c, local_430, local_434, local_438, local_43c, local_440, local_514, local_518, local_51c, local_520, local_524, local_528, local_52c, local_620, local_624, local_628, local_630, local_634, local_638, local_63c, local_73c, local_740, local_748, local_74c, local_750, local_754, local_758, local_75c, local_760, local_764, local_768, local_858, local_85c, local_860, local_864, local_868, local_e4, local_e8, local_ec, local_f4: AnsiString;
   cVar3: Boolean;
-  iVar5, iVar8, local_10, local_100, local_104, local_108, local_10c, local_14, local_18, local_1c, local_1e0, local_204, local_20c, local_310, local_318, local_434, local_43c, local_62c, local_744, local_8, local_c, local_e8, local_ec, local_f0, local_f4, local_f8, local_fc, uVar2: LongInt;
+  iVar5, iVar8, local_10, local_100, local_104, local_108, local_10c, local_14, local_18, local_1c, local_1e0, local_62c, local_744, local_8, local_c, local_f0, local_f8, local_fc, uVar2: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -15167,12 +15145,10 @@ begin
       local_2fc := NOMEARQ;
       AssignFile(ARQLOG, local_2fc);
       Rewrite(ARQLOG);
-      Date;
-      local_304 := DateToStr();
+      local_304 := DateToStr(Date);
       local_20c := local_304;
       local_208 := ' ';
-      Time;
-      local_308 := TimeToStr();
+      local_308 := TimeToStr(Time);
       local_204 := local_308;
       local_200 := ' - Arquivo de Log foi Criado Nesta Data';
       local_300 := local_20c + local_208 + local_204 + local_200;
@@ -15191,12 +15167,10 @@ begin
         local_408 := local_308;
         AssignFile(ARQLOG, local_408);
         Rewrite(ARQLOG);
-        Date;
-        local_304 := DateToStr();
+        local_304 := DateToStr(Date);
         local_318 := local_304;
         local_314 := ' ';
-        Time;
-        local_300 := TimeToStr();
+        local_300 := TimeToStr(Time);
         local_310 := local_300;
         local_30c := ' - Arquivo de Log foi Criado Nesta Data';
         local_308 := local_318 + local_314 + local_310 + local_30c;
@@ -17688,8 +17662,7 @@ begin
         local_73c := NOMEARQ;
         AssignFile(ARQTEXTO, local_73c);
         Rewrite(ARQTEXTO);
-        Date;
-        local_750 := DateToStr();
+        local_750 := DateToStr(Date);
         Write(ARQTEXTO, local_750);
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
@@ -18928,9 +18901,9 @@ end;
 { JUKELINUX1_TFORM1_$__LISTBOXRGENEROSCLICK$TOBJECT }
 procedure TForm1.ListBoxRGenerosClick(Sender: TObject);
 var
-  iVar3, local_14, local_40, local_48, local_50: AnsiString;
+  iVar3, local_14, local_40, local_48, local_4c, local_50, local_54: AnsiString;
   cVar1: Boolean;
-  iVar4, local_10, local_44, local_4c, local_54, local_58, local_8, local_c: LongInt;
+  iVar4, local_10, local_44, local_58, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -19393,9 +19366,9 @@ end;
 { JUKELINUX1_TFORM1_$__PANELMENU2CLICK$TOBJECT }
 procedure TForm1.PanelMenu2Click(Sender: TObject);
 var
-  local_180, local_184, local_188, local_18c, local_194, local_198, local_19c, local_1a0, local_1a4, local_1ac, local_1b0, local_1b4, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_44, local_4c, local_50, local_54, local_60, local_64, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, uVar4: AnsiString;
+  local_180, local_184, local_188, local_18c, local_190, local_194, local_198, local_19c, local_1a0, local_1a4, local_1ac, local_1b0, local_1b4, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_44, local_48, local_4c, local_50, local_54, local_5c, local_60, local_64, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90, local_94, uVar4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_190, local_1a8, local_3c, local_48, local_58, local_5c, local_8, local_90, local_c: LongInt;
+  iVar3, local_1a8, local_3c, local_58, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -19872,9 +19845,9 @@ end;
 { JUKELINUX1_TFORM1_$__TIMERCADASTROTIMER$TOBJECT }
 procedure TForm1.TimerCadastroTimer(Sender: TObject);
 var
-  local_158, local_20, local_28, local_58, local_60, local_68: AnsiString;
+  local_158, local_20, local_24, local_28, local_58, local_60, local_64, local_68: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_1c, local_24, local_2c, local_5c, local_64, local_8, local_c: LongInt;
+  iVar3, local_10, local_14, local_1c, local_2c, local_5c, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -21537,9 +21510,9 @@ end;
 { JUKELINUX1_TFORM1_$__TIMERTOCARTIMER$TOBJECT }
 procedure TForm1.TimerTocarTimer(Sender: TObject);
 var
-  local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_254, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
+  iVar4, local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_254, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, iVar6, iVar9, local_250, local_258, local_8, local_c, uVar7: LongInt;
+  iVar1, iVar6, iVar9, local_250, local_258, local_8, local_c, uVar7: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -21619,15 +21592,13 @@ begin
             else begin
               Append(ARQTEXTO);
             end;
-            Date;
-            local_138 := DateToStr();
+            local_138 := DateToStr(Date);
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
-            Time;
-            local_138 := TimeToStr();
+            local_138 := TimeToStr(Time);
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
-            iVar4 := 0;
+            iVar4 := '';
             if PASTAMUSICAS <> 0 then begin
               // C: iVar4 = *(int *)(U_JUKELINUX1_PASTAMUSICAS + -4);
             end;
@@ -21653,15 +21624,13 @@ begin
             else begin
               Append(ARQTEXTO);
             end;
-            Date;
-            local_138 := DateToStr();
+            local_138 := DateToStr(Date);
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
-            Time;
-            local_138 := TimeToStr();
+            local_138 := TimeToStr(Time);
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
-            iVar4 := 0;
+            iVar4 := '';
             if PASTAMUSICAS <> 0 then begin
               // C: iVar4 = *(int *)(U_JUKELINUX1_PASTAMUSICAS + -4);
             end;
@@ -22084,8 +22053,7 @@ begin
   if (iVar1 = 0)  and  (0 < LIMITARVOLUME) then begin
     if LIMITARVOLUME < VOLUME then begin
       // C: puVar4 = local_38;
-      Time;
-      local_3c := TimeToStr();
+      local_3c := TimeToStr(Time);
       // C: fpc_ansistr_copy(local_3c,1,2,puVar4);
       // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_38[0],0x14);
       if uVar2 < 9  or  uVar2 - 22 < 2 then begin
@@ -22118,8 +22086,7 @@ begin
     end
     else if VOLUMELIMITADO <> 0 then begin
       // C: puVar4 = &local_3c;
-      Time;
-      local_140 := TimeToStr();
+      local_140 := TimeToStr(Time);
       // C: fpc_ansistr_copy(local_140,1,2,puVar4);
       // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_3c,0x14);
       if 8 < uVar2  and  1 < uVar2 - 22 then begin
