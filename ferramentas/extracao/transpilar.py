@@ -437,10 +437,45 @@ def traduzir(src):
                    lambda m: f'if ({"STREQ" if m.group(3) == "==" else "STRNE"}({m.group(2)}))', corpo)
     tokens = re.findall(r'[^;{}]*[;{}]', corpo)
     saida, pilha = [], []
+    n_case = 0
+
+    def topo_case():
+        return pilha and isinstance(pilha[-1], dict)
+
+    def fecha_ramo():
+        if topo_case() and pilha[-1]['ramo']:
+            saida.append('  ' * len(pilha) + '  end;')
+            pilha[-1]['ramo'] = False
+
+    def rotulos_case(t):
+        """Tira os prefixos "case N:" / "default:" do comando; abre o ramo do case no Pascal."""
+        if not topo_case():
+            return t
+        vals, default = [], False
+        while True:
+            m = re.match(r'(case ([^:]+)|default):\s*', t)
+            if not m:
+                break
+            if m.group(2):
+                v = expr(m.group(2))
+                vals.append(v if v else '0 { C: ' + m.group(2) + ' }')
+            else:
+                default = True
+            t = t[m.end():]
+        if vals or default:
+            fecha_ramo()
+            ind = '  ' * len(pilha)
+            saida.append(ind + '  ' + (f'{", ".join(vals)}: begin' if vals else 'else begin'))
+            pilha[-1]['ramo'] = True
+        return t
+
     i = 0
     while i < len(tokens):
-        t = tokens[i].strip()
-        ind = len(pilha) + 1
+        t = rotulos_case(tokens[i].strip())
+        ind = len(pilha) + 1 + (1 if topo_case() else 0)
+        if not t:
+            i += 1
+            continue
         if t.endswith('{'):
             h = t[:-1].strip()
             m = re.fullmatch(r'(\} )?(else )?if ?\((.+)\)', h)
@@ -459,6 +494,11 @@ def traduzir(src):
             elif re.fullmatch(r'while ?\((.+)\)', h):
                 saida.append('  ' * ind + f'while {cond_ou_falso(re.fullmatch(r"while ?[(](.+)[)]", h).group(1))} do begin')
                 pilha.append('begin')
+            elif re.fullmatch(r'switch ?\((.+)\)', h):
+                v = expr(re.fullmatch(r'switch ?\((.+)\)', h).group(1))
+                saida.append('  ' * ind + f'case {v if v else "0 { C: " + h + " }"} of')
+                n_case += 1
+                pilha.append({'tipo': 'case', 'ramo': False, 'rotulo': None, 'n': n_case})
             elif h == '':
                 saida.append('  ' * ind + 'begin')
                 pilha.append('begin')
@@ -466,8 +506,16 @@ def traduzir(src):
                 saida.append('  ' * ind + f'begin // C: {h}')
                 pilha.append('begin')
         elif t == '}':
+            if topo_case():
+                fecha_ramo()
+                bloco = pilha.pop()
+                saida.append('  ' * (len(pilha) + 1) + 'end;')
+                if bloco['rotulo']:
+                    saida.append('  ' * (len(pilha) + 1) + f'{bloco["rotulo"]}: ;')
+                i += 1
+                continue
             tipo = pilha.pop() if pilha else 'begin'
-            ind = len(pilha) + 1
+            ind = len(pilha) + 1 + (1 if topo_case() else 0)
             prox = tokens[i + 1].strip() if i + 1 < len(tokens) else ''
             m = re.fullmatch(r'while ?\((.+)\);', prox)
             if tipo == 'repeat' and m:
@@ -478,6 +526,17 @@ def traduzir(src):
                 saida.append('  ' * ind + 'until False;')
             else:
                 saida.append('  ' * ind + 'end;')
+        elif t == 'break;' and any(isinstance(p, dict) for p in pilha):
+            # break do switch: no fim do ramo só fecha o ramo; mais fundo (dentro de um if), salta para o fim do case
+            k = max(j for j, p in enumerate(pilha) if isinstance(p, dict))
+            if 'repeat' in pilha[k + 1:] or any(p == 'laco' for p in pilha[k + 1:]):
+                saida.append('  ' * ind + 'Break;')
+            elif k == len(pilha) - 1:
+                fecha_ramo()
+            else:
+                pilha[k]['rotulo'] = pilha[k]['rotulo'] or f'LAB_FIMCASE{pilha[k]["n"]}'
+                rotulos.add(pilha[k]['rotulo'])
+                saida.append('  ' * ind + f'goto {pilha[k]["rotulo"]};')
         else:
             r = comando(t)
             if r:

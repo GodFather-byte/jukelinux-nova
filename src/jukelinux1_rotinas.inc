@@ -3129,30 +3129,43 @@ end;
 procedure Desselecionamusica;
 begin
   // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xd8)) (Form1.TimerNomeMusicaGrande,param_2 & 0xffffff00);
-  begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
-    // C: case 1: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica1.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 2: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica2.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 3: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica3.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 4: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica4.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 5: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica5.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 6: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica6.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 7: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica7.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 8: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica8.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 9: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica9.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 10: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica10.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 0xb: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica11.Font, U_JUKELINUX1_CORLETRAFUNDO);
-    Break;
-    // C: case 0xc: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica12.Font, U_JUKELINUX1_CORLETRAFUNDO);
+  case MUSICASELECIONADAPOSTELA of
+    1: begin
+      Form1.Musica1.Font.Color := CORLETRAFUNDO;
+    end;
+    2: begin
+      Form1.Musica2.Font.Color := CORLETRAFUNDO;
+    end;
+    3: begin
+      Form1.Musica3.Font.Color := CORLETRAFUNDO;
+    end;
+    4: begin
+      Form1.Musica4.Font.Color := CORLETRAFUNDO;
+    end;
+    5: begin
+      Form1.Musica5.Font.Color := CORLETRAFUNDO;
+    end;
+    6: begin
+      Form1.Musica6.Font.Color := CORLETRAFUNDO;
+    end;
+    7: begin
+      Form1.Musica7.Font.Color := CORLETRAFUNDO;
+    end;
+    8: begin
+      Form1.Musica8.Font.Color := CORLETRAFUNDO;
+    end;
+    9: begin
+      Form1.Musica9.Font.Color := CORLETRAFUNDO;
+    end;
+    10: begin
+      Form1.Musica10.Font.Color := CORLETRAFUNDO;
+    end;
+    11: begin
+      Form1.Musica11.Font.Color := CORLETRAFUNDO;
+    end;
+    12: begin
+      Form1.Musica12.Font.Color := CORLETRAFUNDO;
+    end;
   end;
   MUSICASELECIONADAANT := MUSICASELECIONADAPOSTELA;
 end;
@@ -6008,30 +6021,43 @@ begin
   if 0 < iVar2 then begin
     repeat
       iVar1 := local_c + 1;
-      begin // C: switch(local_c)
-        // C: case 0: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica1, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 1: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 2: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica3, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 3: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica4, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 4: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica5, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 5: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica6, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 6: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica7, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 7: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica8, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 8: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica9, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 9: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica10, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 10: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica11, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
-        Break;
-        // C: case 0xb: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica12, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+      case local_c of
+        0: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica1, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        1: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        2: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica3, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        3: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica4, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        4: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica5, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        5: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica6, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        6: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica7, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        7: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica8, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        8: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica9, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        9: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica10, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        10: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica11, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
+        11: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica12, (&U_JUKELINUX1_PASTACHAVE9)[P1 * 0x90 + iVar1]);
+        end;
       end;
       local_c := iVar1;
     until not (iVar1 < iVar2);
@@ -7925,58 +7951,85 @@ begin
   begin
     if ALTEROUMUSICAGRANDE <> 0 then begin
       SOMAMUSICAGRANDE := 0;
-      begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAANT)
-        // C: case 1: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica1,U_JUKELINUX1_NOMEMUSICAORIGINALGRANDE );
-        Break;
-        // C: case 2: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2,DAT_09301dc4);
-        Break;
-        // C: case 3: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica3,DAT_09301dc8);
-        Break;
-        // C: case 4: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica4,DAT_09301dcc);
-        Break;
-        // C: case 5: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica5,DAT_09301dd0);
-        Break;
-        // C: case 6: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica6,DAT_09301dd4);
-        Break;
-        // C: case 7: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica7,DAT_09301dd8);
-        Break;
-        // C: case 8: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica8,DAT_09301ddc);
-        Break;
-        // C: case 9: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica9,DAT_09301de0);
-        Break;
-        // C: case 10: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica10,DAT_09301de4);
-        Break;
-        // C: case 0xb: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica11,DAT_09301de8);
-        Break;
-        // C: case 0xc: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica12,DAT_09301dec);
+      case MUSICASELECIONADAANT of
+        1: begin
+          Form1.Musica1.Caption := NOMEMUSICAORIGINALGRANDE;
+        end;
+        2: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2,DAT_09301dc4);
+        end;
+        3: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica3,DAT_09301dc8);
+        end;
+        4: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica4,DAT_09301dcc);
+        end;
+        5: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica5,DAT_09301dd0);
+        end;
+        6: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica6,DAT_09301dd4);
+        end;
+        7: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica7,DAT_09301dd8);
+        end;
+        8: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica8,DAT_09301ddc);
+        end;
+        9: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica9,DAT_09301de0);
+        end;
+        10: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica10,DAT_09301de4);
+        end;
+        11: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica11,DAT_09301de8);
+        end;
+        12: begin
+          // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica12,DAT_09301dec);
+        end;
       end;
     end;
-    begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
-      // C: case 0: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica1.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 1: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica1.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 2: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica2.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 3: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica3.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 4: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica4.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 5: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica5.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 6: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica6.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 7: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica7.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 8: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica8.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 9: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica9.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 10: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica10.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 0xb: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica11.Font,U_JUKELINUX1_CORLETRA);
-      Break;
-      // C: case 0xc: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica12.Font,U_JUKELINUX1_CORLETRA);
+    case MUSICASELECIONADAPOSTELA of
+      0: begin
+        Form1.Musica1.Font.Color := CORLETRA;
+      end;
+      1: begin
+        Form1.Musica1.Font.Color := CORLETRA;
+      end;
+      2: begin
+        Form1.Musica2.Font.Color := CORLETRA;
+      end;
+      3: begin
+        Form1.Musica3.Font.Color := CORLETRA;
+      end;
+      4: begin
+        Form1.Musica4.Font.Color := CORLETRA;
+      end;
+      5: begin
+        Form1.Musica5.Font.Color := CORLETRA;
+      end;
+      6: begin
+        Form1.Musica6.Font.Color := CORLETRA;
+      end;
+      7: begin
+        Form1.Musica7.Font.Color := CORLETRA;
+      end;
+      8: begin
+        Form1.Musica8.Font.Color := CORLETRA;
+      end;
+      9: begin
+        Form1.Musica9.Font.Color := CORLETRA;
+      end;
+      10: begin
+        Form1.Musica10.Font.Color := CORLETRA;
+      end;
+      11: begin
+        Form1.Musica11.Font.Color := CORLETRA;
+      end;
+      12: begin
+        Form1.Musica12.Font.Color := CORLETRA;
+      end;
     end;
     if (MUSICASELECIONADAPOSTELA = 12) and (12 < MUSICASELECIONADA) then begin
       POSTELAFAIXA := MUSICASELECIONADA + -12;
@@ -20653,12 +20706,13 @@ begin
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
   if (iVar1 = 0) and (0 < MUSICASELECIONADA) then begin
-    begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
-      // C: case 1: iVar2 = 0;
-      if NOMEMUSICAORIGINALGRANDE <> '' then begin
+    case MUSICASELECIONADAPOSTELA of
+      1: begin
+        iVar2 := 0;
+        if NOMEMUSICAORIGINALGRANDE <> '' then begin
         // C: iVar2 = *(int * )(U_JUKELINUX1_NOMEMUSICAORIGINALGRANDE + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica1,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20680,13 +20734,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 2: iVar2 = 0;
-      if False { C: DAT_09301dc4 != 0 } then begin
+      2: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dc4 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dc4 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica2,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20708,13 +20763,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 3: iVar2 = 0;
-      if False { C: DAT_09301dc8 != 0 } then begin
+      3: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dc8 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dc8 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica3,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20736,13 +20792,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 4: iVar2 = 0;
-      if False { C: DAT_09301dcc != 0 } then begin
+      4: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dcc != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dcc + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica4,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20764,13 +20821,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 5: iVar2 = 0;
-      if False { C: DAT_09301dd0 != 0 } then begin
+      5: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dd0 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dd0 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica5,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20792,13 +20850,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 6: iVar2 = 0;
-      if False { C: DAT_09301dd4 != 0 } then begin
+      6: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dd4 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dd4 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica6,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20820,13 +20879,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 7: iVar2 = 0;
-      if False { C: DAT_09301dd8 != 0 } then begin
+      7: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dd8 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dd8 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica7,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20848,13 +20908,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 8: iVar2 = 0;
-      if False { C: DAT_09301ddc != 0 } then begin
+      8: begin
+        iVar2 := 0;
+        if False { C: DAT_09301ddc != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301ddc + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica8,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20876,13 +20937,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 9: iVar2 = 0;
-      if False { C: DAT_09301de0 != 0 } then begin
+      9: begin
+        iVar2 := 0;
+        if False { C: DAT_09301de0 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301de0 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica9,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20904,13 +20966,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 10: iVar2 = 0;
-      if False { C: DAT_09301de4 != 0 } then begin
+      10: begin
+        iVar2 := 0;
+        if False { C: DAT_09301de4 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301de4 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica10,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20932,13 +20995,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 0xb: iVar2 = 0;
-      if False { C: DAT_09301de8 != 0 } then begin
+      11: begin
+        iVar2 := 0;
+        if False { C: DAT_09301de8 != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301de8 + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica11,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20960,13 +21024,14 @@ begin
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
         end;
+        end;
       end;
-      Break;
-      // C: case 0xc: iVar2 = 0;
-      if False { C: DAT_09301dec != 0 } then begin
+      12: begin
+        iVar2 := 0;
+        if False { C: DAT_09301dec != 0 } then begin
         // C: iVar2 = *(int * )(DAT_09301dec + -4);
-      end;
-      if TAMANHOMUSICAGRANDE < iVar2 then begin
+        end;
+        if TAMANHOMUSICAGRANDE < iVar2 then begin
         // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.Musica12,local_38);
         iVar2 := 0;
         if local_38 <> 0 then begin
@@ -20987,6 +21052,7 @@ begin
           SOMAMUSICAGRANDE := SOMAMUSICAGRANDE + 1;
           ALTEROUMUSICAGRANDE := 1;
           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb94) + 0xdc)) (Form1.TimerNomeMusicaGrande,200);
+        end;
         end;
       end;
     end;
@@ -21229,42 +21295,55 @@ begin
   // C: U_JUKELINUX1_ORIGEMPALHINHA = *(undefined4 * )(iVar4 + 0x8e91144 + iVar3 * 4);
   // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN();
   if cVar1 then begin
-    begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
-      // C: case 1: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica1.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica1.Top + 25;
-      Break;
-      // C: case 2: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica2.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica2.Top + 25;
-      Break;
-      // C: case 3: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica3.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica3.Top + 25;
-      Break;
-      // C: case 4: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica4.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica4.Top + 25;
-      Break;
-      // C: case 5: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica5.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica5.Top + 25;
-      Break;
-      // C: case 6: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica6.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica6.Top + 25;
-      Break;
-      // C: case 7: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica7.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica7.Top + 25;
-      Break;
-      // C: case 8: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica8.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica8.Top + 25;
-      Break;
-      // C: case 9: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica9.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica9.Top + 25;
-      Break;
-      // C: case 10: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica10.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica10.Top + 25;
-      Break;
-      // C: case 0xb: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica11.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica11.Top + 25;
-      Break;
-      // C: case 0xc: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica12.Left? );
-      Form1.ShapePalhinha.Top := Form1.Musica12.Top + 25;
+    case MUSICASELECIONADAPOSTELA of
+      1: begin
+        Form1.ShapePalhinha.Left := Form1.Musica1.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica1.Top + 25;
+      end;
+      2: begin
+        Form1.ShapePalhinha.Left := Form1.Musica2.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica2.Top + 25;
+      end;
+      3: begin
+        Form1.ShapePalhinha.Left := Form1.Musica3.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica3.Top + 25;
+      end;
+      4: begin
+        Form1.ShapePalhinha.Left := Form1.Musica4.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica4.Top + 25;
+      end;
+      5: begin
+        Form1.ShapePalhinha.Left := Form1.Musica5.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica5.Top + 25;
+      end;
+      6: begin
+        Form1.ShapePalhinha.Left := Form1.Musica6.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica6.Top + 25;
+      end;
+      7: begin
+        Form1.ShapePalhinha.Left := Form1.Musica7.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica7.Top + 25;
+      end;
+      8: begin
+        Form1.ShapePalhinha.Left := Form1.Musica8.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica8.Top + 25;
+      end;
+      9: begin
+        Form1.ShapePalhinha.Left := Form1.Musica9.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica9.Top + 25;
+      end;
+      10: begin
+        Form1.ShapePalhinha.Left := Form1.Musica10.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica10.Top + 25;
+      end;
+      11: begin
+        Form1.ShapePalhinha.Left := Form1.Musica11.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica11.Top + 25;
+      end;
+      12: begin
+        Form1.ShapePalhinha.Left := Form1.Musica12.Left;
+        Form1.ShapePalhinha.Top := Form1.Musica12.Top + 25;
+      end;
     end;
     Form1.ShapePalhinha.Width := 60;
     Form1.ShapePalhinha.Height := 0;

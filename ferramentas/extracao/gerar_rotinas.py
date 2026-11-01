@@ -247,7 +247,8 @@ for arq in sorted(os.listdir(pasta_c)):
     saldo = 0
     for l in corpo:
         c = re.sub(r"'(?:[^']|'')*'|\{[^}]*\}", '', l.split('//', 1)[0])
-        saldo += len(re.findall(r'\b(begin|repeat)\b', c, re.I)) - len(re.findall(r'\b(end|until)\b', c, re.I))
+        saldo += len(re.findall(r'\b(begin|repeat)\b|^\s*case\b.*\bof$', c, re.I)) - \
+            len(re.findall(r'\b(end|until)\b', c, re.I))
     if saldo != 0:
         print(f'AVISO: {simbolo} com begin/end desbalanceado ({saldo:+d}); corpo comentado', file=sys.stderr)
         corpo = ['  // DESBALANCEADO: ' + l.strip() for l in corpo]
