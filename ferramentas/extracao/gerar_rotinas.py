@@ -113,6 +113,9 @@ def higienizar(linhas, conhecidos):
     """Comenta as linhas com algum nome que não existe no Pascal (sobra do C que o tradutor deixou passar)."""
     saida = []
     for l in linhas:
+        # "(*" e "*)" abrem e fecham comentário no Pascal, mesmo vindos do C dentro de um comentário.
+        if '//' in l or '{' in l:
+            l = l.replace('(*', '( *').replace('*)', '* )')
         cod = l.split('//', 1)[0]
         m_at = re.match(r'\s*(.+?) := ', cod)
         if m_at and not re.fullmatch(r'[A-Za-z_][\w.]*(\[[^\]]+\])?', m_at.group(1).strip()):
@@ -171,6 +174,9 @@ for arq in sorted(os.listdir(pasta_c)):
         src = re.sub(r'\bparam_1\b', 'Self', src)
         for i, p in enumerate(nomes_p, start=2):
             src = re.sub(r'\bparam_' + str(i) + r'\b', p, src)
+        # Parâmetros var (Key, CloseAction) chegam como ponteiro no C: *Key é o próprio Key no Pascal.
+        for p in re.findall(r'var (\w+):', sig):
+            src = re.sub(r'\*' + p + r'\b', p, src)
         cab = f'procedure TForm1.{nome}{sig};'
         alvo = metodos
         feitos_eventos.append(nome)

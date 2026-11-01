@@ -187,6 +187,8 @@ def expr(e):
         return None
     if '[' in e:  # índice que sobrou (vetor do C ou campo não identificado)
         return None
+    if re.search(r'(^|[(,=<>+\-\s])\*\w', e):  # ponteiro desreferenciado do C
+        return None
     if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
                  r'\b_\d_\d_|param_|\bFPC_|\(\w+ \*+\)|\bp\w*Var\d+\b|\bDAT_|\ba\w*Stack_|\bpu\w*Stack_', e):
         return None
