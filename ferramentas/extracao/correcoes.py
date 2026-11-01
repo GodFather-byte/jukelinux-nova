@@ -27,12 +27,14 @@ CORRECOES = [
     ('TForm1.FormActivate', "      OPC := 2;\n",
      "      OPC := 2;\n      if SEMPENDRIVE <> 0 then OPC := 1;  // Nova: sem pendrive, os relógios do HD mandam\n",
      'a sincronização com o pendrive zerava os relógios da jukebox quando o pendrive não respondia'),
-    # Nova: sem pendrive, os seriais da chave antiga vêm do HD (serial-da-chave.txt), antes da primeira
-    # configuração que os confere.
-    ('TForm1.FormCreate', "      NOMEARQ := PASTA + 'bloquearquandotocar.txt';",
-     "      if ERROSERIALNUM <> 0 then Serial_Da_Chave_No_Hd;  // Nova: serial da chave antiga guardado no HD\n"
-     "      NOMEARQ := PASTA + 'bloquearquandotocar.txt';",
-     'a Nova não depende do pendrive-chave (decisão do dono); ver nova.inc'),
+    # Nova: no modo sem pendrive a original exige o jukeu.txt (UUID do HD cifrado, criado na ativação pelo
+    # desenvolvedor); essa trava é substituída pela licença nova (fase 6). No lugar dela, os seriais da chave antiga
+    # vêm do HD (serial-da-chave.txt, ver nova.inc), antes das configurações que os conferem.
+    ('TForm1.FormCreate', "    if SEMPENDRIVE <> 0 then begin\n      NOMEARQ := PASTA + 'jukeu.txt';",
+     "    Serial_Da_Chave_No_Hd;  // Nova: serial da chave antiga guardado no HD\n"
+     "    if False then begin  // Nova: trava do jukeu.txt (UUID do HD) substituída pela licença nova\n"
+     "      NOMEARQ := PASTA + 'jukeu.txt';",
+     'a Nova não depende do pendrive-chave nem da ativação do desenvolvedor (decisão do dono)'),
     # PROVISÓRIO até a licença nova (fase 6): a trava do pendrive-chave original sai, e a leitura do serial do
     # pendrive (em /dev/disk/by-id) não foi traduzida. Sem isto a Nova para na tela "Erro 13".
     ('TForm1.FormActivate', '''      if ERROSERIALNUM = 0 then begin

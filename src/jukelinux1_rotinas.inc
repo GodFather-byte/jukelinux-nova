@@ -19008,7 +19008,8 @@ begin
         Gravalog(local_51c);
       end;
     end;
-    if SEMPENDRIVE <> 0 then begin
+    Serial_Da_Chave_No_Hd;  // Nova: serial da chave antiga guardado no HD
+    if False then begin  // Nova: trava do jukeu.txt (UUID do HD) substituída pela licença nova
       NOMEARQ := PASTA + 'jukeu.txt';
       cVar3 := FileExists(NOMEARQ);
       if not cVar3 then begin
@@ -19239,7 +19240,6 @@ begin
       end;
       // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xbcc) + 0xdc)) (Form1.TimerPaginaMais,U_JUKELINUX1_TEMPOTT);
       // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xbd0) + 0xdc)) (Form1.TimerPaginaMenos,U_JUKELINUX1_TEMPOTT);
-      if ERROSERIALNUM <> 0 then Serial_Da_Chave_No_Hd;  // Nova: serial da chave antiga guardado no HD
       NOMEARQ := PASTA + 'bloquearquandotocar.txt';
       BLOQUEARQUANDOTOCAR := 0;
       cVar3 := FileExists(NOMEARQ);
