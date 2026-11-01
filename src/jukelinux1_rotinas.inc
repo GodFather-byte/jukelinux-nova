@@ -17519,7 +17519,7 @@ begin
       Form1.Labelrodape.Font.Color := 16777215;
       Form1.Labelrodape.Caption := 'Pressione qualquer tecla para visualizar por mais 10 segundos';
       Form1.Labelabertura.AutoSize := False;
-      // ?: Form1.Labelabertura.Align := alCustom;
+      Form1.Labelabertura.Align := alCustom;
       Form1.Labelabertura.Width := RESOLUCAO;
       Form1.Labelabertura.Left := 1;
       // C: STDCTRLS_TCUSTOMLABEL____SETALIGNMENT_TALIGNMENT(Form1.Labelabertura,2);
@@ -17528,7 +17528,7 @@ begin
       Form1.Labelabertura.Font.Color := 16777215;
       Form1.Labelabertura.Caption := NOMEDOCLIENTE;
       Form1.Labelabertura1.AutoSize := False;
-      // ?: Form1.Labelabertura1.Align := alCustom;
+      Form1.Labelabertura1.Align := alCustom;
       Form1.Labelabertura1.Width := RESOLUCAO;
       Form1.Labelabertura1.Left := 1;
       // C: STDCTRLS_TCUSTOMLABEL____SETALIGNMENT_TALIGNMENT(Form1.Labelabertura1,2);
@@ -18139,7 +18139,7 @@ begin
         RESOLUCAOALTURA := 900;
       end;
     end;
-    // ?: Form1.BorderStyle := bsNone;
+    Form1.BorderStyle := bsNone;
     FORM1.Left := 0;
     FORM1.Top := 0;
     if EXIBIRVIDEOSNO = 'MONITOR' then begin

@@ -135,7 +135,8 @@ true false self form1 sender key shift button x y closeaction node alnone altop 
 '''.split())
 RTL_NOMES = {n.lower() for n, _ in transpilar.RTL.values()} | {
     'read', 'write', 'writeln', 'readln', 'copy', 'length', 'inttostr', 'chr', 'ord', 'screen', 'mouse', 'application',
-    'assignfile', 'closefile', 'reset', 'rewrite', 'append', 'flush', 'eof', 'tprocess', 'tstringlist', 'ord', 'serial_da_chave_no_hd'}
+    'assignfile', 'closefile', 'reset', 'rewrite', 'append', 'flush', 'eof', 'tprocess', 'tstringlist', 'ord', 'serial_da_chave_no_hd',
+    'bsnone', 'bssingle', 'bssizeable', 'bsdialog', 'bstoolwindow', 'bssizetoolwin', 'alcustom'}
 
 
 def higienizar(linhas, conhecidos):
