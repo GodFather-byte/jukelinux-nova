@@ -9,6 +9,7 @@ unit jukelinux1;
   Os nomes das rotinas seguem os da original (referencia/funcoes.txt) para comparar lado a lado. }
 
 {$mode objfpc}{$H+}
+{$goto on}  // o código descompilado usa goto em alguns laços
 
 interface
 

@@ -83,7 +83,7 @@ def higienizar(linhas, conhecidos):
         cod = l.split('//', 1)[0]
         cod_sem_txt = re.sub(r"'(?:[^']|'')*'|\{[^}]*\}|#\d+", ' ', cod)
         nomes = re.findall(r'(?<![.\w#$])([A-Za-z_]\w*)', cod_sem_txt)
-        ruins = [n for n in nomes if n.lower() not in conhecidos]
+        ruins = [n for n in nomes if n.lower() not in conhecidos and not n.startswith('LAB_')]
         if not ruins:
             saida.append(l)
             continue
@@ -158,12 +158,21 @@ for arq in sorted(os.listdir(pasta_c)):
                   {n.title().lower() for n in transpilar.nomes_juke} | {l.lower() for l in locs} |
                   {p.lower() for p in params_nomes})
     corpo = higienizar(corpo, conhecidos)
+    saldo = 0
+    for l in corpo:
+        c = re.sub(r"'(?:[^']|'')*'|\{[^}]*\}", '', l.split('//', 1)[0])
+        saldo += len(re.findall(r'\b(begin|repeat)\b', c, re.I)) - len(re.findall(r'\b(end|until)\b', c, re.I))
+    if saldo != 0:
+        print(f'AVISO: {simbolo} com begin/end desbalanceado ({saldo:+d}); corpo comentado', file=sys.stderr)
+        corpo = ['  // DESBALANCEADO: ' + l.strip() for l in corpo]
     decl = ''
     if locs:
         por_tipo = {}
         for l in locs:
             por_tipo.setdefault(tipo_local(l, corpo), []).append(l)
         decl = 'var\n' + ''.join(f'  {", ".join(v)}: {t};\n' for t, v in sorted(por_tipo.items()))
+    if transpilar.rotulos:
+        decl = 'label\n  ' + ', '.join(sorted(transpilar.rotulos)) + ';\n' + decl
     alvo.append(f'{{ {simbolo} }}\n{cab}\n{decl}begin\n' + '\n'.join(corpo) + '\nend;\n')
 
 with open(os.path.join(pasta_src, 'jukelinux1_rotinas.inc'), 'w', encoding='utf-8', newline='\n') as f:

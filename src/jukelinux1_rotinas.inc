@@ -278,7 +278,7 @@ begin
                 // C: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
                 while True do begin
                   // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOV);
-                  // C: if (cVar1 != '\0') break;
+                  if cVar1 then begin Break; end;
                   local_10 := local_10 + 1;
                   // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOV);
                   // C: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
@@ -324,7 +324,7 @@ begin
       local_18 := Descripta(local_154);
       while True do begin
         // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
-        // C: if (cVar1 != '\0') break;
+        if cVar1 then begin Break; end;
         local_10 := local_10 + 1;
         // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
         // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
@@ -383,6 +383,8 @@ end;
 
 { JUKELINUX1_CARREGANDO_CDS }
 procedure Carregando_Cds;
+label
+  LAB_0809cd38;
 var
   iStack_478b24, iStack_478b68, iStack_478c6c, iStack_478c70, iStack_478c74, iStack_478c78, iStack_478c7c, iStack_478d8c, local_28, uStack_478b20, uStack_478b64, uStack_478c80, uStack_478c84, uStack_478d88, uStack_478e90, uStack_478e94, uStack_478f98, uStack_478f9c: AnsiString;
   cVar1: Boolean;
@@ -875,559 +877,559 @@ begin
           // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN (*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x200));
           if cVar1 then begin
             // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN (*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x204));
-            // C: if (cVar1 != '\0') goto LAB_0809cd38;
+            if cVar1 then begin goto LAB_0809cd38; end;
           end;
           // C: (&U_JUKELINUX1_NOMEDOCLIENTE)[local_8 * 0x90] = 0;
         end;
-        // C: LAB_0809cd38: };
-        // C: while (local_8 < iVar6);
-      until False;
-      iVar6 := TOTALCDS;
-      iStack_465288 := 0;
-      local_20 := TOTALCDS;
+        LAB_0809cd38: ;
+      until not (local_8 < iVar6);
+    end;
+    iVar6 := TOTALCDS;
+    iStack_465288 := 0;
+    local_20 := TOTALCDS;
+    if 0 < TOTALCDS then begin
+      repeat
+        local_8 := local_8 + 1;
+        // ?: cStack_478b2c := 0;
+        // C: iVar7 = (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0x80)) (Form1.ListBoxRInativo.Items);
+        if -1 < iVar7 + -1 then begin
+          local_c := -1;
+          repeat
+            local_c := local_c + 1;
+            uStack_478e90 := 0;
+            uStack_478e90 := Form1.ListBoxRInativo.Items[local_c];
+            // C: uVar5 = uStack_478e90;
+            iStack_478d8c := 0;
+            local_8 * 576 + 149492008 := iStack_478d8c;
+            if iStack_478d8c = uVar5 then begin
+              // ?: cStack_478b2c := 1;
+            end;
+          until not (local_c < iVar7 + -1);
+        end;
+        if False { C: (&U_JUKELINUX1_NOMEDOCLIENTE)[local_8 * 0x90] == 0 } then begin
+          // ?: cStack_478b2c := 1;
+        end;
+        if False then begin // ?: cStack_478b2c = 0
+          iStack_465288 := iStack_465288 + 1;
+          // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,auStack_4654c4 + iStack_465288 * 0x240, INIT_JUKELINUX1_TIPOCD);
+        end;
+      until not (local_8 < iVar6);
+    end;
+    iVar6 := iStack_465288;
+    TOTALCDS := iStack_465288;
+    local_8 := 1;
+    if 0 < iStack_465288 then begin
+      repeat
+        local_8 := local_8 + 1;
+        // C: fpc_copy_proc(auStack_4654c4 + local_8 * 0x240,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
+      until not (local_8 < iVar6);
+    end;
+    Form1.LabelLendo.Caption := 'Ordenando os CDs e DVDs';
+    // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
+    FORM1.Refresh;
+    // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
+    local_20 := TOTALCDS;
+    repeat
+      local_2c := 0;
+      iVar6 := local_20 + -1;
+      local_8 := 1;
+      if 0 < iVar6 then begin
+        repeat
+          local_8 := local_8 + 1;
+          uStack_478e90 := 0;
+          uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
+          if uStack_478e90 = 'R' then begin
+            uStack_478e90 := 0;
+            local_8 * 576 + 149492008 := uStack_478e90;
+            // C: fpc_ansistr_concat(&local_34,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc));
+            uStack_478e90 := 0;
+            (local_8 + 1) * 576 + 149492008 := uStack_478e90;
+            // C: fpc_ansistr_concat(&local_38,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x1fc));
+          end;
+          uStack_478e90 := 0;
+          uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
+          if uStack_478e90 = 'A' then begin
+            iVar7 := local_8 * 576;
+            // C: local_34 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
+            iVar7 := (local_8 + 1) * 576;
+            // C: local_38 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
+          end;
+          // C: iVar7 = fpc_ansistr_compare(local_34,local_38);
+          if 0 < iVar7 then begin
+            // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_278,INIT_JUKELINUX1_TIPOCD);
+            // C: fpc_copy_proc((local_8 + 1) * 0x240 + 0x8e91110,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
+            // C: fpc_copy_proc(local_278,(local_8 + 1) * 0x240 + 0x8e91110,INIT_JUKELINUX1_TIPOCD);
+            local_2c := 1;
+          end;
+        until not (local_8 < iVar6);
+      end;
+      local_20 := local_20 + -1;
+    until not (local_2c <> 0);
+    uStack_478e90 := 0;
+    uStack_478e90 := PASTA + 'tocados.txt';
+    cVar1 := FileExists(uStack_478e90);
+    iVar6 := TOTALCDS;
+    if cVar1 then begin
+      local_18 := 1;
       if 0 < TOTALCDS then begin
         repeat
-          local_8 := local_8 + 1;
-          // ?: cStack_478b2c := 0;
-          // C: iVar7 = (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0x80)) (Form1.ListBoxRInativo.Items);
-          if -1 < iVar7 + -1 then begin
-            local_c := -1;
-            repeat
-              local_c := local_c + 1;
-              uStack_478e90 := 0;
-              uStack_478e90 := Form1.ListBoxRInativo.Items[local_c];
-              // C: uVar5 = uStack_478e90;
-              iStack_478d8c := 0;
-              local_8 * 576 + 149492008 := iStack_478d8c;
-              if iStack_478d8c = uVar5 then begin
-                // ?: cStack_478b2c := 1;
-              end;
-            until not (local_c < iVar7 + -1);
-          end;
-          if False { C: (&U_JUKELINUX1_NOMEDOCLIENTE)[local_8 * 0x90] == 0 } then begin
-            // ?: cStack_478b2c := 1;
-          end;
-          if False then begin // ?: cStack_478b2c = 0
-            iStack_465288 := iStack_465288 + 1;
-            // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,auStack_4654c4 + iStack_465288 * 0x240, INIT_JUKELINUX1_TIPOCD);
-          end;
-        until not (local_8 < iVar6);
+          local_18 := local_18 + 1;
+          // C: (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] = 0;
+        until not (local_18 < iVar6);
       end;
-      iVar6 := iStack_465288;
-      TOTALCDS := iStack_465288;
-      local_8 := 1;
-      if 0 < iStack_465288 then begin
-        repeat
-          local_8 := local_8 + 1;
-          // C: fpc_copy_proc(auStack_4654c4 + local_8 * 0x240,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
-        until not (local_8 < iVar6);
-      end;
-      Form1.LabelLendo.Caption := 'Ordenando os CDs e DVDs';
-      // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
-      FORM1.Refresh;
-      // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
-      local_20 := TOTALCDS;
-      repeat
-        local_2c := 0;
-        iVar6 := local_20 + -1;
-        local_8 := 1;
-        if 0 < iVar6 then begin
-          repeat
-            local_8 := local_8 + 1;
-            uStack_478e90 := 0;
-            uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
-            if uStack_478e90 = 'R' then begin
-              uStack_478e90 := 0;
-              local_8 * 576 + 149492008 := uStack_478e90;
-              // C: fpc_ansistr_concat(&local_34,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc));
-              uStack_478e90 := 0;
-              (local_8 + 1) * 576 + 149492008 := uStack_478e90;
-              // C: fpc_ansistr_concat(&local_38,uStack_478e90, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x1fc));
-            end;
-            uStack_478e90 := 0;
-            uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
-            if uStack_478e90 = 'A' then begin
-              iVar7 := local_8 * 576;
-              // C: local_34 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
-              iVar7 := (local_8 + 1) * 576;
-              // C: local_38 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
-            end;
-            // C: iVar7 = fpc_ansistr_compare(local_34,local_38);
-            if 0 < iVar7 then begin
-              // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_278,INIT_JUKELINUX1_TIPOCD);
-              // C: fpc_copy_proc((local_8 + 1) * 0x240 + 0x8e91110,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
-              // C: fpc_copy_proc(local_278,(local_8 + 1) * 0x240 + 0x8e91110,INIT_JUKELINUX1_TIPOCD);
-              local_2c := 1;
-            end;
-          until not (local_8 < iVar6);
-        end;
-        local_20 := local_20 + -1;
-      until not (local_2c <> 0);
       uStack_478e90 := 0;
       uStack_478e90 := PASTA + 'tocados.txt';
-      cVar1 := FileExists(uStack_478e90);
-      iVar6 := TOTALCDS;
-      if cVar1 then begin
+      // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478e8c,0xff,uStack_478e90);
+      // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478e8c);
+      Reset(ARQTEXTO);
+      while True do begin
+        cVar1 := Eof(ARQTEXTO);
+        if cVar1 then begin Break; end;
+        Read(ARQTEXTO, TEXTO);
+        Readln(ARQTEXTO);
+        iVar6 := TOTALCDS;
+        local_24 := local_24 + 1;
         local_18 := 1;
         if 0 < TOTALCDS then begin
           repeat
             local_18 := local_18 + 1;
-            // C: (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] = 0;
+            // C: iVar7 = (&U_JUKELINUX1_NOMEDOCLIENTE)[local_18 * 0x90];
+            local_1c := 1;
+            if 0 < iVar7 then begin
+              repeat
+                local_1c := local_1c + 1;
+                // C: iVar3 = fpc_ansistr_compare_equal (*(undefined4 *)(local_18 * 0x240 + 0x8e91144 + local_1c * 4), U_JUKELINUX1_TEXTO);
+                if iVar3 = 0 then begin
+                  // C: (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] = (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] + 1;
+                  // C: (&U_JUKELINUX1_TECLACDMENOS)[local_18 * 0x90 + local_1c] = (&U_JUKELINUX1_TECLACDMENOS)[local_18 * 0x90 + local_1c] + 1;
+                end;
+              until not (local_1c < iVar7);
+            end;
           until not (local_18 < iVar6);
         end;
-        uStack_478e90 := 0;
-        uStack_478e90 := PASTA + 'tocados.txt';
-        // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478e8c,0xff,uStack_478e90);
-        // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478e8c);
-        Reset(ARQTEXTO);
-        while True do begin
-          cVar1 := Eof(ARQTEXTO);
-          // C: if (cVar1 != '\0') break;
-          Read(ARQTEXTO, TEXTO);
-          Readln(ARQTEXTO);
-          iVar6 := TOTALCDS;
-          local_24 := local_24 + 1;
-          local_18 := 1;
-          if 0 < TOTALCDS then begin
-            repeat
-              local_18 := local_18 + 1;
-              // C: iVar7 = (&U_JUKELINUX1_NOMEDOCLIENTE)[local_18 * 0x90];
-              local_1c := 1;
-              if 0 < iVar7 then begin
-                repeat
-                  local_1c := local_1c + 1;
-                  // C: iVar3 = fpc_ansistr_compare_equal (*(undefined4 *)(local_18 * 0x240 + 0x8e91144 + local_1c * 4), U_JUKELINUX1_TEXTO);
-                  if iVar3 = 0 then begin
-                    // C: (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] = (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90] + 1;
-                    // C: (&U_JUKELINUX1_TECLACDMENOS)[local_18 * 0x90 + local_1c] = (&U_JUKELINUX1_TECLACDMENOS)[local_18 * 0x90 + local_1c] + 1;
-                  end;
-                until not (local_1c < iVar7);
-              end;
-            until not (local_18 < iVar6);
-          end;
-        end;
-        CloseFile(ARQTEXTO);
-        iVar6 := TOTALCDS;
-        if 0 < local_24 then begin
-          local_18 := 1;
-          if 0 < TOTALCDS then begin
-            repeat
-              local_18 := local_18 + 1;
-              iVar3 := local_18 * 576;
-              iVar7 := local_18;
-              // C: aiStack_474c8c[iVar7 + 8000] = *(int *)(U_JUKELINUX1_ARQLOG + iVar3 + 0x1f8);
-              // C: aiStack_474c8c[local_18] = (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90];
-            until not (local_18 < iVar6);
-          end;
-          local_20 := TOTALCDS;
-          repeat
-            local_2c := 0;
-            iVar6 := local_20 + -1;
-            local_8 := 1;
-            if 0 < iVar6 then begin
-              repeat
-                iVar3 := local_8;
-                iVar7 := local_8 + 1;
-                // C: iStack_474c90 = aiStack_474c8c[iVar7];
-                // C: iStack_474c94 = aiStack_474c8c[local_8 + 2];
-                if iStack_474c90 < iStack_474c94 then begin
-                  iVar4 := local_8 + 8001;
-                  local_8 := iVar7;
-                  iVar7 := local_8;
-                  // C: aiStack_474c8c[0] = aiStack_474c8c[iVar3 + 0x1f41];
-                  // C: iStack_474c98 = aiStack_474c8c[local_8];
-                  iVar3 := local_8;
-                  // C: aiStack_474c8c[iVar3 + 8000] = aiStack_474c8c[iVar7 + 0x1f41];
-                  // C: aiStack_474c8c[local_8] = aiStack_474c8c[local_8 + 1];
-                  iVar7 := local_8;
-                  // C: aiStack_474c8c[iVar7 + 0x1f41] = aiStack_474c8c[0];
-                  // C: aiStack_474c8c[local_8 + 1] = iStack_474c98;
-                  local_2c := 1;
-                  iVar7 := local_8;
-                end;
-                local_8 := iVar7;
-              until not (local_8 < iVar6);
-            end;
-            local_20 := local_20 + -1;
-          until not (local_2c <> 0);
-          local_20 := TOTALCDS;
-          local_10 := TOTALCDS;
-          repeat
-            iVar6 := TOTALCDS;
-            local_c := local_c + 1;
-            if False { C: 0 < aiStack_474c8c[local_c] } then begin
-              local_8 := 1;
-              if 0 < TOTALCDS then begin
-                repeat
-                  local_8 := local_8 + 1;
-                  if local_24 < 51 then begin
-                    // C: iVar7 = fpc_ansistr_compare_equal (aiStack_474c8c[local_c + 8000], *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8));
-                    if iVar7 = 0 then begin
-                      local_14 := local_14 + 1;
-                      // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,auStack_4654c4 + local_14 * 0x240, INIT_JUKELINUX1_TIPOCD);
-                      local_10 := local_10 + 1;
-                      // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_10 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
-                      // C: FPC_SHORTSTR_TO_SHORTSTR(local_10 * 0x240 + 0x8e91128,0x1e,"50+TOCADOS");
-                      uStack_478e90 := 0;
-                      uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
-                      if uStack_478e90 = 'A' then begin
-                        // C: puStack_478da4 = " ";
-                        uStack_478e90 := 0;
-                        uStack_478e90 := IntToStr(local_c);
-                        uStack_478da0 := uStack_478e90;
-                        // ?: pcStack_478d9c := 'o. - ';
-                        uStack_478e94 := 0;
-                        // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e94);
-                        uStack_478d98 := uStack_478e94;
-                        // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
-                        // C: fpc_ansistr_concat_multi(local_10 * 0x240 + 0x8e9111c,&puStack_478da4,5);
-                      end
-                      else begin
-                        uStack_478e94 := 0;
-                        uStack_478e94 := IntToStr(local_c);
-                        uStack_478da0 := uStack_478e94;
-                        // ?: pcStack_478d9c := 'o. - ';
-                        uStack_478e90 := 0;
-                        // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e90);
-                        uStack_478d98 := uStack_478e90;
-                        // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
-                        // C: fpc_ansistr_concat_multi(local_10 * 0x240 + 0x8e9111c,&uStack_478da0,4);
-                      end;
-                      local_24 := local_24 + 1;
-                    end;
-                  end;
-                until not (local_8 < iVar6);
-              end;
-            end;
-          until not (local_c < 50);
-          TOTALCDS := local_10;
-          // C: aiStack_478b1c[0] = 0;
+      end;
+      CloseFile(ARQTEXTO);
+      iVar6 := TOTALCDS;
+      if 0 < local_24 then begin
+        local_18 := 1;
+        if 0 < TOTALCDS then begin
           repeat
             local_18 := local_18 + 1;
-            if False { C: 0 < aiStack_474c8c[local_18] } then begin
-              // C: iVar6 = aiStack_46534c[local_18 * 0x90];
-              local_1c := 1;
-              if 0 < iVar6 then begin
-                repeat
-                  iVar3 := local_18;
-                  iVar7 := local_1c + 1;
-                  local_1c := iVar7;
-                  if False { C: 0 < aiStack_46533c[local_18 * 0x90 + iVar7] } then begin
-                    // C: aiStack_478b1c[0] = aiStack_478b1c[0] + 1;
-                    // C: iVar4 = aiStack_478b1c[0];
-                    // C: aiStack_478b1c[iVar4 + 2000] = aiStack_465490[iVar3 * 0x90 + iVar7];
-                    // C: aiStack_478b1c[aiStack_478b1c[0]] = aiStack_46533c[local_18 * 0x90 + local_1c];
-                  end;
-                until not (local_1c < iVar6);
-              end;
-            end;
-          until not (local_18 < 50);
-          local_20 := 50;
-          repeat
-            local_2c := 0;
-            iVar6 := local_20 + -1;
-            local_8 := 1;
-            if 0 < iVar6 then begin
-              repeat
-                iVar3 := local_8;
-                iVar7 := local_8 + 1;
-                // C: iStack_474c90 = aiStack_478b1c[iVar7];
-                // C: iStack_474c94 = aiStack_478b1c[local_8 + 2];
-                if iStack_474c90 < iStack_474c94 then begin
-                  iVar4 := local_8 + 2001;
-                  local_8 := iVar7;
-                  iVar7 := local_8;
-                  // C: aiStack_474c8c[0] = aiStack_478b1c[iVar3 + 0x7d1];
-                  // C: iStack_474c98 = aiStack_478b1c[local_8];
-                  iVar3 := local_8;
-                  // C: aiStack_478b1c[iVar3 + 2000] = aiStack_478b1c[iVar7 + 0x7d1];
-                  // C: aiStack_478b1c[local_8] = aiStack_478b1c[local_8 + 1];
-                  iVar7 := local_8;
-                  // C: aiStack_478b1c[iVar7 + 0x7d1] = aiStack_474c8c[0];
-                  // C: aiStack_478b1c[local_8 + 1] = iStack_474c98;
-                  local_2c := 1;
-                  iVar7 := local_8;
-                end;
+            iVar3 := local_18 * 576;
+            iVar7 := local_18;
+            // C: aiStack_474c8c[iVar7 + 8000] = *(int *)(U_JUKELINUX1_ARQLOG + iVar3 + 0x1f8);
+            // C: aiStack_474c8c[local_18] = (&U_JUKELINUX1_SELOSSTR)[local_18 * 0x90];
+          until not (local_18 < iVar6);
+        end;
+        local_20 := TOTALCDS;
+        repeat
+          local_2c := 0;
+          iVar6 := local_20 + -1;
+          local_8 := 1;
+          if 0 < iVar6 then begin
+            repeat
+              iVar3 := local_8;
+              iVar7 := local_8 + 1;
+              // C: iStack_474c90 = aiStack_474c8c[iVar7];
+              // C: iStack_474c94 = aiStack_474c8c[local_8 + 2];
+              if iStack_474c90 < iStack_474c94 then begin
+                iVar4 := local_8 + 8001;
                 local_8 := iVar7;
+                iVar7 := local_8;
+                // C: aiStack_474c8c[0] = aiStack_474c8c[iVar3 + 0x1f41];
+                // C: iStack_474c98 = aiStack_474c8c[local_8];
+                iVar3 := local_8;
+                // C: aiStack_474c8c[iVar3 + 8000] = aiStack_474c8c[iVar7 + 0x1f41];
+                // C: aiStack_474c8c[local_8] = aiStack_474c8c[local_8 + 1];
+                iVar7 := local_8;
+                // C: aiStack_474c8c[iVar7 + 0x1f41] = aiStack_474c8c[0];
+                // C: aiStack_474c8c[local_8 + 1] = iStack_474c98;
+                local_2c := 1;
+                iVar7 := local_8;
+              end;
+              local_8 := iVar7;
+            until not (local_8 < iVar6);
+          end;
+          local_20 := local_20 + -1;
+        until not (local_2c <> 0);
+        local_20 := TOTALCDS;
+        local_10 := TOTALCDS;
+        repeat
+          iVar6 := TOTALCDS;
+          local_c := local_c + 1;
+          if False { C: 0 < aiStack_474c8c[local_c] } then begin
+            local_8 := 1;
+            if 0 < TOTALCDS then begin
+              repeat
+                local_8 := local_8 + 1;
+                if local_24 < 51 then begin
+                  // C: iVar7 = fpc_ansistr_compare_equal (aiStack_474c8c[local_c + 8000], *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8));
+                  if iVar7 = 0 then begin
+                    local_14 := local_14 + 1;
+                    // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,auStack_4654c4 + local_14 * 0x240, INIT_JUKELINUX1_TIPOCD);
+                    local_10 := local_10 + 1;
+                    // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_10 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
+                    // C: FPC_SHORTSTR_TO_SHORTSTR(local_10 * 0x240 + 0x8e91128,0x1e,"50+TOCADOS");
+                    uStack_478e90 := 0;
+                    uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
+                    if uStack_478e90 = 'A' then begin
+                      // C: puStack_478da4 = " ";
+                      uStack_478e90 := 0;
+                      uStack_478e90 := IntToStr(local_c);
+                      uStack_478da0 := uStack_478e90;
+                      // ?: pcStack_478d9c := 'o. - ';
+                      uStack_478e94 := 0;
+                      // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e94);
+                      uStack_478d98 := uStack_478e94;
+                      // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
+                      // C: fpc_ansistr_concat_multi(local_10 * 0x240 + 0x8e9111c,&puStack_478da4,5);
+                    end
+                    else begin
+                      uStack_478e94 := 0;
+                      uStack_478e94 := IntToStr(local_c);
+                      uStack_478da0 := uStack_478e94;
+                      // ?: pcStack_478d9c := 'o. - ';
+                      uStack_478e90 := 0;
+                      // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e90);
+                      uStack_478d98 := uStack_478e90;
+                      // C: uStack_478d94 = (double)CONCAT44(*(undefined4 *) (U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x1fc), "x - ");
+                      // C: fpc_ansistr_concat_multi(local_10 * 0x240 + 0x8e9111c,&uStack_478da0,4);
+                    end;
+                    local_24 := local_24 + 1;
+                  end;
+                end;
               until not (local_8 < iVar6);
             end;
-            local_20 := local_20 + -1;
-          until not (local_2c <> 0);
-          TOTALMG := 0;
+          end;
+        until not (local_c < 50);
+        TOTALCDS := local_10;
+        // C: aiStack_478b1c[0] = 0;
+        repeat
+          local_18 := local_18 + 1;
+          if False { C: 0 < aiStack_474c8c[local_18] } then begin
+            // C: iVar6 = aiStack_46534c[local_18 * 0x90];
+            local_1c := 1;
+            if 0 < iVar6 then begin
+              repeat
+                iVar3 := local_18;
+                iVar7 := local_1c + 1;
+                local_1c := iVar7;
+                if False { C: 0 < aiStack_46533c[local_18 * 0x90 + iVar7] } then begin
+                  // C: aiStack_478b1c[0] = aiStack_478b1c[0] + 1;
+                  // C: iVar4 = aiStack_478b1c[0];
+                  // C: aiStack_478b1c[iVar4 + 2000] = aiStack_465490[iVar3 * 0x90 + iVar7];
+                  // C: aiStack_478b1c[aiStack_478b1c[0]] = aiStack_46533c[local_18 * 0x90 + local_1c];
+                end;
+              until not (local_1c < iVar6);
+            end;
+          end;
+        until not (local_18 < 50);
+        local_20 := 50;
+        repeat
+          local_2c := 0;
+          iVar6 := local_20 + -1;
+          local_8 := 1;
+          if 0 < iVar6 then begin
+            repeat
+              iVar3 := local_8;
+              iVar7 := local_8 + 1;
+              // C: iStack_474c90 = aiStack_478b1c[iVar7];
+              // C: iStack_474c94 = aiStack_478b1c[local_8 + 2];
+              if iStack_474c90 < iStack_474c94 then begin
+                iVar4 := local_8 + 2001;
+                local_8 := iVar7;
+                iVar7 := local_8;
+                // C: aiStack_474c8c[0] = aiStack_478b1c[iVar3 + 0x7d1];
+                // C: iStack_474c98 = aiStack_478b1c[local_8];
+                iVar3 := local_8;
+                // C: aiStack_478b1c[iVar3 + 2000] = aiStack_478b1c[iVar7 + 0x7d1];
+                // C: aiStack_478b1c[local_8] = aiStack_478b1c[local_8 + 1];
+                iVar7 := local_8;
+                // C: aiStack_478b1c[iVar7 + 0x7d1] = aiStack_474c8c[0];
+                // C: aiStack_478b1c[local_8 + 1] = iStack_474c98;
+                local_2c := 1;
+                iVar7 := local_8;
+              end;
+              local_8 := iVar7;
+            until not (local_8 < iVar6);
+          end;
+          local_20 := local_20 + -1;
+        until not (local_2c <> 0);
+        TOTALMG := 0;
+        uStack_478e94 := 0;
+        uStack_478e94 := PASTA + '50musicasmaistocadas.txt';
+        // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
+        // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
+        Rewrite(ARQTEXTO);
+        repeat
+          iVar7 := local_8;
+          iVar6 := local_8 + 1;
+          if False { C: 0 < aiStack_478b1c[iVar6] } then begin
+            iVar3 := local_8 + 2001;
+            local_8 := iVar6;
+            iVar6 := local_8;
+            // C: *(int *)(&DAT_0964721c + iVar6 * 4) = aiStack_478b1c[iVar7 + 0x7d1];
+            TOTALMG := TOTALMG + 1;
+            // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,aiStack_478b1c[local_8 + 2000]);
+            Writeln(ARQTEXTO);
+            uStack_478e94 := 0;
+            // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_478b1c[local_8],&uStack_478e94);
+            Write(ARQTEXTO, uStack_478e94);
+            Writeln(ARQTEXTO);
+            iVar6 := local_8;
+          end;
+          local_8 := iVar6;
+        until not (local_8 < 50);
+        Flush(ARQTEXTO);
+        CloseFile(ARQTEXTO);
+        uStack_478e94 := 0;
+        uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
+        cVar1 := FileExists(uStack_478e94);
+        if not cVar1 then begin
           uStack_478e94 := 0;
-          uStack_478e94 := PASTA + '50musicasmaistocadas.txt';
+          uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
           // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
           // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
           Rewrite(ARQTEXTO);
-          repeat
-            iVar7 := local_8;
-            iVar6 := local_8 + 1;
-            if False { C: 0 < aiStack_478b1c[iVar6] } then begin
-              iVar3 := local_8 + 2001;
-              local_8 := iVar6;
-              iVar6 := local_8;
-              // C: *(int *)(&DAT_0964721c + iVar6 * 4) = aiStack_478b1c[iVar7 + 0x7d1];
-              TOTALMG := TOTALMG + 1;
-              // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,aiStack_478b1c[local_8 + 2000]);
-              Writeln(ARQTEXTO);
-              uStack_478e94 := 0;
-              // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_478b1c[local_8],&uStack_478e94);
-              Write(ARQTEXTO, uStack_478e94);
-              Writeln(ARQTEXTO);
-              iVar6 := local_8;
-            end;
-            local_8 := iVar6;
-          until not (local_8 < 50);
+          TEXTO := '50';
+          Write(ARQTEXTO, '50');
+          Writeln(ARQTEXTO);
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
+        end;
+        uStack_478e94 := 0;
+        uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
+        cVar1 := FileExists(uStack_478e94);
+        if cVar1 then begin
           uStack_478e94 := 0;
           uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
-          cVar1 := FileExists(uStack_478e94);
-          if not cVar1 then begin
-            uStack_478e94 := 0;
-            uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
-            // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
-            // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
-            Rewrite(ARQTEXTO);
-            TEXTO := '50';
-            Write(ARQTEXTO, '50');
-            Writeln(ARQTEXTO);
-            Flush(ARQTEXTO);
-            CloseFile(ARQTEXTO);
-          end;
-          uStack_478e94 := 0;
-          uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
-          cVar1 := FileExists(uStack_478e94);
-          if cVar1 then begin
-            uStack_478e94 := 0;
-            uStack_478e94 := PASTA + 'limitedasmusicasmaistocadas.txt';
-            // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
-            // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
-            Reset(ARQTEXTO);
-            Read(ARQTEXTO, TEXTO);
-            Readln(ARQTEXTO);
-            CloseFile(ARQTEXTO);
-          end;
-          LIMITEARQ := StrToIntDef(TEXTO, 50);
-          if LIMITEARQ < TOTALMG then begin
-            TOTALMG := LIMITEARQ;
-          end;
+          // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
+          // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
+          Reset(ARQTEXTO);
+          Read(ARQTEXTO, TEXTO);
+          Readln(ARQTEXTO);
+          CloseFile(ARQTEXTO);
+        end;
+        LIMITEARQ := StrToIntDef(TEXTO, 50);
+        if LIMITEARQ < TOTALMG then begin
+          TOTALMG := LIMITEARQ;
+        end;
+        uStack_478e94 := 0;
+        uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
+        cVar1 := FileExists(uStack_478e94);
+        if not cVar1 then begin
           uStack_478e94 := 0;
           uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
-          cVar1 := FileExists(uStack_478e94);
-          if not cVar1 then begin
-            uStack_478e94 := 0;
-            uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
-            // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
-            // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
-            Rewrite(ARQTEXTO);
-            Write(ARQTEXTO, 48);
-            Writeln(ARQTEXTO);
-            Flush(ARQTEXTO);
-            CloseFile(ARQTEXTO);
-          end;
+          // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
+          // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
+          Rewrite(ARQTEXTO);
+          Write(ARQTEXTO, 48);
+          Writeln(ARQTEXTO);
+          Flush(ARQTEXTO);
+          CloseFile(ARQTEXTO);
+        end;
+        uStack_478e94 := 0;
+        uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
+        cVar1 := FileExists(uStack_478e94);
+        if cVar1 then begin
           uStack_478e94 := 0;
           uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
-          cVar1 := FileExists(uStack_478e94);
-          if cVar1 then begin
-            uStack_478e94 := 0;
-            uStack_478e94 := PASTA + 'inciarpela50maistocada.txt';
-            // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
-            // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
-            Reset(ARQTEXTO);
-            Read(ARQTEXTO, TEXTO);
-            Readln(ARQTEXTO);
-            CloseFile(ARQTEXTO);
-          end;
+          // C: FPC_ANSISTR_TO_SHORTSTR(auStack_478f94,0xff,uStack_478e94);
+          // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_478f94);
+          Reset(ARQTEXTO);
+          Read(ARQTEXTO, TEXTO);
+          Readln(ARQTEXTO);
+          CloseFile(ARQTEXTO);
+        end;
+        POSMG := 0;
+        POSMG := StrToIntDef(TEXTO, 0);
+        if TOTALMG < POSMG then begin
           POSMG := 0;
-          POSMG := StrToIntDef(TEXTO, 0);
-          if TOTALMG < POSMG then begin
-            POSMG := 0;
-          end;
         end;
       end;
-      Form1.LabelLendo.Caption := 'Ordenando os CDs e DVDs';
-      // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
-      FORM1.Refresh;
-      // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
-      local_20 := TOTALCDS;
+    end;
+    Form1.LabelLendo.Caption := 'Ordenando os CDs e DVDs';
+    // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
+    FORM1.Refresh;
+    // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
+    local_20 := TOTALCDS;
+    repeat
+      local_2c := 0;
+      iVar6 := local_20 + -1;
+      local_8 := 1;
+      if 0 < iVar6 then begin
+        repeat
+          local_8 := local_8 + 1;
+          uStack_478e94 := 0;
+          uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
+          if uStack_478e94 = 'R' then begin
+            uStack_478e94 := 0;
+            local_8 * 576 + 149492008 := uStack_478e94;
+            local_34 := uStack_478e94;
+            uStack_478e94 := 0;
+            (local_8 + 1) * 576 + 149492008 := uStack_478e94;
+            local_38 := uStack_478e94;
+          end;
+          uStack_478e94 := 0;
+          uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
+          if uStack_478e94 = 'A' then begin
+            iVar7 := local_8 * 576;
+            // C: local_34 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
+            iVar7 := (local_8 + 1) * 576;
+            // C: local_38 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
+          end;
+          // C: iVar7 = fpc_ansistr_compare(local_34,local_38);
+          if 0 < iVar7 then begin
+            // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_278,INIT_JUKELINUX1_TIPOCD);
+            // C: fpc_copy_proc((local_8 + 1) * 0x240 + 0x8e91110,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
+            // C: fpc_copy_proc(local_278,(local_8 + 1) * 0x240 + 0x8e91110,INIT_JUKELINUX1_TIPOCD);
+            local_2c := 1;
+          end;
+        until not (local_8 < iVar6);
+      end;
+      local_20 := local_20 + -1;
+    until not (local_2c <> 0);
+    Form1.LabelLendo.Caption := 'Lendo Letras dos CDS e DVDs';
+    // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
+    FORM1.Refresh;
+    // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
+    KL := 0;
+    repeat
+      KL := KL + 1;
+      iVar6 := KL;
+      // C: (&U_JUKELINUX1_CDSELEAPAGARX)[iVar6] = 0;
+      iVar6 := TOTALCDS;
+    until not (KL < 100);
+    TOTALMMLETRA := 0;
+    local_8 := 1;
+    if 0 < TOTALCDS then begin
       repeat
-        local_2c := 0;
-        iVar6 := local_20 + -1;
-        local_8 := 1;
-        if 0 < iVar6 then begin
-          repeat
-            local_8 := local_8 + 1;
-            uStack_478e94 := 0;
-            uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
-            if uStack_478e94 = 'R' then begin
-              uStack_478e94 := 0;
-              local_8 * 576 + 149492008 := uStack_478e94;
-              local_34 := uStack_478e94;
-              uStack_478e94 := 0;
-              (local_8 + 1) * 576 + 149492008 := uStack_478e94;
-              local_38 := uStack_478e94;
-            end;
-            uStack_478e94 := 0;
-            uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
-            if uStack_478e94 = 'A' then begin
-              iVar7 := local_8 * 576;
-              // C: local_34 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
-              iVar7 := (local_8 + 1) * 576;
-              // C: local_38 = *(undefined4 *)(U_JUKELINUX1_ARQLOG + iVar7 + 0x1fc);
-            end;
-            // C: iVar7 = fpc_ansistr_compare(local_34,local_38);
-            if 0 < iVar7 then begin
-              // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,local_278,INIT_JUKELINUX1_TIPOCD);
-              // C: fpc_copy_proc((local_8 + 1) * 0x240 + 0x8e91110,local_8 * 0x240 + 0x8e91110, INIT_JUKELINUX1_TIPOCD);
-              // C: fpc_copy_proc(local_278,(local_8 + 1) * 0x240 + 0x8e91110,INIT_JUKELINUX1_TIPOCD);
-              local_2c := 1;
-            end;
-          until not (local_8 < iVar6);
+        local_8 := local_8 + 1;
+        local_30 := 0;
+        repeat
+          local_c := local_c + 1;
+          uStack_478e94 := 0;
+          // C: SYSUTILS_LOWERCASE_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[local_c],&uStack_478e94);
+          // C: uVar5 = uStack_478e94;
+          uStack_478f98 := 0;
+          uStack_478f9c := 0;
+          // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f9c);
+          uStack_478f98 := LowerCase(uStack_478f9c);
+          if uStack_478f98 = uVar5 then begin
+            local_30 := 1;
+          end;
+        until not (local_c < 100);
+        if (local_30 = #0)  and  (TOTALMMLETRA < 101) then begin
+          TOTALMMLETRA := TOTALMMLETRA + 1;
+          uStack_478f9c := 0;
+          uStack_478f98 := 0;
+          // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f98);
+          uStack_478f9c := LowerCase(uStack_478f98);
+          iVar7 := TOTALMMLETRA;
+          // C: (&U_JUKELINUX1_CDSELEAPAGARX)[iVar7] = uStack_478f9c;
         end;
-        local_20 := local_20 + -1;
-      until not (local_2c <> 0);
-      Form1.LabelLendo.Caption := 'Lendo Letras dos CDS e DVDs';
-      // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
-      FORM1.Refresh;
-      // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
-      KL := 0;
-      repeat
-        KL := KL + 1;
-        iVar6 := KL;
-        // C: (&U_JUKELINUX1_CDSELEAPAGARX)[iVar6] = 0;
-        iVar6 := TOTALCDS;
-      until not (KL < 100);
-      TOTALMMLETRA := 0;
-      local_8 := 1;
-      if 0 < TOTALCDS then begin
-        repeat
-          local_8 := local_8 + 1;
-          local_30 := 0;
-          repeat
-            local_c := local_c + 1;
-            uStack_478e94 := 0;
-            // C: SYSUTILS_LOWERCASE_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[local_c],&uStack_478e94);
-            // C: uVar5 = uStack_478e94;
-            uStack_478f98 := 0;
-            uStack_478f9c := 0;
-            // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f9c);
-            uStack_478f98 := LowerCase(uStack_478f9c);
-            if uStack_478f98 = uVar5 then begin
-              local_30 := 1;
-            end;
-          until not (local_c < 100);
-          if (local_30 = #0)  and  (TOTALMMLETRA < 101) then begin
-            TOTALMMLETRA := TOTALMMLETRA + 1;
-            uStack_478f9c := 0;
-            uStack_478f98 := 0;
-            // C: fpc_ansistr_copy(*(undefined4 *)(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc),1,1, &uStack_478f98);
-            uStack_478f9c := LowerCase(uStack_478f98);
-            iVar7 := TOTALMMLETRA;
-            // C: (&U_JUKELINUX1_CDSELEAPAGARX)[iVar7] = uStack_478f9c;
-          end;
-        until not (local_8 < iVar6);
-      end;
-      uStack_478f9c := 0;
-      uStack_478f9c := PASTA + 'letras.txt';
-      // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
-      // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
-      Rewrite(ARQTEXTO);
-      iVar6 := TOTALMMLETRA;
-      local_8 := 1;
-      if 0 < TOTALMMLETRA then begin
-        repeat
-          local_8 := local_8 + 1;
-          // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,(&U_JUKELINUX1_CDSELEAPAGARX)[local_8]);
-          Writeln(ARQTEXTO);
-        until not (local_8 < iVar6);
-      end;
-      Flush(ARQTEXTO);
-      CloseFile(ARQTEXTO);
-      Form1.LabelLendo.Caption := 'Lendos as Generos Musicais dos CDS e DVDs';
-      // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
-      FORM1.Refresh;
-      // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
-      KR := 0;
-      repeat
-        KR := KR + 1;
-        iVar6 := KR;
-        // C: *(undefined4 *)(&DAT_092fffac + iVar6 * 4) = 0;
-        iVar6 := TOTALCDS;
-      until not (KR < 100);
-      TOTALMMRITMO := 0;
-      local_8 := 1;
-      if 0 < TOTALCDS then begin
-        repeat
-          local_8 := local_8 + 1;
-          local_30 := 0;
-          repeat
-            local_c := local_c + 1;
-            uStack_478f9c := 0;
-            local_8 * 576 + 149492008 := uStack_478f9c;
-            // C: iVar7 = fpc_ansistr_compare_equal (uStack_478f9c,*(undefined4 *)(&DAT_092fffac + local_c * 4));
-            if iVar7 = 0 then begin
-              local_30 := 1;
-            end;
-          until not (local_c < 100);
-          if (local_30 = #0)  and  (TOTALMMRITMO < 101) then begin
-            TOTALMMRITMO := TOTALMMRITMO + 1;
-            uStack_478f9c := 0;
-            local_8 * 576 + 149492008 := uStack_478f9c;
-            iVar7 := TOTALMMRITMO;
-            // C: *(undefined4 *)(&DAT_092fffac + iVar7 * 4) = uStack_478f9c;
-          end;
-        until not (local_8 < iVar6);
-      end;
-      // C: (**(code **)(**(int **)(Form1.ListBoxRAtivo + 0x364) + 0xb8)) (Form1.ListBoxRAtivo.Items);
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG1 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG1 + 0x36c));
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG2 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG2 + 0x36c));
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG3 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG3 + 0x36c));
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG4 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG4 + 0x36c));
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG5 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG5 + 0x36c));
-      // C: (**(code **)(**(int **)(Form1.ComboBoxMG6 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG6 + 0x36c));
-      uStack_478f9c := 0;
-      uStack_478f9c := PASTA + 'ritmos.txt';
-      // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
-      // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
-      Rewrite(ARQTEXTO);
-      iVar6 := TOTALMMRITMO;
-      local_8 := 1;
-      if 0 < TOTALMMRITMO then begin
-        repeat
-          local_8 := local_8 + 1;
-          // C: (**(code **)(**(int **)(Form1.ListBoxRAtivo + 0x364) + 0xa4)) (Form1.ListBoxRAtivo.Items, *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG1 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG1 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG2 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG2 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG3 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG3 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG4 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG4 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG5 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG5 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: (**(code **)(**(int **)(Form1.ComboBoxMG6 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG6 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,*(undefined4 *)(&DAT_092fffac + local_8 * 4));
-          Writeln(ARQTEXTO);
-        until not (local_8 < iVar6);
-      end;
-      Flush(ARQTEXTO);
-      CloseFile(ARQTEXTO);
+      until not (local_8 < iVar6);
     end;
     uStack_478f9c := 0;
-    uStack_478f98 := 0;
-    uStack_478e94 := 0;
-    uStack_478e90 := 0;
-    iStack_478d8c := 0;
-    uStack_478d88 := 0;
-    uStack_478c84 := 0;
-    uStack_478c80 := 0;
-    iStack_478c7c := 0;
-    iStack_478c78 := 0;
-    iStack_478c74 := 0;
-    iStack_478c70 := 0;
-    iStack_478c6c := 0;
-    iStack_478b68 := 0;
-    // C: aiStack_478b58[0] = 0;
-    // C: aiStack_474c8c[0] = 0;
-    uStack_478b20 := 0;
-    iStack_478b24 := 0;
+    uStack_478f9c := PASTA + 'letras.txt';
+    // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
+    // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
+    Rewrite(ARQTEXTO);
+    iVar6 := TOTALMMLETRA;
+    local_8 := 1;
+    if 0 < TOTALMMLETRA then begin
+      repeat
+        local_8 := local_8 + 1;
+        // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,(&U_JUKELINUX1_CDSELEAPAGARX)[local_8]);
+        Writeln(ARQTEXTO);
+      until not (local_8 < iVar6);
+    end;
+    Flush(ARQTEXTO);
+    CloseFile(ARQTEXTO);
+    Form1.LabelLendo.Caption := 'Lendos as Generos Musicais dos CDS e DVDs';
+    // C: (**(code **)(*(int *)Form1.LabelLendo + 0x2fc))(Form1.LabelLendo);
+    FORM1.Refresh;
+    // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
+    KR := 0;
+    repeat
+      KR := KR + 1;
+      iVar6 := KR;
+      // C: *(undefined4 *)(&DAT_092fffac + iVar6 * 4) = 0;
+      iVar6 := TOTALCDS;
+    until not (KR < 100);
+    TOTALMMRITMO := 0;
+    local_8 := 1;
+    if 0 < TOTALCDS then begin
+      repeat
+        local_8 := local_8 + 1;
+        local_30 := 0;
+        repeat
+          local_c := local_c + 1;
+          uStack_478f9c := 0;
+          local_8 * 576 + 149492008 := uStack_478f9c;
+          // C: iVar7 = fpc_ansistr_compare_equal (uStack_478f9c,*(undefined4 *)(&DAT_092fffac + local_c * 4));
+          if iVar7 = 0 then begin
+            local_30 := 1;
+          end;
+        until not (local_c < 100);
+        if (local_30 = #0)  and  (TOTALMMRITMO < 101) then begin
+          TOTALMMRITMO := TOTALMMRITMO + 1;
+          uStack_478f9c := 0;
+          local_8 * 576 + 149492008 := uStack_478f9c;
+          iVar7 := TOTALMMRITMO;
+          // C: *(undefined4 *)(&DAT_092fffac + iVar7 * 4) = uStack_478f9c;
+        end;
+      until not (local_8 < iVar6);
+    end;
+    // C: (**(code **)(**(int **)(Form1.ListBoxRAtivo + 0x364) + 0xb8)) (Form1.ListBoxRAtivo.Items);
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG1 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG1 + 0x36c));
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG2 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG2 + 0x36c));
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG3 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG3 + 0x36c));
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG4 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG4 + 0x36c));
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG5 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG5 + 0x36c));
+    // C: (**(code **)(**(int **)(Form1.ComboBoxMG6 + 0x36c) + 0xb8)) (*(undefined4 *)(Form1.ComboBoxMG6 + 0x36c));
+    uStack_478f9c := 0;
+    uStack_478f9c := PASTA + 'ritmos.txt';
+    // C: FPC_ANSISTR_TO_SHORTSTR(auStack_47909c,0xff,uStack_478f9c);
+    // C: OBJPAS_ASSIGNFILE_TEXT_SHORTSTRING(U_JUKELINUX1_ARQTEXTO,auStack_47909c);
+    Rewrite(ARQTEXTO);
+    iVar6 := TOTALMMRITMO;
+    local_8 := 1;
+    if 0 < TOTALMMRITMO then begin
+      repeat
+        local_8 := local_8 + 1;
+        // C: (**(code **)(**(int **)(Form1.ListBoxRAtivo + 0x364) + 0xa4)) (Form1.ListBoxRAtivo.Items, *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG1 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG1 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG2 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG2 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG3 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG3 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG4 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG4 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG5 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG5 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: (**(code **)(**(int **)(Form1.ComboBoxMG6 + 0x36c) + 0xa4)) (*(undefined4 *)(Form1.ComboBoxMG6 + 0x36c), *(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO,*(undefined4 *)(&DAT_092fffac + local_8 * 4));
+        Writeln(ARQTEXTO);
+      until not (local_8 < iVar6);
+    end;
+    Flush(ARQTEXTO);
+    CloseFile(ARQTEXTO);
+  end;
+  uStack_478f9c := 0;
+  uStack_478f98 := 0;
+  uStack_478e94 := 0;
+  uStack_478e90 := 0;
+  iStack_478d8c := 0;
+  uStack_478d88 := 0;
+  uStack_478c84 := 0;
+  uStack_478c80 := 0;
+  iStack_478c7c := 0;
+  iStack_478c78 := 0;
+  iStack_478c74 := 0;
+  iStack_478c70 := 0;
+  iStack_478c6c := 0;
+  iStack_478b68 := 0;
+  // C: aiStack_478b58[0] = 0;
+  // C: aiStack_474c8c[0] = 0;
+  uStack_478b20 := 0;
+  iStack_478b24 := 0;
 end;
 
 { JUKELINUX1_CARREGANDO_KARAOKES }
@@ -3088,7 +3090,7 @@ begin
             // C: SYSTEM_BLOCKREAD_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1FROMORIGEM,U_JUKELINUX1_TIMER1BUF,0x800, &U_JUKELINUX1_TIMER1NUMREAD);
             Descriptabuf;
             // C: SYSTEM_BLOCKWRITE_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1TODESTINOMP3,U_JUKELINUX1_TIMER1BUF, U_JUKELINUX1_TIMER1NUMREAD,&U_JUKELINUX1_TIMER1NUMWRITTEN);
-            // C: if (U_JUKELINUX1_TIMER1NUMREAD == 0) break;
+            if TIMER1NUMREAD = 0 then begin Break; end;
           until not (TIMER1NUMWRITTEN = TIMER1NUMREAD);
           // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_TIMER1FROMORIGEM);
           // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_TIMER1TODESTINOMP3);
@@ -3185,7 +3187,7 @@ begin
       Reset(ARQTEXTO);
       while True do begin
         cVar2 := Eof(ARQTEXTO);
-        // C: if (cVar2 != '\0') break;
+        if cVar2 then begin Break; end;
         Read(ARQTEXTO, TEXTO);
         Readln(ARQTEXTO);
         local_7dc := local_7dc + 1;
@@ -3345,7 +3347,7 @@ begin
       Reset(ARQTEXTO);
       while True do begin
         cVar3 := Eof(ARQTEXTO);
-        // C: if (cVar3 != '\0') break;
+        if cVar3 then begin Break; end;
         Read(ARQTEXTO, TEXTO);
         Readln(ARQTEXTO);
         iVar2 := TOTALCDS;
@@ -3441,7 +3443,7 @@ begin
       // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
       while True do begin
         // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
-        // C: if (cVar1 != '\0') break;
+        if cVar1 then begin Break; end;
         // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
         // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         ACARM := local_154;
@@ -3873,7 +3875,7 @@ begin
       // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
       while True do begin
         // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
-        // C: if (cVar1 != '\0') break;
+        if cVar1 then begin Break; end;
         // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
         // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         ACARM := local_14c;
@@ -3982,7 +3984,7 @@ begin
       Reset(ARQTEXTO);
       while True do begin
         cVar2 := Eof(ARQTEXTO);
-        // C: if (cVar2 != '\0') break;
+        if cVar2 then begin Break; end;
         Read(ARQTEXTO, TEXTO);
         Readln(ARQTEXTO);
         iVar1 := TOTALCDS;
@@ -4338,6 +4340,8 @@ end;
 
 { JUKELINUX1_MOSTRA_CDS$ANSISTRING }
 procedure Mostra_Cds(P1: AnsiString);
+label
+  LAB_080a5430, LAB_080a5602, LAB_080a57e2, LAB_080a59c2, LAB_080a5bd2, LAB_080a6ae6, LAB_080a6cca, LAB_080a6eae, LAB_080a7092, LAB_080a733c, LAB_080a91e6;
 var
   local_34, local_38, local_8: AnsiString;
   iVar1, iVar2, uVar3: LongInt;
@@ -4345,7 +4349,7 @@ begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
   // C: iVar1 = fpc_setjmp();
-  // C: if (iVar1 != 0) goto LAB_080a91e6;
+  if iVar1 <> 0 then begin goto LAB_080a91e6; end;
   local_34 := Copy(ORDEMDOSCDS, 1, 1);
   if local_34 = 'R' then begin
     if TRAVADODENTRODORITMO = 0 then begin
@@ -4405,13 +4409,14 @@ begin
       end;
       if MOSTRAPAGINANDOCDS <> 0 then begin
         if KMAT < 1 then begin
-          // C: LAB_080a5430: CONTROLS_TCONTROL____HIDE(Form1.CDMenos5);
+          LAB_080a5430: ;
+          Form1.CDMenos5.Hide;
           Form1.ImgLanMenos5.Hide;
           Form1.Img50Menos5.Hide;
         end
         else begin
           KMAT * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a5430;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5430; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos5,extraout_EDX & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
           Form1.CDMenos5.Show;
@@ -4436,13 +4441,14 @@ begin
           end;
         end;
         if KMAT + 1 < 1 then begin
-          // C: LAB_080a5602: CONTROLS_TCONTROL____HIDE(Form1.CDMenos4);
+          LAB_080a5602: ;
+          Form1.CDMenos4.Hide;
           Form1.ImgLanMenos4.Hide;
           Form1.Img50Menos4.Hide;
         end
         else begin
           (KMAT + 1) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a5602;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5602; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos4,extraout_EDX_00 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
           Form1.CDMenos4.Show;
@@ -4467,13 +4473,14 @@ begin
           end;
         end;
         if KMAT + 2 < 1 then begin
-          // C: LAB_080a57e2: CONTROLS_TCONTROL____HIDE(Form1.CDMenos3);
+          LAB_080a57e2: ;
+          Form1.CDMenos3.Hide;
           Form1.ImgLanMenos3.Hide;
           Form1.Img50Menos3.Hide;
         end
         else begin
           (KMAT + 2) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a57e2;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a57e2; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos3,extraout_EDX_01 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
           Form1.CDMenos3.Show;
@@ -4498,13 +4505,14 @@ begin
           end;
         end;
         if KMAT + 3 < 1 then begin
-          // C: LAB_080a59c2: CONTROLS_TCONTROL____HIDE(Form1.CDMenos2);
+          LAB_080a59c2: ;
+          Form1.CDMenos2.Hide;
           Form1.ImgLanMenos2.Hide;
           Form1.Img50Menos2.Hide;
         end
         else begin
           (KMAT + 3) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a59c2;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a59c2; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos2,extraout_EDX_02 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
           Form1.CDMenos2.Show;
@@ -4553,14 +4561,15 @@ begin
             if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S") , iVar2 == 0) } then begin
               Form1.ImgLanMenos1.Hide;
             end;
-            // C: goto LAB_080a5bd2;
+            goto LAB_080a5bd2;
           end;
         end;
         Form1.CDMenos1.Hide;
         Form1.ImgLanMenos1.Hide;
         Form1.Img50Menos1.Hide;
       end;
-      // C: LAB_080a5bd2: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
+      LAB_080a5bd2: ;
+      // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
       local_38 := IntToStr(KMAT + 5);
       Form1.NumCD.Caption := local_38;
       iVar2 := 0;
@@ -4734,13 +4743,14 @@ begin
       end;
       if MOSTRAPAGINANDOCDS <> 0 then begin
         if TOTALCDS < KMAT + 6 then begin
-          // C: LAB_080a6ae6: CONTROLS_TCONTROL____HIDE(Form1.CDMais1);
+          LAB_080a6ae6: ;
+          Form1.CDMais1.Hide;
           Form1.ImgLanMais1.Hide;
           Form1.Img50Mais1.Hide;
         end
         else begin
           (KMAT + 6) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a6ae6;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6ae6; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais1,extraout_EDX_05 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
           Form1.CDMais1.Show;
@@ -4765,13 +4775,14 @@ begin
           end;
         end;
         if TOTALCDS < KMAT + 7 then begin
-          // C: LAB_080a6cca: CONTROLS_TCONTROL____HIDE(Form1.CDMais2);
+          LAB_080a6cca: ;
+          Form1.CDMais2.Hide;
           Form1.ImgLanMais2.Hide;
           Form1.Img50Mais2.Hide;
         end
         else begin
           (KMAT + 7) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a6cca;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6cca; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais2,extraout_EDX_06 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
           Form1.CDMais2.Show;
@@ -4796,13 +4807,14 @@ begin
           end;
         end;
         if TOTALCDS < KMAT + 8 then begin
-          // C: LAB_080a6eae: CONTROLS_TCONTROL____HIDE(Form1.CDMais3);
+          LAB_080a6eae: ;
+          Form1.CDMais3.Hide;
           Form1.ImgLanMais3.Hide;
           Form1.Img50Mais3.Hide;
         end
         else begin
           (KMAT + 8) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a6eae;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6eae; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais3,extraout_EDX_07 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
           Form1.CDMais3.Show;
@@ -4827,13 +4839,14 @@ begin
           end;
         end;
         if TOTALCDS < KMAT + 9 then begin
-          // C: LAB_080a7092: CONTROLS_TCONTROL____HIDE(Form1.CDMais4);
+          LAB_080a7092: ;
+          Form1.CDMais4.Hide;
           Form1.ImgLanMais4.Hide;
           Form1.Img50Mais4.Hide;
         end
         else begin
           (KMAT + 9) * 576 + 149492008 := local_34;
-          // C: if (STRNE(local_34[0],U_JUKELINUX1_TRAVADODENTRODORITMO)) goto LAB_080a7092;
+          if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a7092; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais4,extraout_EDX_08 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 *)(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
           Form1.CDMais4.Show;
@@ -4882,7 +4895,7 @@ begin
             if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S" ), iVar2 == 0) } then begin
               Form1.ImgLanMais5.Hide;
             end;
-            // C: goto LAB_080a733c;
+            goto LAB_080a733c;
           end;
         end;
         Form1.CDMais5.Hide;
@@ -4891,7 +4904,7 @@ begin
       end;
     end;
   end;
-  // C: LAB_080a733c: fpc_ansistr_decr_ref(local_34);
+  LAB_080a733c: ;
   local_34 := Copy(ORDEMDOSCDS, 1, 1);
   if local_34 = 'A' then begin
     (KMAT + 5) * 576 + 149492008 := local_34;
@@ -5360,7 +5373,7 @@ begin
       end;
     end;
   end;
-  // C: LAB_080a91e6: fpc_popaddrstack();
+  LAB_080a91e6: ;
   if iVar1 <> 0 then begin
   end;
 end;
@@ -5675,7 +5688,7 @@ begin
       local_8 := 0;
       while True do begin
         cVar1 := Eof(ARQTOCAR);
-        // C: if (cVar1 != '\0') break;
+        if cVar1 then begin Break; end;
         Read(ARQTOCAR, TEXTO);
         Readln(ARQTOCAR);
         cVar1 := FileExists(TEXTO);
@@ -5704,7 +5717,7 @@ begin
         Rewrite(ARQTOCARX);
         while True do begin
           cVar1 := Eof(ARQTOCAR);
-          // C: if (cVar1 != '\0') break;
+          if cVar1 then begin Break; end;
           Read(ARQTOCAR, TEXTO);
           Readln(ARQTOCAR);
           cVar1 := FileExists(TEXTO);
@@ -5735,7 +5748,7 @@ begin
         Reset(ARQTOCAR);
         while True do begin
           cVar1 := Eof(ARQTOCAR);
-          // C: if (cVar1 != '\0') break;
+          if cVar1 then begin Break; end;
           Read(ARQTOCAR, TEXTO);
           Readln(ARQTOCAR);
           SELECIONADAS := SELECIONADAS + 1;
@@ -6171,21 +6184,24 @@ end;
 
 { JUKELINUX1_MOSTRA_TELA_CARREGANDO_CDS }
 procedure Mostra_Tela_Carregando_Cds;
+label
+  LAB_080ae298, LAB_080ae417, LAB_080ae769;
 var
   local_30, local_34, local_3c, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_68, local_70, local_78, local_80, local_84, local_88, local_8c, local_94: AnsiString;
   cVar1: Boolean;
   iVar2, local_38, local_40, local_64, local_6c, local_74, local_7c, local_90: LongInt;
 begin
   // C: iVar2 = fpc_setjmp();
-  // C: if (iVar2 != 0) goto LAB_080ae769;
+  if iVar2 <> 0 then begin goto LAB_080ae769; end;
   Form1.ImageLendo.Align := alClient;
   if LETRASEXE = 'LLM' then begin
-    // C: LAB_080ae298: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo1.Picture);
+    LAB_080ae298: ;
+    // C: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo1.Picture);
   end
   else begin
-    // C: if (STREQ(U_JUKELINUX1_LETRASEXE,"CAR")) goto LAB_080ae298;
-    // C: if (STREQ(U_JUKELINUX1_LETRASEXE,"3MJ")) goto LAB_080ae298;
-    // C: if (STREQ(U_JUKELINUX1_LETRASEXE,"ROB")) goto LAB_080ae298;
+    if LETRASEXE = 'CAR' then begin goto LAB_080ae298; end;
+    if LETRASEXE = '3MJ' then begin goto LAB_080ae298; end;
+    if LETRASEXE = 'ROB' then begin goto LAB_080ae298; end;
   end;
   if LETRASEXE = 'DIN' then begin
     // C: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo1.Picture);
@@ -6206,10 +6222,11 @@ begin
     // C: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo6.Picture);
   end;
   if LETRASEXE = 'TRO' then begin
-    // C: LAB_080ae417: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo7.Picture);
+    LAB_080ae417: ;
+    // C: EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE (Form1.ImageLendo, Form1.ImageLendo7.Picture);
   end
   else begin
-    // C: if (STREQ(U_JUKELINUX1_LETRASEXE,"FLA")) goto LAB_080ae417;
+    if LETRASEXE = 'FLA' then begin goto LAB_080ae417; end;
   end;
   Form1.PanelLendo.Left := 0;
   Form1.PanelLendo.Top := 0;
@@ -6261,7 +6278,7 @@ begin
     local_5c := local_88 + local_84 + local_80 + local_7c + local_78 + local_74 + local_70 + local_6c + local_68 + local_64 + local_60;
     Form1.PanelVersao.Caption := local_5c;
   end;
-  // C: LAB_080ae769: fpc_popaddrstack();
+  LAB_080ae769: ;
   if iVar2 <> 0 then begin
   end;
 end;
@@ -7128,7 +7145,7 @@ begin
             Reset(ARQTEXTO);
             while True do begin
               cVar1 := Eof(ARQTEXTO);
-              // C: if (cVar1 != '\0') break;
+              if cVar1 then begin Break; end;
               Read(ARQTEXTO, TEXTO);
               Readln(ARQTEXTO);
               // C: (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0xa4)) (Form1.ListBoxRInativo.Items,U_JUKELINUX1_TEXTO);
@@ -8779,7 +8796,7 @@ begin
           Reset(local_4ac);
           while True do begin
             cVar1 := Eof(local_4ac);
-            // C: if (cVar1 != '\0') break;
+            if cVar1 then begin Break; end;
             Read(local_25c, local_4b0);
             Readln(local_25c);
             Read(local_25c, local_4b4);
@@ -8889,7 +8906,7 @@ begin
       Reset(ARQTOCAR);
       while True do begin
         cVar1 := Eof(ARQTOCAR);
-        // C: if (cVar1 != '\0') break;
+        if cVar1 then begin Break; end;
         Read(ARQTOCAR, local_10);
         Readln(ARQTOCAR);
       end;
@@ -9262,6 +9279,8 @@ end;
 
 { JUKELINUX1_TFORM1_$__BUTTONATIVARCLICK$TOBJECT }
 procedure TForm1.ButtonAtivarClick(Sender: TObject);
+label
+  LAB_080cc102;
 var
   local_17c, local_180, local_184, local_188, local_18c, local_190, local_194, local_198, local_20, local_24, local_28, local_28c, local_2c, local_48, local_78, local_7c, local_80, local_84, local_88, local_8c: AnsiString;
   iVar3, local_10, local_1c, local_290, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_8, local_c, uVar1: LongInt;
@@ -9720,7 +9739,7 @@ begin
           Gravalog(local_188);
         end;
         Form1.PanelAtivacao.Hide;
-        // C: goto LAB_080cc102;
+        goto LAB_080cc102;
       end;
     end;
     local_198 := 'Numero Digitado Errado [';
@@ -9732,7 +9751,7 @@ begin
     ShowMessage('Número Errado...');
     Form1.EditSenhaAtivacao.Caption := 0;
   end;
-  // C: LAB_080cc102: fpc_popaddrstack();
+  LAB_080cc102: ;
 end;
 
 { JUKELINUX1_TFORM1_$__BUTTONCARREGARCDCLICK$TOBJECT }
@@ -11716,7 +11735,7 @@ begin
         KFRASE := 0;
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           KFRASE := KFRASE + 1;
           Read(ARQTEXTO, TEXTO);
           Readln(ARQTEXTO);
@@ -15440,7 +15459,7 @@ begin
         Reset(ARQTEXTO);
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           iVar5 := local_10 + 1;
           local_10 := iVar5;
           Read(ARQTEXTO, local_e4 + iVar5 * 4 + -4);
@@ -16311,7 +16330,7 @@ begin
         Reset(ARQTEXTO);
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           Read(ARQTEXTO, TEXTO);
           Readln(ARQTEXTO);
           // C: (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0xa4)) (Form1.ListBoxRInativo.Items,U_JUKELINUX1_TEXTO);
@@ -17005,7 +17024,7 @@ begin
         KRJ := 0;
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           Read(ARQTEXTO, TEXTO1);
           Readln(ARQTEXTO);
           Read(ARQTEXTO, TEXTO2);
@@ -17180,7 +17199,7 @@ begin
         KLJ := 0;
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           Read(ARQTEXTO, TEXTO1);
           Readln(ARQTEXTO);
           Read(ARQTEXTO, TEXTO2);
@@ -17305,7 +17324,7 @@ begin
       Reset(ARQTEXTO);
       while True do begin
         cVar3 := Eof(ARQTEXTO);
-        // C: if (cVar3 != '\0') break;
+        if cVar3 then begin Break; end;
         local_100 := local_100 + 1;
         Read(ARQTEXTO, TEXTOTECLA);
         Readln(ARQTEXTO);
@@ -17451,7 +17470,7 @@ begin
         Reset(ARQTOCAR);
         while True do begin
           cVar3 := Eof(ARQTOCAR);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           Read(ARQTOCAR, TEXTO);
           Readln(ARQTOCAR);
           local_104 := local_104 + 1;
@@ -17467,7 +17486,7 @@ begin
           Reset(ARQTOCAR);
           while True do begin
             cVar3 := Eof(ARQTOCAR);
-            // C: if (cVar3 != '\0') break;
+            if cVar3 then begin Break; end;
             Read(ARQTOCAR, TEXTO);
             Readln(ARQTOCAR);
             local_108 := local_108 + 1;
@@ -17527,7 +17546,7 @@ begin
         KFRASE := 0;
         while True do begin
           cVar3 := Eof(ARQTEXTO);
-          // C: if (cVar3 != '\0') break;
+          if cVar3 then begin Break; end;
           KFRASE := KFRASE + 1;
           Read(ARQTEXTO, TEXTO);
           Readln(ARQTEXTO);
@@ -20939,6 +20958,8 @@ end;
 
 { JUKELINUX1_TFORM1_$__TIMERPALHINHATIMER$TOBJECT }
 procedure TForm1.TimerPalhinhaTimer(Sender: TObject);
+label
+  LAB_080e39d9, LAB_080e3a45;
 var
   local_38, local_3c, local_40: AnsiString;
   cVar1: Boolean;
@@ -20947,7 +20968,7 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar2 = fpc_setjmp();
-  // C: if (iVar2 != 0) goto LAB_080e3a45;
+  if iVar2 <> 0 then begin goto LAB_080e3a45; end;
   TEMCREDITO := 0;
   if REAISXMUSICAS = 'Livre' then begin
     TEMCREDITO := 1;
@@ -21041,29 +21062,32 @@ begin
   local_40 := ExtractFileExt(ORIGEMPALHINHA);
   local_3c := UpperCase(local_40);
   if local_3c = '.MPG' then begin
-    // C: LAB_080e39d9: JUKELINUX1_DESATIVA_PROPAGANDA();
+    LAB_080e39d9: ;
+    Desativa_Propaganda;
     Form1.Play.Show;
     Form1.Play.BringToFront;
   end
   else begin
     local_3c := ExtractFileExt(ORIGEMPALHINHA);
     local_40 := UpperCase(local_3c);
-    // C: if (STREQ(local_40,".MKV")) goto LAB_080e39d9;
+    if local_40 = '.MKV' then begin goto LAB_080e39d9; end;
     local_3c := ExtractFileExt(ORIGEMPALHINHA);
     local_40 := UpperCase(local_3c);
-    // C: if (STREQ(local_40,".MP4")) goto LAB_080e39d9;
+    if local_40 = '.MP4' then begin goto LAB_080e39d9; end;
   end;
   MUSICAQUEJATOCOUAPALHINHA := ORIGEMPALHINHA;
   CONTADORTEMPOPALHINHA := 0;
   MUDOUDECDOUMUSICA := 0;
   Form1.TimerPalhinhaTocando.Enabled := True;
-  // C: LAB_080e3a45: fpc_popaddrstack();
+  LAB_080e3a45: ;
   if iVar2 <> 0 then begin
   end;
 end;
 
 { JUKELINUX1_TFORM1_$__TIMERPALHINHATOCANDOTIMER$TOBJECT }
 procedure TForm1.TimerPalhinhaTocandoTimer(Sender: TObject);
+label
+  LAB_080e3caf, LAB_080e3d22;
 var
   local_38, local_3c, local_40: AnsiString;
   iVar1, iVar2, local_8, local_c: LongInt;
@@ -21071,16 +21095,16 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
-  // C: if (iVar1 != 0) goto LAB_080e3d22;
+  if iVar1 <> 0 then begin goto LAB_080e3d22; end;
   Form1.TimerPalhinhaTocando.Enabled := False;
-  // C: if (U_JUKELINUX1_TOCANDOPALHINHA == '\0') goto LAB_080e3d22;
+  if TOCANDOPALHINHA = 0 then begin goto LAB_080e3d22; end;
   CONTADORTEMPOPALHINHA := CONTADORTEMPOPALHINHA + 1;
   local_38 := IntToStr(TEMPODEINTRODUCAOMUSICAL - (CONTADORTEMPOPALHINHA div 2));
   Form1.LabelTempoAindaTocandoAPalhinha.Caption := local_38;
   // C: iVar2 = U_JUKELINUX1_CONTADORTEMPOPALHINHA + (U_JUKELINUX1_CONTADORTEMPOPALHINHA >> 0x1f & 1U);
   if False { C: (iVar2 >> 1 < U_JUKELINUX1_TEMPODEINTRODUCAOMUSICAL) && (U_JUKELINUX1_MUDOUDECDOUMUSICA == '\0') } then begin
     // C: (**(code **)(**(int **)(U_JUKELINUX1_FORM1 + 0xb60) + 0xd8)) (Form1.TimerPalhinhaTocando,CONCAT31((int3)(iVar2 >> 9),1));
-    // C: goto LAB_080e3d22;
+    goto LAB_080e3d22;
   end;
   // C: MPLAYERCTRL_TCUSTOMMPLAYERCONTROL____STOP(Form1.Play);
   Form1.Play.Hide;
@@ -21093,22 +21117,23 @@ begin
   local_40 := ExtractFileExt(ORIGEMPALHINHA);
   local_3c := UpperCase(local_40);
   if local_3c = '.MPG' then begin
-    // C: LAB_080e3caf: JUKELINUX1_ATIVA_PROPAGANDA();
+    LAB_080e3caf: ;
+    Ativa_Propaganda;
   end
   else begin
     local_3c := ExtractFileExt(ORIGEMPALHINHA);
     local_40 := UpperCase(local_3c);
-    // C: if (STREQ(local_40,".MKV")) goto LAB_080e3caf;
+    if local_40 = '.MKV' then begin goto LAB_080e3caf; end;
     local_3c := ExtractFileExt(ORIGEMPALHINHA);
     local_40 := UpperCase(local_3c);
-    // C: if (STREQ(local_40,".MP4")) goto LAB_080e3caf;
+    if local_40 = '.MP4' then begin goto LAB_080e3caf; end;
   end;
   TOCANDOPALHINHA := 0;
   Form1.TimerPalhinhaTocando.Enabled := False;
   TEMPOPALHINHA := 0;
   MUDOUDECDOUMUSICA := 0;
   Form1.TimerPalhinha.Enabled := True;
-  // C: LAB_080e3d22: fpc_popaddrstack();
+  LAB_080e3d22: ;
   if iVar1 <> 0 then begin
   end;
 end;
@@ -21696,7 +21721,7 @@ begin
           KTOCAR := 1;
           while True do begin
             cVar2 := Eof(ARQTOCAR);
-            // C: if (cVar2 != '\0') break;
+            if cVar2 then begin Break; end;
             Read(ARQTOCAR, TEXTO);
             Readln(ARQTOCAR);
             if KTOCAR <> 1 then begin

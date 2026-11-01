@@ -12,7 +12,7 @@ import re
 import sys
 
 nomes_juke = []
-textos, locais, globais = [], set(), set()
+textos, locais, globais, rotulos = [], set(), set(), set()
 
 
 def carregar_nomes(funcoes_txt):
@@ -286,6 +286,20 @@ def comando(c):
         return ''
     if c == 'break':
         return 'Break;'
+    m = re.fullmatch(r'(LAB_\w+)@ROTULO', c)
+    if m:
+        rotulos.add(m.group(1))
+        return f'{m.group(1)}: ;'
+    m = re.fullmatch(r'goto (LAB_\w+)', c)
+    if m:
+        rotulos.add(m.group(1))
+        return f'goto {m.group(1)};'
+    # if de um comando só, sem chaves: if (c) goto X / break / return
+    m = re.fullmatch(r'if ?\((.+)\) (goto LAB_\w+|break|return.*)', c)
+    if m:
+        cond, inner = condicao(m.group(1)), comando(m.group(2))
+        if cond and not inner.startswith('//'):
+            return f'if {cond} then begin {inner} end;'
     m = re.fullmatch(r'return (.+)', c)
     if m and expr(m.group(1)):
         return f'Result := {expr(m.group(1))}; Exit;'
@@ -352,7 +366,7 @@ def cond_ou_falso(c):
 
 def traduzir(src):
     """Traduz uma função C; devolve (linhas Pascal do corpo, locais usadas, globais usadas)."""
-    textos.clear(); locais.clear(); globais.clear()
+    textos.clear(); locais.clear(); globais.clear(); rotulos.clear()
 
     # --- preparo: corpo, textos protegidos, moldura de exceção, comparações ---------------------------------------
     corpo = src[src.index('{', src.index(')')) + 1:src.rindex('}')]
@@ -369,6 +383,8 @@ def traduzir(src):
         corpo = corpo[:m.start()] + '{' + corpo[m.end():]
         corpo = re.sub(r'if \(' + v + r' != 0\) \{\s*fpc_reraise\(\);\s*\}', '', corpo)
     corpo = re.sub(r'\s+', ' ', corpo)
+    # Rótulos de goto viram comandos próprios (senão grudam na chave seguinte).
+    corpo = re.sub(r'\b(LAB_\w+):', r'\1@ROTULO;', corpo)
     # iVar = fpc_ansistr_compare_equal(a,b); if (iVar == 0)  ->  if (STREQ(a,b))
     corpo = re.sub(r'(\w+) = (?:fpc_ansistr_compare_equal|FPC_SHORTSTR_COMPARE_EQUAL|fpc_shortstr_compare_equal)'
                    r'\(([^;]+)\);(?: uVar\d+ = [^;]+;)? if \(\1 (==|!=) 0\)',
