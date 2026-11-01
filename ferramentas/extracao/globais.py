@@ -44,8 +44,7 @@ def tipo(n, tam):
     if tam == 256:
         return 'ShortString'
     if tam == 1:
-        return 'Boolean' if re.search(re.escape(g) + r" (==|!=|=) '\\(0|x01)'", u) or not re.search(
-            re.escape(g) + r' [+-] ', u) else 'Byte'
+        return 'Byte'  # a original grava 0/1 nelas, o que o Boolean do Pascal não aceita
     if tam == 4:
         if re.search(r'fpc_ansistr_\w+\(&?' + re.escape(g) + r'\b|fpc_ansistr_\w+\([^;]*,' + re.escape(g) + r'\b|'
                      + re.escape(g) + r' = "|(STR|_ANSISTRING|COMPARE_EQUAL)\w*\(' + re.escape(g) + r'\b', u):

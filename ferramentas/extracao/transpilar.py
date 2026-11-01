@@ -88,6 +88,9 @@ RTL = {
     'CONTROLS_TWINCONTROL____SETFOCUS': ('SetFocus', 'm'),
     'FORMS_TSCREEN____GETWIDTH__LONGINT': ('Width', 'g'),
     'FORMS_TSCREEN____GETHEIGHT__LONGINT': ('Height', 'g'),
+    'STDCTRLS_TCUSTOMLISTBOX____GETCOUNT__LONGINT': ('Count', 'g'),
+    'STDCTRLS_TCUSTOMCOMBOBOX____GETITEMINDEX__LONGINT': ('ItemIndex', 'g'),
+    'CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING': ('Caption', 'g'),
     'CONTROLS_TCONTROL____REFRESH': ('Refresh', 'm'),
     'CONTROLS_TCONTROL____INVALIDATE': ('Invalidate', 'm'),
     'CONTROLS_TCONTROL____UPDATE': ('Update', 'm'),
@@ -176,7 +179,8 @@ def expr(e):
     e = e.replace('==', '=').replace('!=', '<>').replace('&&', ' and ').replace('||', ' or ')
     e = re.sub(r'(?<![<>=:])!(?!=)', 'not ', e)
     e = re.sub(r'@T(\d+)@', lambda m: texto_pas(m.group(1)), e)
-    if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+\(|\bfpc_|'
+    e = {'#0': '0', '#1': '1'}.get(e, e)
+    if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
                  r'\b_\d_\d_|param_|\bFPC_', e):
         return None
     return e
@@ -298,7 +302,7 @@ def comando(c):
         return ''
     r = chamada(c)
     if r:
-        return r
+        return r if r.endswith(';') else r + ';'
     # (**(code **)(**(int **)(...) + OFF))(OBJ, ARG)  -> propriedade virtual
     m = re.fullmatch(r'\(\*\*\(code \*\*\)\((?:\*\*\(int \*\*\)\(.+?\)|\*\(int \*\)[\w.]+) \+ (0x[0-9a-f]+)\)\)'
                      r'\s*\((Form1\.[\w.]+),(.+)\)', c)
@@ -329,7 +333,11 @@ def condicao(c):
     c = c.strip()
     m = re.fullmatch(r'(\w+) (!=|==) (@T\d+@)', c)
     if m and texto_pas(m.group(3)[2:-1]) == '#0':
-        return m.group(1) if m.group(2) == '!=' else f'not {m.group(1)}'
+        v = expr(m.group(1))
+        if v and re.fullmatch(r'cVar\d+', v):
+            return v if m.group(2) == '!=' else f'not {v}'
+        if v:
+            return f'{v} <> 0' if m.group(2) == '!=' else f'{v} = 0'
     return expr(c)
 
 

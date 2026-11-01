@@ -47,6 +47,9 @@ TIPOS = {'ANSISTRING': 'AnsiString', 'LONGINT': 'LongInt', 'BOOLEAN': 'Boolean',
 def tipo_local(nome, linhas):
     """Texto, Boolean ou LongInt, pelo jeito como a local aparece no Pascal traduzido."""
     s = '\n'.join(l for l in linhas if re.search(r'\b' + nome + r'\b', l))
+    if re.search(r'\b' + nome + r' := (Pos|Length|StrToInt|StrToIntDef|Random|Form1\.\w+\.Count)\b|\b' + nome +
+                 r' (<|>|<=|>=) -?\d|\b' + nome + r' [+-] \d|\b' + nome + r' := ' + nome + r' [+-]', s):
+        return 'LongInt'
     if re.search(r'\b' + nome + r" := (FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile)\b", s):
         return 'Boolean'
     textuais = r"'|IntToStr|Trim|Copy\(|ExtractFile|Caption|Items\[|TimeToStr|DateToStr|UpperCase|LowerCase"
