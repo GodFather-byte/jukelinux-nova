@@ -262,6 +262,7 @@ for arq in sorted(os.listdir(pasta_c)):
     boole = {l for l, t in tipos.items() if t == 'Boolean'}
     bytes_g = {g for g, t in tipos_globais.items() if t == 'Byte'}
     chars = {p for p, t in tipos_params.items() if t == 'Char'}
+    curtas = {g for g, t in tipos_globais.items() if t == 'ShortString' or t.startswith('String[')}
 
     def ajusta(x):
         if x.lstrip().startswith('//'):
@@ -273,6 +274,9 @@ for arq in sorted(os.listdir(pasta_c)):
                    if m.group(1).upper() in textos_l else m.group(0), x)
         x = re.sub(r'^(\s*)(\w+) := 0;$', lambda m: f"{m.group(1)}{m.group(2)} := '';"
                    if m.group(2).upper() in textos_l else m.group(0), x)
+        # ShortString comparada com um caractere: no C é o byte 0, o tamanho. G = #8 -> Length(G) = 8
+        x = re.sub(r'\b(\w+) (=|<>) #(\d+)\b', lambda m: f'Length({m.group(1)}) {m.group(2)} {m.group(3)}'
+                   if m.group(1).upper() in curtas else m.group(0), x)
         # Char comparado com número: Key = 13 -> Key = #13
         x = re.sub(r'\b(\w+) (=|<>) (\d+)\b', lambda m: f'{m.group(1)} {m.group(2)} #{m.group(3)}'
                    if m.group(1) in chars else m.group(0), x)

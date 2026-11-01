@@ -849,10 +849,9 @@ begin
                               local_10 := local_10 + 1;
                               iStack_478d8c := '';
                               iStack_478d8c := Form1.ListBoxRInativo.Items[local_10];
-                              iVar4 := iStack_478d8c;
                               uStack_478e90 := '';
                               // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478e90);
-                              if uStack_478e90 = iVar4 then begin
+                              if uStack_478e90 = iStack_478d8c then begin
                                 // ?: cStack_478b2c := 1;
                               end;
                             until not (local_10 < iVar3 + -1);
@@ -1738,7 +1737,7 @@ begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
     // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_148);
     iVar4 := TOTMMCARTAO;
-    if CODIGODOCARTAO = '\b' then begin
+    if CODIGODOCARTAO = 8 then begin
       local_8 := 0;
       local_c := 1;
       if 0 < TOTMMCARTAO then begin
@@ -2262,7 +2261,7 @@ begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
     // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_144);
     iVar3 := TOTMMCARTAO;
-    if CODIGODOCARTAO = '\b' then begin
+    if CODIGODOCARTAO = 8 then begin
       local_8 := 0;
       local_c := 1;
       if 0 < TOTMMCARTAO then begin
@@ -18860,7 +18859,7 @@ begin
     if LENDOCODIGODOCARTAO = 0 then begin
       // C: iVar2 = fpc_ansistr_compare_equal(U_JUKELINUX1_CARTAOJUKEBOX,"Desativado");
       if False { C: (iVar2 != 0) && ( *local_c == 0x30) } then begin
-        CODIGODOCARTAO := 1;
+        CODIGODOCARTAO := Chr(Key);
         // C: DAT_09646eb1 = (byte)*local_c;
         LENDOCODIGODOCARTAO := 1;
         Presstecla;
