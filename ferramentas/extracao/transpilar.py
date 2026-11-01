@@ -442,6 +442,10 @@ def traduzir(src):
     # Data e hora voltam pela pilha do FPU: "Date(); DateToStr(&s);" -> "s := DateToStr(Date)".
     corpo = re.sub(r'SYSUTILS_(DATE|TIME|NOW)__TDATETIME\(\); SYSUTILS_(DATE|TIME|DATETIME)TOSTR_TDATETIME__ANSISTRING'
                    r'\(&?(\w+)\);', lambda m: f'{m.group(3)} = @DT_{m.group(2)}_{m.group(1)};', corpo)
+    # Comparação com um lado só: o outro foi no registrador, e é o valor que acabou de ser atribuído.
+    # "X = y; i = fpc_ansistr_compare_equal(Z);" -> "... compare_equal(X,Z)"
+    corpo = re.sub(r'(\b[\w.]+) = ([\w.]+); (\w+) = fpc_ansistr_compare_equal\(([\w.]+)\);',
+                   r'\1 = \2; \3 = fpc_ansistr_compare_equal(\1,\4);', corpo)
     # iVar = fpc_ansistr_compare_equal(a,b); if (iVar == 0)  ->  if (STREQ(a,b))
     corpo = re.sub(r'(\w+) = (?:fpc_ansistr_compare_equal|FPC_SHORTSTR_COMPARE_EQUAL|fpc_shortstr_compare_equal)'
                    r'\(([^;]+)\);(?: uVar\d+ = [^;]+;)? if \(\1 (==|!=) 0\)',

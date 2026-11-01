@@ -16587,7 +16587,7 @@ begin
         BLOQUEARQUANDOTOCAROPC := TEXTO;
         local_51c := Descriptasuper2(TEXTO1);
         TEXTO1 := local_51c;
-        if False { C: STREQ(U_JUKELINUX1_JC_SERIALPENDRIVECON) } then begin
+        if TEXTO1 = JC_SERIALPENDRIVECON then begin
           local_51c := Descriptasuper2(TEXTO);
           TEXTO := local_51c;
           BLOQUEARQUANDOTOCAR := StrToIntDef(local_51c, 0);
@@ -16631,7 +16631,7 @@ begin
         CloseFile(ARQTEXTO);
         local_51c := Descriptasuper2(TEXTO1);
         TEXTO1 := local_51c;
-        if False { C: STREQ(U_JUKELINUX1_JC_SERIALPENDRIVECON) } then begin
+        if TEXTO1 = JC_SERIALPENDRIVECON then begin
           local_51c := Descriptasuper2(TEXTO);
           TEXTO := local_51c;
           QUANTIDADESDEMUSICASTOCADAS := StrToIntDef(local_51c, 0);
