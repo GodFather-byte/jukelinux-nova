@@ -14606,6 +14606,8 @@ begin
       local_40 := IntToStr(ROTINA_DO_ACTIVATE);
       local_3c := 'Inico da Rotina Activate: ' + local_40;
       Gravalog(local_3c);
+      if ERROSERIALNUM <> 0 then Gravalog('PROVISORIO: trava do pendrive-chave ignorada (' + ERROSERIAL + ')');
+      ERROSERIALNUM := 0;  // PROVISÓRIO: sai quando entrar a licença nova
       if ERROSERIALNUM = 0 then begin
         ROTINA_DO_ACTIVATE := 2;
       end
