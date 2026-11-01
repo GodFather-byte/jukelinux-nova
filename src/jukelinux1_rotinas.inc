@@ -1654,7 +1654,7 @@ begin
             local_3c := ExtractFileExt(local_40);
             local_38 := UpperCase(local_3c);
             // C: iVar4 = fpc_ansistr_compare_equal(local_38[0],local_c);
-            if (iVar4 = 0)  and  (KPRO = KPRO + 1, KPRO < 501) then begin
+            if False { C: (iVar4 == 0) && (U_JUKELINUX1_KPRO = U_JUKELINUX1_KPRO + 1, U_JUKELINUX1_KPRO < 0x1f5) } then begin
               local_40 := Form1.FileListBox1.Items[local_8];
               TOTALPRO + KPRO := PASTAPROPAGANDA + local_40;
             end;
@@ -6885,7 +6885,7 @@ begin
           CREDITOS := CREDITOS + 1;
         end;
         // C: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_REAISXMUSICAS,"2x1");
-        if (iVar3 = 0)  and  (CREDITOSTEMP = CREDITOSTEMP + 1, CREDITOSTEMP = 2) then begin
+        if False { C: (iVar3 == 0) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2) } then begin
           CREDITOS := CREDITOS + 1;
           CREDITOSTEMP := 0;
         end;
@@ -6905,7 +6905,7 @@ begin
           Form1.TimerCedulas.Enabled := True;
         end;
         // C: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_REAISXMUSICAS,"2x1");
-        if (iVar3 = 0)  and  (CREDITOSTEMP = CREDITOSTEMP + 1, CREDITOSTEMP = 2) then begin
+        if False { C: (iVar3 == 0) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2) } then begin
           CREDITOS := CREDITOS + 1;
           CREDITOSTEMP := 0;
         end;
@@ -18583,7 +18583,7 @@ begin
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMRITMOSELECIONADO;
           NUMRITMOSELECIONADO := iVar2;
-          if (iVar1 = 0)  and  (NUMRITMOSELECIONADO = NUMRITMOSELECIONADO + -1, NUMRITMOSELECIONADO < 1) then begin
+          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + -1, U_JUKELINUX1_NUMRITMOSELECIONADO < 1) } then begin
             NUMRITMOSELECIONADO := iVar2;
           end;
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -18603,7 +18603,7 @@ begin
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMLETRASELECIONADA;
           NUMLETRASELECIONADA := iVar2;
-          if (iVar1 = 0)  and  (NUMLETRASELECIONADA = NUMLETRASELECIONADA + -1, NUMLETRASELECIONADA < 1) then begin
+          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + -1, U_JUKELINUX1_NUMLETRASELECIONADA < 1) } then begin
             NUMLETRASELECIONADA := iVar2;
           end;
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -18629,7 +18629,7 @@ begin
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMRITMOSELECIONADO;
           NUMRITMOSELECIONADO := iVar2;
-          if (iVar1 = 0)  and  (NUMRITMOSELECIONADO = NUMRITMOSELECIONADO + 1, TOTALMMRITMO < NUMRITMOSELECIONADO) then begin
+          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + 1, U_JUKELINUX1_TOTALMMRITMO < U_JUKELINUX1_NUMRITMOSELECIONADO) } then begin
             NUMRITMOSELECIONADO := iVar2;
           end;
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -18649,7 +18649,7 @@ begin
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMLETRASELECIONADA;
           NUMLETRASELECIONADA := iVar2;
-          if (iVar1 = 0)  and  (NUMLETRASELECIONADA = NUMLETRASELECIONADA + 1, TOTALMMLETRA < NUMLETRASELECIONADA) then begin
+          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + 1, U_JUKELINUX1_TOTALMMLETRA < U_JUKELINUX1_NUMLETRASELECIONADA) } then begin
             NUMLETRASELECIONADA := iVar2;
           end;
           // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");

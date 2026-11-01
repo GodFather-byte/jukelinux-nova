@@ -180,6 +180,9 @@ def expr(e):
     e = re.sub(r'(?<![<>=:])!(?!=)', 'not ', e)
     e = re.sub(r'@T(\d+)@', lambda m: texto_pas(m.group(1)), e)
     e = {'#0': '0', '#1': '1'}.get(e, e)
+    # operador vírgula do C, ex.: (k = k + 1, k < 501): parênteses com vírgula que não são de chamada
+    if re.search(r'(?<![\w\]])\(([^()]*,[^()]*)\)', e):
+        return None
     if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
                  r'\b_\d_\d_|param_|\bFPC_|\(\w+ \*+\)|\bp\w*Var\d+\b|\bDAT_|\ba\w*Stack_|\bpu\w*Stack_', e):
         return None
