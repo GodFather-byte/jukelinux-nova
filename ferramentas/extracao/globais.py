@@ -49,7 +49,7 @@ def tipo(n, tam):
         if re.search(r'fpc_ansistr_\w+\(&?' + re.escape(g) + r'\b|fpc_ansistr_\w+\([^;]*,' + re.escape(g) + r'\b|'
                      # primeiro parâmetro texto (FILEEXISTS_ANSISTRING__...), não resultado (INTTOSTR_LONGINT__ANSISTRING)
                      + re.escape(g) + r' = "|(?<!_)_(ANSISTRING|SHORTSTRING)\w*\(' + re.escape(g) + r'\b|'
-                     r'COMPARE_EQUAL\w*\([^;]*' + re.escape(g) + r'\b', u):
+                     r'(?i:compare_equal)\w*\s?\([^;]*' + re.escape(g) + r'\b', u):
             if not re.search(re.escape(g) + r' (<|>|<=|>=|[+-]) \d|' + re.escape(g) + r' == \d', u):
                 return 'AnsiString'
         if re.search(r'TPROCESS____\w+\(' + re.escape(g) + r'\b|' + re.escape(g) + r' = \(int \*\)[^;]*TPROCESS', u):

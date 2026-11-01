@@ -35,7 +35,7 @@ var
 implementation
 
 uses
-  Types, Process, FileUtil;
+  Types, Process, FileUtil, Variants;
 
 {$R *.lfm}
 

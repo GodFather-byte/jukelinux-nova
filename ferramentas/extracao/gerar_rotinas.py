@@ -44,60 +44,69 @@ TIPOS = {'ANSISTRING': 'AnsiString', 'LONGINT': 'LongInt', 'BOOLEAN': 'Boolean',
          'TDATETIME': 'TDateTime'}
 
 
-def tipo_local(nome, linhas):
-    """Texto, Boolean ou LongInt, pelo jeito como a local aparece no Pascal traduzido."""
-    s = '\n'.join(l for l in linhas if re.search(r'\b' + nome + r'\b', l))
-    if re.search(r'\b' + nome + r' := (Pos|Length|StrToInt|StrToIntDef|Random|Form1\.\w+\.Count)\b|\b' + nome +
-                 r' (<|>|<=|>=) -?\d|\b' + nome + r' [+-] \d|\b' + nome + r' := ' + nome + r' [+-]', s):
-        return 'LongInt'
-    if re.search(r'\b' + nome + r" := (FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile)\b", s):
-        return 'Boolean'
-    textuais = r"'|IntToStr|Trim|Copy\(|ExtractFile|Caption|Items\[|TimeToStr|DateToStr|UpperCase|LowerCase"
-    if re.search(r'\b' + nome + r' := [^;]*(' + textuais + ')', s) or \
-       re.search(r'(Caption|AssignFile\(\w+|LoadFromFile\(|Read\(\w+|Gravalog\(|ShowMessage\(|FileExists\(|'
-                 r'DirectoryExists\(|Pos\([^,]+)[^;]*\b' + nome + r'\b', s) or \
-       re.search(r'\b' + nome + r" (=|<>) '", s):
-        return 'AnsiString'
-    for g, t in tipos_globais.items():
-        if re.search(r'\b' + nome + r' := ' + g + r';', s, re.I) or re.search(r'\b' + g + r' := ' + nome + r';', s, re.I):
-            if t in ('AnsiString', 'ShortString', 'Boolean'):
-                return t
-    if nome.startswith('cVar'):
-        return 'Boolean'
-    return 'LongInt'
-
-
 ARQ = r'(AssignFile|Rewrite|Reset|Append|Flush|CloseFile|Readln|Writeln|Read|Write|Eof)\('
 retornos = {}  # nome da rotina (minúsculo) -> tipo do resultado, preenchido antes de traduzir
+STR_FUNCS = r'IntToStr|Trim|Copy|ExtractFileExt|ExtractFileName|ExtractFilePath|DateToStr|TimeToStr|UpperCase|LowerCase'
+INT_FUNCS = r'Pos|Length|StrToInt|StrToIntDef|Random'
+BOOL_FUNCS = r'FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile|RemoveDir|RenameFile'
+
+
+def evidencias(n, s, funcs_texto):
+    """(número, texto, Boolean) — se o código usa a local n como número, como texto ou como Boolean."""
+    N = r'\b' + n + r'\b'
+    num = re.search(N + r' := ' + n + r' [+\-*]|' + N + r' [+\-*] -?\d|-?\d [+\-*] ' + N + r'|' + N +
+                    r' (<|>|<=|>=) -?\d|-?\d (<|>|<=|>=) ' + N + r'|' + N + r' := -?[1-9]\d*;|' + N + r' := (' +
+                    INT_FUNCS + r')\(|' + N + r' := Form1\.\w+\.(Count|ItemIndex);|IntToStr\(' + n + r'\)|Items\[' +
+                    n + r'\]|' + N + r' (div|mod) |Copy\([^,]+, ' + n + r'\b', s)
+    txt = re.search(N + r" := '|" + N + r" \+ '|' \+ " + n + r'\b|' + N + r' := (' + STR_FUNCS + funcs_texto +
+                    r')\(|' + N + r' := [\w.]+\.(Caption|Items\[)|Caption := ' + n + r';|(Gravalog|ShowMessage|' +
+                    BOOL_FUNCS + r'|LoadFromFile|AssignFile\(\w+,|Read\(\w+,|Pos\([^,]+,)\s*\(?' + n + r'\)|Pos\(' + n +
+                    r',|' + N + r" (=|<>) '|'\s*(=|<>) " + N, s)
+    boo = re.search(N + r' := (' + BOOL_FUNCS + r')\(', s)
+    return bool(num), bool(txt), bool(boo)
 
 
 def tipos_locais(locs, linhas):
-    """Tipo de cada local: heurística por linha e depois propagação pelas atribuições (a := b, a := F(...))."""
-    tipos = {}
+    """Tipo de cada local pelas evidências de uso; sem evidência, pela propagação (a := b, a = b).
+    Local usada como número e como texto (o compilador original reaproveita o mesmo espaço da pilha) vira Variant."""
+    codigo = [x for x in linhas if not x.lstrip().startswith('//')]
+    funcs_texto = ''.join('|' + k.title() for k, v in retornos.items() if v in ('AnsiString', 'ShortString'))
+    tipos, certo = {}, set()
     for l in locs:
-        s = '\n'.join(x for x in linhas if re.search(r'\b' + l + r'\b', x) and not x.lstrip().startswith('//'))
-        tipos[l] = 'Text' if re.search(ARQ + l + r'\b', s) else tipo_local(l, linhas)
+        s = '\n'.join(x for x in codigo if re.search(r'\b' + l + r'\b', x))
+        if re.search(ARQ + l + r'\b', s):
+            tipos[l] = 'Text'; certo.add(l); continue
+        num, txt, boo = evidencias(l, s, funcs_texto)
+        if num and txt:
+            tipos[l] = 'Variant'
+        elif txt:
+            tipos[l] = 'AnsiString'
+        elif num:
+            tipos[l] = 'LongInt'
+        elif boo or l.startswith('cVar'):
+            tipos[l] = 'Boolean'
+        else:
+            tipos[l] = None
+            continue
+        certo.add(l)
     conhecido = dict(tipos_globais)
     conhecido.update({k.upper(): v for k, v in retornos.items()})
-    conhecido.update({'SENDER': 'TObject', 'SELF': 'TForm1'})
-    passa = ('AnsiString', 'ShortString', 'TObject', 'TForm1')
+    conhecido.update({'SENDER': 'TObject', 'SELF': 'TForm1', 'RESULT': None})
     mudou = True
     while mudou:
         mudou = False
-        for x in linhas:
-            if x.lstrip().startswith('//'):
-                continue
-            m = re.match(r'\s*(\w+) := (\w+)(\(.*\))?;$', x)
-            if not m:
-                continue
-            a, b = m.group(1), m.group(2)
-            tb = tipos.get(b) or conhecido.get(b.upper())
-            ta = tipos.get(a) or conhecido.get(a.upper())
-            if a in tipos and tb in passa and tipos[a] == 'LongInt':
-                tipos[a] = 'AnsiString' if tb == 'ShortString' else tb; mudou = True
-            if b in tipos and not m.group(3) and ta in passa and tipos[b] == 'LongInt':
-                tipos[b] = 'AnsiString' if ta == 'ShortString' else ta; mudou = True
-    return tipos
+        for x in codigo:
+            for m in re.finditer(r'\b(\w+) (:=|=|<>) (\w+)\b(?!\()', x):
+                a, b = m.group(1), m.group(3)
+                for p, q in ((a, b), (b, a)):
+                    if p in tipos and p not in certo and tipos[p] is None:
+                        tq = tipos.get(q) or conhecido.get(q.upper())
+                        if tq:
+                            tipos[p] = {'ShortString': 'AnsiString', 'Byte': 'LongInt'}.get(tq, tq)
+                            if tipos[p].startswith('String['):
+                                tipos[p] = 'AnsiString'
+                            mudou = True
+    return {l: (t or 'LongInt') for l, t in tipos.items()}
 
 
 PALAVRAS = set('''and array begin case const div do downto else end file for function goto if in label mod nil not of or
@@ -229,6 +238,29 @@ for arq in sorted(os.listdir(pasta_c)):
     if transpilar.rotulos:
         decl = 'label\n  ' + ', '.join(sorted(transpilar.rotulos)) + ';\n' + decl
     alvo.append(f'{{ {simbolo} }}\n{cab}\n{decl}begin\n' + '\n'.join(corpo) + '\nend;\n')
+
+# No C, 0 passado onde a rotina espera texto é o texto vazio (nil): Mensagemjpg('x', 0, 0) -> Mensagemjpg('x', 0, '').
+assinaturas = {}
+for fw in forwards:
+    m = re.match(r'(?:procedure|function) (\w+)(?:\((.*?)\))?', fw)
+    assinaturas[m.group(1).lower()] = [p.split(': ')[1] for p in m.group(2).split('; ')] if m.group(2) else []
+
+
+def arruma_args(linha):
+    def troca(m):
+        tipos = assinaturas.get(m.group(1).lower())
+        if not tipos:
+            return m.group(0)
+        args = transpilar.args_de(m.group(2))
+        if len(args) != len(tipos):
+            return m.group(0)
+        args = ["''" if a == '0' and t == 'AnsiString' else a for a, t in zip(args, tipos)]
+        return f'{m.group(1)}({", ".join(args)})'
+    return re.sub(r'\b(\w+)\(([^()]*)\)', troca, linha)
+
+
+rotinas = ['\n'.join(arruma_args(x) for x in r.split('\n')) for r in rotinas]
+metodos = ['\n'.join(arruma_args(x) for x in r.split('\n')) for r in metodos]
 
 with open(os.path.join(pasta_src, 'jukelinux1_rotinas.inc'), 'w', encoding='utf-8', newline='\n') as f:
     f.write('{ Rotinas da JukeLinux original traduzidas do código descompilado por ferramentas/extracao/gerar_rotinas.py.\n'
