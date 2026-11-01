@@ -94,9 +94,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_1d0 := Form1.FileListBox1.Items[local_10];
-        if local_1d0 <> '[.]' then begin
+        if False { C: STRNE(local_1d0[0],"[.]") } then begin
           // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_10, local_1d0);
-          if local_1d0 <> '[..]' then begin
+          if False { C: STRNE(local_1d0[0],"[..]") } then begin
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_10, &local_1d4);
             // C: fpc_ansistr_concat(local_1d0, *(undefined4 *)(U_JUKELINUX1_ARQLOG + local_c * 0x240 + 0x1f8), local_1d4);
             cVar1 := FileExists(local_1d0);
@@ -260,9 +260,9 @@ begin
       repeat
         local_8 := local_8 + 1;
         local_48 := Form1.FileListBox1.Items[local_8];
-        if local_48 <> '[.]' then begin
+        if False { C: STRNE(local_48[0],"[.]") } then begin
           local_48 := Form1.FileListBox1.Items[local_8];
-          if local_48 <> '[..]' then begin
+          if False { C: STRNE(local_48[0],"[..]") } then begin
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8, &local_50);
             local_4c := ExtractFileExt(local_50);
             local_48 := UpperCase(local_4c);
@@ -538,10 +538,10 @@ begin
               local_c := local_c + 1;
               iStack_478b68 := 0;
               iStack_478b68 := Form1.FileListBox1.Items[local_c];
-              if iStack_478b68 <> '[.]' then begin
+              if False { C: STRNE(iStack_478b68,"[.]") } then begin
                 iStack_478b68 := 0;
                 // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c,&iStack_478b68 );
-                if iStack_478b68 <> '[..]' then begin
+                if False { C: STRNE(iStack_478b68,"[..]") } then begin
                   iStack_478b68 := 0;
                   iStack_478c6c := 0;
                   iStack_478c70 := 0;
@@ -1464,9 +1464,9 @@ begin
       repeat
         local_8 := local_8 + 1;
         local_34 := Form1.FileListBox1.Items[local_8];
-        if local_34 <> '[.]' then begin
+        if False { C: STRNE(local_34[0],"[.]") } then begin
           local_34 := Form1.FileListBox1.Items[local_8];
-          if local_34 <> '[..]' then begin
+          if False { C: STRNE(local_34[0],"[..]") } then begin
             KMATKARAOKE := KMATKARAOKE + 1;
             // C: puVar6 = local_34;
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,&local_38,puVar6);
@@ -1647,9 +1647,9 @@ begin
       repeat
         local_8 := local_8 + 1;
         local_38 := Form1.FileListBox1.Items[local_8];
-        if local_38 <> '[.]' then begin
+        if False { C: STRNE(local_38[0],"[.]") } then begin
           local_38 := Form1.FileListBox1.Items[local_8];
-          if local_38 <> '[..]' then begin
+          if False { C: STRNE(local_38[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_8];
             local_3c := ExtractFileExt(local_40);
             local_38 := UpperCase(local_3c);
@@ -3254,9 +3254,9 @@ begin
               repeat
                 local_fb4 := local_fb4 + 1;
                 local_fe0 := Form1.FileListBox1.Items[local_fb4];
-                if local_fe0 <> '[.]' then begin
+                if False { C: STRNE(local_fe0[0],"[.]") } then begin
                   local_fe0 := Form1.FileListBox1.Items[local_fb4];
-                  if local_fe0 <> '[..]' then begin
+                  if False { C: STRNE(local_fe0[0],"[..]") } then begin
                     local_ff0 := PASTAMUSICAS;
                     // C: local_fec = *(undefined **)(local_7d4 + local_7d8 * 4 + -4);
                     local_fe8 := '/';
@@ -3972,7 +3972,7 @@ var
   iVar4, local_10, local_140, local_44, local_4c, local_8, local_c: LongInt;
 begin
   begin
-    FORM1[399].Show;
+    Form1.LabelListaTocados.Show;
     // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
     FORM1.Refresh;
     local_3c := PASTA + 'tocados.txt';
@@ -4056,7 +4056,7 @@ begin
       until not (local_10 < iVar1);
     end;
     // C: (**(code **)(*(int *)Form1.ListBoxRCds + 0x480))(Form1.ListBoxRCds);
-    FORM1[399].Hide;
+    Form1.LabelListaTocados.Hide;
     // C: (**(code **)(*U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
     FORM1.Refresh;
   end;
@@ -5381,9 +5381,9 @@ end;
 { JUKELINUX1_MOSTRA_CD_EXCLUSAO$LONGINT }
 procedure Mostra_Cd_Exclusao(P1: LongInt);
 var
-  local_38, local_3c, local_44, local_4c, local_50, local_54, local_58, local_5c, local_64, local_68, local_6c, local_70, local_78, local_7c, local_84, local_98, local_a0, local_a4, local_ac, local_c0, local_c8, local_cc, local_d4: AnsiString;
+  local_38, local_3c, local_44, local_4c, local_50, local_54, local_58, local_64, local_68, local_6c, local_70, local_78, local_7c, local_84, local_98, local_a0, local_a4, local_ac, local_c0, local_c8, local_cc, local_d4: AnsiString;
   cVar3: Boolean;
-  iVar5, local_40, local_48, local_60, local_74, local_8, local_80, local_88, local_8c, local_90, local_94, local_9c, local_a8, local_b0, local_b4, local_b8, local_bc, local_c, local_c4, local_d0, local_d8, local_dc, local_e0, uVar1: LongInt;
+  iVar5, local_40, local_48, local_5c, local_60, local_74, local_8, local_80, local_88, local_8c, local_90, local_94, local_9c, local_a8, local_b0, local_b4, local_b8, local_bc, local_c, local_c4, local_d0, local_d8, local_dc, local_e0, uVar1: LongInt;
 begin
   local_8 := P1;
   begin
@@ -5393,7 +5393,7 @@ begin
     Form1.LabelE4.Caption := 0;
     Form1.LabelE5.Caption := 0;
     Form1.LabelE6.Caption := 0;
-    local_5c := 'Exclusão de CDs e DVDs - [';
+    // C: local_5c = "Exclusão de CDs e DVDs - [";
     local_8 * 576 + 149492008 := local_60;
     local_58 := local_60;
     local_54 := ' - ';
@@ -6187,9 +6187,9 @@ procedure Mostra_Tela_Carregando_Cds;
 label
   LAB_080ae298, LAB_080ae417, LAB_080ae769;
 var
-  local_30, local_34, local_3c, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_68, local_70, local_78, local_80, local_84, local_88, local_8c, local_94: AnsiString;
+  local_30, local_34, local_3c, local_44, local_48, local_4c, local_50, local_54, local_58, local_5c, local_60, local_68, local_70, local_78, local_84, local_88, local_8c, local_94: AnsiString;
   cVar1: Boolean;
-  iVar2, local_38, local_40, local_64, local_6c, local_74, local_7c, local_90: LongInt;
+  iVar2, local_38, local_40, local_64, local_6c, local_74, local_7c, local_80, local_90: LongInt;
 begin
   // C: iVar2 = fpc_setjmp();
   if iVar2 <> 0 then begin goto LAB_080ae769; end;
@@ -6258,7 +6258,7 @@ begin
   if (cVar1 = #0)  and  (-1 < BLOQUEARQUANDOTOCAR) then begin
     local_88 := ' ';
     local_84 := VERSAO;
-    local_80 := ' -  [ ';
+    // C: local_80 = " -  [ ";
     local_58 := IntToStr(QUANTIDADESDEMUSICASTOCADAS);
     local_7c := local_58;
     local_78 := '/';
@@ -6674,7 +6674,7 @@ begin
         Gravalog(local_16c);
       end;
       if local_18 = '2' then begin
-        Gravalog('Nao Encontrado a Imagem de Fundo [sorteio1366_cds.jpg] para o Sorteio');
+        // C: JUKELINUX1_GRAVALOG_ANSISTRING("Nao Encontrado a Imagem de Fundo [sorteio1366_cds.jpg] para o Sorteio");
       end;
     end;
   end;
@@ -6867,8 +6867,8 @@ end;
 { JUKELINUX1_ROTINA_CREDITOS$ANSISTRING }
 procedure Rotina_Creditos(P1: AnsiString);
 var
-  local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_150, local_158, local_244, local_248, local_24c, local_8: AnsiString;
-  iVar3, local_14c, local_154, uVar1: LongInt;
+  local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_150, local_244, local_248, local_24c, local_8: AnsiString;
+  iVar3, local_14c, local_154, local_158, uVar1: LongInt;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -6970,7 +6970,7 @@ begin
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
-        local_158 := '+1 Credito - [Total=';
+        // C: local_158 = "+1 Credito - [Total=";
         local_248 := IntToStr(RELOGIOTOTAL);
         local_154 := local_248;
         local_150 := ' Parcial=';
@@ -7050,7 +7050,7 @@ begin
         Form1.PanelMusRelogio.Hide;
         Form1.PanelUpgrade1.Hide;
         CREDITOSTESTE := 0;
-        FORM1[399].Hide;
+        Form1.LabelListaTocados.Hide;
         Form1.LabelPress3.Caption := 'Coloque Créditos para Testar Noteiro e Moedeiro';
         Form1.LabelPress1.Caption := 'Pressione o Botão MÚSICA para Carregar a Atualização/Upg';
         Form1.LabelPress3.Show;
@@ -8825,9 +8825,9 @@ begin
               repeat
                 local_4c8 := local_4c8 + 1;
                 local_68c := Form1.FileListBox1.Items[local_4c8];
-                if local_68c <> '[.]' then begin
+                if False { C: STRNE(local_68c[0],"[.]") } then begin
                   local_68c := Form1.FileListBox1.Items[local_4c8];
-                  if local_68c <> '[..]' then begin
+                  if False { C: STRNE(local_68c[0],"[..]") } then begin
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_4c8, &local_794);
                     // C: fpc_ansistr_concat(local_68c, *(undefined4 *) (U_JUKELINUX1_ARQLOG + local_660 * 0x240 + 0x1f8),local_794);
                     cVar1 := FileExists(local_68c);
@@ -9282,8 +9282,8 @@ procedure TForm1.ButtonAtivarClick(Sender: TObject);
 label
   LAB_080cc102;
 var
-  local_17c, local_180, local_184, local_188, local_18c, local_190, local_194, local_198, local_20, local_24, local_28, local_28c, local_2c, local_48, local_78, local_7c, local_80, local_84, local_88, local_8c: AnsiString;
-  iVar3, local_10, local_1c, local_290, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_8, local_c, uVar1: LongInt;
+  local_17c, local_180, local_184, local_188, local_18c, local_190, local_194, local_20, local_24, local_28, local_28c, local_2c, local_48, local_78, local_7c, local_80, local_84, local_88, local_8c: AnsiString;
+  iVar3, local_10, local_198, local_1c, local_290, local_30, local_34, local_38, local_3c, local_40, local_44, local_4c, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -9579,7 +9579,7 @@ begin
           Writeln(ARQTEXTO);
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
-          local_88 := 'Contra Senha Correta, Gravado a Nova Chave do PenDrive na HD [';
+          // C: local_88 = "Contra Senha Correta, Gravado a Nova Chave do PenDrive na HD [";
           local_84 := JC_SERIALPENDRIVE;
           local_80 := ']';
           local_7c := local_88 + local_84 + local_80;
@@ -9593,7 +9593,7 @@ begin
             // C: local_80 = (char *)U_JUKELINUX1_JC_INI;
             local_7c := local_8c + local_88 + local_84 + local_80;
             Gravalog(local_7c);
-            local_88 := 'Relógios do PenDrive [';
+            // C: local_88 = "Relógios do PenDrive [";
             local_84 := JC_SERIALPENDRIVE;
             local_80 := '] Sao Diferentes dos Relogios da Jukebox';
             local_7c := local_88 + local_84 + local_80;
@@ -9732,7 +9732,7 @@ begin
           Writeln(ARQTEXTO);
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
-          local_198 := 'Alteracao no Menu - ReaisXMusicas = [';
+          // C: local_198 = "Alteracao no Menu - ReaisXMusicas = [";
           local_194 := REAISXMUSICAS;
           local_190 := '] com Digitacao de Contra Senha Correta';
           local_188 := local_198 + local_194 + local_190;
@@ -9742,7 +9742,7 @@ begin
         goto LAB_080cc102;
       end;
     end;
-    local_198 := 'Numero Digitado Errado [';
+    // C: local_198 = "Numero Digitado Errado [";
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditSenhaAtivacao,&local_290);
     local_194 := local_290;
     local_190 := ']';
@@ -9757,8 +9757,8 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONCARREGARCDCLICK$TOBJECT }
 procedure TForm1.ButtonCarregarCDClick(Sender: TObject);
 var
-  local_1fa0, local_1fa4, local_1fac, local_1fb0: AnsiString;
-  local_1fa8, local_8, local_c: LongInt;
+  local_1fa0, local_1fa4, local_1fb0: AnsiString;
+  local_1fa8, local_1fac, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -9771,7 +9771,7 @@ begin
     Form1.PanelCarregarMusica.BringToFront;
     Form1.ButtonMusCarregar.Visible := True;
     Form1.ButtonMusCarregar.Caption := 'Carregar CDs/DVDs Novos';
-    local_1fac := 'Quantidade de Dias a Partir de Hoje [';
+    // C: local_1fac = "Quantidade de Dias a Partir de Hoje [";
     Date;
     local_1fb0 := DateToStr();
     local_1fa8 := local_1fb0;
@@ -9808,9 +9808,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_1d0 := Form1.FileListBox1.Items[local_10];
-        if local_1d0 <> '[.]' then begin
+        if False { C: STRNE(local_1d0[0],"[.]") } then begin
           // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_10, local_1d0);
-          if local_1d0 <> '[..]' then begin
+          if False { C: STRNE(local_1d0[0],"[..]") } then begin
             // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_10, &local_1d4);
             local_1d0 := CDSELEAPAGAR + local_1d4;
             cVar1 := FileExists(local_1d0);
@@ -10969,14 +10969,14 @@ begin
       if not cVar2 then begin
         if SENHAOK = 1 then begin
           Form1.LabelMusTot.Caption := 'Pasta Não Existe';
-          local_1130 := 'Pasta [';
+          // C: local_1130 = "Pasta [";
           local_112c := NOMEPASTACDNOVO;
           local_1128 := '] Não Existe, Este Pendrive não é de Músicas ou Não tem a pasta musicas.';
           local_101c := local_1130 + local_112c + local_1128;
           Form1.LabelMusR.Caption := local_101c;
         end
         else begin
-          local_1130 := 'Pasta [';
+          // C: local_1130 = "Pasta [";
           local_112c := NOMEPASTACDNOVO;
           local_1128 := '] Não Existe';
           local_1138 := local_1130 + local_112c + local_1128;
@@ -10996,9 +10996,9 @@ begin
           repeat
             local_18 := local_18 + 1;
             local_ff4 := Form1.FileListBox1.Items[local_18];
-            if local_ff4 <> '[.]' then begin
+            if False { C: STRNE(local_ff4,"[.]") } then begin
               local_ff4 := Form1.FileListBox1.Items[local_18];
-              if local_ff4 <> '[..]' then begin
+              if False { C: STRNE(local_ff4,"[..]") } then begin
                 local_1c := local_1c + 1;
                 local_ff8 := Form1.FileListBox1.Items[local_18];
                 iVar5 := 0;
@@ -11029,9 +11029,9 @@ begin
               repeat
                 local_14 := local_14 + 1;
                 local_ff8 := Form1.FileListBox1.Items[local_14];
-                if local_ff8 <> '[.]' then begin
+                if False { C: STRNE(local_ff8,"[.]") } then begin
                   local_ff8 := Form1.FileListBox1.Items[local_14];
-                  if local_ff8 <> '[..]' then begin
+                  if False { C: STRNE(local_ff8,"[..]") } then begin
                     local_1014 := NOMEPASTACDNOVO;
                     // C: local_1010 = *(int *)(local_fc0 + local_18 * 4 + 0x7cc);
                     local_100c := '/';
@@ -11149,9 +11149,9 @@ begin
                   repeat
                     local_14 := local_14 + 1;
                     // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
-                    if local_1018 <> '[.]' then begin
+                    if False { C: STRNE(local_1018,"[.]") } then begin
                       // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
-                      if local_1018 <> '[..]' then begin
+                      if False { C: STRNE(local_1018,"[..]") } then begin
                         // C: (**(code **)(**(int **)(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1134);
                         // C: uVar7 = 0;
                         if False { C: local_1134 != (char *)0x0 } then begin
@@ -11276,9 +11276,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONOKSENHACLICK$TOBJECT }
 procedure TForm1.ButtonOkSenhaClick(Sender: TObject);
 var
-  local_10, local_13c, local_140, local_148, local_248, local_24c, local_254, local_25c, local_350, local_354, local_3c: AnsiString;
+  local_10, local_13c, local_140, local_148, local_248, local_24c, local_254, local_350, local_354, local_3c: AnsiString;
   cVar1: Boolean;
-  local_144, local_250, local_258, local_358, local_8, local_c: LongInt;
+  local_144, local_250, local_258, local_25c, local_358, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11400,7 +11400,7 @@ begin
               Libera_Quantidadesdemusicastocadas;
             end
             else begin
-              local_25c := 'Menu - Digitada Senha Errada [';
+              // C: local_25c = "Menu - Digitada Senha Errada [";
               // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.EditSenha,&local_358);
               local_258 := local_358;
               local_254 := ']';
@@ -11777,9 +11777,9 @@ begin
         repeat
           local_1a0 := local_1a0 + 1;
           local_1e0 := Form1.FileListBox1.Items[local_1a0];
-          if local_1e0 <> '[.]' then begin
+          if False { C: STRNE(local_1e0[0],"[.]") } then begin
             local_1e0 := Form1.FileListBox1.Items[local_1a0];
-            if local_1e0 <> '[..]' then begin
+            if False { C: STRNE(local_1e0[0],"[..]") } then begin
               local_1a4 := local_1a4 + 1;
               local_1e0 := Form1.FileListBox1.Items[local_1a0];
               // C: iVar5 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT(0x5b,local_1e0[0]);
@@ -11884,9 +11884,9 @@ begin
           repeat
             local_1a0 := local_1a0 + 1;
             local_1f8 := Form1.FileListBox1.Items[local_1a0];
-            if local_1f8 <> '[.]' then begin
+            if False { C: STRNE(local_1f8,"[.]") } then begin
               local_1f8 := Form1.FileListBox1.Items[local_1a0];
-              if local_1f8 <> '[..]' then begin
+              if False { C: STRNE(local_1f8,"[..]") } then begin
                 local_1a4 := local_1a4 + 1;
                 local_1f8 := Form1.FileListBox1.Items[local_1a0];
                 // C: iVar5 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT(0x5b,local_1f8);
@@ -12328,7 +12328,7 @@ begin
       local_4c := 'Relógio Parcial.: R$ ';
       local_13c := IntToStr(RELOGIOPARCIAL);
       local_48 := local_13c;
-      local_44 := ',00  [';
+      // C: local_44 = ",00  [";
       local_40 := MINUTOSLIGADASTR;
       local_3c := 'hs Ligada]';
       local_140 := local_4c + local_48 + local_44 + local_40 + local_3c;
@@ -12638,8 +12638,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX10CHANGE$TOBJECT }
 procedure TForm1.ComboBox10Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40: AnsiString;
+  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12669,7 +12669,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Cartao Jukebox = [';
+      // C: local_48 = "Alteracao no Menu - Cartao Jukebox = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox10,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12687,8 +12687,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX11CHANGE$TOBJECT }
 procedure TForm1.ComboBox11Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_140, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40: AnsiString;
+  iVar3, local_140, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12720,7 +12720,7 @@ begin
       CloseFile(ARQTEXTO);
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox11,&local_3c);
       SELECAOMG := local_3c;
-      local_48 := 'Alteracao no Menu - Seleção de Musica Gratis = [';
+      // C: local_48 = "Alteracao no Menu - Seleção de Musica Gratis = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox11,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12736,8 +12736,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX12CHANGE$TOBJECT }
 procedure TForm1.ComboBox12Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12768,7 +12768,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Sentido da Paginacao  = [';
+      // C: local_48 = "Alteracao no Menu - Sentido da Paginacao  = [";
       local_44 := SENTIDODAPAGINACAO;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -12783,8 +12783,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX13CHANGE$TOBJECT }
 procedure TForm1.ComboBox13Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_140, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40: AnsiString;
+  iVar3, local_140, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12816,7 +12816,7 @@ begin
       CloseFile(ARQTEXTO);
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox13,&local_3c);
       SORTEIODECREDITOS := local_3c;
-      local_48 := 'Alteracao no Menu - Sorteio de Creditos = [';
+      // C: local_48 = "Alteracao no Menu - Sorteio de Creditos = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox13,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12832,8 +12832,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX14CHANGE$TOBJECT }
 procedure TForm1.ComboBox14Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40: AnsiString;
+  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12863,7 +12863,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Palhinha Musical = [';
+      // C: local_48 = "Alteracao no Menu - Palhinha Musical = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox14,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12881,8 +12881,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX15CHANGE$TOBJECT }
 procedure TForm1.ComboBox15Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_140, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40: AnsiString;
+  iVar3, local_140, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12914,7 +12914,7 @@ begin
       CloseFile(ARQTEXTO);
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox15,&local_3c);
       FORMADEPAGINACAO := local_3c;
-      local_48 := 'Alteracao no Menu - Forma De Paginacao= [';
+      // C: local_48 = "Alteracao no Menu - Forma De Paginacao= [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox15,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12930,8 +12930,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX16CHANGE$TOBJECT }
 procedure TForm1.ComboBox16Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_140, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40: AnsiString;
+  iVar3, local_140, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12963,7 +12963,7 @@ begin
       CloseFile(ARQTEXTO);
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox16,&local_3c);
       AUMENTAVOLUMECOMUMTOQUE := local_3c;
-      local_48 := 'Alteracao no Menu - Aumentavolumecomumtoque = [';
+      // C: local_48 = "Alteracao no Menu - Aumentavolumecomumtoque = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox16,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -12979,8 +12979,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX18CHANGE$TOBJECT }
 procedure TForm1.ComboBox18Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_3c, local_40, local_48: AnsiString;
-  local_10, local_44, local_8, local_c: LongInt;
+  local_13c, local_140, local_144, local_3c, local_40: AnsiString;
+  local_10, local_44, local_48, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13002,7 +13002,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Qtd de Creditos Gratis no Fechamento de Caixa = [';
+      // C: local_48 = "Alteracao no Menu - Qtd de Creditos Gratis no Fechamento de Caixa = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox18,local_3c);
       local_44 := local_3c;
       local_40 := ']';
@@ -13017,8 +13017,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX19CHANGE$TOBJECT }
 procedure TForm1.ComboBox19Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_3c, local_40, local_48: AnsiString;
-  local_10, local_44, local_8, local_c: LongInt;
+  local_13c, local_140, local_144, local_3c, local_40: AnsiString;
+  local_10, local_44, local_48, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13040,7 +13040,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Qtd de Creditos Gratis VIP no Fechamento de Caixa = [';
+      // C: local_48 = "Alteracao no Menu - Qtd de Creditos Gratis VIP no Fechamento de Caixa = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox19,local_3c);
       local_44 := local_3c;
       local_40 := ']';
@@ -13055,8 +13055,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX1CHANGE$TOBJECT }
 procedure TForm1.ComboBox1Change(Sender: TObject);
 var
-  local_188, local_38, local_3c, local_40, local_44, local_48, local_4c, local_58, local_64, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90, local_94: AnsiString;
-  iVar3, local_50, local_54, local_5c, local_60, local_68, local_6c, local_8, local_c, uVar1: LongInt;
+  local_188, local_38, local_3c, local_40, local_44, local_4c, local_58, local_64, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_90: AnsiString;
+  iVar3, local_48, local_50, local_54, local_5c, local_60, local_68, local_6c, local_8, local_94, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13079,7 +13079,7 @@ begin
     if OKC = 1 then begin
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox1,local_38);
       if local_38 = 'Livre' then begin
-        local_48 := 'Tentativa de Alteracao no Menu - ReaisXMusicas = [';
+        // C: local_48 = "Tentativa de Alteracao no Menu - ReaisXMusicas = [";
         local_44 := REAISXMUSICAS;
         local_40 := '] - ***Solicitado a Contra Senha***';
         local_3c := local_48 + local_44 + local_40;
@@ -13178,7 +13178,7 @@ begin
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
-        local_94 := 'Alteracao no Menu - ReaisXMusicas = [';
+        // C: local_94 = "Alteracao no Menu - ReaisXMusicas = [";
         local_90 := REAISXMUSICAS;
         local_8c := ']';
         local_88 := local_94 + local_90 + local_8c;
@@ -13194,8 +13194,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX20CHANGE$TOBJECT }
 procedure TForm1.ComboBox20Change(Sender: TObject);
 var
-  local_134, local_138, local_38, local_40, local_48: AnsiString;
-  local_13c, local_140, local_3c, local_44, local_8, local_c: LongInt;
+  local_134, local_138, local_38, local_40: AnsiString;
+  local_13c, local_140, local_3c, local_44, local_48, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13212,7 +13212,7 @@ begin
     Writeln(ARQTEXTO);
     Flush(ARQTEXTO);
     CloseFile(ARQTEXTO);
-    local_48 := 'Alteracao no Menu - ResolucaoTV = [';
+    // C: local_48 = "Alteracao no Menu - ResolucaoTV = [";
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox20,&local_13c);
     local_44 := local_13c;
     local_40 := 'x';
@@ -13232,8 +13232,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX22CHANGE$TOBJECT }
 procedure TForm1.ComboBox22Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40: AnsiString;
+  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13263,7 +13263,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - AutoTeste ao Ligar = [';
+      // C: local_48 = "Alteracao no Menu - AutoTeste ao Ligar = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox22,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -13281,8 +13281,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX23CHANGE$TOBJECT }
 procedure TForm1.ComboBox23Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40: AnsiString;
+  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13312,7 +13312,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - VolumePeloPainel = [';
+      // C: local_48 = "Alteracao no Menu - VolumePeloPainel = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox23,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -13330,8 +13330,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX2CHANGE$TOBJECT }
 procedure TForm1.ComboBox2Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13362,7 +13362,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - ExibirVideosNo = [';
+      // C: local_48 = "Alteracao no Menu - ExibirVideosNo = [";
       local_44 := EXIBIRVIDEOSNO;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -13378,8 +13378,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX3CHANGE$TOBJECT }
 procedure TForm1.ComboBox3Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13410,7 +13410,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - OrdemDosCds = [';
+      // C: local_48 = "Alteracao no Menu - OrdemDosCds = [";
       local_44 := ORDEMDOSCDS;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -13450,8 +13450,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX4CHANGE$TOBJECT }
 procedure TForm1.ComboBox4Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13482,7 +13482,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - MusicaGratis= [';
+      // C: local_48 = "Alteracao no Menu - MusicaGratis= [";
       local_44 := MUSICAGRATIS;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -13504,8 +13504,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX5CHANGE$TOBJECT }
 procedure TForm1.ComboBox5Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13536,7 +13536,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Propaganda= [';
+      // C: local_48 = "Alteracao no Menu - Propaganda= [";
       local_44 := PROPAGANDA;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -13552,8 +13552,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX6CHANGE$TOBJECT }
 procedure TForm1.ComboBox6Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_44, local_48: AnsiString;
-  iVar3, local_38, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40, local_44: AnsiString;
+  iVar3, local_38, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13595,7 +13595,7 @@ begin
       end;
       LIMITARVOLUMESTR := local_3c;
       LIMITARVOLUME := StrToIntDef(local_3c, 100);
-      local_48 := 'Alteracao no Menu - LimitarVolume= [';
+      // C: local_48 = "Alteracao no Menu - LimitarVolume= [";
       local_44 := LIMITARVOLUMEOPC;
       local_40 := ']';
       local_3c := local_48 + local_44 + local_40;
@@ -13610,8 +13610,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX7CHANGE$TOBJECT }
 procedure TForm1.ComboBox7Change(Sender: TObject);
 var
-  local_13c, local_140, local_144, local_148, local_248, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_144, local_148, local_248, local_3c, local_40: AnsiString;
+  iVar3, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13653,7 +13653,7 @@ begin
       end;
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Resolucao = [';
+      // C: local_48 = "Alteracao no Menu - Resolucao = [";
       // C: puVar5 = &local_3c;
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox7,&local_148);
       // C: fpc_ansistr_copy(local_148,1,4,puVar5);
@@ -13688,8 +13688,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX8CHANGE$TOBJECT }
 procedure TForm1.ComboBox8Change(Sender: TObject);
 var
-  local_13c, local_140, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_144, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_140, local_3c, local_40: AnsiString;
+  iVar3, local_144, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13732,7 +13732,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Bloquear Quando Tocas (Musicas) = [';
+      // C: local_48 = "Alteracao no Menu - Bloquear Quando Tocas (Musicas) = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox8,&local_144);
       local_44 := local_144;
       local_40 := ']';
@@ -13749,8 +13749,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX9CHANGE$TOBJECT }
 procedure TForm1.ComboBox9Change(Sender: TObject);
 var
-  local_13c, local_3c, local_40, local_48: AnsiString;
-  iVar3, local_140, local_38, local_44, local_8, local_c, uVar1: LongInt;
+  local_13c, local_3c, local_40: AnsiString;
+  iVar3, local_140, local_38, local_44, local_48, local_8, local_c, uVar1: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13781,7 +13781,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      local_48 := 'Alteracao no Menu - Forma De Selecionar Ritmo = [';
+      // C: local_48 = "Alteracao no Menu - Forma De Selecionar Ritmo = [";
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox9,&local_140);
       local_44 := local_140;
       local_40 := ']';
@@ -13811,9 +13811,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -13860,9 +13860,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -13909,9 +13909,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -13958,9 +13958,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -14007,9 +14007,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -14056,9 +14056,9 @@ begin
       repeat
         local_10 := local_10 + 1;
         local_3c := Form1.FileListBox1.Items[local_10];
-        if local_3c <> '[.]' then begin
+        if False { C: STRNE(local_3c[0],"[.]") } then begin
           local_3c := Form1.FileListBox1.Items[local_10];
-          if local_3c <> '[..]' then begin
+          if False { C: STRNE(local_3c[0],"[..]") } then begin
             local_40 := Form1.FileListBox1.Items[local_10];
             local_3c := UpperCase(local_40);
             if local_3c = 'GENERO.TXT' then begin
@@ -14097,8 +14097,8 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOXPORCENTOCHANGE$TOBJECT }
 procedure TForm1.ComboBoxPorcentoChange(Sender: TObject);
 var
-  local_134, local_138, local_38, local_3c, local_40: AnsiString;
-  local_8, local_c: LongInt;
+  local_134, local_138, local_38, local_3c: AnsiString;
+  local_40, local_8, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14113,7 +14113,7 @@ begin
     Writeln(ARQTEXTO);
     Flush(ARQTEXTO);
     CloseFile(ARQTEXTO);
-    local_40 := 'Alteracao no Menu - PorcentagemDoPonto = [';
+    // C: local_40 = "Alteracao no Menu - PorcentagemDoPonto = [";
     local_3c := PORCENTAGEMDOPONTOSTR;
     local_38 := ']';
     local_138 := local_40 + local_3c + local_38;
@@ -14362,9 +14362,9 @@ end;
 { JUKELINUX1_TFORM1_$__FORMACTIVATE$TOBJECT }
 procedure TForm1.FormActivate(Sender: TObject);
 var
-  local_100, local_104, local_1f4, local_1f8, local_1fc, local_200, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_5c, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, local_98, local_a0, local_a8, local_ac, local_b0, local_b8, local_c0, local_c4, local_c8, local_d0, local_d8, local_dc, local_e0, local_e8, local_f0, local_f4, local_f8, local_fc: AnsiString;
+  local_104, local_1f4, local_1f8, local_1fc, local_200, local_3c, local_40, local_44, local_48, local_4c, local_50, local_54, local_5c, local_68, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, local_98, local_a0, local_a8, local_ac, local_b0, local_b8, local_c0, local_c4, local_c8, local_d0, local_d8, local_dc, local_e0, local_e8, local_f0, local_f4, local_f8, local_fc: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_58, local_60, local_64, local_8, local_90, local_9c, local_a4, local_b4, local_bc, local_c, local_cc, local_d4, local_e4, local_ec: LongInt;
+  iVar3, local_10, local_100, local_58, local_60, local_64, local_8, local_90, local_9c, local_a4, local_b4, local_bc, local_c, local_cc, local_d4, local_e4, local_ec: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14481,7 +14481,7 @@ begin
         OPC := 1;
       end;
       if OPC = 1 then begin
-        local_50 := 'Relogios do PenDrive [';
+        // C: local_50 = "Relogios do PenDrive [";
         local_4c := JC_SERIALPENDRIVE;
         local_48 := '] e da Jukebox estao Iguais';
         local_7c := local_50 + local_4c + local_48;
@@ -14525,7 +14525,7 @@ begin
         PENDRIVEZERADO := iVar3 = 0;
         if False then begin // ?: (bool)PENDRIVEZERADO
           Gravalog('Pendrive Zerado assume os Relogios da Jukebox');
-          local_94 := '[PENDRIVE CHAVE ZERADO] : ' + JC_SERIALPENDRIVE;
+          // C: fpc_ansistr_concat(&local_94,"[PENDRIVE CHAVE ZERADO] : ",U_JUKELINUX1_JC_SERIALPENDRIVE);
           Gravalog(local_94);
           Gravalog('                   Jukebox   PenDrive');
           local_8c := 'Relogio Total....: ';
@@ -14588,9 +14588,9 @@ begin
             end;
             if local_10 = 1 then begin
               Gravalog('A Jukebox Foi Desligada ou o Software Fechado antes de 3 segundos apos o credito, e nao deu tempo para gravar no pendrive');
-              local_f4 := '[MESMO PENDRIVE CHAVE] : ' + JC_SERIALPENDRIVE;
+              // C: fpc_ansistr_concat(&local_f4,"[MESMO PENDRIVE CHAVE] : ",U_JUKELINUX1_JC_SERIALPENDRIVE);
               Gravalog(local_f4);
-              local_100 := 'Relogios do PenDrive [';
+              // C: local_100 = "Relogios do PenDrive [";
               local_fc := JC_SERIALPENDRIVE;
               local_f8 := '] Sao Diferentes dos Relogios da Jukebox';
               local_f4 := local_100 + local_fc + local_f8;
@@ -14633,7 +14633,7 @@ begin
             end;
             if local_10 = 2 then begin
               Gravalog('ATENCAO: Relogios da Jukebox estao Menores que o do PenDrive');
-              local_100 := 'Relogios do PenDrive [';
+              // C: local_100 = "Relogios do PenDrive [";
               local_fc := JC_SERIALPENDRIVE;
               local_f8 := '] Sao Diferentes dos Relogios da Jukebox';
               local_1fc := local_100 + local_fc + local_f8;
@@ -14729,7 +14729,7 @@ begin
             // C: local_80 = (char *)U_JUKELINUX1_JC_INI;
             local_94 := local_8c + local_88 + local_84 + local_80;
             Gravalog(local_94);
-            local_88 := 'Relógios do PenDrive [';
+            // C: local_88 = "Relógios do PenDrive [";
             local_84 := JC_SERIALPENDRIVE;
             local_80 := '] SAo Diferentes dos Relogios da Jukebox';
             local_94 := local_88 + local_84 + local_80;
@@ -15531,7 +15531,7 @@ begin
         VERSAODOLINUX := 17;
         local_420 := 'VersaoDoLinux: Nao Encontrado Arquivo: ';
         local_41c := PASTA;
-        local_418 := 'versao.txt - [11]';
+        // C: local_418 = "versao.txt - [11]";
         local_518 := local_420 + local_41c + local_418;
         Gravalog(local_518);
       end
@@ -15774,7 +15774,7 @@ begin
             local_434 := local_518;
             local_430 := ' - Digito de Checagem do arquivo ';
             local_42c := PASTACHAVE;
-            local_428 := 'jukebox.chave diferente, [';
+            // C: local_428 = "jukebox.chave diferente, [";
             local_424 := local_f4;
             local_420 := ' <> ';
             local_41c := JC_DIGITO;
@@ -15811,7 +15811,7 @@ begin
             local_434 := local_51c;
             local_430 := ' - Serial do PenDrive Nao Confere com o Serial do arquivo ';
             local_42c := PASTACHAVE;
-            local_428 := 'jukebox.chave [';
+            // C: local_428 = "jukebox.chave [";
             local_424 := local_e8;
             local_420 := ' <> ';
             local_41c := JC_SERIALPENDRIVE;
@@ -15827,7 +15827,7 @@ begin
             local_434 := local_51c;
             // C: local_430 = " Dispositivos USB >>> - Serial do PenDrive Nao Confere com o Serial do arquivo ";
             local_42c := PASTACHAVE;
-            local_428 := 'jukebox.chave [';
+            // C: local_428 = "jukebox.chave [";
             local_424 := local_e8;
             local_420 := ' <> ';
             local_41c := JC_SERIALPENDRIVE;
@@ -15923,7 +15923,7 @@ begin
                 local_428 := 'ERRO: ';
                 local_518 := IntToStr(ERROSERIALNUM);
                 local_424 := local_518;
-                local_420 := ' - Nao Encontrado o arquivo [';
+                // C: local_420 = " - Nao Encontrado o arquivo [";
                 local_41c := PASTACHAVE;
                 local_418 := 'jukebox.cadastro]';
                 ERROSERIAL := local_428 + local_424 + local_420 + local_41c + local_418;
@@ -15940,7 +15940,7 @@ begin
               local_434 := local_518;
               local_430 := ' - Digito de Checagem do arquivo ';
               local_42c := PASTACHAVE;
-              local_428 := 'jukebox.contadores diferente, [';
+              // C: local_428 = "jukebox.contadores diferente, [";
               local_424 := local_f4;
               local_420 := ' <> ';
               local_41c := JC_DIGITOCON;
@@ -15960,7 +15960,7 @@ begin
                 local_434 := local_518;
                 local_430 := ' - Serial do PenDrive Nao Confere com o Serial do arquivo ';
                 local_42c := PASTACHAVE;
-                local_428 := 'jukebox.contadores [';
+                // C: local_428 = "jukebox.contadores [";
                 local_424 := local_e8;
                 local_420 := '<>';
                 local_41c := JC_SERIALPENDRIVECON;
@@ -16015,7 +16015,7 @@ begin
                 ERROSERIALNUM := 0;
                 ERROSERIAL := 0;
                 if JC_LETRAS = LETRASEXE then begin
-                  local_420 := 'Todas as Chaves [';
+                  // C: local_420 = "Todas as Chaves [";
                   local_41c := JC_LETRAS;
                   local_418 := '] OK';
                   local_518 := local_420 + local_41c + local_418;
@@ -16039,7 +16039,7 @@ begin
                 local_430 := 'ERRO: ';
                 local_518 := IntToStr(ERROSERIALNUM);
                 local_42c := local_518;
-                local_428 := ' - Este PenDrive Nao e desta JukeBox [HD=';
+                // C: local_428 = " - Este PenDrive Nao e desta JukeBox [HD=";
                 local_424 := JC_INI;
                 local_420 := ' <> PENDRIVE=';
                 local_41c := JC_SERIALPENDRIVE;
@@ -16153,7 +16153,7 @@ begin
         local_430 := 'ERRO: ';
         local_51c := IntToStr(ERROSERIALNUM);
         local_42c := local_51c;
-        local_428 := ' - Chave Nao Confere [';
+        // C: local_428 = " - Chave Nao Confere [";
         local_424 := TEXTO2;
         local_420 := '<>';
         local_41c := LETRASEXE;
@@ -16162,7 +16162,7 @@ begin
         local_428 := 'ERRO: ';
         local_518 := IntToStr(ERROSERIALNUM);
         local_424 := local_518;
-        local_420 := ' - Chave Nao Confere [';
+        // C: local_420 = " - Chave Nao Confere [";
         local_41c := TEXTO2;
         local_418 := '] - ContraSenha';
         local_51c := local_428 + local_424 + local_420 + local_41c + local_418;
@@ -18737,7 +18737,7 @@ procedure TForm1.Label1024Click(Sender: TObject);
 begin
   DIMINUERESOLUCAO := DIMINUERESOLUCAO + 1;
   if DIMINUERESOLUCAO = 1 then begin
-    ShowMessage('Se deseja ajustar a resolução para 1024x768'#13'Clique em OK e clique novamente em [1024x768]');
+    // C: DIALOGS_SHOWMESSAGE_ANSISTRING("Se deseja ajustar a resolução para 1024x768\rClique em OK e clique novamente em [1024x768]");
     // C: param_3 = extraout_ECX;
   end;
   if DIMINUERESOLUCAO = 2 then begin
@@ -19393,9 +19393,9 @@ end;
 { JUKELINUX1_TFORM1_$__PANELMENU2CLICK$TOBJECT }
 procedure TForm1.PanelMenu2Click(Sender: TObject);
 var
-  local_180, local_184, local_188, local_18c, local_194, local_198, local_19c, local_1a0, local_1a4, local_1ac, local_1b0, local_1b4, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_44, local_4c, local_50, local_54, local_58, local_60, local_64, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, uVar4: AnsiString;
+  local_180, local_184, local_188, local_18c, local_194, local_198, local_19c, local_1a0, local_1a4, local_1ac, local_1b0, local_1b4, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_44, local_4c, local_50, local_54, local_60, local_64, local_6c, local_70, local_74, local_78, local_7c, local_80, local_84, local_88, local_8c, local_94, uVar4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_190, local_1a8, local_3c, local_48, local_5c, local_8, local_90, local_c: LongInt;
+  iVar3, local_190, local_1a8, local_3c, local_48, local_58, local_5c, local_8, local_90, local_c: LongInt;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -19422,7 +19422,7 @@ begin
       local_60 := 'Relógio Parcial: R$ ';
       local_64 := IntToStr(RELOGIOPARCIAL);
       local_5c := local_64;
-      local_58 := ',00  [';
+      // C: local_58 = ",00  [";
       local_54 := MINUTOSLIGADASTR;
       local_50 := 'hs Ligada]';
       local_40 := local_60 + local_5c + local_58 + local_54 + local_50;
@@ -19615,7 +19615,7 @@ begin
       // C: local_1ac = CONCAT44(local_1ac._4_4_,"Relógio Parcial: R$ ");
       local_188 := IntToStr(RELOGIOPARCIAL);
       // C: local_1ac = CONCAT44(local_188,(int)local_1ac);
-      local_1a4 := ',00  [';
+      // C: local_1a4 = ",00  [";
       local_1a0 := MINUTOSLIGADASTR;
       local_19c := 'hs Ligada]';
       local_198 := local_1ac + local_1a8 + local_1a4 + local_1a0 + local_19c;

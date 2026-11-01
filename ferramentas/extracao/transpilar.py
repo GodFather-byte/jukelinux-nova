@@ -183,6 +183,8 @@ def expr(e):
     # operador vírgula do C, ex.: (k = k + 1, k < 501): parênteses com vírgula que não são de chamada
     if re.search(r'(?<![\w\]])\(([^()]*,[^()]*)\)', e):
         return None
+    if '[' in e:  # índice que sobrou (vetor do C ou campo não identificado)
+        return None
     if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
                  r'\b_\d_\d_|param_|\bFPC_|\(\w+ \*+\)|\bp\w*Var\d+\b|\bDAT_|\ba\w*Stack_|\bpu\w*Stack_', e):
         return None

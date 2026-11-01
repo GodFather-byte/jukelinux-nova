@@ -16,7 +16,7 @@ os.makedirs(saida, exist_ok=True)
 RE = re.compile(r'&?_*JUKELINUX1_*(Ld\d+)\b')
 RE_CAMPO = re.compile(r'\*\([\w ]+\*\)\(U_JUKELINUX1_FORM1 \+ (0x[0-9a-f]+|\d+)\)')
 # Mesmo acesso quando o Ghidra trata o Form1 como vetor de 4 bytes: FORM1[0x272] = deslocamento 0x9c8.
-RE_INDICE = re.compile(r'U_JUKELINUX1_FORM1\[(0x[0-9a-f]+)\]')
+RE_INDICE = re.compile(r'U_JUKELINUX1_FORM1\[(0x[0-9a-f]+|\d+)\]')
 # Campos internos das classes do LCL 1.2 lidos direto (sem o getter). Os nomes vêm do uso no código: Picture
 # vai para TPicture.LoadFromFile, Items para TStrings, e Left/Top/Width aparecem nos cálculos de posição
 # (por isso levam '?': são inferidos, não lidos do RTTI).
@@ -31,7 +31,7 @@ def campo(m):
 
 
 def indice(m):
-    desl = int(m.group(1), 16) * 4
+    desl = int(m.group(1), 0) * 4
     if desl in campos:
         return f'Form1.{campos[desl]}'
     if desl in INTERNOS:
