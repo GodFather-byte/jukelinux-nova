@@ -195,7 +195,7 @@ begin
       end;
     end;
     Form1.TimerPropaganda.Enabled := True;
-    if TOTALPRO = '' then begin
+    if TOTALPRO = 0 then begin
       Form1.TimerPropaganda.Enabled := False;
       local_30 := 'Nao tem Propagandas na pasta ' + PASTAPROPAGANDA;
       Gravalog(local_30);
@@ -1641,7 +1641,7 @@ begin
     end;
     Form1.FileListBox1.Directory := PASTAPROPAGANDA;
     KPRO := 0;
-    TOTALPRO := '';
+    TOTALPRO := 0;
     iVar3 := Form1.FileListBox1.Count;
     if -1 < iVar3 + -1 then begin
       local_8 := -1;
@@ -1720,7 +1720,7 @@ begin
         Form1.ImageTV.Hide;
       end;
     end;
-    if TOTALPRO = '' then begin
+    if TOTALPRO = 0 then begin
       Form1.TimerPropaganda.Enabled := False;
       local_40 := 'Nao tem Propagandas na pasta ' + PASTAPROPAGANDA;
       Gravalog(local_40);
@@ -2247,7 +2247,7 @@ begin
         end;
       end;
     end;
-    CODIGODOCARTAO := 0;
+    CODIGODOCARTAO := '';
     LENDOCODIGODOCARTAO := 0;
   end;
 end;
@@ -2520,7 +2520,7 @@ begin
         end;
       end;
     end;
-    CODIGODOCARTAO := 0;
+    CODIGODOCARTAO := '';
     LENDOCODIGODOCARTAO := 0;
   end;
 end;
@@ -7920,8 +7920,8 @@ end;
 { JUKELINUX1_SELECIONAMUSICA }
 procedure Selecionamusica;
 var
+  local_30: AnsiString;
   iVar1: LongInt;
-  local_30: array[0..159] of Byte {revisar};
 begin
   begin
     if ALTEROUMUSICAGRANDE <> 0 then begin
@@ -9321,8 +9321,8 @@ procedure TForm1.ButtonAtivarClick(Sender: TObject);
 label
   LAB_080cc102;
 var
-  local_17c, local_180, local_184, local_188, local_18c, local_198, local_20, local_24, local_28, local_28c, local_2c, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_78, local_7c, local_88, local_8c, uVar1: AnsiString;
-  iVar3, local_10, local_1c, local_4c: LongInt;
+  local_17c, local_180, local_184, local_188, local_18c, local_198, local_1c, local_20, local_24, local_28, local_28c, local_2c, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_78, local_7c, local_88, local_8c, uVar1: AnsiString;
+  iVar3, local_10, local_4c: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_190, local_194, local_290, local_80, local_84: Variant;
@@ -11819,9 +11819,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONUPGRADECLICK$TOBJECT }
 procedure TForm1.ButtonUpgradeClick(Sender: TObject);
 var
-  local_1ac, local_1b0, local_1b4, local_1e0, local_1e4, local_1e8, local_1f4, local_1f8, local_1fc, local_200, local_208, local_210: AnsiString;
+  local_1ac, local_1b0, local_1b4, local_1e0, local_1e4, local_1e8, local_1f4, local_1f8, local_1fc, local_200, local_208, local_210, uVar1: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8, uVar1: LongInt;
+  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_1ec, local_1f0, local_204, local_20c: Variant;
@@ -12015,9 +12015,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONXMLCLICK$TOBJECT }
 procedure TForm1.ButtonXMLClick(Sender: TObject);
 var
-  local_10, local_150, local_154, local_158, local_48, local_4c, local_50, local_58, local_5c: AnsiString;
+  local_10, local_150, local_154, local_158, local_48, local_4c, local_50, local_58, local_5c, uVar1: AnsiString;
   cVar2: Boolean;
-  local_14, uVar1: LongInt;
+  local_14: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_40, local_44, local_54: Variant;
@@ -13300,10 +13300,10 @@ end;
 { JUKELINUX1_TFORM1_$__COMBOBOX20CHANGE$TOBJECT }
 procedure TForm1.ComboBox20Change(Sender: TObject);
 var
-  local_134, local_138, local_38, local_48: AnsiString;
+  local_134, local_138, local_140, local_38, local_48: AnsiString;
   local_c: TForm1;
   local_8: TObject;
-  local_13c, local_140, local_3c, local_40, local_44: Variant;
+  local_13c, local_3c, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -15266,7 +15266,7 @@ begin
     TOCANDOVIDEOTV := 0;
     ALTEROUPRO := 0;
     LENDOCODIGODOCARTAO := 0;
-    CODIGODOCARTAO := 0;
+    CODIGODOCARTAO := '';
     PULSOSPARACARTAO := 0;
     ZERA50 := 0;
     TOCANDOPALHINHA := 0;
@@ -19935,7 +19935,7 @@ begin
     Form1.PanelCarregarMusica.Height := Form1.PanelMenu3grande.Height + -80;
     Le_Tocados;
     KMATEXCLUI := 1;
-    Mostra_Cd_Exclusao;
+    Mostra_Cd_Exclusao(KMATEXCLUI);
     local_38 := Copy(ORDEMDOSCDS, 1, 1);
     if local_38 = 'R' then begin
       Form1.ButtonEO3.Caption := 'Próximo Gênero';
@@ -20656,7 +20656,7 @@ begin
   if (iVar1 = 0) and (0 < MUSICASELECIONADA) then begin
     begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
       // C: case 1: iVar2 = 0;
-      if NOMEMUSICAORIGINALGRANDE <> 0 then begin
+      if NOMEMUSICAORIGINALGRANDE <> '' then begin
         // C: iVar2 = *(int * )(U_JUKELINUX1_NOMEMUSICAORIGINALGRANDE + -4);
       end;
       if TAMANHOMUSICAGRANDE < iVar2 then begin

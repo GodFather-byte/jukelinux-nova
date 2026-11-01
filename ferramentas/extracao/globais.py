@@ -35,10 +35,19 @@ for f in os.listdir(sys.argv[2]):
 
 
 def usos(n):
-    return indice.get(n, [])
+    # (&G)[i] e &G + k são acessos ao vetor seguinte na memória (o Ghidra não separa); não dizem o tipo de G.
+    return [l for l in indice.get(n, []) if not re.search(r'\(&U_JUKELINUX1_' + n + r'\)\[|&U_JUKELINUX1_' + n + r' \+', l)]
+
+
+# Tipos conferidos à mão no código descompilado (o tamanho do símbolo engana nesses).
+MANUAL = {
+    'NOMEMUSICAORIGINALGRANDE': 'AnsiString',  # usada como texto (lê o tamanho em -4); o símbolo tem 160 bytes
+}
 
 
 def tipo(n, tam):
+    if n in MANUAL:
+        return MANUAL[n]
     u = '\n'.join(usos(n))
     g = 'U_JUKELINUX1_' + n
     if tam == 256:
@@ -49,7 +58,7 @@ def tipo(n, tam):
         if re.search(r'fpc_ansistr_\w+\(&?' + re.escape(g) + r'\b|fpc_ansistr_\w+\([^;]*,' + re.escape(g) + r'\b|'
                      # primeiro parâmetro texto (FILEEXISTS_ANSISTRING__...), não resultado (INTTOSTR_LONGINT__ANSISTRING)
                      + re.escape(g) + r' = "|(?<!_)_(ANSISTRING|SHORTSTRING)\w*\(' + re.escape(g) + r'\b|'
-                     r'(?i:compare_equal)\w*\s?\([^;]*' + re.escape(g) + r'\b', u):
+                     r'(?i:compare_equal)\w*\s?\([^;()]*' + re.escape(g) + r'\b', u):
             if not re.search(re.escape(g) + r' (<|>|<=|>=|[+-]) \d|' + re.escape(g) + r' == [1-9]', u):
                 return 'AnsiString'
         if re.search(r'TPROCESS____\w+\(' + re.escape(g) + r'\b|' + re.escape(g) + r' = \(int \*\)[^;]*TPROCESS', u):

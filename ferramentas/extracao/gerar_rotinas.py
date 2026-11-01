@@ -46,7 +46,15 @@ TIPOS = {'ANSISTRING': 'AnsiString', 'LONGINT': 'LongInt', 'BOOLEAN': 'Boolean',
 
 ARQ = r'(AssignFile|Rewrite|Reset|Append|Flush|CloseFile|Readln|Writeln|Read|Write|Eof)\('
 retornos = {}  # nome da rotina (minúsculo) -> tipo do resultado, preenchido antes de traduzir
-params_rotina = {}  # nome da rotina (minúsculo) -> tipos dos parâmetros
+params_rotina = {  # nome da rotina (minúsculo) -> tipos dos parâmetros; as do FPC vêm prontas
+    'copyfile': ['AnsiString', 'AnsiString', 'Boolean'], 'fileexists': ['AnsiString'],
+    'directoryexists': ['AnsiString'], 'deletefile': ['AnsiString'], 'createdir': ['AnsiString'],
+    'removedir': ['AnsiString'], 'renamefile': ['AnsiString', 'AnsiString'], 'pos': ['AnsiString', 'AnsiString'],
+    'copy': ['AnsiString', 'LongInt', 'LongInt'], 'strtoint': ['AnsiString'],
+    'strtointdef': ['AnsiString', 'LongInt'], 'showmessage': ['AnsiString'], 'inttostr': ['LongInt'],
+    'trim': ['AnsiString'], 'uppercase': ['AnsiString'], 'lowercase': ['AnsiString'],
+    'extractfileext': ['AnsiString'], 'extractfilename': ['AnsiString'], 'extractfilepath': ['AnsiString'],
+}
 STR_FUNCS = r'IntToStr|Trim|Copy|ExtractFileExt|ExtractFileName|ExtractFilePath|DateToStr|TimeToStr|UpperCase|LowerCase'
 INT_FUNCS = r'Pos|Length|StrToInt|StrToIntDef|Random'
 BOOL_FUNCS = r'FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile|RemoveDir|RenameFile'
@@ -85,6 +93,8 @@ def tipos_locais(locs, linhas, tipos_params=None, tipo_result=None):
                 for a, tp in zip(transpilar.args_de(mc.group(2)), tps_r):
                     if a == l and tp == 'AnsiString':
                         txt = True
+                    elif a == l and tp == 'LongInt':
+                        num = True
         if num and txt:
             tipos[l] = 'Variant'
         elif txt:
@@ -245,7 +255,7 @@ for arq in sorted(os.listdir(pasta_c)):
     tipos = tipos_locais(locs, corpo, tipos_params, tipo_result) if locs else {}
     # Ajustes que dependem dos tipos (C não distingue nil, 0, falso e '\0'):
     textos_l = {l.upper() for l, t in tipos.items() if t in ('AnsiString', 'ShortString')}
-    textos_l |= {g for g, t in tipos_globais.items() if t == 'AnsiString'}
+    textos_l |= {g for g, t in tipos_globais.items() if t in ('AnsiString', 'ShortString') or t.startswith('String[')}
     textos_l |= {p.upper() for p, t in tipos_params.items() if t == 'AnsiString'}
     if tipo_result == 'AnsiString':
         textos_l.add('RESULT')
@@ -307,7 +317,15 @@ def arruma_args(linha):
 
 
 rotinas = ['\n'.join(arruma_args(x) for x in r.split('\n')) for r in rotinas]
+from correcoes import CORRECOES  # noqa: E402
 metodos = ['\n'.join(arruma_args(x) for x in r.split('\n')) for r in metodos]
+
+for rot, velho, novo, _motivo in CORRECOES:
+    lista = metodos if rot.startswith('TForm1.') else rotinas
+    alvo_i = [i for i, x in enumerate(lista) if re.search(r'^(procedure|function) ' + re.escape(rot) + r'\b', x, re.M)]
+    if len(alvo_i) != 1 or lista[alvo_i[0]].count(velho) != 1:
+        raise SystemExit(f'correção não se aplica em {rot}: {velho!r}')
+    lista[alvo_i[0]] = lista[alvo_i[0]].replace(velho, novo)
 
 with open(os.path.join(pasta_src, 'jukelinux1_rotinas.inc'), 'w', encoding='utf-8', newline='\n') as f:
     f.write('{ Rotinas da JukeLinux original traduzidas do código descompilado por ferramentas/extracao/gerar_rotinas.py.\n'
