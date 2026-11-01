@@ -67,6 +67,38 @@ def tipo_local(nome, linhas):
     return 'LongInt'
 
 
+PALAVRAS = set('''and array begin case const div do downto else end file for function goto if in label mod nil not of or
+packed procedure program record repeat set then to type until var while with shl shr xor exit break continue result
+true false self form1 sender key shift button x y closeaction node alnone altop albottom alleft alright alclient
+'''.split())
+RTL_NOMES = {n.lower() for n, _ in transpilar.RTL.values()} | {
+    'read', 'write', 'writeln', 'readln', 'copy', 'length', 'inttostr', 'chr', 'ord', 'screen', 'mouse', 'application',
+    'assignfile', 'closefile', 'reset', 'rewrite', 'append', 'flush', 'eof'}
+
+
+def higienizar(linhas, conhecidos):
+    """Comenta as linhas com algum nome que não existe no Pascal (sobra do C que o tradutor deixou passar)."""
+    saida = []
+    for l in linhas:
+        cod = l.split('//', 1)[0]
+        cod_sem_txt = re.sub(r"'(?:[^']|'')*'|\{[^}]*\}|#\d+", ' ', cod)
+        nomes = re.findall(r'(?<![.\w#$])([A-Za-z_]\w*)', cod_sem_txt)
+        ruins = [n for n in nomes if n.lower() not in conhecidos]
+        if not ruins:
+            saida.append(l)
+            continue
+        ind = l[:len(l) - len(l.lstrip())]
+        s = l.strip()
+        m = re.fullmatch(r'(else )?(if|while) (.+) (then|do) begin', s)
+        if m:
+            saida.append(f'{ind}{m.group(1) or ""}{m.group(2)} False {m.group(4)} begin // ?: {m.group(3)}')
+        elif s.startswith('until '):
+            saida.append(f'{ind}until True; // ?: {s}')
+        else:
+            saida.append(f'{ind}// ?: {s}')
+    return saida
+
+
 def parse_nome(simbolo):
     """JUKELINUX1_MENSAGEMJPG$ANSISTRING$LONGINT$ANSISTRING -> ('MENSAGEMJPG', [tipos], retorno)"""
     s = simbolo[len('JUKELINUX1_'):]
@@ -121,6 +153,11 @@ for arq in sorted(os.listdir(pasta_c)):
         alvo = rotinas
     corpo, locs, _ = transpilar.traduzir(src)
     locs = [l for l in locs if l not in ('Self', 'Result')]
+    params_nomes = nomes_p if metodo else [f'P{i + 1}' for i in range(len(tps))]
+    conhecidos = (PALAVRAS | RTL_NOMES | {g.lower() for g in tipos_globais} | {c.lower() for c in componentes} |
+                  {n.title().lower() for n in transpilar.nomes_juke} | {l.lower() for l in locs} |
+                  {p.lower() for p in params_nomes})
+    corpo = higienizar(corpo, conhecidos)
     decl = ''
     if locs:
         por_tipo = {}

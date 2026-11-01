@@ -820,13 +820,13 @@ begin
                         // C: uVar5 = *(undefined4 *)(iStack_478b24 + -4);
                       end;
                       // C: SYSUTILS_STRTODATE_PCHAR_LONGINT_ANSISTRING_CHAR__TDATETIME (iStack_478b24,uVar5,PTR___SYSUTILS__Ld2_08d69698,0);
-                      uStack_478d94 := (double)in_ST0;
-                      in_ST0 := in_ST2;
-                      in_ST2 := in_ST4;
-                      in_ST4 := in_ST6;
-                      in_ST6 := in_ST7;
+                      // ?: uStack_478d94 := (double)in_ST0;
+                      // ?: in_ST0 := in_ST2;
+                      // ?: in_ST2 := in_ST4;
+                      // ?: in_ST4 := in_ST6;
+                      // ?: in_ST6 := in_ST7;
                       Date;
-                      in_ST7 := in_ST6;
+                      // ?: in_ST7 := in_ST6;
                       // C: iVar3 = DATEUTILS_DAYSBETWEEN_TDATETIME_TDATETIME__LONGINT();
                       if iVar3 < iStack_478b28 then begin
                         iStack_478d8c := 0;
@@ -838,7 +838,7 @@ begin
                           local_8 * 576 + 149492008 := iStack_478d8c;
                         end
                         else begin
-                          cStack_478b2c := 0;
+                          // ?: cStack_478b2c := 0;
                           // C: iVar3 = (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0x80) )(Form1.ListBoxRInativo.Items);
                           if -1 < iVar3 + -1 then begin
                             local_10 := -1;
@@ -850,11 +850,11 @@ begin
                               uStack_478e90 := 0;
                               local_8 * 576 + 149492008 := uStack_478e90;
                               if uStack_478e90 = iVar4 then begin
-                                cStack_478b2c := 1;
+                                // ?: cStack_478b2c := 1;
                               end;
                             until not (local_10 < iVar3 + -1);
                           end;
-                          if cStack_478b2c = 0 then begin
+                          if False then begin // ?: cStack_478b2c = 0
                             // C: *(undefined2 *)((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
                             uStack_478e90 := 0;
                             uStack_478e90 := UpperCase(' LANCAMENTOS');
@@ -888,7 +888,7 @@ begin
       if 0 < TOTALCDS then begin
         repeat
           local_8 := local_8 + 1;
-          cStack_478b2c := 0;
+          // ?: cStack_478b2c := 0;
           // C: iVar7 = (**(code **)(**(int **)(Form1.ListBoxRInativo + 0x364) + 0x80)) (Form1.ListBoxRInativo.Items);
           if -1 < iVar7 + -1 then begin
             local_c := -1;
@@ -900,14 +900,14 @@ begin
               iStack_478d8c := 0;
               local_8 * 576 + 149492008 := iStack_478d8c;
               if iStack_478d8c = uVar5 then begin
-                cStack_478b2c := 1;
+                // ?: cStack_478b2c := 1;
               end;
             until not (local_c < iVar7 + -1);
           end;
           if False { C: (&U_JUKELINUX1_NOMEDOCLIENTE)[local_8 * 0x90] == 0 } then begin
-            cStack_478b2c := 1;
+            // ?: cStack_478b2c := 1;
           end;
-          if cStack_478b2c = 0 then begin
+          if False then begin // ?: cStack_478b2c = 0
             iStack_465288 := iStack_465288 + 1;
             // C: fpc_copy_proc(local_8 * 0x240 + 0x8e91110,auStack_4654c4 + iStack_465288 * 0x240, INIT_JUKELINUX1_TIPOCD);
           end;
@@ -1075,7 +1075,7 @@ begin
                         uStack_478e90 := 0;
                         uStack_478e90 := IntToStr(local_c);
                         uStack_478da0 := uStack_478e90;
-                        pcStack_478d9c := 'o. - ';
+                        // ?: pcStack_478d9c := 'o. - ';
                         uStack_478e94 := 0;
                         // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e94);
                         uStack_478d98 := uStack_478e94;
@@ -1086,7 +1086,7 @@ begin
                         uStack_478e94 := 0;
                         uStack_478e94 := IntToStr(local_c);
                         uStack_478da0 := uStack_478e94;
-                        pcStack_478d9c := 'o. - ';
+                        // ?: pcStack_478d9c := 'o. - ';
                         uStack_478e90 := 0;
                         // C: SYSUTILS_INTTOSTR_LONGINT__ANSISTRING(aiStack_474c8c[local_c],&uStack_478e90);
                         uStack_478d98 := uStack_478e90;
@@ -12314,7 +12314,7 @@ begin
       local_3c := 'hs Ligada]';
       local_140 := local_4c + local_48 + local_44 + local_40 + local_3c;
       Form1.LabelRP.Caption := local_140;
-      local_14c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_14c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_14c;
       local_44 := 'Valor do Ponto: R$ ';
       local_13c := IntToStr(VALORPONTO);
@@ -14504,7 +14504,7 @@ begin
       else begin
         // C: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_JC_CODIGODAMAQUINA,"0");
         PENDRIVEZERADO := iVar3 = 0;
-        if (bool)PENDRIVEZERADO then begin
+        if False then begin // ?: (bool)PENDRIVEZERADO
           Gravalog('Pendrive Zerado assume os Relogios da Jukebox');
           local_94 := '[PENDRIVE CHAVE ZERADO] : ' + JC_SERIALPENDRIVE;
           Gravalog(local_94);
@@ -15076,7 +15076,7 @@ begin
     NOMEARQ := '//home/jkb/jukelinux/pastas.txt';
     cVar3 := DirectoryExists('//home/jkb/jukelinux/');
     if not cVar3 then begin
-      ShowMessage('O Software Roda Somente na Pasta //home/jkb/jukelinux/');
+      // ?: ShowMessage('O Software Roda Somente na Pasta //home/jkb/jukelinux/');
     end
     else begin
       cVar3 := FileExists(NOMEARQ);
@@ -15113,7 +15113,7 @@ begin
     NOMEARQ := '//home/jkb/jukelinux/pastakaraoke.txt';
     cVar3 := DirectoryExists('//home/jkb/jukelinux/');
     if not cVar3 then begin
-      ShowMessage('O Software Roda Somente na Pasta //home/jkb/jukelinux/');
+      // ?: ShowMessage('O Software Roda Somente na Pasta //home/jkb/jukelinux/');
     end
     else begin
       cVar3 := FileExists(NOMEARQ);
@@ -15287,8 +15287,8 @@ begin
       CloseFile(ARQTEXTO);
     end;
     local_10c := 0;
-    WX := TC_FORMS_SCREEN.Width;
-    HX := TC_FORMS_SCREEN.Height;
+    // ?: WX := TC_FORMS_SCREEN.Width;
+    // ?: HX := TC_FORMS_SCREEN.Height;
     RX := 'erro';
     if (WX = 1024)  and  (HX = 768) then begin
       RX := 'ok';
@@ -19411,7 +19411,7 @@ begin
       local_64 := IntToStr(PORCENTAGEMDOPONTO);
       local_40 := '% do  Ponto: ' + local_64;
       Form1.LabelPor.Caption := local_40;
-      local_6c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_6c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_6c;
       local_4c := 'Valor do Ponto..: R$ ';
       local_64 := IntToStr(VALORPONTO);
@@ -19601,7 +19601,7 @@ begin
       local_19c := 'hs Ligada]';
       local_198 := local_1ac + local_1a8 + local_1a4 + local_1a0 + local_19c;
       Form1.LabelRP.Caption := local_198;
-      local_1ac := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_1ac := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_1ac;
       local_1a4 := 'Valor do Ponto..: R$ ';
       local_1b0 := IntToStr(VALORPONTO);
