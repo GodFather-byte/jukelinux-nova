@@ -46,6 +46,7 @@ TIPOS = {'ANSISTRING': 'AnsiString', 'LONGINT': 'LongInt', 'BOOLEAN': 'Boolean',
 
 ARQ = r'(AssignFile|Rewrite|Reset|Append|Flush|CloseFile|Readln|Writeln|Read|Write|Eof)\('
 retornos = {}  # nome da rotina (minúsculo) -> tipo do resultado, preenchido antes de traduzir
+params_rotina = {}  # nome da rotina (minúsculo) -> tipos dos parâmetros
 STR_FUNCS = r'IntToStr|Trim|Copy|ExtractFileExt|ExtractFileName|ExtractFilePath|DateToStr|TimeToStr|UpperCase|LowerCase'
 INT_FUNCS = r'Pos|Length|StrToInt|StrToIntDef|Random'
 BOOL_FUNCS = r'FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile|RemoveDir|RenameFile'
@@ -78,6 +79,12 @@ def tipos_locais(locs, linhas, tipos_params=None, tipo_result=None):
             tipos[l] = 'Text'; certo.add(l); continue
         num, txt, boo = evidencias(l, s, funcs_texto)
         txt = txt or l in transpilar.texto_certo
+        for mc in re.finditer(r'\b(\w+)\(([^()]*)\)', s):  # passada a parâmetro de texto de uma rotina
+            tps_r = params_rotina.get(mc.group(1).lower())
+            if tps_r:
+                for a, tp in zip(transpilar.args_de(mc.group(2)), tps_r):
+                    if a == l and tp == 'AnsiString':
+                        txt = True
         if num and txt:
             tipos[l] = 'Variant'
         elif txt:
@@ -163,8 +170,9 @@ def parse_nome(simbolo):
 for arq in os.listdir(pasta_c):  # tipos de retorno de todas as rotinas, para deduzir o tipo das locais
     if arq.endswith('.c') and not arq.startswith('JUKELINUX1_TFORM1'):
         simb = open(os.path.join(pasta_c, arq), encoding='utf-8').readline()[3:].split('  @')[0].strip()
-        if '$$' in simb:
-            n, _, r = parse_nome(simb)
+        n, tps0, r = parse_nome(simb)
+        params_rotina[n.title().lower()] = [TIPOS.get(x, x) for x in tps0]
+        if r:
             retornos[n.title().lower()] = TIPOS.get(r, r)
 
 rotinas, metodos, forwards, feitos_eventos = [], [], [], []
@@ -234,15 +242,42 @@ for arq in sorted(os.listdir(pasta_c)):
         print(f'AVISO: {simbolo} com begin/end desbalanceado ({saldo:+d}); corpo comentado', file=sys.stderr)
         corpo = ['  // DESBALANCEADO: ' + l.strip() for l in corpo]
     decl = ''
-    if locs:
-        tipos = tipos_locais(locs, corpo, tipos_params, tipo_result)
-        # No C, zerar um texto é pôr nil: "s := 0" vira "s := ''".
-        textos_l = {l for l, t in tipos.items() if t in ('AnsiString', 'ShortString')}
-        # Texto comparado com 0 no C é ponteiro nil: s <> 0 -> s <> ''.
-        corpo = [re.sub(r'\b(\w+) (=|<>) 0\b', lambda m: f"{m.group(1)} {m.group(2)} ''"
-                        if m.group(1) in textos_l else m.group(0), x) for x in corpo]
-        corpo = [re.sub(r'^(\s*)(\w+) := 0;$', lambda m: f"{m.group(1)}{m.group(2)} := '';"
-                        if m.group(2) in textos_l else m.group(0), x) for x in corpo]
+    tipos = tipos_locais(locs, corpo, tipos_params, tipo_result) if locs else {}
+    # Ajustes que dependem dos tipos (C não distingue nil, 0, falso e '\0'):
+    textos_l = {l.upper() for l, t in tipos.items() if t in ('AnsiString', 'ShortString')}
+    textos_l |= {g for g, t in tipos_globais.items() if t == 'AnsiString'}
+    textos_l |= {p.upper() for p, t in tipos_params.items() if t == 'AnsiString'}
+    if tipo_result == 'AnsiString':
+        textos_l.add('RESULT')
+    boole = {l for l, t in tipos.items() if t == 'Boolean'}
+    bytes_g = {g for g, t in tipos_globais.items() if t == 'Byte'}
+    chars = {p for p, t in tipos_params.items() if t == 'Char'}
+
+    def ajusta(x):
+        if x.lstrip().startswith('//'):
+            return x
+        x = re.sub(r'\b(\w+) = 0\b', lambda m: f'not {m.group(1)}' if m.group(1) in boole else m.group(0), x)
+        x = re.sub(r'\b(\w+) <> 0\b', lambda m: m.group(1) if m.group(1) in boole else m.group(0), x)
+        # texto comparado com 0 é ponteiro nil: s <> 0 -> s <> ''; e "s := 0" zera o texto
+        x = re.sub(r'\b(\w+) (=|<>) 0\b', lambda m: f"{m.group(1)} {m.group(2)} ''"
+                   if m.group(1).upper() in textos_l else m.group(0), x)
+        x = re.sub(r'^(\s*)(\w+) := 0;$', lambda m: f"{m.group(1)}{m.group(2)} := '';"
+                   if m.group(2).upper() in textos_l else m.group(0), x)
+        # Char comparado com número: Key = 13 -> Key = #13
+        x = re.sub(r'\b(\w+) (=|<>) (\d+)\b', lambda m: f'{m.group(1)} {m.group(2)} #{m.group(3)}'
+                   if m.group(1) in chars else m.group(0), x)
+        # Byte da original recebendo comparação: b := a = 0 -> b := Ord(a = 0)
+        m = re.match(r'^(\s*)(\w+) := (.*(=|<>|<|>).*);$', x)
+        if m and m.group(2).upper() in bytes_g:
+            x = f'{m.group(1)}{m.group(2)} := Ord({m.group(3)});'
+        # função Boolean devolvendo número
+        m = re.match(r'^(\s*)Result := (\w+); Exit;$', x)
+        if m and tipo_result == 'Boolean' and tipos.get(m.group(2)) == 'LongInt':
+            x = f'{m.group(1)}Result := {m.group(2)} <> 0; Exit;'
+        return x
+
+    corpo = [ajusta(x) for x in corpo]
+    if tipos:
         por_tipo = {}
         for l, t in tipos.items():
             por_tipo.setdefault(t, []).append(l)

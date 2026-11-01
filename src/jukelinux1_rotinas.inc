@@ -195,7 +195,7 @@ begin
       end;
     end;
     Form1.TimerPropaganda.Enabled := True;
-    if TOTALPRO = 0 then begin
+    if TOTALPRO = '' then begin
       Form1.TimerPropaganda.Enabled := False;
       local_30 := 'Nao tem Propagandas na pasta ' + PASTAPROPAGANDA;
       Gravalog(local_30);
@@ -338,10 +338,10 @@ begin
             local_14 := local_14 + 1;
             // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
             if local_154 = local_1c then begin
-              // ?: 157577279 := local_158;
+              // C: fpc_shortstr_to_ansistr(0x964703f,&local_158);
               local_154 := Descripta(local_158);
-              // ?: local_14 * 38 + 154153049 := local_154;
-              // ?: 157577284 := local_154;
+              // C: FPC_ANSISTR_TO_SHORTSTR(local_14 * 0x26 + 0x9303059,4,local_154);
+              // C: fpc_shortstr_to_ansistr(0x9647044,&local_154);
               local_158 := Descripta(local_154);
               // C: FPC_ANSISTR_TO_SHORTSTR(&DAT_0930305e + local_14 * 0x26,1,local_158);
             end;
@@ -368,7 +368,7 @@ begin
         // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
         local_16c := local_154;
         local_168 := ' - ';
-        // ?: local_14 * 38 + 154153049 := local_25c;
+        // C: fpc_shortstr_to_ansistr(local_14 * 0x26 + 0x9303059,&local_25c);
         local_164 := local_25c;
         local_160 := ' - ';
         // C: fpc_shortstr_to_ansistr(&DAT_0930305e + local_14 * 0x26,&local_260);
@@ -497,7 +497,7 @@ begin
             // C: aiStack_478b58[0] = 0;
             // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,aiStack_478b58);
             // C: fpc_ansistr_copy(aiStack_478b58[0],2,iVar7 + -2,piVar8);
-            // ?: KMAT * 576 + 149491996 := iStack_478b68 + '/';
+            // C: fpc_ansistr_concat(U_JUKELINUX1_KMAT * 0x240 + 0x8e9111c,iStack_478b68, "/");
             iStack_478b68 := '';
             // C: SYSUTILS_UPPERCASE_ANSISTRING__ANSISTRING ( *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x1fc), &iStack_478b68);
             iVar7 := KMAT * 576;
@@ -550,7 +550,7 @@ begin
                   iStack_478c6c := ExtractFileExt(iStack_478c70);
                   iStack_478b68 := UpperCase(iStack_478c6c);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478b68,".MP3");
-                  if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
+                  if (iVar3 = 0) and (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
                     iStack_478c70 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70);
@@ -579,7 +579,7 @@ begin
                   iStack_478c6c := ExtractFileExt(iStack_478c74);
                   iStack_478c70 := UpperCase(iStack_478c6c);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c70,".MPG");
-                  if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
+                  if (iVar3 = 0) and (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
                     iStack_478c74 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74);
@@ -608,7 +608,7 @@ begin
                   iStack_478c70 := ExtractFileExt(iStack_478c78);
                   iStack_478c74 := UpperCase(iStack_478c70);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c74,".MP4");
-                  if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
+                  if (iVar3 = 0) and (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
                     iStack_478c78 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78);
@@ -637,7 +637,7 @@ begin
                   iStack_478c74 := ExtractFileExt(iStack_478c7c);
                   iStack_478c78 := UpperCase(iStack_478c74);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c78,".MKV");
-                  if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
+                  if (iVar3 = 0) and (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
                     iStack_478c7c := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c);
@@ -666,7 +666,7 @@ begin
                   iStack_478c78 := ExtractFileExt(uStack_478c80);
                   iStack_478c7c := UpperCase(iStack_478c78);
                   // C: iVar3 = fpc_ansistr_compare_equal(iStack_478c7c,".WMA");
-                  if (iVar3 = 0)  and  (KMATMUSICA + 1 < 41) then begin
+                  if (iVar3 = 0) and (KMATMUSICA + 1 < 41) then begin
                     KMATMUSICA := KMATMUSICA + 1;
                     uStack_478c80 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &uStack_478c80);
@@ -771,11 +771,11 @@ begin
                         end;
                       end;
                       uStack_478d88 := '';
-                      // ?: local_8 * 576 + 149492008 := uStack_478d88;
+                      // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478d88);
                       if uStack_478d88 <> ' LANCAMENTOS' then begin
                         uStack_478d88 := '';
                         uStack_478d88 := UpperCase(local_28);
-                        // ?: local_8 * 576 + 149492008 := uStack_478d88;
+                        // C: FPC_ANSISTR_TO_SHORTSTR(local_8 * 0x240 + 0x8e91128,0x1e,uStack_478d88);
                       end;
                     end;
                   end;
@@ -818,7 +818,7 @@ begin
                       iStack_478b28 := StrToIntDef(uStack_478b20, 0);
                       iStack_478d8c := '';
                       iStack_478d8c := iStack_478b24;
-                      // C: uVar5 = '';
+                      // C: uVar5 = 0;
                       if iStack_478b24 <> '' then begin
                         // C: uVar5 = *(undefined4 * )(iStack_478b24 + -4);
                       end;
@@ -833,12 +833,12 @@ begin
                       // C: iVar3 = DATEUTILS_DAYSBETWEEN_TDATETIME_TDATETIME__LONGINT();
                       if iVar3 < iStack_478b28 then begin
                         iStack_478d8c := '';
-                        // ?: local_8 * 576 + 149492008 := iStack_478d8c;
+                        // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&iStack_478d8c);
                         if iStack_478d8c = '' then begin
                           // C: *(undefined2 * )((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
                           iStack_478d8c := '';
                           iStack_478d8c := UpperCase(' LANCAMENTOS');
-                          // ?: local_8 * 576 + 149492008 := iStack_478d8c;
+                          // C: FPC_ANSISTR_TO_SHORTSTR(local_8 * 0x240 + 0x8e91128,0x1e,iStack_478d8c);
                         end
                         else begin
                           // ?: cStack_478b2c := 0;
@@ -851,7 +851,7 @@ begin
                               iStack_478d8c := Form1.ListBoxRInativo.Items[local_10];
                               iVar4 := iStack_478d8c;
                               uStack_478e90 := '';
-                              // ?: local_8 * 576 + 149492008 := uStack_478e90;
+                              // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478e90);
                               if uStack_478e90 = iVar4 then begin
                                 // ?: cStack_478b2c := 1;
                               end;
@@ -861,7 +861,7 @@ begin
                             // C: *(undefined2 * )((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
                             uStack_478e90 := '';
                             uStack_478e90 := UpperCase(' LANCAMENTOS');
-                            // ?: local_8 * 576 + 149492008 := uStack_478e90;
+                            // C: FPC_ANSISTR_TO_SHORTSTR(local_8 * 0x240 + 0x8e91128,0x1e,uStack_478e90);
                           end;
                         end;
                       end
@@ -901,7 +901,7 @@ begin
             uStack_478e90 := Form1.ListBoxRInativo.Items[local_c];
             // C: uVar5 = uStack_478e90;
             iStack_478d8c := '';
-            // ?: local_8 * 576 + 149492008 := iStack_478d8c;
+            // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&iStack_478d8c);
             if iStack_478d8c = uVar5 then begin
               // ?: cStack_478b2c := 1;
             end;
@@ -941,10 +941,10 @@ begin
           uStack_478e90 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e90 = 'R' then begin
             uStack_478e90 := '';
-            // ?: local_8 * 576 + 149492008 := uStack_478e90;
+            // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478e90);
             // C: fpc_ansistr_concat(&local_34,uStack_478e90, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1fc));
             uStack_478e90 := '';
-            // ?: (local_8 + 1) * 576 + 149492008 := uStack_478e90;
+            // C: fpc_shortstr_to_ansistr((local_8 + 1) * 0x240 + 0x8e91128,&uStack_478e90);
             // C: fpc_ansistr_concat(&local_38,uStack_478e90, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x1fc));
           end;
           uStack_478e90 := '';
@@ -1265,10 +1265,10 @@ begin
           uStack_478e94 := Copy(ORDEMDOSCDS, 1, 1);
           if uStack_478e94 = 'R' then begin
             uStack_478e94 := '';
-            // ?: local_8 * 576 + 149492008 := uStack_478e94;
+            // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478e94);
             local_34 := uStack_478e94;
             uStack_478e94 := '';
-            // ?: (local_8 + 1) * 576 + 149492008 := uStack_478e94;
+            // C: fpc_shortstr_to_ansistr((local_8 + 1) * 0x240 + 0x8e91128,&uStack_478e94);
             local_38 := uStack_478e94;
           end;
           uStack_478e94 := '';
@@ -1320,7 +1320,7 @@ begin
             local_30 := 1;
           end;
         until not (local_c < 100);
-        if (local_30 = 0)  and  (TOTALMMLETRA < 101) then begin
+        if (local_30 = 0) and (TOTALMMLETRA < 101) then begin
           TOTALMMLETRA := TOTALMMLETRA + 1;
           uStack_478f9c := '';
           uStack_478f98 := '';
@@ -1367,16 +1367,16 @@ begin
         repeat
           local_c := local_c + 1;
           uStack_478f9c := '';
-          // ?: local_8 * 576 + 149492008 := uStack_478f9c;
+          // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478f9c);
           // C: iVar7 = fpc_ansistr_compare_equal (uStack_478f9c,*(undefined4 * )(&DAT_092fffac + local_c * 4));
           if iVar7 = 0 then begin
             local_30 := 1;
           end;
         until not (local_c < 100);
-        if (local_30 = 0)  and  (TOTALMMRITMO < 101) then begin
+        if (local_30 = 0) and (TOTALMMRITMO < 101) then begin
           TOTALMMRITMO := TOTALMMRITMO + 1;
           uStack_478f9c := '';
-          // ?: local_8 * 576 + 149492008 := uStack_478f9c;
+          // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&uStack_478f9c);
           iVar7 := TOTALMMRITMO;
           // C: *(undefined4 * )(&DAT_092fffac + iVar7 * 4) = uStack_478f9c;
         end;
@@ -1641,7 +1641,7 @@ begin
     end;
     Form1.FileListBox1.Directory := PASTAPROPAGANDA;
     KPRO := 0;
-    TOTALPRO := 0;
+    TOTALPRO := '';
     iVar3 := Form1.FileListBox1.Count;
     if -1 < iVar3 + -1 then begin
       local_8 := -1;
@@ -1720,7 +1720,7 @@ begin
         Form1.ImageTV.Hide;
       end;
     end;
-    if TOTALPRO = 0 then begin
+    if TOTALPRO = '' then begin
       Form1.TimerPropaganda.Enabled := False;
       local_40 := 'Nao tem Propagandas na pasta ' + PASTAPROPAGANDA;
       Gravalog(local_40);
@@ -1731,8 +1731,8 @@ end;
 { JUKELINUX1_CARTAOCODBAR_BAR }
 procedure Cartaocodbar_Bar;
 var
-  local_24c, local_250, local_350, local_354, local_35c: AnsiString;
-  iVar4, local_10, local_14, local_148, local_18, local_1c, local_20, local_248, local_358, local_8, local_c, uVar1: LongInt;
+  local_24c, local_250, local_350, local_354, local_358, local_35c: AnsiString;
+  iVar4, local_10, local_14, local_148, local_18, local_1c, local_20, local_248, local_8, local_c, uVar1: LongInt;
 begin
   begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
@@ -2255,8 +2255,8 @@ end;
 { JUKELINUX1_CARTAOCODBAR_BOATE }
 procedure Cartaocodbar_Boate;
 var
-  local_24c: AnsiString;
-  iVar3, local_10, local_14, local_144, local_18, local_1c, local_244, local_248, local_8, local_c: LongInt;
+  local_248, local_24c: AnsiString;
+  iVar3, local_10, local_14, local_144, local_18, local_1c, local_244, local_8, local_c: LongInt;
 begin
   begin
     // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
@@ -2399,7 +2399,7 @@ begin
             // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
             Sleep(1500);
             Form1.ImageBonus.Show;
-            CREDITOSCARTAO := CREDITOSCARTAO + PULSOSPARACARTAO / 5;
+            CREDITOSCARTAO := CREDITOSCARTAO + PULSOSPARACARTAO div 5;
             local_24c := IntToStr(CREDITOSCARTAO);
             Form1.CreditoCJ.Caption := local_24c;
             // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.CreditoCJ,&local_24c);
@@ -2410,7 +2410,7 @@ begin
             Form1.CreditoCJSombra.Refresh;
             // C: ( **(code ** )( *(int * )Form1.CreditoCJSombra + 0x2fc))(Form1.CreditoCJSombra);
             // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
-            Gravacreditonocartao(local_248, PULSOSPARACARTAO / 5);
+            Gravacreditonocartao(local_248, PULSOSPARACARTAO div 5);
             Form1.PanelCJ.Refresh;
             // C: ( **(code ** )( *(int * )Form1.PanelCJ + 0x2fc))(Form1.PanelCJ);
             FORM1.Refresh;
@@ -2498,8 +2498,8 @@ begin
             repeat
               KMMCC := KMMCC + 1;
               if local_18 = 0 then begin
-                // ?: KMMCC * 38 + 157573018 := local_248;
-                if local_248 = 0 then begin
+                // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,&local_248);
+                if local_248 = '' then begin
                   // C: FPC_SHORTSTR_TO_SHORTSTR (U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,0x1e, &DAT_0930303a + local_14 * 0x26);
                   local_18 := 1;
                 end;
@@ -2781,7 +2781,7 @@ begin
   if PROPAGANDA = 'Fotos para Boate na TV' then begin
     Form1.ImageTV.Hide;
   end;
-  if (ESTANOMENU = 0)  and  (TOCANDOMUSICADVD = 0) then begin
+  if (ESTANOMENU = 0) and (TOCANDOMUSICADVD = 0) then begin
     if PROPAGANDA = 'Videos para Bar na TV/Monitor enquanto Toca CD' then begin
       TOCANDOVIDEOTV := 0;
       Form1.ImageTV.Show;
@@ -2799,7 +2799,7 @@ end;
 procedure Desativa_Volume_Pelo_Painel;
 begin
   RODAVOLUME := 0;
-  TECLAANTERIORRODAVOLUME := 0;
+  TECLAANTERIORRODAVOLUME := '';
   VOLUMEATIVADO := 0;
   Form1.TimerDesativaVolume.Enabled := False;
   Destravamensagem;
@@ -2986,10 +2986,10 @@ begin
   local_8 := P1;
   begin
     ORIGEM := local_8;
-    DESTINO := 0;
+    DESTINO := '';
     if local_c = 'NORMAL' then begin
       iVar2 := 0;
-      if ORIGEM <> 0 then begin
+      if ORIGEM <> '' then begin
         // C: iVar2 = *(int * )(U_JUKELINUX1_ORIGEM + -4);
       end;
       if 0 < iVar2 then begin
@@ -3022,7 +3022,7 @@ begin
     end;
     if local_c = 'PALHINHA' then begin
       iVar2 := 0;
-      if ORIGEM <> 0 then begin
+      if ORIGEM <> '' then begin
         // C: iVar2 = *(int * )(U_JUKELINUX1_ORIGEM + -4);
       end;
       if 0 < iVar2 then begin
@@ -3055,7 +3055,7 @@ begin
       end;
     end;
     iVar2 := 0;
-    if DESTINO <> 0 then begin
+    if DESTINO <> '' then begin
       // C: iVar2 = *(int * )(U_JUKELINUX1_DESTINO + -4);
     end;
     if 0 < iVar2 then begin
@@ -3409,7 +3409,7 @@ begin
         if 0 < TOTALCDS then begin
           repeat
             local_8 := local_8 + 1;
-            // ?: local_8 * 576 + 149492008 := local_3c;
+            // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,local_3c);
             // C: iVar5 = fpc_ansistr_compare_equal (local_3c[0],*(undefined4 * )(&DAT_092fffac + local_10 * 4));
             if iVar5 = 0 then begin
               // C: *(int * )(&DAT_0930013c + local_10 * 4) = *(int * )(&DAT_0930013c + local_10 * 4) + (&U_JUKELINUX1_SELOSSTR)[local_8 * 0x90];
@@ -3471,14 +3471,14 @@ begin
         ACARM := local_154;
         local_28 := Descripta(local_154);
         if local_8 = local_28 then begin
-          // ?: 157577279 := local_154;
+          // C: fpc_shortstr_to_ansistr(0x964703f,&local_154);
           local_10 := Descripta(local_154);
           local_18 := StrToIntDef(local_10, 0);
           local_158 := IntToStr(local_18 + local_c);
           local_154 := Cripta(local_158);
-          // ?: 157577279 := local_154;
+          // C: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_154);
           local_158 := Cripta('N');
-          // ?: 157577284 := local_158;
+          // C: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_158);
           // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
           // C: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
           local_24 := 1;
@@ -3494,9 +3494,9 @@ begin
         ACARM := local_158;
         local_25c := IntToStr(local_c);
         local_158 := Cripta(local_25c);
-        // ?: 157577279 := local_158;
+        // C: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_158);
         local_25c := Cripta('N');
-        // ?: 157577284 := local_25c;
+        // C: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_25c);
         // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
         // C: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
@@ -3847,8 +3847,8 @@ begin
       Form1.TimerMusicaGratis.Enabled := True;
     end;
     Form1.TimerUmMinuto.Enabled := True;
-    if (BLOQUEARQUANDOTOCAR <> -1)  and  (BLOQUEARQUANDOTOCAR <= QUANTIDADESDEMUSICASTOCADAS) then begin
-      if (QUANTIDADESDEMUSICASTOCADAS = 0)  and  (BLOQUEARQUANDOTOCAR = 0) then begin
+    if (BLOQUEARQUANDOTOCAR <> -1) and (BLOQUEARQUANDOTOCAR <= QUANTIDADESDEMUSICASTOCADAS) then begin
+      if (QUANTIDADESDEMUSICASTOCADAS = 0) and (BLOQUEARQUANDOTOCAR = 0) then begin
         Form1.PanelBloqueio.Caption := 'Sistema Bloqueado, Entre no Menu e Digite a Senha';
       end
       else begin
@@ -3901,7 +3901,7 @@ begin
         ACARM := local_14c;
         local_20 := Descripta(local_14c);
         if local_8 = local_20 then begin
-          // ?: 157577279 := local_14c;
+          // C: fpc_shortstr_to_ansistr(0x964703f,&local_14c);
           local_10 := Descripta(local_14c);
           local_18 := StrToIntDef(local_10, 0);
           local_c := local_18;
@@ -4046,7 +4046,7 @@ begin
         if 0 < TOTALCDS then begin
           repeat
             local_8 := local_8 + 1;
-            // ?: local_8 * 576 + 149492008 := local_3c;
+            // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,local_3c);
             // C: iVar4 = fpc_ansistr_compare_equal (local_3c[0],*(undefined4 * )(&DAT_092fffac + local_10 * 4));
             if iVar4 = 0 then begin
               // C: *(int * )(&DAT_0930013c + local_10 * 4) = *(int * )(&DAT_0930013c + local_10 * 4) + (&U_JUKELINUX1_SELOSSTR)[local_8 * 0x90];
@@ -4373,19 +4373,19 @@ begin
   if iVar1 <> 0 then begin goto LAB_080a91e6; end;
   local_34 := Copy(ORDEMDOSCDS, 1, 1);
   if local_34 = 'R' then begin
-    if TRAVADODENTRODORITMO = 0 then begin
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    if TRAVADODENTRODORITMO = '' then begin
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       TRAVADODENTRODORITMO := local_34;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       RITMODOCD := local_34;
     end;
     if local_8 = ' ' then begin
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       TRAVADODENTRODORITMO := local_34;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       RITMODOCD := local_34;
     end;
-    // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
     RITMODOCD := local_34;
     MMCCDDSS := 0;
     if local_34 = TRAVADODENTRODORITMO then begin
@@ -4393,9 +4393,9 @@ begin
     end;
     if FORMADEPAGINACAO = 'Continua' then begin
       MMCCDDSS := 1;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       TRAVADODENTRODORITMO := local_34;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       RITMODOCD := local_34;
     end;
     if MMCCDDSS = 0 then begin
@@ -4436,7 +4436,7 @@ begin
           Form1.Img50Menos5.Hide;
         end
         else begin
-          // ?: KMAT * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5430; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos5,extraout_EDX & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
@@ -4448,14 +4448,14 @@ begin
           else begin
             Form1.ImgLanMenos5.Hide;
           end;
-          // ?: KMAT * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Menos5.Show;
           end
           else begin
             Form1.Img50Menos5.Hide;
           end;
-          // ?: KMAT * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL (U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMenos5.Hide;
@@ -4468,7 +4468,7 @@ begin
           Form1.Img50Menos4.Hide;
         end
         else begin
-          // ?: (KMAT + 1) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5602; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos4,extraout_EDX_00 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
@@ -4480,14 +4480,14 @@ begin
           else begin
             Form1.ImgLanMenos4.Hide;
           end;
-          // ?: (KMAT + 1) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Menos4.Show;
           end
           else begin
             Form1.Img50Menos4.Hide;
           end;
-          // ?: (KMAT + 1) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMenos4.Hide;
@@ -4500,7 +4500,7 @@ begin
           Form1.Img50Menos3.Hide;
         end
         else begin
-          // ?: (KMAT + 2) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a57e2; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos3,extraout_EDX_01 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
@@ -4512,14 +4512,14 @@ begin
           else begin
             Form1.ImgLanMenos3.Hide;
           end;
-          // ?: (KMAT + 2) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Menos3.Show;
           end
           else begin
             Form1.Img50Menos3.Hide;
           end;
-          // ?: (KMAT + 2) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMenos3.Hide;
@@ -4532,7 +4532,7 @@ begin
           Form1.Img50Menos2.Hide;
         end
         else begin
-          // ?: (KMAT + 3) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a59c2; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos2,extraout_EDX_02 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
@@ -4544,21 +4544,21 @@ begin
           else begin
             Form1.ImgLanMenos2.Hide;
           end;
-          // ?: (KMAT + 3) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Menos2.Show;
           end
           else begin
             Form1.Img50Menos2.Hide;
           end;
-          // ?: (KMAT + 3) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMenos2.Hide;
           end;
         end;
         if 0 < KMAT + 4 then begin
-          // ?: (KMAT + 4) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
           if local_34 = TRAVADODENTRODORITMO then begin
             // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos1,extraout_EDX_03 & 0xffffff00);
             // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos1.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 4) * 0x240 + 0x204));
@@ -4570,14 +4570,14 @@ begin
             else begin
               Form1.ImgLanMenos1.Hide;
             end;
-            // ?: (KMAT + 4) * 576 + 149492008 := local_34;
+            // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
             if local_34 = '50+TOCADOS' then begin
               Form1.Img50Menos1.Show;
             end
             else begin
               Form1.Img50Menos1.Hide;
             end;
-            // ?: (KMAT + 4) * 576 + 149492008 := local_34;
+            // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
             // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
             if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S") , iVar2 == 0) } then begin
               Form1.ImgLanMenos1.Hide;
@@ -4599,7 +4599,7 @@ begin
       end;
       // C: fpc_ansistr_copy( *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x1fc),1,iVar2 + -1 ,&local_38);
       Form1.NomeDoCD.Caption := local_38;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       RITMODOCD := local_34;
       // C: fpc_ansistr_copy( *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x1fc),1,1,local_34 );
       LETRADOCD := local_34;
@@ -4616,7 +4616,7 @@ begin
       end;
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.LabelCDDVD,&local_38);
       Form1.LabelCDDVD1.Caption := local_38;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_38;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,&local_38);
       Form1.LabelRitmo.Caption := local_38;
       // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.LabelRitmo,&local_38);
       Form1.LabelRitmo1.Caption := local_38;
@@ -4627,14 +4627,14 @@ begin
       else begin
         Form1.ImgLan.Hide;
       end;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50.Show;
       end
       else begin
         Form1.Img50.Hide;
       end;
-      // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
         Form1.ImgLan.Hide;
@@ -4770,7 +4770,7 @@ begin
           Form1.Img50Mais1.Hide;
         end
         else begin
-          // ?: (KMAT + 6) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6ae6; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais1,extraout_EDX_05 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
@@ -4782,14 +4782,14 @@ begin
           else begin
             Form1.ImgLanMais1.Hide;
           end;
-          // ?: (KMAT + 6) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Mais1.Show;
           end
           else begin
             Form1.Img50Mais1.Hide;
           end;
-          // ?: (KMAT + 6) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMais1.Hide;
@@ -4802,7 +4802,7 @@ begin
           Form1.Img50Mais2.Hide;
         end
         else begin
-          // ?: (KMAT + 7) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6cca; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais2,extraout_EDX_06 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
@@ -4814,14 +4814,14 @@ begin
           else begin
             Form1.ImgLanMais2.Hide;
           end;
-          // ?: (KMAT + 7) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Mais2.Show;
           end
           else begin
             Form1.Img50Mais2.Hide;
           end;
-          // ?: (KMAT + 7) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMais2.Hide;
@@ -4834,7 +4834,7 @@ begin
           Form1.Img50Mais3.Hide;
         end
         else begin
-          // ?: (KMAT + 8) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6eae; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais3,extraout_EDX_07 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
@@ -4846,14 +4846,14 @@ begin
           else begin
             Form1.ImgLanMais3.Hide;
           end;
-          // ?: (KMAT + 8) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Mais3.Show;
           end
           else begin
             Form1.Img50Mais3.Hide;
           end;
-          // ?: (KMAT + 8) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMais3.Hide;
@@ -4866,7 +4866,7 @@ begin
           Form1.Img50Mais4.Hide;
         end
         else begin
-          // ?: (KMAT + 9) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a7092; end;
           // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais4,extraout_EDX_08 & 0xffffff00);
           // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
@@ -4878,21 +4878,21 @@ begin
           else begin
             Form1.ImgLanMais4.Hide;
           end;
-          // ?: (KMAT + 9) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
           if local_34 = '50+TOCADOS' then begin
             Form1.Img50Mais4.Show;
           end
           else begin
             Form1.Img50Mais4.Hide;
           end;
-          // ?: (KMAT + 9) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
           // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
           if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
             Form1.ImgLanMais4.Hide;
           end;
         end;
         if KMAT + 10 <= TOTALCDS then begin
-          // ?: (KMAT + 10) * 576 + 149492008 := local_34;
+          // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
           if local_34 = TRAVADODENTRODORITMO then begin
             // C: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais5,extraout_EDX_09 & 0xffffff00);
             // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais5.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 10) * 0x240 + 0x204));
@@ -4904,14 +4904,14 @@ begin
             else begin
               Form1.ImgLanMais5.Hide;
             end;
-            // ?: (KMAT + 10) * 576 + 149492008 := local_34;
+            // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
             if local_34 = '50+TOCADOS' then begin
               Form1.Img50Mais5.Show;
             end
             else begin
               Form1.Img50Mais5.Hide;
             end;
-            // ?: (KMAT + 10) * 576 + 149492008 := local_34;
+            // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
             // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
             if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S" ), iVar2 == 0) } then begin
               Form1.ImgLanMais5.Hide;
@@ -4928,7 +4928,7 @@ begin
   LAB_080a733c: ;
   local_34 := Copy(ORDEMDOSCDS, 1, 1);
   if local_34 = 'A' then begin
-    // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
     RITMODOCD := local_34;
     MMCCDDSS := 1;
     if KMAT < 1 then begin
@@ -4947,14 +4947,14 @@ begin
       else begin
         Form1.ImgLanMenos5.Hide;
       end;
-      // ?: KMAT * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Menos5.Show;
       end
       else begin
         Form1.Img50Menos5.Hide;
       end;
-      // ?: KMAT * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL (U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_12, iVar2 == 0) } then begin
         Form1.ImgLanMenos5.Hide;
@@ -4976,14 +4976,14 @@ begin
       else begin
         Form1.ImgLanMenos4.Hide;
       end;
-      // ?: (KMAT + 1) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Menos4.Show;
       end
       else begin
         Form1.Img50Menos4.Hide;
       end;
-      // ?: (KMAT + 1) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_16, iVar2 == 0) } then begin
         Form1.ImgLanMenos4.Hide;
@@ -5005,14 +5005,14 @@ begin
       else begin
         Form1.ImgLanMenos3.Hide;
       end;
-      // ?: (KMAT + 2) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Menos3.Show;
       end
       else begin
         Form1.Img50Menos3.Hide;
       end;
-      // ?: (KMAT + 2) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_20, iVar2 == 0) } then begin
         Form1.ImgLanMenos3.Hide;
@@ -5034,14 +5034,14 @@ begin
       else begin
         Form1.ImgLanMenos2.Hide;
       end;
-      // ?: (KMAT + 3) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Menos2.Show;
       end
       else begin
         Form1.Img50Menos2.Hide;
       end;
-      // ?: (KMAT + 3) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_24, iVar2 == 0) } then begin
         Form1.ImgLanMenos2.Hide;
@@ -5063,14 +5063,14 @@ begin
       else begin
         Form1.ImgLanMenos1.Hide;
       end;
-      // ?: (KMAT + 4) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Menos1.Show;
       end
       else begin
         Form1.Img50Menos1.Hide;
       end;
-      // ?: (KMAT + 4) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
         Form1.ImgLanMenos1.Hide;
@@ -5085,7 +5085,7 @@ begin
     end;
     // C: fpc_ansistr_copy( *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x1fc), 1,iVar2 + -1,&local_38);
     Form1.NomeDoCD.Caption := local_38;
-    // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
     RITMODOCD := local_34;
     // C: fpc_ansistr_copy( *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x1fc), 1,1,local_34);
     LETRADOCD := local_34;
@@ -5102,7 +5102,7 @@ begin
     end;
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.LabelCDDVD,&local_38);
     Form1.LabelCDDVD1.Caption := local_38;
-    // ?: (KMAT + 5) * 576 + 149492008 := local_38;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,&local_38);
     Form1.LabelRitmo.Caption := local_38;
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.LabelRitmo,&local_38);
     Form1.LabelRitmo1.Caption := local_38;
@@ -5113,14 +5113,14 @@ begin
     else begin
       Form1.ImgLan.Hide;
     end;
-    // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
     if local_34 = '50+TOCADOS' then begin
       Form1.Img50.Show;
     end
     else begin
       Form1.Img50.Hide;
     end;
-    // ?: (KMAT + 5) * 576 + 149492008 := local_34;
+    // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
     // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
     if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
       Form1.ImgLan.Hide;
@@ -5264,14 +5264,14 @@ begin
       else begin
         Form1.ImgLanMais1.Hide;
       end;
-      // ?: (KMAT + 6) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Mais1.Show;
       end
       else begin
         Form1.Img50Mais1.Hide;
       end;
-      // ?: (KMAT + 6) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_31, iVar2 == 0) } then begin
         Form1.ImgLanMais1.Hide;
@@ -5293,14 +5293,14 @@ begin
       else begin
         Form1.ImgLanMais2.Hide;
       end;
-      // ?: (KMAT + 7) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Mais2.Show;
       end
       else begin
         Form1.Img50Mais2.Hide;
       end;
-      // ?: (KMAT + 7) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_35, iVar2 == 0) } then begin
         Form1.ImgLanMais2.Hide;
@@ -5322,14 +5322,14 @@ begin
       else begin
         Form1.ImgLanMais3.Hide;
       end;
-      // ?: (KMAT + 8) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Mais3.Show;
       end
       else begin
         Form1.Img50Mais3.Hide;
       end;
-      // ?: (KMAT + 8) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_39, iVar2 == 0) } then begin
         Form1.ImgLanMais3.Hide;
@@ -5351,14 +5351,14 @@ begin
       else begin
         Form1.ImgLanMais4.Hide;
       end;
-      // ?: (KMAT + 9) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Mais4.Show;
       end
       else begin
         Form1.Img50Mais4.Hide;
       end;
-      // ?: (KMAT + 9) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_43, iVar2 == 0) } then begin
         Form1.ImgLanMais4.Hide;
@@ -5380,14 +5380,14 @@ begin
       else begin
         Form1.ImgLanMais5.Hide;
       end;
-      // ?: (KMAT + 10) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
       if local_34 = '50+TOCADOS' then begin
         Form1.Img50Mais5.Show;
       end
       else begin
         Form1.Img50Mais5.Hide;
       end;
-      // ?: (KMAT + 10) * 576 + 149492008 := local_34;
+      // C: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
       // C: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
       if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
         Form1.ImgLanMais5.Hide;
@@ -5416,7 +5416,7 @@ begin
     Form1.LabelE5.Caption := '';
     Form1.LabelE6.Caption := '';
     // C: local_5c = "Exclusão de CDs e DVDs - [";
-    // ?: local_8 * 576 + 149492008 := local_60;
+    // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&local_60);
     local_58 := local_60;
     local_54 := ' - ';
     local_64 := IntToStr(local_8);
@@ -5452,7 +5452,7 @@ begin
       local_48 := local_64;
       local_38 := local_5c + local_58 + local_54 + local_50 + local_4c + local_48;
       Form1.LabelE1.Caption := local_38;
-      if local_8 * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ(local_8 * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE1.Show;
       end
       else begin
@@ -5463,7 +5463,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: local_8 * 576 + 149492008 := local_6c;
+          // C: fpc_shortstr_to_ansistr(local_8 * 0x240 + 0x8e91128,&local_6c);
           // C: puVar2 = local_6c;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG1 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG1 + 0x36c),local_c,&local_68 );
           if False { C: STREQ(local_68,puVar2) } then begin
@@ -5495,7 +5495,7 @@ begin
       local_74 := local_8c;
       local_70 := local_88 + local_84 + local_80 + local_7c + local_78 + local_74;
       Form1.LabelE2.Caption := local_70;
-      if (local_8 + 1) * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ((local_8 + 1) * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE2.Show;
       end
       else begin
@@ -5506,7 +5506,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: (local_8 + 1) * 576 + 149492008 := local_8c;
+          // C: fpc_shortstr_to_ansistr((local_8 + 1) * 0x240 + 0x8e91128,&local_8c);
           // C: puVar2 = local_8c;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG2 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG2 + 0x36c),local_c,&local_90 );
           if False { C: STREQ(local_90,puVar2) } then begin
@@ -5538,7 +5538,7 @@ begin
       local_74 := local_94;
       local_70 := local_88 + local_84 + local_80 + local_7c + local_78 + local_74;
       Form1.LabelE3.Caption := local_70;
-      if (local_8 + 2) * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ((local_8 + 2) * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE3.Show;
       end
       else begin
@@ -5549,7 +5549,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: (local_8 + 2) * 576 + 149492008 := local_94;
+          // C: fpc_shortstr_to_ansistr((local_8 + 2) * 0x240 + 0x8e91128,&local_94);
           // C: puVar2 = local_94;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG3 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG3 + 0x36c),local_c,&local_90 );
           if False { C: STREQ(local_90,puVar2) } then begin
@@ -5581,7 +5581,7 @@ begin
       local_9c := local_b4;
       local_98 := local_b0 + local_ac + local_a8 + local_a4 + local_a0 + local_9c;
       Form1.LabelE4.Caption := local_98;
-      if (local_8 + 3) * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ((local_8 + 3) * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE4.Show;
       end
       else begin
@@ -5592,7 +5592,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: (local_8 + 3) * 576 + 149492008 := local_b4;
+          // C: fpc_shortstr_to_ansistr((local_8 + 3) * 0x240 + 0x8e91128,&local_b4);
           // C: puVar2 = local_b4;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG4 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG4 + 0x36c),local_c,&local_b8 );
           if False { C: STREQ(local_b8,puVar2) } then begin
@@ -5624,7 +5624,7 @@ begin
       local_9c := local_bc;
       local_98 := local_b0 + local_ac + local_a8 + local_a4 + local_a0 + local_9c;
       Form1.LabelE5.Caption := local_98;
-      if (local_8 + 4) * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ((local_8 + 4) * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE5.Show;
       end
       else begin
@@ -5635,7 +5635,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: (local_8 + 4) * 576 + 149492008 := local_bc;
+          // C: fpc_shortstr_to_ansistr((local_8 + 4) * 0x240 + 0x8e91128,&local_bc);
           // C: puVar2 = local_bc;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG5 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG5 + 0x36c),local_c,&local_b8 );
           if False { C: STREQ(local_b8,puVar2) } then begin
@@ -5667,7 +5667,7 @@ begin
       local_c4 := local_dc;
       local_c0 := local_d8 + local_d4 + local_d0 + local_cc + local_c8 + local_c4;
       Form1.LabelE6.Caption := local_c0;
-      if (local_8 + 5) * 576 + 149492542 = 'S' then begin
+      if False { C: STREQ((local_8 + 5) * 0x240 + 0x8e9133e,"S") } then begin
         Form1.ImgLanE6.Show;
       end
       else begin
@@ -5678,7 +5678,7 @@ begin
         local_c := -1;
         repeat
           local_c := local_c + 1;
-          // ?: (local_8 + 5) * 576 + 149492008 := local_dc;
+          // C: fpc_shortstr_to_ansistr((local_8 + 5) * 0x240 + 0x8e91128,&local_dc);
           // C: uVar1 = local_dc;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG6 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG6 + 0x36c),local_c,&local_e0 );
           if local_e0 = uVar1 then begin
@@ -5716,7 +5716,7 @@ begin
         cVar1 := FileExists(TEXTO);
         if not cVar1 then begin
           // C: uVar4 = 0;
-          if TEXTO <> 0 then begin
+          if TEXTO <> '' then begin
             // C: uVar4 = *(undefined4 * )(U_JUKELINUX1_TEXTO + -4);
           end;
           local_34 := Copy(TEXTO, 2, uVar4);
@@ -6278,7 +6278,7 @@ begin
   Form1.PanelVersao.Caption := local_30;
   local_58 := PASTA + 'naomostra';
   cVar1 := FileExists(local_58);
-  if (cVar1 = 0)  and  (-1 < BLOQUEARQUANDOTOCAR) then begin
+  if (not cVar1) and (-1 < BLOQUEARQUANDOTOCAR) then begin
     local_88 := ' ';
     local_84 := VERSAO;
     // C: local_80 = " -  [ ";
@@ -6336,7 +6336,7 @@ begin
           local_18 := 'ok';
         end;
       end;
-      if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+      if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         local_64 := PASTA + 'sorteio1366_2reais.jpg';
         cVar2 := FileExists(local_64);
         if cVar2 then begin
@@ -6356,7 +6356,7 @@ begin
           local_18 := 'ok';
         end;
       end;
-      if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+      if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         local_64 := PASTA + 'sorteio1366_5reais.jpg';
         cVar2 := FileExists(local_64);
         if cVar2 then begin
@@ -6376,7 +6376,7 @@ begin
           local_18 := 'ok';
         end;
       end;
-      if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+      if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         local_64 := PASTA + 'sorteio1366_10reais.jpg';
         cVar2 := FileExists(local_64);
         if cVar2 then begin
@@ -6393,7 +6393,7 @@ begin
         local_18 := 'ok';
       end;
     end;
-    if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+    if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
       local_64 := PASTA + 'sorteio1366_cds.jpg';
       cVar2 := FileExists(local_64);
       if cVar2 then begin
@@ -6433,7 +6433,7 @@ begin
       // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
       FORM1.Refresh;
       Sleep(1200);
-      if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+      if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         local_64 := PASTA + 'sorteio1366_cds.jpg';
         Form1.ImageSorteio.Picture.LoadFromFile(local_64);
       end;
@@ -6442,7 +6442,7 @@ begin
         Form1.ImageSorteio.Picture.LoadFromFile(local_64);
       end;
       Form1.ImageSorteio.SendToBack;
-      if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+      if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         Form1.CapaSorteio1.Left := 72;
         Form1.CapaSorteio1.Top := 180;
         Form1.CapaSorteio2.Left := 412;
@@ -6577,7 +6577,7 @@ begin
         end;
       until not (local_8 < 4);
       if local_14 = 1 then begin
-        if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+        if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
           local_64 := PASTA + 'sorteio1366_ganhou1credito.jpg';
           cVar2 := FileExists(local_64);
           if cVar2 then begin
@@ -6595,7 +6595,7 @@ begin
         end;
       end;
       if local_14 = 2 then begin
-        if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+        if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
           local_64 := PASTA + 'sorteio1366_ganhou2creditos.jpg';
           cVar2 := FileExists(local_64);
           if cVar2 then begin
@@ -6619,7 +6619,7 @@ begin
           local_64 := PASTA + 'sorteio1366_quemsabenaproxima.jpg';
           Form1.ImageSorteio.Picture.LoadFromFile(local_64);
         end;
-        if (RESOLUCAO = 1366)  or  (RESOLUCAO = 1440) then begin
+        if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
           local_64 := PASTA + 'sorteio1366_quemsabenaproxima.jpg';
           cVar2 := FileExists(local_64);
           if cVar2 then begin
@@ -6788,7 +6788,7 @@ begin
       local_30 := PASTA + 'tocando.txt';
       DeleteFile(local_30);
       iVar3 := TOTALFRASE;
-      TOCANDOTIPO := 0;
+      TOCANDOTIPO := '';
       KFRASE := 1;
       if 0 < TOTALFRASE then begin
         KFRASE := 0;
@@ -7294,9 +7294,9 @@ begin
               KKRITMO := 0;
               repeat
                 KKRITMO := KKRITMO + 1;
-                // ?: KKRITMO * 576 + 149492008 := local_30;
+                // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KKRITMO * 0x240 + 0x8e91128,local_30);
                 // C: iVar4 = fpc_ansistr_compare_equal(local_30[0],U_JUKELINUX1_RITMOESCOLHIDO);
-                if (iVar4 = 0)  and  (POSICAORITMO = 0) then begin
+                if (iVar4 = 0) and (POSICAORITMO = 0) then begin
                   POSICAORITMO := KKRITMO;
                 end;
               until not (KKRITMO < iVar3);
@@ -7367,7 +7367,7 @@ begin
                 // C: fpc_ansistr_copy( *(undefined4 * ) (U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KKLETRA * 0x240 + 0x1fc),1,1, &local_34);
                 local_30 := LowerCase(local_34);
                 // C: iVar4 = fpc_ansistr_compare_equal(local_30[0],U_JUKELINUX1_LETRAESCOLHIDA);
-                if (iVar4 = 0)  and  (POSICAOLETRA = 0) then begin
+                if (iVar4 = 0) and (POSICAOLETRA = 0) then begin
                   POSICAOLETRA := KKLETRA;
                 end;
               until not (KKLETRA < iVar3);
@@ -7434,9 +7434,9 @@ begin
             KKRITMO := 0;
             repeat
               KKRITMO := KKRITMO + 1;
-              // ?: KKRITMO * 576 + 149492008 := local_34;
+              // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KKRITMO * 0x240 + 0x8e91128,&local_34);
               // C: iVar4 = fpc_ansistr_compare_equal(local_34,U_JUKELINUX1_RITMOESCOLHIDO);
-              if (iVar4 = 0)  and  (POSICAORITMO = 0) then begin
+              if (iVar4 = 0) and (POSICAORITMO = 0) then begin
                 POSICAORITMO := KKRITMO;
               end;
             until not (KKRITMO < iVar3);
@@ -7502,7 +7502,7 @@ begin
               // C: fpc_ansistr_copy( *(undefined4 * ) (U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KKLETRA * 0x240 + 0x1fc),1,1, local_30);
               local_34 := LowerCase(local_30);
               // C: iVar4 = fpc_ansistr_compare_equal(local_34,U_JUKELINUX1_LETRAESCOLHIDA);
-              if (iVar4 = 0)  and  (POSICAOLETRA = 0) then begin
+              if (iVar4 = 0) and (POSICAOLETRA = 0) then begin
                 POSICAOLETRA := KKLETRA;
               end;
             until not (KKLETRA < iVar3);
@@ -7524,7 +7524,7 @@ begin
       end;
     end
     else if SENHAOK = 1 then begin
-      if (QTDCREDITOSGRATIS = 0)  and  (QTDCREDITOSGRATISVIP = 0) then begin
+      if (QTDCREDITOSGRATIS = 0) and (QTDCREDITOSGRATISVIP = 0) then begin
         Form1.LabelPress2.Caption := 'Está Configurado no Menu Sem Créditos Grátis';
       end
       else begin
@@ -7533,7 +7533,7 @@ begin
         // C: fpc_ansistr_copy(local_30[0],1,9,ppuVar6);
         if local_34 = 'Pressione' then begin
           Form1.LabelPress2.Font.Color := 65280;
-          if (0 < QTDCREDITOSGRATIS)  and  (0 < QTDCREDITOSGRATISVIP) then begin
+          if (0 < QTDCREDITOSGRATIS) and (0 < QTDCREDITOSGRATISVIP) then begin
             local_4c := 'Ok, ';
             local_34 := IntToStr(QTDCREDITOSGRATIS);
             local_48 := local_34;
@@ -7544,7 +7544,7 @@ begin
             local_38 := local_4c + local_48 + local_44 + local_40 + local_3c;
             Form1.LabelPress2.Caption := local_38;
           end;
-          if (0 < QTDCREDITOSGRATIS)  and  (QTDCREDITOSGRATISVIP = 0) then begin
+          if (0 < QTDCREDITOSGRATIS) and (QTDCREDITOSGRATISVIP = 0) then begin
             local_44 := 'Ok, ';
             local_50 := IntToStr(QTDCREDITOSGRATIS);
             local_40 := local_50;
@@ -7552,7 +7552,7 @@ begin
             local_38 := local_44 + local_40 + local_3c;
             Form1.LabelPress2.Caption := local_38;
           end;
-          if (QTDCREDITOSGRATIS = 0)  and  (0 < QTDCREDITOSGRATISVIP) then begin
+          if (QTDCREDITOSGRATIS = 0) and (0 < QTDCREDITOSGRATISVIP) then begin
             local_44 := 'Ok, ';
             local_50 := IntToStr(QTDCREDITOSGRATISVIP);
             local_40 := local_50;
@@ -7676,7 +7676,7 @@ begin
         end;
       end
       else begin
-        if (TOCANDOMUSICA <> 0)  and  (TOCANDOMUSICAGRATIS <> 0) then begin
+        if (TOCANDOMUSICA <> 0) and (TOCANDOMUSICAGRATIS <> 0) then begin
           Rotina_Cancelar;
         end;
         if CREDITOS < 1 then begin
@@ -7809,7 +7809,7 @@ begin
       Form1.TimerAcionaVolume.Enabled := False;
       Form1.TimerAcionaVolume.Enabled := True;
       VOLUMELIMITADONAOAUMENTA := 0;
-      if (VOLUMELIMITADO <> 0)  and  (LIMITARVOLUME < VOLUME + 1) then begin
+      if (VOLUMELIMITADO <> 0) and (LIMITARVOLUME < VOLUME + 1) then begin
         if AUMENTAVOLUMECOMUMTOQUE = 'Um Toque' then begin
           TOQUEVOLUMEMAIS := 0;
           Form1.TimerVolumeMais.Enabled := False;
@@ -7979,7 +7979,7 @@ begin
       Break;
       // C: case 0xc: GRAPHICS_TFONT____SETCOLOR_TGRAPHICSCOLOR (Form1.Musica12.Font,U_JUKELINUX1_CORLETRA);
     end;
-    if (MUSICASELECIONADAPOSTELA = 12)  and  (12 < MUSICASELECIONADA) then begin
+    if (MUSICASELECIONADAPOSTELA = 12) and (12 < MUSICASELECIONADA) then begin
       POSTELAFAIXA := MUSICASELECIONADA + -12;
       // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica1, (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_MUSICASELECIONADA + -0xb]);
       // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2, (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_POSTELAFAIXA + 2]);
@@ -7995,7 +7995,7 @@ begin
       // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica12, (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_POSTELAFAIXA + 0xc]);
     end;
     iVar1 := POSTELAFAIXA;
-    if (MUSICASELECIONADAPOSTELA = 0)  and  (0 < MUSICASELECIONADA) then begin
+    if (MUSICASELECIONADAPOSTELA = 0) and (0 < MUSICASELECIONADA) then begin
       POSTELAFAIXA := POSTELAFAIXA + -1;
       // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica1, (&U_JUKELINUX1_PASTACHAVE9)[(U_JUKELINUX1_KMAT + 5) * 0x90 + iVar1]);
       // C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.Musica2, (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_POSTELAFAIXA + 2]);
@@ -8966,7 +8966,7 @@ begin
   end;
   if iVar2 <> 0 then begin
   end;
-  Result := local_8; Exit;
+  Result := local_8 <> 0; Exit;
 end;
 
 { JUKELINUX1_VOLTAMENU }
@@ -10026,7 +10026,7 @@ begin
   begin
     local_38 := Copy(ORDEMDOSCDS, 1, 1);
     if local_38 = 'R' then begin
-      // ?: KMATEXCLUI * 576 + 149492008 := local_38;
+      // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMATEXCLUI * 0x240 + 0x8e91128,local_38);
       iVar2 := TOTALMMRITMO;
       RITMOSELECIONADO := local_38;
       NUMRITMOSELECIONADO := 0;
@@ -10054,9 +10054,9 @@ begin
         KKRITMO := 0;
         repeat
           KKRITMO := KKRITMO + 1;
-          // ?: KKRITMO * 576 + 149492008 := local_38;
+          // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KKRITMO * 0x240 + 0x8e91128,local_38);
           // C: iVar3 = fpc_ansistr_compare_equal(local_38[0],U_JUKELINUX1_RITMOESCOLHIDO);
-          if (iVar3 = 0)  and  (POSICAORITMO = 0) then begin
+          if (iVar3 = 0) and (POSICAORITMO = 0) then begin
             POSICAORITMO := KKRITMO;
           end;
         until not (KKRITMO < iVar2);
@@ -10103,7 +10103,7 @@ begin
           // C: fpc_ansistr_copy( *(undefined4 * ) (U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KKLETRA * 0x240 + 0x1fc),1,1, local_38);
           local_3c := LowerCase(local_38);
           // C: iVar3 = fpc_ansistr_compare_equal(local_3c,U_JUKELINUX1_LETRAESCOLHIDA);
-          if (iVar3 = 0)  and  (POSICAOLETRA = 0) then begin
+          if (iVar3 = 0) and (POSICAOLETRA = 0) then begin
             POSICAOLETRA := KKLETRA;
           end;
         until not (KKLETRA < iVar2);
@@ -10191,9 +10191,9 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONGRAVAROSDADOSCLICK$TOBJECT }
 procedure TForm1.ButtonGravarOsDadosClick(Sender: TObject);
 var
-  local_4c4, local_4f4, local_4f8, local_508, local_514, local_5f4, local_5f8: AnsiString;
+  local_4c0, local_4c4, local_4f4, local_4f8, local_508, local_514, local_5f4, local_5f8: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_18, local_4c0, local_4f0: LongInt;
+  iVar3, local_10, local_14, local_18, local_4f0: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_4fc, local_500, local_504, local_50c, local_510: Variant;
@@ -10398,7 +10398,7 @@ begin
       Write(ARQTEXTO, TEXTO);
       Writeln(ARQTEXTO);
       iVar3 := 0;
-      if local_4c0 <> 0 then begin
+      if local_4c0 <> '' then begin
         // C: iVar3 = *(int * )(local_4c0[0] + -4);
       end;
       local_14 := 1;
@@ -11011,7 +11011,7 @@ begin
     end;
     Form1.LabelMusNomeCD.Caption := '';
     iVar4 := 0;
-    if PERIODOSTR <> 0 then begin
+    if PERIODOSTR <> '' then begin
       // C: iVar4 = *(int * )(U_JUKELINUX1_PERIODOSTR + -4);
     end;
     if iVar4 < 1 then begin
@@ -11801,7 +11801,7 @@ begin
           KFRASE := KFRASE + 1;
           Read(ARQTEXTO, TEXTO);
           Readln(ARQTEXTO);
-          // ?: KFRASE * 4 + 154147836 := TEXTO + '            ';
+          // C: fpc_ansistr_concat(U_JUKELINUX1_KFRASE * 4 + 0x9301bfc,U_JUKELINUX1_TEXTO, "            ");
           iVar1 := KFRASE;
           // C: fpc_ansistr_incr_ref ( *(undefined4 * )(U_JUKELINUX1_ARQTOCARX + U_JUKELINUX1_KFRASE * 4 + 0x24c));
           iVar2 := KFRASE;
@@ -11878,7 +11878,7 @@ begin
           if False { C: local_1ac == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar6,&local_1e4);
-          CopyFile(local_1e4, uVar1, 1);
+          CopyFile(local_1e4, uVar1, True);
           local_1e8 := 'Copiando: ' + local_1b0;
           Form1.LabelUpg.Caption := local_1e8;
           FORM1.Refresh;
@@ -11955,7 +11955,7 @@ begin
                 local_1a4 := local_1a4 + 1;
                 local_1f8 := Form1.FileListBox1.Items[local_1a0];
                 // C: iVar5 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT(0x5b,local_1f8);
-                if (iVar5 = 0)  and  (local_1a4 < 101) then begin
+                if (iVar5 = 0) and (local_1a4 < 101) then begin
                   // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_1a0,&local_1f8 );
                   iVar5 := local_1a4;
                   // C: *(undefined4 * )(local_19c + iVar5 * 4 + -4) = local_1f8;
@@ -11986,7 +11986,7 @@ begin
             if False { C: local_1ac == (undefined1 * )0x0 } then begin
             end;
             // C: fpc_pchar_to_ansistr(puVar6,&local_1fc);
-            CopyFile(local_1fc, uVar1, 1);
+            CopyFile(local_1fc, uVar1, True);
             local_200 := 'Copiando: ' + local_1b0;
             Form1.LabelUpg.Caption := local_200;
             Sleep(100);
@@ -12048,7 +12048,7 @@ begin
           local_4c := PASTA + 'tocadosaprova_anterior.txt';
           // C: uVar1 = local_4c;
           local_50 := PASTA + 'tocadosaprova.txt';
-          CopyFile(local_50, uVar1, 1);
+          CopyFile(local_50, uVar1, True);
           local_50 := local_10 + 'tocadosaprova.txt';
           // C: uVar1 = local_50;
           local_4c := PASTA + 'tocadosaprova.txt';
@@ -12070,7 +12070,7 @@ begin
           local_50 := PASTA + 'tocadosablf_anterior.txt';
           // C: uVar1 = local_50;
           local_154 := PASTA + 'tocadosablf.txt';
-          CopyFile(local_154, uVar1, 1);
+          CopyFile(local_154, uVar1, True);
           local_154 := local_10 + 'tocadosaablf.txt';
           // C: uVar1 = local_154;
           local_50 := PASTA + 'tocadosablf.txt';
@@ -12408,7 +12408,7 @@ begin
       local_3c := 'hs Ligada]';
       local_140 := local_4c + local_48 + local_44 + local_40 + local_3c;
       Form1.LabelRP.Caption := local_140;
-      // ?: local_14c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_14c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_14c;
       local_44 := 'Valor do Ponto: R$ ';
       local_13c := IntToStr(VALORPONTO);
@@ -12450,7 +12450,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + 1 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + 1 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + 1;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12472,7 +12472,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + 2 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + 2 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + 2;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12494,7 +12494,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + 3 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + 3 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + 3;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12516,7 +12516,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + 4 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + 4 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + 4;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12538,7 +12538,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + 5 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + 5 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + 5;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12560,7 +12560,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + -1 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + -1 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + -1;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12582,7 +12582,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + -2 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + -2 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + -2;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12604,7 +12604,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + -3 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + -3 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + -3;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12626,7 +12626,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + -4 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + -4 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + -4;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -12648,7 +12648,7 @@ begin
   end
   else begin
     // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_FORMADESELECIONARRITMO,"Paginando",param_3,Self, Sender);
-    if (iVar1 = 0)  and  (NUMRITMOSELECIONADO + -5 <= TOTALMMRITMO) then begin
+    if (iVar1 = 0) and (NUMRITMOSELECIONADO + -5 <= TOTALMMRITMO) then begin
       NUMRITMOSELECIONADO := NUMRITMOSELECIONADO + -5;
       Mostra_Ritmos;
       Form1.TimerSelecionaRitmoAutomatico.Enabled := False;
@@ -14505,7 +14505,7 @@ end;
 { JUKELINUX1_TFORM1_$__EDITSENHAATIVACAOKEYPRESS$TOBJECT$CHAR }
 procedure TForm1.EditSenhaAtivacaoKeyPress(Sender: TObject; var Key: Char);
 begin
-  if Key = 13 then begin
+  if Key = #13 then begin
     // C: JUKELINUX1_TFORM1____BUTTONATIVARCLICK_TOBJECT(Self,U_JUKELINUX1_FORM1);
   end;
 end;
@@ -14513,7 +14513,7 @@ end;
 { JUKELINUX1_TFORM1_$__EDITSENHAKEYPRESS$TOBJECT$CHAR }
 procedure TForm1.EditSenhaKeyPress(Sender: TObject; var Key: Char);
 begin
-  if (Key = 13)  and  (ESTADIGITANDOSENHA = 2) then begin
+  if (Key = #13) and (ESTADIGITANDOSENHA = 2) then begin
     // C: JUKELINUX1_TFORM1____BUTTONOKSENHACLICK_TOBJECT(Self,U_JUKELINUX1_FORM1);
   end;
 end;
@@ -14703,7 +14703,7 @@ begin
       end
       else begin
         // C: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_JC_CODIGODAMAQUINA,"0");
-        PENDRIVEZERADO := iVar3 = 0;
+        PENDRIVEZERADO := Ord(iVar3 = 0);
         if False then begin // ?: (bool)PENDRIVEZERADO
           Gravalog('Pendrive Zerado assume os Relogios da Jukebox');
           // C: fpc_ansistr_concat(&local_94,"[PENDRIVE CHAVE ZERADO] : ",U_JUKELINUX1_JC_SERIALPENDRIVE);
@@ -15025,7 +15025,7 @@ begin
       Form1.Labelrodape.Font.Color := 16777215;
       Form1.Labelrodape.Caption := 'Pressione qualquer tecla para visualizar por mais 10 segundos';
       Form1.Labelabertura.AutoSize := False;
-      Form1.Labelabertura.Align := 6;
+      // ?: Form1.Labelabertura.Align := alCustom;
       Form1.Labelabertura.Width := RESOLUCAO;
       Form1.Labelabertura.Left := 1;
       // C: STDCTRLS_TCUSTOMLABEL____SETALIGNMENT_TALIGNMENT(Form1.Labelabertura,2);
@@ -15034,7 +15034,7 @@ begin
       Form1.Labelabertura.Font.Color := 16777215;
       Form1.Labelabertura.Caption := NOMEDOCLIENTE;
       Form1.Labelabertura1.AutoSize := False;
-      Form1.Labelabertura1.Align := 6;
+      // ?: Form1.Labelabertura1.Align := alCustom;
       Form1.Labelabertura1.Width := RESOLUCAO;
       Form1.Labelabertura1.Left := 1;
       // C: STDCTRLS_TCUSTOMLABEL____SETALIGNMENT_TALIGNMENT(Form1.Labelabertura1,2);
@@ -15271,7 +15271,7 @@ begin
     ZERA50 := 0;
     TOCANDOPALHINHA := 0;
     RODAVOLUME := 0;
-    TECLAANTERIORRODAVOLUME := 0;
+    TECLAANTERIORRODAVOLUME := '';
     VOLUMEATIVADO := 0;
     // C: U_JUKELINUX1_MOUSEPOS._0_4_ = *(undefined4 * )(U_JUKELINUX1_FORM1 + 0x23c);
     // C: U_JUKELINUX1_MOUSEPOS._4_4_ = *(int * )(U_JUKELINUX1_FORM1 + 0xe8) + -5;
@@ -15489,13 +15489,13 @@ begin
     // ?: WX := TC_FORMS_SCREEN.Width;
     // ?: HX := TC_FORMS_SCREEN.Height;
     RX := 'erro';
-    if (WX = 1024)  and  (HX = 768) then begin
+    if (WX = 1024) and (HX = 768) then begin
       RX := 'ok';
     end;
-    if (WX = 1366)  and  (HX = 768) then begin
+    if (WX = 1366) and (HX = 768) then begin
       RX := 'ok';
     end;
-    if (WX = 1440)  and  (HX = 900) then begin
+    if (WX = 1440) and (HX = 900) then begin
       RX := 'ok';
     end;
     if RX = 'erro' then begin
@@ -15642,7 +15642,7 @@ begin
           if cVar3 then begin Break; end;
           iVar5 := local_10 + 1;
           local_10 := iVar5;
-          Read(ARQTEXTO, local_e4 + iVar5 * 4 + -4);
+          // C: fpc_read_text_ansistr(U_JUKELINUX1_ARQTEXTO,local_e4 + iVar5 * 4 + -4);
           Readln(ARQTEXTO);
         end;
         CloseFile(ARQTEXTO);
@@ -15661,7 +15661,7 @@ begin
               // C: iVar5 = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("-0:0",*(undefined4 * )(local_e4 + local_10 * 4 + -4));
               // C: fpc_ansistr_copy( *(undefined4 * )(local_e4 + local_10 * 4 + -4),local_fc, iVar5 - local_fc);
             end;
-            ERROSERIAL := 0;
+            ERROSERIAL := '';
             ERROSERIALNUM := 0;
             local_f8 := local_f8 + 1;
           end;
@@ -15680,7 +15680,7 @@ begin
             end;
           end;
         until not (local_10 < 50);
-        if ERROSERIAL <> 0 then begin
+        if ERROSERIAL <> '' then begin
           ERROSERIALNUM := 1;
           local_428 := 'ERRO: ';
           local_414 := IntToStr(ERROSERIALNUM);
@@ -15743,7 +15743,7 @@ begin
         local_414 := 'VersaoDoLinux: ' + local_518;
         Gravalog(local_414);
       end;
-      if (VERSAODOLINUX = 11)  or  (VERSAODOLINUX = 13) then begin
+      if (VERSAODOLINUX = 11) or (VERSAODOLINUX = 13) then begin
         PASTACHAVE := '//media/chave/';
         local_518 := PASTA + 'chave_.txt';
         cVar3 := FileExists(local_518);
@@ -15945,7 +15945,7 @@ begin
           CloseFile(ARQTEXTO);
           if local_f4 = JC_DIGITO then begin
             ERROSERIALNUM := 0;
-            ERROSERIAL := 0;
+            ERROSERIAL := '';
           end
           else begin
             ERROSERIALNUM := 4;
@@ -16086,7 +16086,7 @@ begin
             CloseFile(ARQTEXTO);
             if local_f4 = JC_DIGITOCON then begin
               ERROSERIALNUM := 0;
-              ERROSERIAL := 0;
+              ERROSERIAL := '';
               JC_RELOGIOTOTAL := StrToIntDef(JC_RELOGIOTOTALSTR, 0);
               JC_RELOGIOPARCIAL := StrToIntDef(JC_RELOGIOPARCIALSTR, 0);
               JC_RELOGIOGRATIS := StrToIntDef(JC_RELOGIOGRATISSTR, 0);
@@ -16131,7 +16131,7 @@ begin
             if ERROSERIALNUM = 0 then begin
               if JC_SERIALPENDRIVECON = local_e8 then begin
                 ERROSERIALNUM := 0;
-                ERROSERIAL := 0;
+                ERROSERIAL := '';
               end
               else begin
                 ERROSERIALNUM := 7;
@@ -16172,7 +16172,7 @@ begin
               JC_INI := local_518;
               CloseFile(ARQTEXTO);
               ERROSERIALNUM := 0;
-              ERROSERIAL := 0;
+              ERROSERIAL := '';
               local_518 := 'Gravado a Primeira Vez a Chave na HD: ' + JC_SERIALPENDRIVE;
               Gravalog(local_518);
             end
@@ -16193,7 +16193,7 @@ begin
               end;
               if JC_INI = JC_SERIALPENDRIVE then begin
                 ERROSERIALNUM := 0;
-                ERROSERIAL := 0;
+                ERROSERIAL := '';
                 if JC_LETRAS = LETRASEXE then begin
                   // C: local_420 = "Todas as Chaves [";
                   local_41c := JC_LETRAS;
@@ -16864,7 +16864,7 @@ begin
       end;
       if PALHINHAMUSICAL <> 'Sem Palhinha Musical' then begin
         Form1.TimerPalhinha.Enabled := True;
-        MUSICAQUEJATOCOUAPALHINHA := 0;
+        MUSICAQUEJATOCOUAPALHINHA := '';
         PALHINHASPORREAL := 0;
         if PALHINHAMUSICAL = 'Palhinha de 10 Segundos' then begin
           TEMPODEINTRODUCAOMUSICAL := 10;
@@ -16882,7 +16882,7 @@ begin
           TEMPODEINTRODUCAOMUSICAL := 30;
         end;
       end;
-      ORIGEMPALHINHAANTERIOR := 0;
+      ORIGEMPALHINHAANTERIOR := '';
       ORIGEMPALHINHA := ' ';
       PARARPALHINHA := 0;
       Form1.ShapePalhinha.Hide;
@@ -17673,7 +17673,7 @@ begin
           end;
           CloseFile(ARQTOCAR);
         end;
-        if (0 < local_108)  and  (local_104 = 0) then begin
+        if (0 < local_108) and (local_104 = 0) then begin
           local_74c := PASTA + 'tocar.txt';
           // C: puVar6 = local_74c;
           if False { C: local_74c == (undefined1 * )0x0 } then begin
@@ -17730,7 +17730,7 @@ begin
           KFRASE := KFRASE + 1;
           Read(ARQTEXTO, TEXTO);
           Readln(ARQTEXTO);
-          // ?: KFRASE * 4 + 154147836 := TEXTO + '            ';
+          // C: fpc_ansistr_concat(U_JUKELINUX1_KFRASE * 4 + 0x9301bfc,U_JUKELINUX1_TEXTO, "            ");
           iVar5 := KFRASE;
           // C: fpc_ansistr_incr_ref ( *(undefined4 * )(U_JUKELINUX1_ARQTOCARX + U_JUKELINUX1_KFRASE * 4 + 0x24c));
           iVar8 := KFRASE;
@@ -18305,7 +18305,7 @@ begin
       if SEMPENDRIVE <> 0 then begin
         CREDITOS := StrToIntDef(CREDITOSSTR, 0);
       end;
-      if (CREDITOS = -1)  or  (CREDITOS = 0) then begin
+      if (CREDITOS = -1) or (CREDITOS = 0) then begin
         NOMEARQBACKUP := PASTACHAVE + 'creditos.txt';
         cVar3 := FileExists(NOMEARQBACKUP);
         if cVar3 then begin
@@ -18556,7 +18556,7 @@ begin
           Selecionamusica;
           Mostra_Musicas(KMAT + 5);
         end;
-        if (ESTANOMENU <> 0)  and  (SENHAOK = 1) then begin
+        if (ESTANOMENU <> 0) and (SENHAOK = 1) then begin
           // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.LabelPress1,local_3c);
           if local_3c = 'Pressione o Botão MÚSICA para Carregar a Atualização/Upg' then begin
             cVar1 := DirectoryExists(NOMEPASTAUPGRADE);
@@ -18753,7 +18753,7 @@ begin
         TEMPOPALHINHA := 0;
         MUDOUDECDOUMUSICA := 1;
         RODAVOLUME := 0;
-        TECLAANTERIORRODAVOLUME := 0;
+        TECLAANTERIORRODAVOLUME := '';
         Rotina_Ritmos;
         if VOLUMEATIVADO <> 0 then begin
           Desativa_Volume_Pelo_Painel;
@@ -18761,7 +18761,7 @@ begin
       end;
       if False { C: *local_c == U_JUKELINUX1_TECLACDMAIS } then begin
         Presstecla;
-        if (MOSTRANDORITMOS = 0)  and  (MOSTRANDOLETRAS = 0) then begin
+        if (MOSTRANDORITMOS = 0) and (MOSTRANDOLETRAS = 0) then begin
           SEGURANDOTECLA := 0;
         end;
         if MOSTRANDORITMOS <> 0 then begin
@@ -18807,7 +18807,7 @@ begin
       end;
       if False { C: *local_c == U_JUKELINUX1_TECLACDMENOS } then begin
         Presstecla;
-        if (MOSTRANDORITMOS = 0)  and  (MOSTRANDOLETRAS = 0) then begin
+        if (MOSTRANDORITMOS = 0) and (MOSTRANDOLETRAS = 0) then begin
           SEGURANDOTECLA := 0;
         end;
         if MOSTRANDORITMOS <> 0 then begin
@@ -19093,7 +19093,7 @@ begin
           if iVar4 = 0 then begin
             // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN ( *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x204));
             if not cVar1 then begin
-              CDSELEAPAGAR := 0;
+              CDSELEAPAGAR := '';
             end
             else begin
               // C: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageCapaMT.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x204));
@@ -19101,7 +19101,7 @@ begin
               Form1.CapaMT.Show;
               Form1.LabelCDMt.Show;
               Form1.ImgLanMT.Hide;
-              if local_10 * 576 + 149492542 = 'S' then begin
+              if False { C: STREQ(local_10 * 0x240 + 0x8e9133e,"S") } then begin
                 Form1.ImgLanMT.Show;
               end;
               // ?: BAIRROSTR + local_10 * 144 := local_40;
@@ -19121,9 +19121,9 @@ end;
 { JUKELINUX1_TFORM1_$__LISTBOXRGENEROSCLICK$TOBJECT }
 procedure TForm1.ListBoxRGenerosClick(Sender: TObject);
 var
-  local_14, local_40, local_48, local_50, local_54: AnsiString;
+  local_14, local_40, local_48, local_50, local_54, local_58: AnsiString;
   cVar1: Boolean;
-  iVar3, iVar4, local_10, local_58: LongInt;
+  iVar3, iVar4, local_10: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_44, local_4c: Variant;
@@ -19153,7 +19153,7 @@ begin
       if 0 < TOTALCDS then begin
         repeat
           local_10 := local_10 + 1;
-          // ?: local_10 * 576 + 149492008 := local_40;
+          // C: fpc_shortstr_to_ansistr(local_10 * 0x240 + 0x8e91128,local_40);
           if local_40 = local_14 then begin
             iVar4 := Pos('50+TOCADOS', local_14);
             if iVar4 = 0 then begin
@@ -19653,7 +19653,7 @@ begin
       local_64 := IntToStr(PORCENTAGEMDOPONTO);
       local_40 := '% do  Ponto: ' + local_64;
       Form1.LabelPor.Caption := local_40;
-      // ?: local_6c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_6c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_6c;
       local_4c := 'Valor do Ponto..: R$ ';
       local_64 := IntToStr(VALORPONTO);
@@ -19775,7 +19775,7 @@ begin
         Form1.LabelUF2.Font.Size := 14;
         Form1.LabelPress2.Width := 647;
       end;
-      if (0 < QTDCREDITOSGRATIS)  and  (0 < QTDCREDITOSGRATISVIP) then begin
+      if (0 < QTDCREDITOSGRATIS) and (0 < QTDCREDITOSGRATISVIP) then begin
         local_94 := 'Pressione o Botão GÊNERO para deixar ';
         local_80 := IntToStr(QTDCREDITOSGRATIS);
         local_90 := local_80;
@@ -19786,7 +19786,7 @@ begin
         local_184 := local_94 + local_90 + local_8c + local_88 + local_84;
         Form1.LabelPress2.Caption := local_184;
       end;
-      if (0 < QTDCREDITOSGRATIS)  and  (QTDCREDITOSGRATISVIP = 0) then begin
+      if (0 < QTDCREDITOSGRATIS) and (QTDCREDITOSGRATISVIP = 0) then begin
         local_194 := 'Pressione o Botão GÊNERO para deixar ';
         local_188 := IntToStr(QTDCREDITOSGRATIS);
         local_190 := local_188;
@@ -19794,7 +19794,7 @@ begin
         local_184 := local_194 + local_190 + local_18c;
         Form1.LabelPress2.Caption := local_184;
       end;
-      if (QTDCREDITOSGRATIS = 0)  and  (0 < QTDCREDITOSGRATISVIP) then begin
+      if (QTDCREDITOSGRATIS = 0) and (0 < QTDCREDITOSGRATISVIP) then begin
         local_194 := 'Pressione o Botão GÊNERO para deixar ';
         local_188 := IntToStr(QTDCREDITOSGRATIS);
         local_190 := local_188;
@@ -19802,7 +19802,7 @@ begin
         local_184 := local_194 + local_190 + local_18c;
         Form1.LabelPress2.Caption := local_184;
       end;
-      if (QTDCREDITOSGRATIS = 0)  and  (QTDCREDITOSGRATISVIP = 0) then begin
+      if (QTDCREDITOSGRATIS = 0) and (QTDCREDITOSGRATISVIP = 0) then begin
         Form1.LabelPress2.Caption := '';
       end;
       Form1.LabelEntrarNoMenu.Top := Form1.LabelSairDoMenu2.Top + 40;
@@ -19843,7 +19843,7 @@ begin
       local_19c := 'hs Ligada]';
       local_198 := local_1ac + local_1a8 + local_1a4 + local_1a0 + local_19c;
       Form1.LabelRP.Caption := local_198;
-      // ?: local_1ac := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL / ''));
+      // ?: local_1ac := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
       // C: U_JUKELINUX1_VALORPONTO = (int)local_1ac;
       local_1a4 := 'Valor do Ponto..: R$ ';
       local_1b0 := IntToStr(VALORPONTO);
@@ -19924,7 +19924,7 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
-  if (iVar1 = 0)  and  (SENHAOK = 2) then begin
+  if (iVar1 = 0) and (SENHAOK = 2) then begin
     Voltamenu;
     Form1.PanelMenu3c.Show;
     Form1.PanelMenu3grande.Show;
@@ -19980,7 +19980,7 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
-  if (iVar1 = 0)  and  (SENHAOK = 2) then begin
+  if (iVar1 = 0) and (SENHAOK = 2) then begin
     Voltamenu;
     // C: CONTROLS_TCONTROL____HIDE(Form1.PanelQrcodeCadastro1);
     Form1.ButtonZerarCreditos.Caption := 'Zerar Créditos';
@@ -20059,7 +20059,7 @@ begin
   KTEMPOMG := KTEMPOMG + 1;
   if TEMPOTOCARMG = KTEMPOMG then begin
     // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb40) + 0xd8)) (Form1.Timer1Minuto,Sender & 0xffffff00,**(int ** )(U_JUKELINUX1_FORM1 + 0xb40), Self,Sender);
-    if (TOCANDOMUSICA <> 0)  and  (TOCANDOMUSICAGRATIS <> 0) then begin
+    if (TOCANDOMUSICA <> 0) and (TOCANDOMUSICAGRATIS <> 0) then begin
       Rotina_Cancelar;
     end;
   end;
@@ -20528,7 +20528,7 @@ begin
     if -1 < TEMPOEMSEGUNDOS then begin
       TEMPOEMSEGUNDOS := TEMPOEMSEGUNDOS + 1;
     end;
-    if ((TEMPOEMSEGUNDOS <> -1)  and  (TOCANDOMUSICA = 0))  and  (SELECIONADAS = 0) then begin
+    if ((TEMPOEMSEGUNDOS <> -1) and (TOCANDOMUSICA = 0)) and (SELECIONADAS = 0) then begin
       if MUSICAGRATIS = 'Continua' then begin
         TEMPOEMSEGUNDOS := MUSICAGRATISNUM * 60;
       end;
@@ -20539,7 +20539,7 @@ begin
     if TOCANDOMUSICA <> 0 then begin
       TEMPOEMSEGUNDOS := 0;
     end;
-    if TEMPOEMSEGUNDOS / 60 = MUSICAGRATISNUM then begin
+    if TEMPOEMSEGUNDOS div 60 = MUSICAGRATISNUM then begin
       TEMPOEMSEGUNDOS := -1;
       if SELECAOMG = 'Aleatoria' then begin
         Randomize;
@@ -20653,7 +20653,7 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
-  if (iVar1 = 0)  and  (0 < MUSICASELECIONADA) then begin
+  if (iVar1 = 0) and (0 < MUSICASELECIONADA) then begin
     begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
       // C: case 1: iVar2 = 0;
       if NOMEMUSICAORIGINALGRANDE <> 0 then begin
@@ -21182,11 +21182,11 @@ begin
   TEMPOEMSEGUNDOSPAGINARSOZINHO := TEMPOEMSEGUNDOSPAGINARSOZINHO + 1;
   if TEMPOEMSEGUNDOSPAGINARSOZINHO = TEMPOPARAPAGINARSOZINHO then begin
     // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_DIRECAO,"Frente");
-    if (iVar1 = 0)  and  (TOTALCDS <= KMAT + 4) then begin
+    if (iVar1 = 0) and (TOTALCDS <= KMAT + 4) then begin
       DIRECAO := 'Tras';
     end;
     // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_DIRECAO,"Tras");
-    if (iVar1 = 0)  and  (KMAT = -3) then begin
+    if (iVar1 = 0) and (KMAT = -3) then begin
       DIRECAO := 'Frente';
     end;
     if DIRECAO = 'Tras' then begin
@@ -21228,7 +21228,7 @@ begin
   iVar3 := MUSICASELECIONADA;
   iVar4 := (KMAT + 5) * 576;
   // C: U_JUKELINUX1_ORIGEMPALHINHA = *(undefined4 * )(iVar4 + 0x8e91144 + iVar3 * 4);
-  cVar1 := FileExists;
+  // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN();
   if cVar1 then begin
     begin // C: switch(U_JUKELINUX1_MUSICASELECIONADAPOSTELA)
       // C: case 1: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.ShapePalhinha,Form1.Musica1.Left? );
@@ -21516,7 +21516,7 @@ begin
       Form1.playtv.Hide;
       TOCANDOVIDEOTV := 0;
     end
-    else if (TOCANDOMUSICADVD = 0)  and  (TOCANDOVIDEOTV = 0) then begin
+    else if (TOCANDOMUSICADVD = 0) and (TOCANDOVIDEOTV = 0) then begin
       Form1.playtv.Left := POSL;
       Form1.playtv.Top := POST;
       Form1.playtv.Width := POSW;
@@ -21608,7 +21608,7 @@ begin
     Form1.TimerSetaVermelha.Enabled := False;
     Form1.ImageSetabrgCima.Hide;
     Form1.ImageSetabrgBaixo.Hide;
-    SETAVERMELHA := 0;
+    SETAVERMELHA := '';
   end;
   if SETAVERMELHA = 'CD-' then begin
     if RESOLUCAO = 1024 then begin
@@ -21666,17 +21666,17 @@ var
 begin
   // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb68) + 0xd8)) (Form1.TimerSorteio,Sender & 0xffffff00,**(int ** )(U_JUKELINUX1_FORM1 + 0xb68), Self,Sender);
   // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SORTEIODECREDITOS,"2 Reais");
-  if (iVar1 = 0)  and  (1 < PULSOSPARASORTEIO) then begin
+  if (iVar1 = 0) and (1 < PULSOSPARASORTEIO) then begin
     PULSOSPARASORTEIO := PULSOSPARASORTEIO + -2;
     Mostra_Tela_De_Sorteio;
   end;
   // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SORTEIODECREDITOS,"5 Reais");
-  if (iVar1 = 0)  and  (4 < PULSOSPARASORTEIO) then begin
+  if (iVar1 = 0) and (4 < PULSOSPARASORTEIO) then begin
     PULSOSPARASORTEIO := PULSOSPARASORTEIO + -5;
     Mostra_Tela_De_Sorteio;
   end;
   // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SORTEIODECREDITOS,"10 Reais");
-  if (iVar1 = 0)  and  (9 < PULSOSPARASORTEIO) then begin
+  if (iVar1 = 0) and (9 < PULSOSPARASORTEIO) then begin
     PULSOSPARASORTEIO := PULSOSPARASORTEIO + -10;
     Mostra_Tela_De_Sorteio;
   end;
@@ -21688,7 +21688,7 @@ var
   iVar1: LongInt;
 begin
   // C: iVar1 = fpc_ansistr_compare_equal (U_JUKELINUX1_TOCANDOTIPO,"DVD",param_3,Self,Sender);
-  if ((iVar1 = 0)  and  (TOCANDOMUSICA <> 0))  and  (Form1.Play.Left = POSL) then begin
+  if ((iVar1 = 0) and (TOCANDOMUSICA <> 0)) and (Form1.Play.Left = POSL) then begin
     Desselecionamusica;
     MUSICASELECIONADA := 0;
     MUSICASELECIONADAPOSTELA := 0;
@@ -21706,7 +21706,7 @@ begin
     Form1.TimerPiscaSeta.Enabled := False;
     if TOCANDOMUSICA <> 0 then begin
       // C: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_LETRASEXE,"3MJ");
-      if (iVar1 = 0)  and  (ESTANOMENU <> 0) then begin
+      if (iVar1 = 0) and (ESTANOMENU <> 0) then begin
         Form1.PanelMenu.Show;
         Form1.PanelMenu.BringToFront;
       end;
@@ -21754,7 +21754,7 @@ begin
       local_38 := PASTA + 'tocando.txt';
       DeleteFile(local_38);
       iVar3 := TOTALFRASE;
-      TOCANDOTIPO := 0;
+      TOCANDOTIPO := '';
       KFRASE := 1;
       if 0 < TOTALFRASE then begin
         KFRASE := 0;
@@ -21789,9 +21789,9 @@ end;
 { JUKELINUX1_TFORM1_$__TIMERTOCARTIMER$TOBJECT }
 procedure TForm1.TimerTocarTimer(Sender: TObject);
 var
-  local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_250, local_254, local_258, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
+  local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_254, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, iVar6, iVar9, uVar7: LongInt;
+  iVar1, iVar4, iVar6, iVar9, local_250, local_258, uVar7: LongInt;
   local_c: TForm1;
   local_8: TObject;
 begin
@@ -21800,7 +21800,7 @@ begin
   begin
     OK_TOCA_MENU := 1;
     // C: iVar4 = fpc_ansistr_compare_equal(U_JUKELINUX1_LETRASEXE,"3MJ");
-    if (iVar4 = 0)  and  (ESTANOMENU <> 0) then begin
+    if (iVar4 = 0) and (ESTANOMENU <> 0) then begin
       OK_TOCA_MENU := 1;
     end;
     if OK_TOCA_MENU <> 0 then begin
@@ -21821,7 +21821,7 @@ begin
           // C: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCAR,1,1);
           if local_138 = '*' then begin
             // C: uVar7 = 0;
-            if TEXTOTOCAR <> 0 then begin
+            if TEXTOTOCAR <> '' then begin
               // C: uVar7 = *(undefined4 * )(U_JUKELINUX1_TEXTOTOCAR + -4);
             end;
             // C: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCAR,2,uVar7);
@@ -21880,11 +21880,11 @@ begin
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
             iVar4 := 0;
-            if PASTAMUSICAS <> 0 then begin
+            if PASTAMUSICAS <> '' then begin
               // C: iVar4 = *(int * )(U_JUKELINUX1_PASTAMUSICAS + -4);
             end;
             // C: uVar7 = 0;
-            if TEXTOTOCANDO <> 0 then begin
+            if TEXTOTOCANDO <> '' then begin
               // C: uVar7 = *(undefined4 * )(U_JUKELINUX1_TEXTOTOCANDO + -4);
             end;
             // C: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCANDO,iVar4 + 1,uVar7);
@@ -21912,11 +21912,11 @@ begin
             Write(ARQTEXTO, local_138);
             Writeln(ARQTEXTO);
             iVar4 := 0;
-            if PASTAMUSICAS <> 0 then begin
+            if PASTAMUSICAS <> '' then begin
               // C: iVar4 = *(int * )(U_JUKELINUX1_PASTAMUSICAS + -4);
             end;
             // C: uVar7 = 0;
-            if TEXTOTOCANDO <> 0 then begin
+            if TEXTOTOCANDO <> '' then begin
               // C: uVar7 = *(undefined4 * )(U_JUKELINUX1_TEXTOTOCANDO + -4);
             end;
             // C: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCANDO,iVar4 + 1,uVar7);
@@ -22131,7 +22131,7 @@ begin
                 // C: local_258 = "  >> ";
                 local_254 := NOMEDOCDTOCANDO;
                 // C: local_250 = " << MUSICA GRATIS            ";
-                // ?: KFRASE * 4 + 154147836 := local_268 + local_264 + local_260 + local_25c + local_258 + local_254 + local_250;
+                // C: fpc_ansistr_concat_multi(U_JUKELINUX1_KFRASE * 4 + 0x9301bfc,&local_268,6);
               until not (KFRASE < iVar4);
             end;
           end
@@ -22148,13 +22148,13 @@ begin
                 // C: local_258 = "  >> ";
                 local_254 := NOMEDOCDTOCANDO;
                 // C: local_250 = " <<            ";
-                // ?: KFRASE * 4 + 154147836 := local_268 + local_264 + local_260 + local_25c + local_258 + local_254 + local_250;
+                // C: fpc_ansistr_concat_multi(U_JUKELINUX1_KFRASE * 4 + 0x9301bfc,&local_268,6);
               until not (KFRASE < iVar4);
             end;
           end;
           POSFRASE := 0;
           // C: iVar4 = fpc_ansistr_compare_equal(U_JUKELINUX1_LETRASEXE,"3MJ");
-          if (iVar4 = 0)  and  (ESTANOMENU <> 0) then begin
+          if (iVar4 = 0) and (ESTANOMENU <> 0) then begin
             Form1.PanelMenu.Show;
             Form1.PanelMenu.BringToFront;
           end;
@@ -22195,17 +22195,17 @@ begin
   local_c := Self;
   local_8 := Sender;
   begin
-    if (((4 < P_INICIAL_X)  and  (P_INICIAL_X < 1161))  and  (564 < P_INICIAL_Y))  and  (P_INICIAL_Y < 761) then begin
+    if (((4 < P_INICIAL_X) and (P_INICIAL_X < 1161)) and (564 < P_INICIAL_Y)) and (P_INICIAL_Y < 761) then begin
       Le_Touchscreen_Final;
       // C: DEBUGSTART_JUKELINUX1();
-      if (0 < P_DESLOCAMENTO_X)  and  (P_DESLOCAMENTO_X < 100) then begin
+      if (0 < P_DESLOCAMENTO_X) and (P_DESLOCAMENTO_X < 100) then begin
         Presstecla;
         TEMPOPALHINHA := 0;
         MUDOUDECDOUMUSICA := 1;
         Form1.TimerPaginaMais.Enabled := True;
         SEGURANDOTECLA := SEGURANDOTECLA + 1;
       end;
-      if (P_DESLOCAMENTO_X < 0)  and  (P_DESLOCAMENTO_X < -100) then begin
+      if (P_DESLOCAMENTO_X < 0) and (P_DESLOCAMENTO_X < -100) then begin
         Presstecla;
         TEMPOPALHINHA := 0;
         MUDOUDECDOUMUSICA := 1;
@@ -22213,11 +22213,11 @@ begin
         SEGURANDOTECLA := SEGURANDOTECLA + 1;
       end;
     end;
-    if (((429 < P_INICIAL_X)  and  (P_INICIAL_X < 971))  and  (204 < P_INICIAL_Y))  and  (P_INICIAL_Y < 561) then begin
+    if (((429 < P_INICIAL_X) and (P_INICIAL_X < 971)) and (204 < P_INICIAL_Y)) and (P_INICIAL_Y < 561) then begin
       Le_Touchscreen_Final;
       // C: DEBUGSTART_JUKELINUX1();
       if 0 < P_DESLOCAMENTO_Y then begin
-        if P_DESLOCAMENTO_Y / 27 = 1 then begin
+        if P_DESLOCAMENTO_Y div 27 = 1 then begin
           if False { C: 0xc < (int)(&U_JUKELINUX1_NOMEDOCLIENTE)[(U_JUKELINUX1_KMAT + 5) * 0x90] } then begin
             local_3c := IntToStr(MUSICASELECIONADATS);
             local_38 := 'MusicaSelecionadaTS=' + local_3c;
@@ -22258,7 +22258,7 @@ begin
       end;
       iVar1 := MUSICASELECIONADATS;
       if P_DESLOCAMENTO_Y < 0 then begin
-        if P_DESLOCAMENTO_Y / 27 = -1 then begin
+        if P_DESLOCAMENTO_Y div 27 = -1 then begin
           if False { C: 0xc < (int)(&U_JUKELINUX1_NOMEDOCLIENTE)[(U_JUKELINUX1_KMAT + 5) * 0x90] } then begin
             MUSICASELECIONADATS := MUSICASELECIONADATS + 1;
             if MUSICASELECIONADA < 13 then begin
@@ -22336,13 +22336,13 @@ begin
   local_c := Self;
   local_8 := Sender;
   // C: iVar1 = fpc_setjmp();
-  if (iVar1 = 0)  and  (0 < LIMITARVOLUME) then begin
+  if (iVar1 = 0) and (0 < LIMITARVOLUME) then begin
     if LIMITARVOLUME < VOLUME then begin
       // C: puVar4 = local_38;
       local_3c := TimeToStr(Time);
       // C: fpc_ansistr_copy(local_3c,1,2,puVar4);
       // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_38[0],0x14);
-      if uVar2 < 9  or  uVar2 - 22 < 2 then begin
+      if (uVar2 < 9) or (uVar2 - 22 < 2) then begin
         local_3c := PASTA + 'VolumeAntesdas22.Txt';
         local_13c := local_3c;
         AssignFile(ARQTEXTO, local_13c);
@@ -22375,7 +22375,7 @@ begin
       local_140 := TimeToStr(Time);
       // C: fpc_ansistr_copy(local_140,1,2,puVar4);
       // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_3c,0x14);
-      if 8 < uVar2  and  1 < uVar2 - 22 then begin
+      if (8 < uVar2) and (1 < uVar2 - 22) then begin
         local_140 := PASTA + 'VolumeAntesdas22.Txt';
         local_13c := local_140;
         AssignFile(ARQTEXTO, local_13c);

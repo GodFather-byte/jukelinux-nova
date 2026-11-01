@@ -50,7 +50,7 @@ def tipo(n, tam):
                      # primeiro parâmetro texto (FILEEXISTS_ANSISTRING__...), não resultado (INTTOSTR_LONGINT__ANSISTRING)
                      + re.escape(g) + r' = "|(?<!_)_(ANSISTRING|SHORTSTRING)\w*\(' + re.escape(g) + r'\b|'
                      r'(?i:compare_equal)\w*\s?\([^;]*' + re.escape(g) + r'\b', u):
-            if not re.search(re.escape(g) + r' (<|>|<=|>=|[+-]) \d|' + re.escape(g) + r' == \d', u):
+            if not re.search(re.escape(g) + r' (<|>|<=|>=|[+-]) \d|' + re.escape(g) + r' == [1-9]', u):
                 return 'AnsiString'
         if re.search(r'TPROCESS____\w+\(' + re.escape(g) + r'\b|' + re.escape(g) + r' = \(int \*\)[^;]*TPROCESS', u):
             return 'TProcess'
@@ -66,8 +66,8 @@ def tipo(n, tam):
     if tam == 332:  # FileRec do FPC 2.6 i386
         return 'file'
     # String[N] curta: 1 byte de tamanho + N letras, usada com as rotinas de shortstring.
-    if 2 <= tam < 256 and re.search(r'SHORTSTR\w*\(&?' + re.escape(g) + r'\b|' + re.escape(g) + r' = "|'
-                                   r'SHORTSTR\w*\([^;]*,&?' + re.escape(g) + r'\b', u):
+    if 2 <= tam < 256 and re.search(r'(?i:shortstr)\w*\(&?' + re.escape(g) + r'\b|' + re.escape(g) + r' = "|'
+                                   r'(?i:shortstr)\w*\([^;]*,&?' + re.escape(g) + r'\b', u):
         return f'String[{tam - 1}]'
     return f'array[0..{tam - 1}] of Byte {{revisar}}'
 

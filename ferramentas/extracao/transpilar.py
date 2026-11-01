@@ -45,7 +45,7 @@ def texto_pas(i):
 
 # --- tabelas ---------------------------------------------------------------------------------------------------
 VIRTUAIS = {0xd8: 'Enabled', 0x104: 'Align', 0x10c: 'AutoSize', 0x220: 'Visible'}
-ALIGN = {0: 'alNone', 1: 'alTop', 2: 'alBottom', 3: 'alLeft', 4: 'alRight', 5: 'alClient'}
+ALIGN = {0: 'alNone', 1: 'alTop', 2: 'alBottom', 3: 'alLeft', 4: 'alRight', 5: 'alClient', 6: 'alCustom'}
 PROPS = {'SETLEFT': 'Left', 'SETTOP': 'Top', 'SETWIDTH': 'Width', 'SETHEIGHT': 'Height'}
 # Rotinas do FPC/LCL: nome Ghidra -> (nome Pascal, tipo). Tipos: p = procedimento, f = função (valor de retorno),
 # s = função que devolve string pelo último argumento (&destino).
@@ -152,6 +152,30 @@ def num(m):
     return str(v - 0x100000000 if v >= 0x80000000 else v)
 
 
+def logico(e):
+    """Separa && e || no nível de cima e põe cada lado entre parênteses."""
+    partes, nivel, cur, ops, i = [], 0, '', [], 0
+    while i < len(e):
+        ch = e[i]
+        nivel += ch == '('
+        nivel -= ch == ')'
+        if nivel == 0 and e[i:i + 2] in ('&&', '||'):
+            partes.append(cur.strip()); ops.append(' and ' if e[i] == '&' else ' or '); cur = ''; i += 2
+            continue
+        cur += ch
+        i += 1
+    partes.append(cur.strip())
+    if len(partes) == 1:
+        return e
+    def par(p):
+        p = logico(p[1:-1]) if p.startswith('(') and p.endswith(')') and args_de('(' + p[1:-1] + ')') else p
+        return p if re.fullmatch(r'not \w+|\w+', p) else f'({p})'
+    out = par(partes[0])
+    for op, p in zip(ops, partes[1:]):
+        out += op + par(p)
+    return out
+
+
 def expr(e):
     """Expressão C -> Pascal; None se sobrar algo que não dá para traduzir com segurança."""
     e = e.strip()
@@ -178,13 +202,16 @@ def expr(e):
     e = e.replace('?', '')
     e = re.sub(r'\b0x[0-9a-fA-F]+\b', num, e)
     e = re.sub(r'(?<=\d)U\b', '', e)
-    e = e.replace('==', '=').replace('!=', '<>').replace('&&', ' and ').replace('||', ' or ')
+    e = logico(e)
+    e = e.replace('==', '=').replace('!=', '<>').replace(' / ', ' div ')
     e = re.sub(r'(?<![<>=:])!(?!=)', 'not ', e)
     e = re.sub(r'@T(\d+)@', lambda m: texto_pas(m.group(1)), e)
     e = {'#0': '0', '#1': '1'}.get(e, e)
     e = re.sub(r'(?<=[=<>] )#(\d+)\b', r'\1', e)  # char do C comparado com número
     # operador vírgula do C, ex.: (k = k + 1, k < 501): parênteses com vírgula que não são de chamada
     if re.search(r'(?<![\w\]])\(([^()]*,[^()]*)\)', e):
+        return None
+    if any(0x08000000 <= int(n) < 0x0a000000 for n in re.findall(r'\b\d{9}\b', e)):
         return None
     if '[' in e:  # índice que sobrou (vetor do C ou campo não identificado)
         return None
@@ -232,7 +259,9 @@ def chamada(c, valor=False):
         return None
     if g in RTL:
         nome, tipo = RTL[g]
-        if tipo == 'f' and None not in ae:
+        if tipo == 'f' and None not in ae and (ae or nome in ('Time', 'Date', 'Now')):
+            if nome == 'CopyFile' and len(ae) == 3:
+                ae[2] = {'1': 'True', '0': 'False'}.get(ae[2], ae[2])
             return f'{nome}({", ".join(ae)})' if ae else nome
         if tipo == 'g' and len(ae) == 1 and ae[0]:
             return f'{ae[0]}.{nome}'
@@ -242,7 +271,7 @@ def chamada(c, valor=False):
             return f'{nome}({", ".join(ae)});' if ae else f'{nome};'
         if tipo == 's' and None not in ae:
             return f'{ae[-1]} := {nome}({", ".join(ae[:-1])});'
-        if tipo == 'r' and None not in ae:
+        if tipo == 'r' and None not in ae and all(re.fullmatch(r'[A-Za-z_][\w.]*', x) for x in ae):
             return f'Read({", ".join(ae)});'
         if tipo == 'm' and len(ae) == 1 and ae[0]:
             return f'{ae[0]}.{nome};'
