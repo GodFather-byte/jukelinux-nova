@@ -63,8 +63,9 @@ BOOL_FUNCS = r'FileExists|DirectoryExists|Eof|DeleteFile|CreateDir|CopyFile|Remo
 def evidencias(n, s, funcs_texto):
     """(número, texto, Boolean) — se o código usa a local n como número, como texto ou como Boolean."""
     N = r'\b' + n + r'\b'
-    num = re.search(N + r' := ' + n + r' [+\-*]|' + N + r' [+\-*] -?\d|-?\d [+\-*] ' + N + r'|' + N +
-                    r' (<|>|<=|>=) -?\d|-?\d (<|>|<=|>=) ' + N + r'|' + N + r' := -?[1-9]\d*;|' + N + r' := (' +
+    K = r'(?<![\w.$#])-?\d+(?![\w.])'  # número de verdade, não o fim de um nome como local_68
+    num = re.search(N + r' [+\-*] ' + K + r'|' + K + r' [+\-*] ' + N + r'|' + N +
+                    r' (<|>|<=|>=) ' + K + r'|' + K + r' (<|>|<=|>=) ' + N + r'|' + N + r' := -?[1-9]\d*;|' + N + r' := (' +
                     INT_FUNCS + r')\(|' + N + r' := Form1\.\w+\.(Count|ItemIndex);|IntToStr\(' + n + r'\)|Items\[' +
                     n + r'\]|' + N + r' (div|mod) |Copy\([^,]+, ' + n + r'\b', s)
     txt = re.search(N + r" := '|" + N + r" \+ '|' \+ " + n + r'\b|' + N + r' := (' + STR_FUNCS + funcs_texto +
