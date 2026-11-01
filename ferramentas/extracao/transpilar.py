@@ -329,6 +329,17 @@ def comando(c):
         return ''
     if c == 'break':
         return 'Break;'
+    # Construtor: X = (int *)(*(code *)PTR_UNIT_TCLASSE____CREATE_TCOMPONENT__...)(0,&VMT_UNIT_TCLASSE,dono)
+    m = re.fullmatch(r'([\w.]+) = \(\w+ \*\)\(\*\(code \*\)PTR_[A-Z]+_(T\w+?)____CREATE_TCOMPONENT\w*\) ?'
+                     r'\(0,&VMT_\w+,(\w+)\)', c)
+    if m and expr(m.group(1)):
+        classe = {'TPROCESS': 'TProcess', 'TSTRINGLIST': 'TStringList'}.get(m.group(2), m.group(2))
+        return f'{expr(m.group(1))} := {classe}.Create(Form1);'
+    # TProcess.Execute pela VMT (+0xe0)
+    m = re.fullmatch(r'\(\*\*\(code \*\*\)\(\*U_JUKELINUX1_(\w+) \+ 0xe0\)\) ?\(U_JUKELINUX1_\1\)', c)
+    if m:
+        globais.add(m.group(1))
+        return f'{m.group(1)}.Execute;'
     m = re.fullmatch(r'(LAB_\w+)@ROTULO', c)
     if m:
         rotulos.add(m.group(1))

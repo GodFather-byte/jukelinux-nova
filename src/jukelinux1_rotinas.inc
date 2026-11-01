@@ -10519,10 +10519,10 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
-      // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+      CMD := TProcess.Create(Form1);
       // C: fpc_ansistr_concat(&local_5f8,U_JUKELINUX1_PASTA,"qrcode.sh");
       CMD.CommandLine := local_5f8;
-      // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+      CMD.Execute;
       CMD.Free;
       Sleep(2000);
       // C: fpc_ansistr_concat(&local_5f8,U_JUKELINUX1_PASTA,"qrcode.jpg");
@@ -11653,10 +11653,10 @@ begin
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
-        // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+        CMD := TProcess.Create(Form1);
         // C: fpc_ansistr_concat(&local_174,U_JUKELINUX1_PASTA,"qrcode.sh");
         CMD.CommandLine := local_174;
-        // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+        CMD.Execute;
         CMD.Free;
         Sleep(2000);
       end;
@@ -11749,10 +11749,10 @@ begin
     Writeln(ARQTEXTO);
     Flush(ARQTEXTO);
     CloseFile(ARQTEXTO);
-    // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+    CMD := TProcess.Create(Form1);
     // C: fpc_ansistr_concat(&local_60,U_JUKELINUX1_PASTA,"qrcode.sh");
     CMD.CommandLine := local_60;
-    // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+    CMD.Execute;
     CMD.Free;
     Sleep(2000);
     // C: fpc_ansistr_concat(&local_60,U_JUKELINUX1_PASTA,"qrcode.jpg");
@@ -15552,9 +15552,9 @@ begin
     end;
     if RX = 'erro' then begin
       if RESOLUCAOSTR = 'Automatico' then begin
-        // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+        CMD := TProcess.Create(Form1);
         CMD.CommandLine := 'xrandr -s 1024x768';
-        // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+        CMD.Execute;
         CMD.Free;
         RESOLUCAO := 1024;
         RESOLUCAOSTR := '1024';
@@ -15591,21 +15591,21 @@ begin
     if local_10c <> 0 then begin
       if ALTERARRESOLUCAODOLINUX = 'S' then begin
         if RESOLUCAO = 1024 then begin
-          // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+          CMD := TProcess.Create(Form1);
           CMD.CommandLine := 'xrandr -s 1024x768';
-          // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+          CMD.Execute;
           CMD.Free;
         end;
         if RESOLUCAO = 1366 then begin
-          // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+          CMD := TProcess.Create(Form1);
           CMD.CommandLine := 'xrandr -s 1366x768';
-          // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+          CMD.Execute;
           CMD.Free;
         end;
         if RESOLUCAO = 1440 then begin
-          // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+          CMD := TProcess.Create(Form1);
           CMD.CommandLine := 'xrandr -s 1440x900';
-          // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+          CMD.Execute;
           CMD.Free;
         end;
       end;
@@ -15665,10 +15665,10 @@ begin
     local_414 := PASTA + 'inicio.txt';
     cVar3 := FileExists(local_414);
     if not cVar3 then begin
-      // C: U_JUKELINUX1_CMD = (int * )( *(code * )PTR_PROCESS_TPROCESS____CREATE_TCOMPONENT__TPROCESS_08dbcaa0) (0,&VMT_PROCESS_TPROCESS,local_c);
+      CMD := TProcess.Create(Form1);
       local_414 := PASTA + 'inicio.sh';
       CMD.CommandLine := local_414;
-      // C: ( **(code ** )( *U_JUKELINUX1_CMD + 0xe0))(U_JUKELINUX1_CMD);
+      CMD.Execute;
       CMD.Free;
       Sleep(3000);
       local_414 := PASTA + 'inicio.txt';
