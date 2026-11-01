@@ -261,7 +261,7 @@ var
   TEMPOTELACHEIA: LongInt;
   SENHAOK: LongInt;
   ESTAEMTELACHEIA: Byte;
-  LIMITARVOLUMESTR: array[0..2] of Byte {revisar};
+  LIMITARVOLUMESTR: String[2];
   LIMITARVOLUME: AnsiString;
   LIMITARVOLUMEOPC: AnsiString;
   VOLUMELIMITADO: Byte;
@@ -307,10 +307,10 @@ var
   KMMCC: LongInt;
   KMMCARTAO: LongInt;
   TOTMMCARTAO: LongInt;
-  CODIGODOCARTAO: array[0..20] of Byte {revisar};
+  CODIGODOCARTAO: String[20];
   LENDOCODIGODOCARTAO: LongInt;
   ARQCARTAOM: file;
-  ACARM: array[0..37] of Byte {revisar};
+  ACARM: String[37];
   ARQCARTAOV: file;
   ACARV: array[0..93] of Byte {revisar};
   PULSOSPARACARTAO: LongInt;

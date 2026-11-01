@@ -171,7 +171,7 @@ def expr(e):
     for k, v in GLOBAIS_RTL.items():
         e = e.replace(k, v)
     e = re.sub(r'\bU_JUKELINUX1_(\w+)', lambda m: globais.add(m.group(1)) or m.group(1), e)
-    for l in re.findall(r'\b(?:local_|[a-z]Var)\w+', e):
+    for l in re.findall(r'\b(?:local_\w+|[a-z]Var\d+|[iu]Stack_\w+)', e):
         locais.add(l)
     e = e.replace('?', '')
     e = re.sub(r'\b0x[0-9a-fA-F]+\b', num, e)
@@ -181,7 +181,7 @@ def expr(e):
     e = re.sub(r'@T(\d+)@', lambda m: texto_pas(m.group(1)), e)
     e = {'#0': '0', '#1': '1'}.get(e, e)
     if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
-                 r'\b_\d_\d_|param_|\bFPC_', e):
+                 r'\b_\d_\d_|param_|\bFPC_|\(\w+ \*+\)|\bp\w*Var\d+\b|\bDAT_|\ba\w*Stack_|\bpu\w*Stack_', e):
         return None
     return e
 

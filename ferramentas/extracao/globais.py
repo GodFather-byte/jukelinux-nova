@@ -63,6 +63,10 @@ def tipo(n, tam):
         return 'Text'
     if tam == 332:  # FileRec do FPC 2.6 i386
         return 'file'
+    # String[N] curta: 1 byte de tamanho + N letras, usada com as rotinas de shortstring.
+    if 2 <= tam < 256 and re.search(r'SHORTSTR\w*\(&?' + re.escape(g) + r'\b|' + re.escape(g) + r' = "|'
+                                   r'SHORTSTR\w*\([^;]*,&?' + re.escape(g) + r'\b', u):
+        return f'String[{tam - 1}]'
     return f'array[0..{tam - 1}] of Byte {{revisar}}'
 
 
