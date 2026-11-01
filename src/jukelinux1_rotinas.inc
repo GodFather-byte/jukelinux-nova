@@ -18139,7 +18139,7 @@ begin
         RESOLUCAOALTURA := 900;
       end;
     end;
-    // C: FORMS_TCUSTOMFORM____SETFORMBORDERSTYLE_TFORMBORDERSTYLE(U_JUKELINUX1_FORM1,0);
+    // ?: Form1.BorderStyle := bsNone;
     FORM1.Left := 0;
     FORM1.Top := 0;
     if EXIBIRVIDEOSNO = 'MONITOR' then begin

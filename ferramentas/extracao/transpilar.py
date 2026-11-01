@@ -316,6 +316,10 @@ def chamada(c, valor=False):
             return f'{ae[0]} := {" + ".join(partes)};'
     if g == 'GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING' and len(a) == 2 and None not in ae:
         return f'{ae[0]}.LoadFromFile({ae[1]});'
+    if g == 'FORMS_TCUSTOMFORM____SETFORMBORDERSTYLE_TFORMBORDERSTYLE' and len(a) == 2 and a[1].isdigit():
+        estilo = ['bsNone', 'bsSingle', 'bsSizeable', 'bsDialog', 'bsToolWindow', 'bsSizeToolWin'][int(a[1])]
+        alvo = 'Form1' if a[0] == 'U_JUKELINUX1_FORM1' else ae[0]
+        return f'{alvo}.BorderStyle := {estilo};' if alvo else None
     if g == 'EXTCTRLS_TCUSTOMIMAGE____SETTRANSPARENT_BOOLEAN' and len(a) == 2 and ae[0]:
         return f'{ae[0]}.Transparent := {"True" if a[1] == "1" else "False"};'
     m2 = re.fullmatch(r'CONTROLS_TCONTROL____(SETLEFT|SETTOP|SETWIDTH|SETHEIGHT)_LONGINT', g)
