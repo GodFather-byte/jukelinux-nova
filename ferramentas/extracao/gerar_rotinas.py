@@ -66,7 +66,7 @@ def evidencias(n, s, funcs_texto):
     return bool(num), bool(txt), bool(boo)
 
 
-def tipos_locais(locs, linhas):
+def tipos_locais(locs, linhas, tipos_params=None, tipo_result=None):
     """Tipo de cada local pelas evidências de uso; sem evidência, pela propagação (a := b, a = b).
     Local usada como número e como texto (o compilador original reaproveita o mesmo espaço da pilha) vira Variant."""
     codigo = [x for x in linhas if not x.lstrip().startswith('//')]
@@ -77,6 +77,7 @@ def tipos_locais(locs, linhas):
         if re.search(ARQ + l + r'\b', s):
             tipos[l] = 'Text'; certo.add(l); continue
         num, txt, boo = evidencias(l, s, funcs_texto)
+        txt = txt or l in transpilar.texto_certo
         if num and txt:
             tipos[l] = 'Variant'
         elif txt:
@@ -91,7 +92,8 @@ def tipos_locais(locs, linhas):
         certo.add(l)
     conhecido = dict(tipos_globais)
     conhecido.update({k.upper(): v for k, v in retornos.items()})
-    conhecido.update({'SENDER': 'TObject', 'SELF': 'TForm1', 'RESULT': None})
+    conhecido.update({'SENDER': 'TObject', 'SELF': 'TForm1', 'RESULT': tipo_result})
+    conhecido.update({k.upper(): v for k, v in (tipos_params or {}).items()})
     mudou = True
     while mudou:
         mudou = False
@@ -189,6 +191,11 @@ for arq in sorted(os.listdir(pasta_c)):
         cab = f'procedure TForm1.{nome}{sig};'
         alvo = metodos
         feitos_eventos.append(nome)
+        tipos_params = {}
+        for grupo, tp in re.findall(r'(?:var )?(\w+(?:, \w+)*): (\w+)', sig):
+            for p in grupo.split(', '):
+                tipos_params[p] = tp
+        tipo_result = None
     else:
         n, tipos_p, ret = parse_nome(simbolo)
         if n in feitos_mao:
@@ -210,6 +217,8 @@ for arq in sorted(os.listdir(pasta_c)):
             cab = f'procedure {nome}{args};'
         forwards.append(cab + ' forward;')
         alvo = rotinas
+        tipos_params = {f'P{i + 1}': t for i, t in enumerate(tps)}
+        tipo_result = TIPOS.get(ret, ret) if ret else None
     corpo, locs, _ = transpilar.traduzir(src)
     locs = [l for l in locs if l not in ('Self', 'Result')]
     params_nomes = nomes_p if metodo else [f'P{i + 1}' for i in range(len(tps))]
@@ -226,9 +235,12 @@ for arq in sorted(os.listdir(pasta_c)):
         corpo = ['  // DESBALANCEADO: ' + l.strip() for l in corpo]
     decl = ''
     if locs:
-        tipos = tipos_locais(locs, corpo)
+        tipos = tipos_locais(locs, corpo, tipos_params, tipo_result)
         # No C, zerar um texto é pôr nil: "s := 0" vira "s := ''".
         textos_l = {l for l, t in tipos.items() if t in ('AnsiString', 'ShortString')}
+        # Texto comparado com 0 no C é ponteiro nil: s <> 0 -> s <> ''.
+        corpo = [re.sub(r'\b(\w+) (=|<>) 0\b', lambda m: f"{m.group(1)} {m.group(2)} ''"
+                        if m.group(1) in textos_l else m.group(0), x) for x in corpo]
         corpo = [re.sub(r'^(\s*)(\w+) := 0;$', lambda m: f"{m.group(1)}{m.group(2)} := '';"
                         if m.group(2) in textos_l else m.group(0), x) for x in corpo]
         por_tipo = {}

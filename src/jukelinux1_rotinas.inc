@@ -208,8 +208,8 @@ procedure Backupcartaoccc;
 var
   local_10, local_3c, local_48, local_8, local_c: AnsiString;
   cVar2: Boolean;
-  local_40, local_4c, uVar1: LongInt;
-  local_44: Variant;
+  local_4c, uVar1: LongInt;
+  local_40, local_44: Variant;
 begin
   begin
     local_3c := PASTACHAVE + 'cartao';
@@ -244,8 +244,8 @@ procedure Carregando_Cartoes;
 var
   local_150, local_154, local_158, local_168, local_16c, local_18, local_1c, local_258, local_48, local_4c, local_50: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_15c, local_164, local_25c, local_260, local_8, local_c: LongInt;
-  local_160: Variant;
+  iVar3, local_10, local_14, local_8, local_c: LongInt;
+  local_15c, local_160, local_164, local_25c, local_260: Variant;
 begin
   begin
     repeat
@@ -477,7 +477,7 @@ begin
             iStack_478b68 := '';
             // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,&iStack_478b68, piVar8);
             iVar7 := 0;
-            if iStack_478b68 <> 0 then begin
+            if iStack_478b68 <> '' then begin
               // C: iVar7 = *(int * )(iStack_478b68 + -4);
             end;
             iStack_478b68 := '';
@@ -560,7 +560,7 @@ begin
                     iStack_478c6c := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c6c,piVar8);
                     iVar3 := 0;
-                    if iStack_478c6c <> 0 then begin
+                    if iStack_478c6c <> '' then begin
                       // C: iVar3 = *(int * )(iStack_478c6c + -4);
                     end;
                     iStack_478c6c := '';
@@ -589,7 +589,7 @@ begin
                     iStack_478c70 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c70,piVar8);
                     iVar3 := 0;
-                    if iStack_478c70 <> 0 then begin
+                    if iStack_478c70 <> '' then begin
                       // C: iVar3 = *(int * )(iStack_478c70 + -4);
                     end;
                     iStack_478c70 := '';
@@ -618,7 +618,7 @@ begin
                     iStack_478c74 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c74,piVar8);
                     iVar3 := 0;
-                    if iStack_478c74 <> 0 then begin
+                    if iStack_478c74 <> '' then begin
                       // C: iVar3 = *(int * )(iStack_478c74 + -4);
                     end;
                     iStack_478c74 := '';
@@ -647,7 +647,7 @@ begin
                     iStack_478c78 := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c78,piVar8);
                     iVar3 := 0;
-                    if iStack_478c78 <> 0 then begin
+                    if iStack_478c78 <> '' then begin
                       // C: iVar3 = *(int * )(iStack_478c78 + -4);
                     end;
                     iStack_478c78 := '';
@@ -676,7 +676,7 @@ begin
                     iStack_478c7c := '';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_c, &iStack_478c7c,puVar9);
                     iVar3 := 0;
-                    if iStack_478c7c <> 0 then begin
+                    if iStack_478c7c <> '' then begin
                       // C: iVar3 = *(int * )(iStack_478c7c + -4);
                     end;
                     iStack_478c7c := '';
@@ -818,8 +818,8 @@ begin
                       iStack_478b28 := StrToIntDef(uStack_478b20, 0);
                       iStack_478d8c := '';
                       iStack_478d8c := iStack_478b24;
-                      // C: uVar5 = 0;
-                      if iStack_478b24 <> 0 then begin
+                      // C: uVar5 = '';
+                      if iStack_478b24 <> '' then begin
                         // C: uVar5 = *(undefined4 * )(iStack_478b24 + -4);
                       end;
                       // C: SYSUTILS_STRTODATE_PCHAR_LONGINT_ANSISTRING_CHAR__TDATETIME (iStack_478b24,uVar5,PTR___SYSUTILS__Ld2_08d69698,0);
@@ -834,7 +834,7 @@ begin
                       if iVar3 < iStack_478b28 then begin
                         iStack_478d8c := '';
                         // ?: local_8 * 576 + 149492008 := iStack_478d8c;
-                        if iStack_478d8c = 0 then begin
+                        if iStack_478d8c = '' then begin
                           // C: *(undefined2 * )((int)&U_JUKELINUX1_ENDERECOSTR + local_8 * 0x240 + 2) = 0x5301;
                           iStack_478d8c := '';
                           iStack_478d8c := UpperCase(' LANCAMENTOS');
@@ -1472,7 +1472,7 @@ begin
             // C: puVar6 = local_34;
             // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_8,&local_38,puVar6);
             // C: uVar5 = 0;
-            if local_38 <> 0 then begin
+            if local_38 <> '' then begin
               // C: uVar5 = *(undefined4 * )(local_38 + -4);
             end;
             local_38 := Form1.FileListBox1.Items[local_8];
@@ -2545,13 +2545,15 @@ end;
 { JUKELINUX1_CRIPTASIMPLESQR$ANSISTRING$$ANSISTRING }
 function Criptasimplesqr(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2570,13 +2572,15 @@ end;
 { JUKELINUX1_CRIPTASIMPLES$ANSISTRING$$ANSISTRING }
 function Criptasimples(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2595,13 +2599,15 @@ end;
 { JUKELINUX1_CRIPTASUPER2$ANSISTRING$$ANSISTRING }
 function Criptasuper2(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2614,7 +2620,7 @@ begin
     end;
     local_8 := local_14;
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2633,9 +2639,9 @@ end;
 { JUKELINUX1_CRIPTASUPER$ANSISTRING$$ANSISTRING }
 function Criptasuper(P1: AnsiString): AnsiString;
 var
-  local_20: AnsiString;
-  iVar2, local_10, local_14, local_18, local_1c, local_8, local_c: LongInt;
-  local_4c: Variant;
+  local_20, local_8, local_c: AnsiString;
+  iVar2, local_10, local_14: LongInt;
+  local_18, local_1c, local_4c: Variant;
 begin
   local_c := Result;
   local_8 := P1;
@@ -2658,7 +2664,7 @@ begin
       until not (local_14 < iVar2);
     end;
     iVar2 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar2 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_14 := 1;
@@ -2676,13 +2682,15 @@ end;
 { JUKELINUX1_CRIPTA$ANSISTRING$$ANSISTRING }
 function Cripta(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2817,13 +2825,15 @@ end;
 { JUKELINUX1_DESCRIPTASIMPLESQR$ANSISTRING$$ANSISTRING }
 function Descriptasimplesqr(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2842,13 +2852,15 @@ end;
 { JUKELINUX1_DESCRIPTASIMPLES$ANSISTRING$$ANSISTRING }
 function Descriptasimples(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2867,13 +2879,15 @@ end;
 { JUKELINUX1_DESCRIPTASUPER2$ANSISTRING$$ANSISTRING }
 function Descriptasuper2(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2886,7 +2900,7 @@ begin
     end;
     local_8 := local_14;
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2905,20 +2919,21 @@ end;
 { JUKELINUX1_DESCRIPTASUPER$ANSISTRING$$ANSISTRING }
 function Descriptasuper(P1: AnsiString): AnsiString;
 var
-  iVar4, local_10, local_14, local_c, uVar3: LongInt;
-  local_40, local_8: Variant;
+  local_8, local_c: AnsiString;
+  iVar4, local_10, uVar3: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     // C: uVar3 = 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: uVar3 = *(undefined4 * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_40 := Copy(local_8, 6, uVar3);
     local_8 := local_40;
     iVar4 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar4 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -2937,13 +2952,15 @@ end;
 { JUKELINUX1_DESCRIPTA$ANSISTRING$$ANSISTRING }
 function Descripta(P1: AnsiString): AnsiString;
 var
-  iVar3, local_10, local_14, local_40, local_8, local_c: LongInt;
+  local_8, local_c: AnsiString;
+  iVar3, local_10: LongInt;
+  local_14, local_40: Variant;
 begin
   local_c := Result;
   local_8 := P1;
   begin
     iVar3 := 0;
-    if local_8 <> 0 then begin
+    if local_8 <> '' then begin
       // C: iVar3 = *(int * )(U_JUKELINUX1_FORM1 + -4);
     end;
     local_10 := 1;
@@ -3177,8 +3194,8 @@ procedure Excluicdpelalista;
 var
   local_10e0, local_10e4, local_10e8, local_10f4, local_10f8, local_fe0, local_fe8, local_ff0: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, local_10f0, local_7d4, local_7d8, local_7dc, local_fac, local_fb0, local_fb4: LongInt;
-  local_10ec, local_fe4, local_fec: Variant;
+  iVar1, iVar4, local_7d4, local_7d8, local_7dc, local_fac, local_fb0, local_fb4: LongInt;
+  local_10ec, local_10f0, local_fe4, local_fec: Variant;
 begin
   begin
     local_fe0 := NOMEPASTACDNOVOLISTA + 'listadeexclusao.txt';
@@ -3330,8 +3347,8 @@ procedure Genero_Mais_Tocados;
 var
   local_13c, local_3c, local_48, local_4c: AnsiString;
   cVar3: Boolean;
-  iVar1, iVar2, iVar5, local_10, local_140, local_44, local_8, local_c: LongInt;
-  local_40: Variant;
+  iVar1, iVar2, iVar5, local_10, local_8, local_c: LongInt;
+  local_140, local_40, local_44: Variant;
 begin
   begin
     local_3c := PASTA + 'tocados.txt';
@@ -3422,10 +3439,10 @@ end;
 { JUKELINUX1_GRAVACREDITONOCARTAO$ANSISTRING$LONGINT }
 procedure Gravacreditonocartao(P1: AnsiString; P2: LongInt);
 var
-  local_10, local_150, local_154, local_158, local_168, local_20, local_258, local_25c, local_28: AnsiString;
+  local_10, local_150, local_154, local_158, local_168, local_20, local_258, local_25c, local_28, local_8: AnsiString;
   cVar1: Boolean;
-  local_14, local_15c, local_164, local_18, local_24, local_8, local_c: LongInt;
-  local_160: Variant;
+  local_14, local_18, local_24, local_c: LongInt;
+  local_15c, local_160, local_164: Variant;
 begin
   local_c := P2;
   local_8 := P1;
@@ -3492,10 +3509,9 @@ end;
 { JUKELINUX1_GRAVALOG$ANSISTRING }
 procedure Gravalog(P1: AnsiString);
 var
-  local_134, local_138, local_13c, local_140, local_144, local_34, local_48: AnsiString;
+  local_134, local_138, local_13c, local_140, local_144, local_34, local_38, local_48, local_8: AnsiString;
   cVar1: Boolean;
-  local_38, local_40, local_8: LongInt;
-  local_3c, local_44: Variant;
+  local_3c, local_40, local_44: Variant;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -3747,8 +3763,7 @@ procedure Inicia_Tela;
 var
   local_30, local_34, local_38, local_44, local_48: AnsiString;
   cVar1: Boolean;
-  local_40: LongInt;
-  local_3c: Variant;
+  local_3c, local_40: Variant;
 begin
   begin
     Gravalog('Inico da Rotina: Inicia_Tela');
@@ -3974,8 +3989,8 @@ procedure Le_Tocados;
 var
   local_13c, local_3c, local_48, local_4c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, iVar5, local_10, local_140, local_44, local_8, local_c: LongInt;
-  local_40: Variant;
+  iVar1, iVar4, iVar5, local_10, local_8, local_c: LongInt;
+  local_140, local_40, local_44: Variant;
 begin
   begin
     Form1.LabelListaTocados.Show;
@@ -4297,9 +4312,9 @@ end;
 { JUKELINUX1_MENSAGEMTRAVADAJPG$ANSISTRING$LONGINT$ANSISTRING }
 procedure Mensagemtravadajpg(P1: AnsiString; P2: LongInt; P3: AnsiString);
 var
-  local_10, local_3c: AnsiString;
+  local_10, local_3c, local_8: AnsiString;
   cVar1: Boolean;
-  local_8, local_c: LongInt;
+  local_c: LongInt;
 begin
   local_10 := P3;
   local_c := P2;
@@ -5387,10 +5402,10 @@ end;
 { JUKELINUX1_MOSTRA_CD_EXCLUSAO$LONGINT }
 procedure Mostra_Cd_Exclusao(P1: LongInt);
 var
-  local_38, local_48, local_58, local_5c, local_60, local_64, local_68, local_6c, local_70, local_78, local_88, local_90, local_98, local_a8, local_c0, local_c8: AnsiString;
+  local_38, local_48, local_58, local_5c, local_60, local_64, local_68, local_6c, local_70, local_78, local_88, local_90, local_98, local_a8, local_b0, local_b8, local_c0, local_c8, local_d8: AnsiString;
   cVar3: Boolean;
-  iVar5, local_40, local_74, local_8, local_80, local_8c, local_94, local_9c, local_b0, local_b4, local_b8, local_bc, local_c, local_c4, local_d0, local_d8, local_dc, local_e0, uVar1: LongInt;
-  local_3c, local_44, local_4c, local_50, local_54, local_7c, local_84, local_a0, local_a4, local_ac, local_cc, local_d4: Variant;
+  iVar5, local_8, local_c, local_e0, uVar1: LongInt;
+  local_3c, local_40, local_44, local_4c, local_50, local_54, local_74, local_7c, local_80, local_84, local_8c, local_94, local_9c, local_a0, local_a4, local_ac, local_b4, local_bc, local_c4, local_cc, local_d0, local_d4, local_dc: Variant;
 begin
   local_8 := P1;
   begin
@@ -5795,10 +5810,10 @@ end;
 { JUKELINUX1_MOSTRA_JPG_LETRA$ANSISTRING$$ANSISTRING }
 function Mostra_Jpg_Letra(P1: AnsiString): AnsiString;
 var
-  local_3c, local_48, local_c: AnsiString;
+  local_3c, local_48, local_8, local_c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, local_40, local_8: LongInt;
-  local_44: Variant;
+  iVar1, iVar4: LongInt;
+  local_40, local_44: Variant;
 begin
   local_c := Result;
   local_8 := P1;
@@ -5833,10 +5848,10 @@ end;
 { JUKELINUX1_MOSTRA_JPG_RITMO$ANSISTRING$$ANSISTRING }
 function Mostra_Jpg_Ritmo(P1: AnsiString): AnsiString;
 var
-  local_3c, local_48, local_c: AnsiString;
+  local_3c, local_48, local_8, local_c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, local_40, local_8: LongInt;
-  local_44: Variant;
+  iVar1, iVar4: LongInt;
+  local_40, local_44: Variant;
 begin
   local_c := Result;
   local_8 := P1;
@@ -6198,8 +6213,8 @@ label
 var
   local_30, local_38, local_48, local_4c, local_50, local_54, local_58, local_5c, local_68, local_78, local_88, local_8c, local_94: AnsiString;
   cVar1: Boolean;
-  iVar2, local_40, local_64, local_6c, local_74, local_7c, local_80, local_84, local_90: LongInt;
-  local_34, local_3c, local_44, local_60, local_70: Variant;
+  iVar2: LongInt;
+  local_34, local_3c, local_40, local_44, local_60, local_64, local_6c, local_70, local_74, local_7c, local_80, local_84, local_90: Variant;
 begin
   // C: iVar2 = fpc_setjmp();
   if iVar2 <> 0 then begin goto LAB_080ae769; end;
@@ -6874,8 +6889,8 @@ end;
 procedure Rotina_Creditos(P1: AnsiString);
 var
   local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_158, local_244, local_248, local_24c, local_8: AnsiString;
-  iVar3, local_14c, local_154, uVar1: LongInt;
-  local_150: Variant;
+  iVar3, uVar1: LongInt;
+  local_14c, local_150, local_154: Variant;
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -7011,9 +7026,8 @@ end;
 { JUKELINUX1_ROTINA_MENU }
 procedure Rotina_Menu;
 var
-  local_15c, local_30, local_34, local_38, local_40, local_50, local_54, local_5c: AnsiString;
+  local_15c, local_30, local_34, local_38, local_40, local_48, local_50, local_54, local_58, local_5c: AnsiString;
   cVar1: Boolean;
-  local_48, local_58: LongInt;
   local_3c, local_44, local_4c: Variant;
 begin
   begin
@@ -7204,8 +7218,8 @@ end;
 procedure Rotina_Ritmos;
 var
   local_150, local_154, local_158, local_15c, local_160, local_164, local_30, local_34, local_38, local_48, local_4c, local_50, local_58, local_64: AnsiString;
-  iVar3, iVar4, local_40, local_60, uVar1: LongInt;
-  local_3c, local_44, local_54, local_5c: Variant;
+  iVar3, iVar4, uVar1: LongInt;
+  local_3c, local_40, local_44, local_54, local_5c, local_60: Variant;
 begin
   begin
     if ESTANOMENU = 0 then begin
@@ -8033,8 +8047,9 @@ end;
 { JUKELINUX1_STRESPACO$ANSISTRING$LONGINT$$ANSISTRING }
 function Strespaco(P1: AnsiString; P2: LongInt): AnsiString;
 var
-  iVar3, local_10, local_14, local_18, local_1c, local_c: LongInt;
-  local_8: Variant;
+  local_10: AnsiString;
+  iVar3, local_14, local_18, local_c: LongInt;
+  local_1c, local_8: Variant;
 begin
   local_10 := Result;
   local_c := P2;
@@ -8061,8 +8076,9 @@ end;
 { JUKELINUX1_STRZERO$ANSISTRING$LONGINT$$ANSISTRING }
 function Strzero(P1: AnsiString; P2: LongInt): AnsiString;
 var
-  iVar3, local_10, local_14, local_18, local_1c, local_c: LongInt;
-  local_8: Variant;
+  local_10: AnsiString;
+  iVar3, local_14, local_18, local_c: LongInt;
+  local_1c, local_8: Variant;
 begin
   local_10 := Result;
   local_c := P2;
@@ -8924,12 +8940,12 @@ begin
       CloseFile(ARQTOCAR);
     end;
     iVar3 := 0;
-    if local_14 <> 0 then begin
+    if local_14 <> '' then begin
       // C: iVar3 = *(int * )(local_14 + -4);
     end;
     if 0 < iVar3 then begin
       iVar3 := 0;
-      if local_10 <> 0 then begin
+      if local_10 <> '' then begin
         // C: iVar3 = *(int * )(local_10 + -4);
       end;
       if iVar3 = 0 then begin
@@ -8939,7 +8955,7 @@ begin
       end;
     end;
     iVar3 := 0;
-    if local_10 <> 0 then begin
+    if local_10 <> '' then begin
       // C: iVar3 = *(int * )(local_10 + -4);
     end;
     if 0 < iVar3 then begin
@@ -9305,11 +9321,11 @@ procedure TForm1.ButtonAtivarClick(Sender: TObject);
 label
   LAB_080cc102;
 var
-  local_17c, local_180, local_184, local_188, local_18c, local_198, local_20, local_24, local_28, local_28c, local_2c, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_78, local_7c, local_88, local_8c: AnsiString;
-  iVar3, local_10, local_194, local_1c, local_290, local_4c, uVar1: LongInt;
+  local_17c, local_180, local_184, local_188, local_18c, local_198, local_20, local_24, local_28, local_28c, local_2c, local_30, local_34, local_38, local_3c, local_40, local_44, local_48, local_78, local_7c, local_88, local_8c, uVar1: AnsiString;
+  iVar3, local_10, local_1c, local_4c: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_190, local_80, local_84: Variant;
+  local_190, local_194, local_290, local_80, local_84: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -9872,7 +9888,7 @@ begin
         // C: puVar6 = &local_1d4;
         // C: ( **(code ** )( **(int ** )(Form1.ListBoxRCds + 0x364) + 0x78)) (Form1.ListBoxRCds.Items,local_10,local_1d0, puVar6);
         // C: uVar5 = 0;
-        if local_1d0 <> 0 then begin
+        if local_1d0 <> '' then begin
           // C: uVar5 = *(undefined4 * )(local_1d0[0] + -4);
         end;
         local_1d0 := Form1.ListBoxRCds.Items[local_10];
@@ -10177,10 +10193,10 @@ procedure TForm1.ButtonGravarOsDadosClick(Sender: TObject);
 var
   local_4c4, local_4f4, local_4f8, local_508, local_514, local_5f4, local_5f8: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_18, local_4c0, local_4f0, local_500, local_510: LongInt;
+  iVar3, local_10, local_14, local_18, local_4c0, local_4f0: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_4fc, local_504, local_50c: Variant;
+  local_4fc, local_500, local_504, local_50c, local_510: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -10974,19 +10990,19 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONMUSCARREGARCLICK$TOBJECT }
 procedure TForm1.ButtonMusCarregarClick(Sender: TObject);
 var
-  local_1004, local_1008, local_1014, local_1018, local_101c, local_102c, local_111c, local_1128, local_1130, local_1138, local_ff0, local_ff4, local_ff8: AnsiString;
+  local_1004, local_1008, local_1014, local_1018, local_101c, local_1028, local_102c, local_111c, local_1128, local_1130, local_1138, local_ff0, local_ff4, local_ff8: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, iVar6, local_10, local_1000, local_1010, local_1020, local_1028, local_1134, local_14, local_18, local_1c, local_20, local_fc0, local_fc4, local_fd0, uVar7: LongInt;
+  iVar4, iVar5, iVar6, local_10, local_14, local_18, local_1c, local_20, local_fc0, local_fc4, local_fd0, uVar7: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_100c, local_1024, local_1120, local_1124, local_112c, local_ffc: Variant;
+  local_1000, local_100c, local_1010, local_1020, local_1024, local_1120, local_1124, local_112c, local_1134, local_ffc: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
   begin
     // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditCC,local_ff0);
     iVar4 := 0;
-    if local_ff0 <> 0 then begin
+    if local_ff0 <> '' then begin
       // C: iVar4 = *(int * )(local_ff0[0] + -4);
     end;
     if 0 < iVar4 then begin
@@ -11045,7 +11061,7 @@ begin
                 local_1c := local_1c + 1;
                 local_ff8 := Form1.FileListBox1.Items[local_18];
                 iVar5 := 0;
-                if local_ff8 <> 0 then begin
+                if local_ff8 <> '' then begin
                   // C: iVar5 = *(int * )(local_ff8 + -4);
                 end;
                 local_ff8 := Form1.FileListBox1.Items[local_18];
@@ -11080,7 +11096,7 @@ begin
                     local_100c := '/';
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
                     // C: uVar7 = 0;
-                    if local_1018 <> 0 then begin
+                    if local_1018 <> '' then begin
                       // C: uVar7 = *(undefined4 * )(local_1018 + -4);
                     end;
                     // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
@@ -11208,7 +11224,7 @@ begin
                           local_1024 := '/';
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
                           // C: uVar7 = 0;
-                          if local_1018 <> 0 then begin
+                          if local_1018 <> '' then begin
                             // C: uVar7 = *(undefined4 * )(local_1018 + -4);
                           end;
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
@@ -11220,7 +11236,7 @@ begin
                           local_1024 := '/';
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
                           // C: uVar7 = 0;
-                          if local_1018 <> 0 then begin
+                          if local_1018 <> '' then begin
                             // C: uVar7 = *(undefined4 * )(local_1018 + -4);
                           end;
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
@@ -11233,7 +11249,7 @@ begin
                           local_1124 := 'COPIANDO ARQUIVO: ';
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
                           // C: uVar7 = 0;
-                          if local_1018 <> 0 then begin
+                          if local_1018 <> '' then begin
                             // C: uVar7 = *(undefined4 * )(local_1018 + -4);
                           end;
                           // C: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1018);
@@ -11317,9 +11333,8 @@ end;
 { JUKELINUX1_TFORM1_$__BUTTONOKSENHACLICK$TOBJECT }
 procedure TForm1.ButtonOkSenhaClick(Sender: TObject);
 var
-  local_10, local_13c, local_140, local_144, local_148, local_248, local_24c, local_250, local_25c, local_350, local_354, local_3c: AnsiString;
+  local_10, local_13c, local_140, local_144, local_148, local_248, local_24c, local_250, local_258, local_25c, local_350, local_354, local_358, local_3c: AnsiString;
   cVar1: Boolean;
-  local_258, local_358: LongInt;
   local_c: TForm1;
   local_8: TObject;
   local_254: Variant;
@@ -11469,10 +11484,10 @@ procedure TForm1.ButtonQRClick(Sender: TObject);
 var
   local_10, local_14, local_16c, local_170, local_174, local_178, local_18, local_188, local_190, local_1c, local_20, local_24, local_28, local_288, local_290, local_294, local_2c, local_30, local_6c, local_78, local_88, local_8c, uVar4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_180: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_17c, local_184, local_18c, local_28c, local_70, local_74, local_7c, local_80, local_84: Variant;
+  local_17c, local_180, local_184, local_18c, local_28c, local_70, local_74, local_7c, local_80, local_84: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11626,10 +11641,9 @@ procedure TForm1.ButtonQrCodeCadastroMenuClick(Sender: TObject);
 var
   local_10, local_160, local_48, local_58, local_5c, local_60: AnsiString;
   cVar1: Boolean;
-  local_3c, local_44, local_4c, local_54: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40, local_50: Variant;
+  local_3c, local_40, local_44, local_4c, local_50, local_54: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -11807,10 +11821,10 @@ procedure TForm1.ButtonUpgradeClick(Sender: TObject);
 var
   local_1ac, local_1b0, local_1b4, local_1e0, local_1e4, local_1e8, local_1f4, local_1f8, local_1fc, local_200, local_208, local_210: AnsiString;
   cVar2: Boolean;
-  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8, local_1f0, local_204, local_20c, uVar1: LongInt;
+  iVar4, iVar5, local_19c, local_1a0, local_1a4, local_1a8, uVar1: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_1ec: Variant;
+  local_1ec, local_1f0, local_204, local_20c: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12003,10 +12017,10 @@ procedure TForm1.ButtonXMLClick(Sender: TObject);
 var
   local_10, local_150, local_154, local_158, local_48, local_4c, local_50, local_58, local_5c: AnsiString;
   cVar2: Boolean;
-  local_14, local_44, uVar1: LongInt;
+  local_14, uVar1: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40, local_54: Variant;
+  local_40, local_44, local_54: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12208,7 +12222,7 @@ begin
       Write(ARQTEXTO, TEXTO);
       Writeln(ARQTEXTO);
       iVar3 := 0;
-      if local_10 <> 0 then begin
+      if local_10 <> '' then begin
         // C: iVar3 = *(int * )(local_10 + -4);
       end;
       local_18 := 1;
@@ -12319,10 +12333,10 @@ end;
 procedure TForm1.ButtonZRPClick(Sender: TObject);
 var
   local_138, local_13c, local_140, local_158, local_15c, local_38, local_48, local_4c, uVar3: AnsiString;
-  iVar2, local_14c, local_154, local_40: LongInt;
+  iVar2, local_14c: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_150, local_3c, local_44: Variant;
+  local_150, local_154, local_3c, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12701,10 +12715,10 @@ end;
 procedure TForm1.ComboBox10Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12753,10 +12767,10 @@ end;
 procedure TForm1.ComboBox11Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12805,10 +12819,10 @@ end;
 procedure TForm1.ComboBox12Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12855,10 +12869,10 @@ end;
 procedure TForm1.ComboBox13Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12907,10 +12921,10 @@ end;
 procedure TForm1.ComboBox14Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -12959,10 +12973,10 @@ end;
 procedure TForm1.ComboBox15Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13011,10 +13025,10 @@ end;
 procedure TForm1.ComboBox16Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13063,10 +13077,10 @@ end;
 procedure TForm1.ComboBox18Change(Sender: TObject);
 var
   local_13c, local_140, local_144, local_3c, local_48: AnsiString;
-  local_10, local_44: LongInt;
+  local_10: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13104,10 +13118,10 @@ end;
 procedure TForm1.ComboBox19Change(Sender: TObject);
 var
   local_13c, local_140, local_144, local_3c, local_48: AnsiString;
-  local_10, local_44: LongInt;
+  local_10: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13145,10 +13159,10 @@ end;
 procedure TForm1.ComboBox1Change(Sender: TObject);
 var
   local_188, local_38, local_3c, local_48, local_4c, local_58, local_68, local_74, local_78, local_7c, local_80, local_84, local_88, local_94, uVar1: AnsiString;
-  iVar3, local_44, local_50, local_54, local_5c, local_60, local_6c, local_90: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40, local_64, local_70, local_8c: Variant;
+  local_40, local_44, local_50, local_54, local_5c, local_60, local_64, local_6c, local_70, local_8c, local_90: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13287,10 +13301,9 @@ end;
 procedure TForm1.ComboBox20Change(Sender: TObject);
 var
   local_134, local_138, local_38, local_48: AnsiString;
-  local_13c, local_140, local_3c, local_44: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_13c, local_140, local_3c, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13328,10 +13341,10 @@ end;
 procedure TForm1.ComboBox22Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13380,10 +13393,10 @@ end;
 procedure TForm1.ComboBox23Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13432,10 +13445,10 @@ end;
 procedure TForm1.ComboBox2Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13483,10 +13496,10 @@ end;
 procedure TForm1.ComboBox3Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13558,10 +13571,10 @@ end;
 procedure TForm1.ComboBox4Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13615,10 +13628,10 @@ end;
 procedure TForm1.ComboBox5Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13666,10 +13679,10 @@ end;
 procedure TForm1.ComboBox6Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13727,10 +13740,10 @@ end;
 procedure TForm1.ComboBox7Change(Sender: TObject);
 var
   local_13c, local_140, local_144, local_148, local_248, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13808,10 +13821,10 @@ end;
 procedure TForm1.ComboBox8Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_144, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_144, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -13872,10 +13885,10 @@ end;
 procedure TForm1.ComboBox9Change(Sender: TObject);
 var
   local_13c, local_3c, local_48, uVar1: AnsiString;
-  iVar3, local_140, local_38, local_44: LongInt;
+  iVar3, local_38: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_140, local_40, local_44: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14235,9 +14248,9 @@ end;
 procedure TForm1.ComboBoxPorcentoChange(Sender: TObject);
 var
   local_134, local_138, local_38, local_40: AnsiString;
-  local_3c: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_3c: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -14265,9 +14278,9 @@ end;
 procedure TForm1.EditCancelarKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14284,9 +14297,9 @@ end;
 procedure TForm1.EditCDMaisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14303,9 +14316,9 @@ end;
 procedure TForm1.EditCDMenosKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14322,9 +14335,9 @@ end;
 procedure TForm1.EditCredito2KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14341,9 +14354,9 @@ end;
 procedure TForm1.EditCreditoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14360,9 +14373,9 @@ end;
 procedure TForm1.EditCreditoVIPKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14379,9 +14392,9 @@ end;
 procedure TForm1.EditCRMaisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14398,9 +14411,9 @@ end;
 procedure TForm1.EditCRMenosKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14417,9 +14430,9 @@ end;
 procedure TForm1.EditMenuTeclaKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14436,9 +14449,9 @@ end;
 procedure TForm1.EditMusicaMaisKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14455,9 +14468,9 @@ end;
 procedure TForm1.EditMusicaMenosKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14474,9 +14487,9 @@ end;
 procedure TForm1.EditRitmoKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14509,9 +14522,9 @@ end;
 procedure TForm1.EditTocarKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -14529,10 +14542,10 @@ procedure TForm1.FormActivate(Sender: TObject);
 var
   local_104, local_1f4, local_1f8, local_1fc, local_200, local_3c, local_40, local_44, local_48, local_58, local_68, local_6c, local_70, local_74, local_78, local_7c, local_88, local_8c, local_90, local_94, local_98, local_a8, local_ac, local_b0, local_b8, local_c0, local_c4, local_c8, local_d8, local_dc, local_e0, local_e8, local_f0, local_f4, local_f8: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_100, local_60, local_64, local_9c, local_a4, local_b4, local_bc, local_cc, local_d4, local_e4, local_ec: LongInt;
+  iVar3, local_10: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_4c, local_50, local_54, local_5c, local_80, local_84, local_a0, local_d0, local_fc: Variant;
+  local_100, local_4c, local_50, local_54, local_5c, local_60, local_64, local_80, local_84, local_9c, local_a0, local_a4, local_b4, local_bc, local_cc, local_d0, local_d4, local_e4, local_ec, local_fc: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -15068,10 +15081,10 @@ procedure TForm1.FormCreate(Sender: TObject);
 var
   local_208, local_20c, local_2fc, local_300, local_304, local_308, local_318, local_408, local_40c, local_410, local_414, local_418, local_428, local_438, local_440, local_514, local_518, local_51c, local_520, local_528, local_52c, local_620, local_624, local_628, local_630, local_634, local_638, local_63c, local_73c, local_740, local_748, local_74c, local_750, local_754, local_758, local_768, local_858, local_85c, local_860, local_864, local_868, local_e8, local_ec: AnsiString;
   cVar3: Boolean;
-  iVar5, iVar8, local_10, local_100, local_104, local_108, local_10c, local_14, local_18, local_1c, local_1e0, local_204, local_310, local_434, local_43c, local_524, local_62c, local_744, local_75c, local_764, local_e4, local_f0, local_f8, local_fc, uVar2: LongInt;
+  iVar5, iVar8, local_10, local_100, local_104, local_108, local_10c, local_14, local_18, local_1c, local_1e0, local_62c, local_744, local_e4, local_f0, local_f8, local_fc, uVar2: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_200, local_30c, local_314, local_41c, local_420, local_424, local_42c, local_430, local_760, local_f4: Variant;
+  local_200, local_204, local_30c, local_310, local_314, local_41c, local_420, local_424, local_42c, local_430, local_434, local_43c, local_524, local_75c, local_760, local_764, local_f4: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -18411,9 +18424,10 @@ procedure TForm1.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState)
 var
   local_3c: AnsiString;
   cVar1: Boolean;
-  iVar3, local_c: LongInt;
+  iVar3: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   local_10 := Self;
   local_c := Key;
@@ -18692,9 +18706,10 @@ end;
 { JUKELINUX1_TFORM1_$__FORMKEYUP$TOBJECT$WORD$TSHIFTSTATE }
 procedure TForm1.FormKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
 var
-  iVar1, iVar2, local_110, local_210, local_c: LongInt;
+  iVar1, iVar2, local_110, local_210: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: Word;
 begin
   if ALTERANDOFRASES = 0 then begin
     local_10 := Self;
@@ -18866,8 +18881,8 @@ end;
 procedure TForm1.ImageTela1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
+  local_c: TMouseButton;
   local_8: TObject;
 begin
   local_10 := Self;
@@ -18888,8 +18903,8 @@ end;
 procedure TForm1.ImageTela1MouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 var
   local_3c: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
+  local_c: TMouseButton;
   local_8: TObject;
 begin
   local_10 := Self;
@@ -18932,10 +18947,9 @@ end;
 procedure TForm1.LabelEntrarNoMenuClick(Sender: TObject);
 var
   local_38, local_44: AnsiString;
-  local_3c: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_40: Variant;
+  local_3c, local_40: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -19061,7 +19075,7 @@ begin
           // C: piVar6 = &local_14;
           // C: ( **(code ** )( **(int ** )(Form1.ListBoxRCds + 0x364) + 0x78)) (Form1.ListBoxRCds.Items,local_10,local_40,piVar6);
           // C: uVar5 = 0;
-          if local_40 <> 0 then begin
+          if local_40 <> '' then begin
             // C: uVar5 = *(undefined4 * )(local_40[0] + -4);
           end;
           local_40 := Form1.ListBoxRCds.Items[local_10];
@@ -19070,7 +19084,7 @@ begin
       until not (local_10 < iVar3 + -1);
     end;
     iVar3 := TOTALCDS;
-    if local_14 <> 0 then begin
+    if local_14 <> '' then begin
       local_10 := 1;
       if 0 < TOTALCDS then begin
         repeat
@@ -19109,9 +19123,10 @@ procedure TForm1.ListBoxRGenerosClick(Sender: TObject);
 var
   local_14, local_40, local_48, local_50, local_54: AnsiString;
   cVar1: Boolean;
-  iVar3, iVar4, local_10, local_44, local_4c, local_58: LongInt;
+  iVar3, iVar4, local_10, local_58: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_44, local_4c: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -19131,7 +19146,7 @@ begin
         end;
       until not (local_10 < iVar3 + -1);
     end;
-    if local_14 <> 0 then begin
+    if local_14 <> '' then begin
       // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x858) + 0x480))(Form1.ListBoxRCds);
       iVar3 := TOTALCDS;
       local_10 := 1;
@@ -19598,12 +19613,12 @@ end;
 { JUKELINUX1_TFORM1_$__PANELMENU2CLICK$TOBJECT }
 procedure TForm1.PanelMenu2Click(Sender: TObject);
 var
-  local_180, local_184, local_188, local_194, local_198, local_1ac, local_1b0, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_48, local_4c, local_60, local_64, local_70, local_78, local_7c, local_80, local_88, local_94, uVar4: AnsiString;
+  local_180, local_184, local_188, local_194, local_198, local_1a8, local_1ac, local_1b0, local_1b8, local_1bc, local_2b0, local_2b4, local_38, local_40, local_48, local_4c, local_58, local_60, local_64, local_70, local_78, local_7c, local_80, local_88, local_94, uVar4: AnsiString;
   cVar1: Boolean;
-  iVar3, local_190, local_1a0, local_1a8, local_3c, local_54, local_58, local_5c, local_6c, local_90: LongInt;
+  iVar3, local_3c, local_6c: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_18c, local_19c, local_1a4, local_1b4, local_44, local_50, local_74, local_84, local_8c: Variant;
+  local_18c, local_190, local_19c, local_1a0, local_1a4, local_1b4, local_44, local_50, local_54, local_5c, local_74, local_84, local_8c, local_90: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -20024,9 +20039,9 @@ end;
 procedure TForm1.ShellTreeViewCCChange(Sender: TObject; Node: TTreeNode);
 var
   local_3c, local_40: AnsiString;
-  local_c: LongInt;
   local_10: TForm1;
   local_8: TObject;
+  local_c: TTreeNode;
 begin
   local_10 := Self;
   local_c := Node;
@@ -20089,10 +20104,10 @@ procedure TForm1.TimerCadastroTimer(Sender: TObject);
 var
   local_158, local_1c, local_20, local_28, local_58, local_68: AnsiString;
   cVar1: Boolean;
-  iVar3, local_10, local_14, local_24, local_2c, local_5c, local_64: LongInt;
+  iVar3, local_10, local_14, local_2c: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_60: Variant;
+  local_24, local_5c, local_60, local_64: Variant;
 begin
   local_c := Self;
   local_8 := Sender;
@@ -21774,9 +21789,9 @@ end;
 { JUKELINUX1_TFORM1_$__TIMERTOCARTIMER$TOBJECT }
 procedure TForm1.TimerTocarTimer(Sender: TObject);
 var
-  local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_254, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
+  local_134, local_138, local_13c, local_23c, local_240, local_244, local_248, local_24c, local_250, local_254, local_258, local_25c, local_260, local_264, local_268, local_368, local_36c: AnsiString;
   cVar2: Boolean;
-  iVar1, iVar4, iVar6, iVar9, local_250, local_258, uVar7: LongInt;
+  iVar1, iVar4, iVar6, iVar9, uVar7: LongInt;
   local_c: TForm1;
   local_8: TObject;
 begin

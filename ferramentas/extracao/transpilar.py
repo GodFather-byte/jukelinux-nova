@@ -13,6 +13,7 @@ import sys
 
 nomes_juke = []
 textos, locais, globais, rotulos = [], set(), set(), set()
+texto_certo = set()  # locais que com certeza são texto (destino e pedaços de concatenação)
 
 
 def carregar_nomes(funcoes_txt):
@@ -267,6 +268,7 @@ def chamada(c, valor=False):
     if g == 'fpc_pchar_to_ansistr' and len(a) == 2 and ae[1] and re.fullmatch(r'puVar\d+', a[0]):
         return None
     if g == 'fpc_ansistr_concat' and len(a) == 3 and None not in ae:
+        texto_certo.update(ae)
         return f'{ae[0]} := {ae[1]} + {ae[2]};'
     if g == 'fpc_ansistr_concat_multi' and len(a) == 3 and ae[0]:
         m2 = re.fullmatch(r'&?local_([0-9a-f]+)', a[1])
@@ -274,6 +276,7 @@ def chamada(c, valor=False):
             base = int(m2.group(1), 16)
             partes = [f'local_{base - 4 * i:x}' for i in range(int(a[2]) + 1)]
             locais.update(partes)
+            texto_certo.update(partes + [ae[0]])
             return f'{ae[0]} := {" + ".join(partes)};'
     if g == 'GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING' and len(a) == 2 and None not in ae:
         return f'{ae[0]}.LoadFromFile({ae[1]});'
@@ -377,7 +380,7 @@ def cond_ou_falso(c):
 
 def traduzir(src):
     """Traduz uma função C; devolve (linhas Pascal do corpo, locais usadas, globais usadas)."""
-    textos.clear(); locais.clear(); globais.clear(); rotulos.clear()
+    textos.clear(); locais.clear(); globais.clear(); rotulos.clear(); texto_certo.clear()
 
     # --- preparo: corpo, textos protegidos, moldura de exceção, comparações ---------------------------------------
     corpo = src[src.index('{', src.index(')')) + 1:src.rindex('}')]
