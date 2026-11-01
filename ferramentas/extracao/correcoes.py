@@ -15,6 +15,18 @@ CORRECOES = [
      'iVar4 é o mesmo registrador usado como número no resto da rotina; aqui só guarda o texto lido da lista'),
     ('Carregando_Cds', '                              if uStack_478e90 = iVar4 then begin',
      '                              if uStack_478e90 = iStack_478d8c then begin', 'idem'),
+    # Nova: modo sem pendrive da própria original (SEMPENDRIVE, das versões "3MJ" e "ROB"): não lê nem grava
+    # contadores e créditos no pendrive.
+    ('TForm1.FormCreate', "    SEMPENDRIVE := 0;\n    SEMQRCODE := 0;",
+     "    SEMPENDRIVE := 1;  // Nova: sem pendrive-chave (modo das versões 3MJ/ROB da original)\n    SEMQRCODE := 0;",
+     'a Nova não depende do pendrive-chave (decisão do dono)'),
+    ('TForm1.FormCreate', "    if cVar3 then begin\n      SEMPENDRIVE := 0;\n    end;\n    NOMEARQ := PASTA + 'log.txt';",
+     "    NOMEARQ := PASTA + 'log.txt';",
+     'horasligada.txt religava a trava do pendrive na original; na Nova o modo sem pendrive é fixo'),
+    # Sem pendrive não há relógios do pendrive para sincronizar: os do HD mandam.
+    ('TForm1.FormActivate', "      OPC := 2;\n",
+     "      OPC := 2;\n      if SEMPENDRIVE <> 0 then OPC := 1;  // Nova: sem pendrive, os relógios do HD mandam\n",
+     'a sincronização com o pendrive zerava os relógios da jukebox quando o pendrive não respondia'),
     # Nova: sem pendrive, os seriais da chave antiga vêm do HD (serial-da-chave.txt), antes da primeira
     # configuração que os confere.
     ('TForm1.FormCreate', "      NOMEARQ := PASTA + 'bloquearquandotocar.txt';",

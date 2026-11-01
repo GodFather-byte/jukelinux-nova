@@ -457,6 +457,17 @@ def traduzir(src):
     # "X = y; i = fpc_ansistr_compare_equal(Z);" -> "... compare_equal(X,Z)"
     corpo = re.sub(r'(\b[\w.]+) = ([\w.]+); (\w+) = fpc_ansistr_compare_equal\(([\w.]+)\);',
                    r'\1 = \2; \3 = fpc_ansistr_compare_equal(\1,\4);', corpo)
+    # Comparações de texto encadeadas com o operador vírgula: (i = compara(a,b), i == 0) -> (STREQ(a,b))
+    CMP = r'(?:fpc_ansistr_compare_equal|FPC_SHORTSTR_COMPARE_EQUAL|fpc_shortstr_compare_equal) ?\(([^()]*)\)'
+    corpo = re.sub(r'\((\w+) = ' + CMP + r', \1 (==|!=) 0\)',
+                   lambda m: f'({"STREQ" if m.group(3) == "==" else "STRNE"}({m.group(2)}))', corpo)
+    # "i = compara(a,b); if (... (i == 0) ...) {": a primeira comparação do if é essa
+    def junta(m):
+        cond = m.group(3)
+        cond = re.sub(r'\b' + m.group(1) + r' == 0\b', f'STREQ({m.group(2)})', cond, count=1)
+        cond = re.sub(r'\b' + m.group(1) + r' != 0\b', f'STRNE({m.group(2)})', cond, count=1)
+        return cond
+    corpo = re.sub(r'(\w+) = ' + CMP + r'; (if \([^;{]*?\) \{)', junta, corpo)
     # iVar = fpc_ansistr_compare_equal(a,b); if (iVar == 0)  ->  if (STREQ(a,b))
     corpo = re.sub(r'(\w+) = (?:fpc_ansistr_compare_equal|FPC_SHORTSTR_COMPARE_EQUAL|fpc_shortstr_compare_equal)'
                    r'\(([^;]+)\);(?: uVar\d+ = [^;]+;)? if \(\1 (==|!=) 0\)',
