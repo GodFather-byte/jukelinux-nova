@@ -135,7 +135,7 @@ true false self form1 sender key shift button x y closeaction node alnone altop 
 '''.split())
 RTL_NOMES = {n.lower() for n, _ in transpilar.RTL.values()} | {
     'read', 'write', 'writeln', 'readln', 'copy', 'length', 'inttostr', 'chr', 'ord', 'screen', 'mouse', 'application',
-    'assignfile', 'closefile', 'reset', 'rewrite', 'append', 'flush', 'eof', 'tprocess', 'tstringlist', 'ord'}
+    'assignfile', 'closefile', 'reset', 'rewrite', 'append', 'flush', 'eof', 'tprocess', 'tstringlist', 'ord', 'serial_da_chave_no_hd'}
 
 
 def higienizar(linhas, conhecidos):
@@ -231,6 +231,11 @@ for arq in sorted(os.listdir(pasta_c)):
                 k = len(tps) + 1
                 src = re.sub(r'\*param_' + str(k) + r'\b', 'Result', src)
                 src = re.sub(r'\bparam_' + str(k) + r'\b', 'Result', src)
+                # o resultado é gravado por um ponteiro: local_c = Result; p = local_c; *p = valor
+                mr = re.search(r'^\s*(local_\w+) = Result;', src, re.M)
+                if mr:
+                    for pv in [mr.group(1)] + re.findall(r'(\w+) = ' + mr.group(1) + r';', src):
+                        src = re.sub(r'\*' + pv + r'\b', 'Result', src)
             cab = f'function {nome}{args}: {tr};'
         else:
             cab = f'procedure {nome}{args};'

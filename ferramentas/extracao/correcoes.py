@@ -15,6 +15,12 @@ CORRECOES = [
      'iVar4 é o mesmo registrador usado como número no resto da rotina; aqui só guarda o texto lido da lista'),
     ('Carregando_Cds', '                              if uStack_478e90 = iVar4 then begin',
      '                              if uStack_478e90 = iStack_478d8c then begin', 'idem'),
+    # Nova: sem pendrive, os seriais da chave antiga vêm do HD (serial-da-chave.txt), antes da primeira
+    # configuração que os confere.
+    ('TForm1.FormCreate', "      NOMEARQ := PASTA + 'bloquearquandotocar.txt';",
+     "      if ERROSERIALNUM <> 0 then Serial_Da_Chave_No_Hd;  // Nova: serial da chave antiga guardado no HD\n"
+     "      NOMEARQ := PASTA + 'bloquearquandotocar.txt';",
+     'a Nova não depende do pendrive-chave (decisão do dono); ver nova.inc'),
     # PROVISÓRIO até a licença nova (fase 6): a trava do pendrive-chave original sai, e a leitura do serial do
     # pendrive (em /dev/disk/by-id) não foi traduzida. Sem isto a Nova para na tela "Erro 13".
     ('TForm1.FormActivate', '''      if ERROSERIALNUM = 0 then begin

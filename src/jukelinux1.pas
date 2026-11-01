@@ -41,7 +41,11 @@ uses
 
 {$I globais.inc}
 
+{$I nova_decl.inc}
+
 {$I jukelinux1_rotinas.inc}
+
+{$I nova.inc}
 
 {$I jukelinux1_eventos.inc}
 

@@ -58,10 +58,11 @@ for nome in sorted(os.listdir(entrada)):
     src = open(os.path.join(entrada, nome), encoding='utf-8', errors='replace').read()
     novo, n = RE.subn(troca, src)
     # Nos métodos do TForm1 o Ghidra guarda o Self (param_1) numa local: trata essa local como o Form1.
-    m = re.search(r'^\s*(local_\w+) = param_1;', novo, re.M)
-    selfs = [m.group(1)] if m else []
+    # Só nos métodos: nas rotinas soltas, param_1 é o primeiro parâmetro (um texto, por exemplo), não o Form1.
+    selfs = []
     if '_TFORM1_' in nome:
-        selfs.append('param_1')
+        m = re.search(r'^\s*(local_\w+) = param_1;', novo, re.M)
+        selfs = ([m.group(1)] if m else []) + ['param_1']
     for s in selfs:
         novo = re.sub(r'(\*\*?\(\w+ \*\*?\)\()' + s + r' \+', r'\1U_JUKELINUX1_FORM1 +', novo)
     novo, n2 = RE_CAMPO.subn(campo, novo)

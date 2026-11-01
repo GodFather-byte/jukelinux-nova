@@ -194,6 +194,9 @@ def expr(e):
     e = re.sub(r'\(\(int\)\((\w+(?:\.\w+\?)?) \+ \(\1 >> 0x1f & 3U\)\) >> 2\)', r'(\1 div 4)', e)
     e = re.sub(r'\b(local_\w+)\[0\]', r'\1', e)
     e = re.sub(r'@DT_(\w+?)_(\w+)', lambda m: f'{m.group(1).title()}ToStr({m.group(2).title()})', e)
+    # Letra e tamanho de texto lidos direto da memória: *(byte *)(s + -1 + i) é s[i]; *(int *)(s + -4) é Length(s).
+    e = re.sub(r'(?:\(uint\))?\*\(byte \*\)\((\w+) \+ -1 \+ (\w+)\)', r'@ORD(\1,\2)', e)
+    e = re.sub(r'\*\(int \*\)\((\w+) \+ -4\)', r'@LEN(\1)', e)
     for k, v in GLOBAIS_RTL.items():
         e = e.replace(k, v)
     e = re.sub(r'\bU_JUKELINUX1_(\w+)', lambda m: globais.add(m.group(1)) or m.group(1), e)
@@ -220,6 +223,8 @@ def expr(e):
     if re.search(r'\*\(|>>|<<|\(int\)|\(uint\)|\(char\)|code|extraout|CONCAT|undefined|&|\b[A-Z]+\d*_\w+ ?\(|\bfpc_|'
                  r'\b_\d_\d_|param_|\bFPC_|\(\w+ \*+\)|\bp\w*Var\d+\b|\bDAT_|\ba\w*Stack_|\bpu\w*Stack_', e):
         return None
+    e = re.sub(r'@ORD\((\w+),(\w+)\)', r'Ord(\1[\2])', e)
+    e = re.sub(r'@LEN\((\w+)\)', r'Length(\1)', e)
     return e
 
 
@@ -281,8 +286,10 @@ def chamada(c, valor=False):
                 v = 'True' if v in ('1', '#1') else 'False'
             return f'{ae[0]}.{nome} := {v};'
         return None
-    if g == 'fpc_char_to_ansistr' and len(a) == 2 and None not in ae:
-        return f'{ae[0]} := {ae[1]};'
+    if g == 'fpc_char_to_ansistr' and len(a) == 2 and None not in ae:  # (letra, &destino)
+        letra = ae[0] if re.fullmatch(r"'.*'|#\d+", ae[0]) else f'Chr({ae[0]})'
+        texto_certo.add(ae[1])
+        return f'{ae[1]} := {letra};'
     if g == 'fpc_ansistr_copy' and len(a) == 4 and None not in ae:
         return f'{ae[3]} := Copy({ae[0]}, {ae[1]}, {ae[2]});'
     if valor:
@@ -365,9 +372,13 @@ def comando(c):
         return f'{expr(m.group(3))} := {m.group(1)}[{expr(m.group(2))}];'
     if re.fullmatch(r'fpc_ansistr_(decr|incr)_ref\(.+\)|fpc_iocheck\(\)|fpc_pushexceptaddr\(.+\)|'
                     r'fpc_popaddrstack\(\)|fpc_reraise\(\)|fpc_initialize\(.+\)|fpc_finalize\(.+\)|return|'
-                    r'(local_\w+|puVar\d+)(\[0\])? = (0|\(\w+ \*\)0x0)|puVar\d+ = &FPC_EMPTYCHAR|local_\w+ = param_\d|'
+                    r'puVar\d+(\[0\])? = (0|\(\w+ \*\)0x0)|puVar\d+ = &FPC_EMPTYCHAR|local_\w+ = param_\d|'
                     r'uVar\d+ = (extraout_EDX\w*|\(uint3\)\(\(uint\)extraout_EDX\w* >> 8\))', c):
         return ''
+    m = re.fullmatch(r'(local_\w+) = \(\w+ \*\)0x0', c)  # texto zerado (ponteiro nil)
+    if m:
+        locais.add(m.group(1)); texto_certo.add(m.group(1))
+        return f"{m.group(1)} := '';"
     r = chamada(c)
     if r:
         return r if r.endswith(';') else r + ';'
@@ -389,7 +400,7 @@ def comando(c):
             return f'{m.group(2)}.Align := {ALIGN.get(int(arg), arg)};'
         if prop in ('Enabled', 'AutoSize', 'Visible') and arg in ('0', '1'):
             return f'{m.group(2)}.{prop} := {"True" if arg == "1" else "False"};'
-    m = re.fullmatch(r'([\w.]+) = (.+)', c)
+    m = re.fullmatch(r'([\w.]+(?:\[0\])?) = (.+)', c)
     if m and not re.fullmatch(r'(uVar|puVar|extraout_)\w*', m.group(1)):
         a, b = expr(m.group(1)), expr(m.group(2))
         if a and b and re.fullmatch(r'[A-Za-z_][\w.]*', a):  # destino tem de ser um nome, não endereço calculado
