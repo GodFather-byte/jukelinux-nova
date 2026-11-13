@@ -32,10 +32,13 @@ type
 var
   Form1: TForm1;
 
+{ Liga o Pix se houver pix.txt na pasta da jukebox (rotina da Nova, em nova.inc). Chamar depois de criar o Form1. }
+procedure Nova_Inicia_Pix;
+
 implementation
 
 uses
-  Types, Process, FileUtil, Variants;
+  Types, Process, FileUtil, Variants, Pix, PixTela;
 
 {$R *.lfm}
 
