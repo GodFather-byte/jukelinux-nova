@@ -1,0 +1,46 @@
+# Pix na JukeLinux Nova. Copie para /home/jkb/jukelinux/pix.txt e preencha com os dados do seu PSP.
+# Sem este arquivo (ou com ativo = nao) a jukebox funciona como antes, sem o botão PIX.
+# Proteja o arquivo: ele tem o segredo da API.   chmod 600 /home/jkb/jukelinux/pix.txt
+#
+# PSP é o banco ou instituição de pagamento que oferece a "API Pix" do Banco Central (cobrança imediata, /cob).
+# O PSP entrega: endereços da API e do token, client_id, client_secret e, quase sempre, um certificado de cliente.
+
+ativo = sim
+
+# Endereço base da API Pix (termina antes de /cob) e do token OAuth2. Os dois vêm na documentação do PSP.
+url_api = https://api.seu-psp.com.br/api/v2
+url_token = https://api.seu-psp.com.br/oauth/token
+# Alguns PSPs pedem o pedido de token em JSON em vez de formulário: token_json = sim
+token_json = nao
+
+client_id = COLE_AQUI
+client_secret = COLE_AQUI
+# Escopos pedidos no token (o padrão da API Pix):
+escopo = cob.write cob.read
+
+# Certificado de cliente (mTLS) em PEM, como o PSP entregar. Se vier .p12/.pfx, converta:
+#   openssl pkcs12 -in certificado.p12 -out cliente.pem -clcerts -nokeys
+#   openssl pkcs12 -in certificado.p12 -out cliente.key -nocerts -nodes
+certificado = /home/jkb/jukelinux/pix/cliente.pem
+chave_privada = /home/jkb/jukelinux/pix/cliente.key
+# Só se o PSP mandar uma cadeia própria; vazio usa os certificados do sistema.
+ca =
+
+# Chave Pix que recebe (e-mail, telefone, CNPJ/CPF ou aleatória), cadastrada na conta deste PSP.
+chave = pix@seubar.com.br
+
+# Valores em reais oferecidos na tela. Cada real vira um pulso de crédito, como uma cédula no noteiro:
+# a regra de reais x músicas é a mesma configurada no menu (reaisxmusicas).
+valores = 2, 5, 10, 20
+
+# Validade do QR Code em segundos (60 a 3600).
+expiracao = 300
+
+# Texto que aparece no app do banco de quem paga.
+descricao = JukeLinux - creditos de musica
+
+# Posição do botão PIX na tela principal: x, y, largura, altura. Sem esta linha, fica no canto inferior direito.
+# botao = 10, 20, 130, 70
+
+# Código da tecla que também abre o Pix (0 = nenhuma).
+tecla = 0

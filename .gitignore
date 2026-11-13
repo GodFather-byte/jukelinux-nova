@@ -8,3 +8,7 @@ backup/
 *.lps
 /jukelinux
 /jukelinux.exe
+__pycache__/
+
+# Testes
+/testes/pix/teste_pix

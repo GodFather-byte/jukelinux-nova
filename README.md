@@ -20,6 +20,23 @@ lazbuild --widgetset=gtk2 jukelinux.lpi
 
 A CI (GitHub Actions → **Build**) compila a cada push e publica o executável em *Artifacts*.
 
+## Pix
+
+A Nova aceita Pix (a original não tinha). Com `pix.txt` na pasta da jukebox, aparece um botão **PIX** na tela
+principal: o cliente escolhe o valor, aponta o celular para o QR Code e, quando o banco confirma, os créditos entram
+como se fosse uma cédula no noteiro (`Rotina_Creditos('Normal')` uma vez por real, com a mesma regra de reais x
+músicas, relógios e `creditos.txt`).
+
+- Usa a **API Pix padrão do Banco Central** (cobrança imediata `/cob`, OAuth2 e certificado de cliente), a mesma em
+  todos os PSPs que a oferecem. É preciso conta num PSP com essa API (em geral PJ); não achei API pública de
+  cobrança no Nubank (vale confirmar com o banco). Modelo e explicação de cada campo: `instalacao/pix.txt.exemplo`.
+- As chamadas HTTPS vão pelo `curl` (que confere o certificado e o nome do servidor do PSP).
+- O botão some quando a original mostra bloqueio, menu, erro ou ativação.
+- Cobranças em aberto ficam em `pix-pendentes.txt`; um pagamento feito com a tela fechada, durante uma queda de
+  rede ou com a máquina reiniciando ainda vira crédito. As pagas ficam em `pix-creditados.txt` e nunca são
+  creditadas duas vezes. Tudo vai para o `log.txt` com o prefixo `Pix:`.
+- Teste contra um PSP simulado (HTTPS com certificado de cliente): `testes/pix/rodar.sh`.
+
 ## Fases
 
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
