@@ -57,3 +57,58 @@ begin
   ERROSERIAL := '';
   Gravalog('Serial da chave lido do HD: ' + Hardware + ' / ' + Contadores);
 end;
+
+{ ---------------------------------------------------------------------------------------------------------------
+  Pix (pixtela.pas e pix.pas). Liga a tela do Pix às rotinas da original. Fica desligado se não houver pix.txt na
+  pasta da jukebox; o modelo do arquivo está em instalacao/pix.txt.exemplo. }
+
+type
+  TNovaPix = class
+    procedure Creditar(Reais: Integer);
+    procedure Registrar(const Texto: string);
+  end;
+
+var
+  NovaPix: TNovaPix = nil;
+
+procedure TNovaPix.Creditar(Reais: Integer);
+var
+  i, Antes: LongInt;
+begin
+  { Um Pix de R$ N vale N pulsos de R$ 1 do noteiro: a própria Rotina_Creditos soma os créditos, grava o
+    creditos.txt e os relógios e aplica o bônus de cédula do modo REAISXMUSICAS, como faria com dinheiro. }
+  Antes := CREDITOS;
+  for i := 1 to Reais do
+    Rotina_Creditos('Normal');
+  Gravalog('Pix: R$ ' + IntToStr(Reais) + ' viraram créditos (' + IntToStr(Antes) + ' -> ' + IntToStr(CREDITOS) +
+    ')');
+  if CREDITOS = Antes then
+    Gravalog('Pix: ATENÇÃO, nenhum crédito somado (menu aberto ou REAISXMUSICAS desconhecido: ' + REAISXMUSICAS +
+      '); conferir pix-creditados.txt');
+end;
+
+procedure TNovaPix.Registrar(const Texto: string);
+begin
+  Gravalog('Pix: ' + Texto);
+end;
+
+procedure Nova_Inicia_Pix;
+var
+  Config: TPixConfig;
+  Erro, Pasta: string;
+begin
+  Pasta := PASTA;
+  if Pasta = '' then
+    Pasta := PASTA_JUKELINUX;
+  if not FileExists(Pasta + 'pix.txt') then
+    Exit;
+  if not LeConfigPix(Pasta + 'pix.txt', Config, Erro) then
+  begin
+    Gravalog('Pix desligado: ' + Erro);
+    Exit;
+  end;
+  if not Config.Ativo then
+    Exit;
+  NovaPix := TNovaPix.Create;
+  TTelaPix.Cria(Form1, Config, Pasta, @NovaPix.Creditar, @NovaPix.Registrar);
+end;

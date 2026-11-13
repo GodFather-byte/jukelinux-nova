@@ -43,5 +43,6 @@ begin
   Application.Title := 'JukeLinux';
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);
+  Nova_Inicia_Pix;
   Application.Run;
 end.
