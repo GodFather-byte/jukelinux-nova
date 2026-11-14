@@ -55,4 +55,7 @@ músicas, relógios e `creditos.txt`).
 - `referencia/descompilado/`: as funções descompiladas pelo Ghidra 12.2 (C aproximado, um arquivo por função).
   Ainda faltam os argumentos das chamadas em convenção *register* do FPC (comparações de texto), e o
   `FORMCREATE` precisa de nova rodada com mais tempo.
-- `ferramentas/extracao/`: os scripts que geraram tudo isso a partir do binário `jukelinux`.
+- `ferramentas/extracao/`: os scripts que geraram tudo isso a partir do binário `jukelinux`. O último passo,
+  `completar.py`, converte no Pascal gerado o que o tradutor deixou como `if False { C: ... }` e `// C:` quando
+  todos os nomes têm tipo conhecido (teclas, chamadas do player, textos); roda sozinho com
+  `python3 ferramentas/extracao/completar.py src/globais.inc src/jukelinux1_rotinas.inc`.

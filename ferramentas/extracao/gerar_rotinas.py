@@ -339,6 +339,12 @@ for rot, velho, novo, _motivo in CORRECOES:
         raise SystemExit(f'correção não se aplica em {rot}: {velho!r}')
     lista[alvo_i[0]] = lista[alvo_i[0]].replace(velho, novo)
 
+# Converte o que dá dos "if False { C: ... }" e "// C:" que sobraram (teclas, player, textos): completar.py.
+import completar  # noqa: E402
+_tipos_globais = completar.le_globais(globais_inc)
+rotinas = [completar.completa_rotina(r, _tipos_globais) for r in rotinas]
+metodos = [completar.completa_rotina(r, _tipos_globais) for r in metodos]
+
 with open(os.path.join(pasta_src, 'jukelinux1_rotinas.inc'), 'w', encoding='utf-8', newline='\n') as f:
     f.write('{ Rotinas da JukeLinux original traduzidas do código descompilado por ferramentas/extracao/gerar_rotinas.py.\n'
             '  Linhas "// C:" são comandos que o tradutor não reconheceu e ainda precisam ser escritos à mão.\n'
