@@ -42,7 +42,34 @@ def usos(n):
 # Tipos conferidos à mão no código descompilado (o tamanho do símbolo engana nesses).
 MANUAL = {
     'NOMEMUSICAORIGINALGRANDE': 'AnsiString',  # usada como texto (lê o tamanho em -4); o símbolo tem 160 bytes
+    'MAT': 'array[1..8000] of TIPOCD',  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
 }
+
+# O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
+# usa a mesma tabela (CAMPOS_CD) para traduzir os acessos.
+TIPO_CD = '''type
+  { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
+    deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
+  TIPOCD = record
+    Marca: Byte;                              // 0: zerado ao carregar
+    Pasta: AnsiString;                        // 8: pasta do CD, com a barra no fim
+    Nome: AnsiString;                         // 12: nome mostrado ("ARTISTA - CD"; no modo 50+ tocados leva a posição)
+    Capa: AnsiString;                         // 16: o .jpg da pasta que não é capapequena.jpg
+    CapaPequena: AnsiString;                  // 20: capapequena.jpg
+    Genero: String[30];                       // 24: lido de genero.txt
+    Caminho: array[1..40] of AnsiString;      // 56: pasta + arquivo de cada música
+    Musica: array[1..40] of AnsiString;       // 216: nome de cada música (arquivo sem a extensão)
+    TotalMusicas: LongInt;                    // 376
+    Tipo: String[3];                          // 380: 'CD' (áudio) ou 'DVD' (vídeo)
+    Marca2: Byte;                             // 384: zerado ao carregar
+    Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
+    Marca3: Byte;                             // 556: zerado ao carregar
+    Escolha: String[1];                       // 558: 'S' ou 'N'
+    Marca4: Byte;                             // 560: zerado ao carregar
+    TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
+  end;
+
+'''
 
 
 def tipo(n, tam):
@@ -83,7 +110,7 @@ def tipo(n, tam):
 
 linhas = ['{ Variáveis globais da unit jukelinux1 da original, com o tipo deduzido por ferramentas/extracao/globais.py',
           '  (tamanho do símbolo + uso no código descompilado). Os marcados {revisar} ainda não têm o tipo certo. }',
-          'var']
+          TIPO_CD.rstrip('\n'), 'var']
 for n in sorted(simbolos, key=lambda k: simbolos[k][0]):
     linhas.append(f'  {n}: {tipo(n, simbolos[n][1])};')
 open(sys.argv[3], 'w', encoding='utf-8', newline='\n').write('\n'.join(linhas) + '\n')

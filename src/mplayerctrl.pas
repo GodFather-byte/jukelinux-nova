@@ -34,6 +34,7 @@ type
     procedure SetFileName(const AArquivo: string);
     { Ajusta o volume (0 a 100). Se já estiver tocando, o ajuste vale na hora. }
     procedure SetVolume(AVolume: Integer);
+    procedure SetLoop(ALoop: Integer);
     { Inicia o mplayer com Filename. Se já houver algo tocando, para antes. Se o mplayer não puder ser
       executado, Playing devolve False. }
     procedure Play;
@@ -48,8 +49,10 @@ type
     property Anchors;
     property Visible;
     property Filename: string read FFilename write SetFileName;
-    { -1 desligado, 0 para sempre, n vezes (mesmo significado do parâmetro -loop do mplayer). }
-    property Loop: Integer read FLoop write FLoop;
+    { -1 não repete, 0 para sempre, n vezes. Como no TMPlayerControl original (lazarus-ccr), não vai para a linha
+      de comando: só é enviado ao mplayer (comando "loop") quando muda com ele tocando. O Loop = 0 gravado no
+      formulário é lido antes de tocar e não tem efeito: cada música toca uma vez. }
+    property Loop: Integer read FLoop write SetLoop;
     { Caminho do executável; vazio usa o mplayer do PATH. }
     property MPlayerPath: string read FMPlayerPath write FMPlayerPath;
     { Parâmetros extras separados por espaço, passados ao mplayer antes do arquivo. }
@@ -134,6 +137,15 @@ begin
     EnviaComando('volume ' + IntToStr(FVolume) + ' 1');
 end;
 
+procedure TMPlayerControl.SetLoop(ALoop: Integer);
+begin
+  if FLoop = ALoop then
+    Exit;
+  FLoop := ALoop;
+  if Running then
+    EnviaComando('loop ' + IntToStr(FLoop));
+end;
+
 procedure TMPlayerControl.Play;
 var
   Partes: TStringList;
@@ -154,11 +166,6 @@ begin
   FProcesso.Options := [poUsePipes, poStderrToOutPut];
   FProcesso.Parameters.Add('-slave');
   FProcesso.Parameters.Add('-quiet');
-  if FLoop >= 0 then
-  begin
-    FProcesso.Parameters.Add('-loop');
-    FProcesso.Parameters.Add(IntToStr(FLoop));
-  end;
   FProcesso.Parameters.Add('-volume');
   FProcesso.Parameters.Add(IntToStr(FVolume));
 

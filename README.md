@@ -59,3 +59,7 @@ músicas, relógios e `creditos.txt`).
   `completar.py`, converte no Pascal gerado o que o tradutor deixou como `if False { C: ... }` e `// C:` quando
   todos os nomes têm tipo conhecido (teclas, chamadas do player, textos); roda sozinho com
   `python3 ferramentas/extracao/completar.py src/globais.inc src/jukelinux1_rotinas.inc`.
+- O acervo de CDs da original (`MAT`, 8000 registros de 576 bytes) é o registro `TIPOCD` em `src/globais.inc`, com
+  os campos deduzidos dos acessos no código descompilado (pasta, nome, capas, gênero, as 40 músicas, contadores).
+  Trechos em que o Ghidra perdeu informação demais são reescritos à mão, seguindo o C, em
+  `ferramentas/extracao/correcoes.py` (por exemplo a leitura das pastas dos CDs em `Carregando_Cds`).
