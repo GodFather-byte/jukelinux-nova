@@ -1705,7 +1705,7 @@ begin
         if cVar1 then begin
           local_40 := '';
           local_40 := PASTAPROPAGANDA + 'fundoempresamonitor1024.jpg';
-          Form1.ImageJPG.Picture.LoadFromFile(local_40);
+          Nova_Carrega_Imagem(Form1.ImageJPG.Picture, local_40);
           Form1.ImageJPG.Show;
         end;
       end
@@ -1716,7 +1716,7 @@ begin
         if cVar1 then begin
           local_40 := '';
           local_40 := PASTAPROPAGANDA + 'fundoempresamonitor.jpg';
-          Form1.ImageJPG.Picture.LoadFromFile(local_40);
+          Nova_Carrega_Imagem(Form1.ImageJPG.Picture, local_40);
           Form1.ImageJPG.Show;
         end;
       end;
@@ -1726,7 +1726,7 @@ begin
       if cVar1 then begin
         local_40 := '';
         local_40 := PASTAPROPAGANDA + 'fundoempresatv.jpg';
-        Form1.ImageTV.Picture.LoadFromFile(local_40);
+        Nova_Carrega_Imagem(Form1.ImageTV.Picture, local_40);
         Form1.ImageTV.Show;
       end;
     end
@@ -3446,7 +3446,7 @@ begin
               local_fe8 := NovaVet_7d4[local_7d8 - 1];  // C convertido: local_fe8 = *(undefined ** )(local_7d4 + local_7d8 * 4 + -4);
               local_fe4 := '/capapequena.jpg';
               local_fe0 := local_fec + local_fe8 + local_fe4;
-              Form1.ImageMusR.Picture.LoadFromFile(local_fe0);
+              Nova_Carrega_Imagem(Form1.ImageMusR.Picture, local_fe0);
             end;
             // C: ( **(code ** )( *(int * )Form1.ImageMusR + 0x2fc))(Form1.ImageMusR);
             Form1.LabelMusR.Caption := NovaVet_7d4[local_7d8 - 1];  // C convertido: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.LabelMusR,*(undefined4 * )(local_7d4 + local_7d8 * 4 + -4));
@@ -3465,7 +3465,7 @@ begin
               local_fe8 := NovaVet_7d4[local_7d8 - 1];  // C convertido: local_fe8 = *(undefined ** )(local_7d4 + local_7d8 * 4 + -4);
               local_fe4 := '/capa.jpg';
               local_fe0 := local_fec + local_fe8 + local_fe4;
-              Form1.ImageMusCapa.Picture.LoadFromFile(local_fe0);
+              Nova_Carrega_Imagem(Form1.ImageMusCapa.Picture, local_fe0);
             end;
             // C: ( **(code ** )( *(int * )Form1.ImageMusCapa + 0x2fc))(Form1.ImageMusCapa);
             // C: local_fe0[0] = (undefined * )0x0;
@@ -4564,7 +4564,7 @@ begin
       end;
       local_3c := '';
       local_3c := PASTA + local_8;
-      Form1.Imagemsg.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.Imagemsg.Picture, local_3c);
       Form1.Imagemsg.Left := Form1.Musica1.Left;
       Form1.Imagemsg.Top := Form1.Musica1.Top;
       Form1.Imagemsg.Width := Form1.Musica1.Width;
@@ -4643,7 +4643,7 @@ begin
         Form1.ImageSetaMsg.Height := 100;
         local_3c := '';
         local_3c := Mostra_Jpg_Ritmo(local_10);
-        Form1.CDSelecionadoMsg.Picture.LoadFromFile(local_3c);
+        Nova_Carrega_Imagem(Form1.CDSelecionadoMsg.Picture, local_3c);
         Form1.ImageSetaMsg.Show;
         Form1.ImageSetaMsg.BringToFront;
         Form1.CDSelecionadoMsg.Show;
@@ -4677,7 +4677,7 @@ begin
         Form1.ImageSetaMsg.Height := 100;
         local_3c := '';
         local_3c := Mostra_Jpg_Letra(local_10);
-        Form1.CDSelecionadoMsg.Picture.LoadFromFile(local_3c);
+        Nova_Carrega_Imagem(Form1.CDSelecionadoMsg.Picture, local_3c);
         Form1.ImageSetaMsg.Show;
         Form1.ImageSetaMsg.BringToFront;
         Form1.CDSelecionadoMsg.Show;
@@ -4740,7 +4740,7 @@ begin
       end;
       local_3c := '';
       local_3c := PASTA + local_8;
-      Form1.Imagemsg.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.Imagemsg.Picture, local_3c);
       Form1.Imagemsg.Left := Form1.Musica1.Left;
       Form1.Imagemsg.Top := Form1.Musica1.Top;
       Form1.Imagemsg.Width := Form1.Musica1.Width;
@@ -4864,7 +4864,7 @@ begin
           local_34 := MAT[KMAT].Genero;  // C convertido: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5430; end;
           Form1.CDMenos5.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos5,extraout_EDX & 0xffffff00);
-          Form1.CDMenos5.Picture.LoadFromFile(MAT[KMAT].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMenos5.Picture, MAT[KMAT].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
           Form1.CDMenos5.Show;
           if (MAT[KMAT].Escolha = 'S') { C convertido: STREQ(U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S") } then begin
             Form1.ImgLanMenos5.Show;
@@ -4897,7 +4897,7 @@ begin
           local_34 := MAT[(KMAT + 1)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a5602; end;
           Form1.CDMenos4.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos4,extraout_EDX_00 & 0xffffff00);
-          Form1.CDMenos4.Picture.LoadFromFile(MAT[(KMAT + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMenos4.Picture, MAT[(KMAT + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
           Form1.CDMenos4.Show;
           iVar2 := Ord(MAT[(KMAT + 1)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -4936,7 +4936,7 @@ begin
           local_34 := MAT[(KMAT + 2)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a57e2; end;
           Form1.CDMenos3.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos3,extraout_EDX_01 & 0xffffff00);
-          Form1.CDMenos3.Picture.LoadFromFile(MAT[(KMAT + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMenos3.Picture, MAT[(KMAT + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
           Form1.CDMenos3.Show;
           iVar2 := Ord(MAT[(KMAT + 2)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -4975,7 +4975,7 @@ begin
           local_34 := MAT[(KMAT + 3)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a59c2; end;
           Form1.CDMenos2.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos2,extraout_EDX_02 & 0xffffff00);
-          Form1.CDMenos2.Picture.LoadFromFile(MAT[(KMAT + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMenos2.Picture, MAT[(KMAT + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
           Form1.CDMenos2.Show;
           iVar2 := Ord(MAT[(KMAT + 3)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -5008,7 +5008,7 @@ begin
           local_34 := MAT[(KMAT + 4)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
           if local_34 = TRAVADODENTRODORITMO then begin
             Form1.CDMenos1.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos1,extraout_EDX_03 & 0xffffff00);
-            Form1.CDMenos1.Picture.LoadFromFile(MAT[(KMAT + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos1.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 4) * 0x240 + 0x204));
+            Nova_Carrega_Imagem(Form1.CDMenos1.Picture, MAT[(KMAT + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos1.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 4) * 0x240 + 0x204));
             Form1.CDMenos1.Show;
             iVar2 := Ord(MAT[(KMAT + 4)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S");
             if iVar2 = 0 then begin
@@ -5043,7 +5043,7 @@ begin
         Form1.Img50Menos1.Hide;
       end;
       LAB_080a5bd2: ;
-      Form1.CDSelecionado.Picture.LoadFromFile(MAT[(KMAT + 5)].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
+      Nova_Carrega_Imagem(Form1.CDSelecionado.Picture, MAT[(KMAT + 5)].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
       local_38 := '';
       local_38 := IntToStr(KMAT + 5);
       Form1.NumCD.Caption := local_38;
@@ -5256,7 +5256,7 @@ begin
           local_34 := MAT[(KMAT + 6)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6ae6; end;
           Form1.CDMais1.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais1,extraout_EDX_05 & 0xffffff00);
-          Form1.CDMais1.Picture.LoadFromFile(MAT[(KMAT + 6)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMais1.Picture, MAT[(KMAT + 6)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
           Form1.CDMais1.Show;
           iVar2 := Ord(MAT[(KMAT + 6)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -5295,7 +5295,7 @@ begin
           local_34 := MAT[(KMAT + 7)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6cca; end;
           Form1.CDMais2.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais2,extraout_EDX_06 & 0xffffff00);
-          Form1.CDMais2.Picture.LoadFromFile(MAT[(KMAT + 7)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMais2.Picture, MAT[(KMAT + 7)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
           Form1.CDMais2.Show;
           iVar2 := Ord(MAT[(KMAT + 7)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -5334,7 +5334,7 @@ begin
           local_34 := MAT[(KMAT + 8)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a6eae; end;
           Form1.CDMais3.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais3,extraout_EDX_07 & 0xffffff00);
-          Form1.CDMais3.Picture.LoadFromFile(MAT[(KMAT + 8)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMais3.Picture, MAT[(KMAT + 8)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
           Form1.CDMais3.Show;
           iVar2 := Ord(MAT[(KMAT + 8)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -5373,7 +5373,7 @@ begin
           local_34 := MAT[(KMAT + 9)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
           if local_34 <> TRAVADODENTRODORITMO then begin goto LAB_080a7092; end;
           Form1.CDMais4.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais4,extraout_EDX_08 & 0xffffff00);
-          Form1.CDMais4.Picture.LoadFromFile(MAT[(KMAT + 9)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.CDMais4.Picture, MAT[(KMAT + 9)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
           Form1.CDMais4.Show;
           iVar2 := Ord(MAT[(KMAT + 9)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S");
           if iVar2 = 0 then begin
@@ -5406,7 +5406,7 @@ begin
           local_34 := MAT[(KMAT + 10)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
           if local_34 = TRAVADODENTRODORITMO then begin
             Form1.CDMais5.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais5,extraout_EDX_09 & 0xffffff00);
-            Form1.CDMais5.Picture.LoadFromFile(MAT[(KMAT + 10)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais5.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 10) * 0x240 + 0x204));
+            Nova_Carrega_Imagem(Form1.CDMais5.Picture, MAT[(KMAT + 10)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais5.Picture, *(undefined4 * ) (U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 10) * 0x240 + 0x204));
             Form1.CDMais5.Show;
             iVar2 := Ord(MAT[(KMAT + 10)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S");
             if iVar2 = 0 then begin
@@ -5457,7 +5457,7 @@ begin
     end
     else begin
       Form1.CDMenos5.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos5,extraout_EDX_10 & 0xffffff00);
-      Form1.CDMenos5.Picture.LoadFromFile(MAT[KMAT].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMenos5.Picture, MAT[KMAT].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + U_JUKELINUX1_KMAT * 0x240 + 0x204));
       Form1.CDMenos5.Show;
       iVar2 := Ord(MAT[KMAT].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL(U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5493,7 +5493,7 @@ begin
     end
     else begin
       Form1.CDMenos4.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos4,uVar3 & 0xffffff00);
-      Form1.CDMenos4.Picture.LoadFromFile(MAT[(KMAT + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMenos4.Picture, MAT[(KMAT + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 1) * 0x240 + 0x204));
       Form1.CDMenos4.Show;
       iVar2 := Ord(MAT[(KMAT + 1)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5529,7 +5529,7 @@ begin
     end
     else begin
       Form1.CDMenos3.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos3,uVar3 & 0xffffff00);
-      Form1.CDMenos3.Picture.LoadFromFile(MAT[(KMAT + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMenos3.Picture, MAT[(KMAT + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 2) * 0x240 + 0x204));
       Form1.CDMenos3.Show;
       iVar2 := Ord(MAT[(KMAT + 2)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5565,7 +5565,7 @@ begin
     end
     else begin
       Form1.CDMenos2.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos2,uVar3 & 0xffffff00);
-      Form1.CDMenos2.Picture.LoadFromFile(MAT[(KMAT + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMenos2.Picture, MAT[(KMAT + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 3) * 0x240 + 0x204));
       Form1.CDMenos2.Show;
       iVar2 := Ord(MAT[(KMAT + 3)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5601,7 +5601,7 @@ begin
     end
     else begin
       Form1.CDMenos1.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMenos1,uVar3 & 0xffffff00);
-      Form1.CDMenos1.Picture.LoadFromFile(MAT[(KMAT + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 4) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMenos1.Picture, MAT[(KMAT + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMenos1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 4) * 0x240 + 0x204));
       Form1.CDMenos1.Show;
       iVar2 := Ord(MAT[(KMAT + 4)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5629,7 +5629,7 @@ begin
         Form1.ImgLanMenos1.Hide;
       end;
     end;
-    Form1.CDSelecionado.Picture.LoadFromFile(MAT[(KMAT + 5)].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
+    Nova_Carrega_Imagem(Form1.CDSelecionado.Picture, MAT[(KMAT + 5)].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDSelecionado.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 5) * 0x240 + 0x200));
     local_38 := '';
     local_38 := IntToStr(KMAT + 5);
     Form1.NumCD.Caption := local_38;
@@ -5837,7 +5837,7 @@ begin
     end
     else begin
       Form1.CDMais1.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais1,uVar3 & 0xffffff00);
-      Form1.CDMais1.Picture.LoadFromFile(MAT[(KMAT + 6)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMais1.Picture, MAT[(KMAT + 6)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 6) * 0x240 + 0x204));
       Form1.CDMais1.Show;
       iVar2 := Ord(MAT[(KMAT + 6)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5873,7 +5873,7 @@ begin
     end
     else begin
       Form1.CDMais2.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais2,uVar3 & 0xffffff00);
-      Form1.CDMais2.Picture.LoadFromFile(MAT[(KMAT + 7)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMais2.Picture, MAT[(KMAT + 7)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 7) * 0x240 + 0x204));
       Form1.CDMais2.Show;
       iVar2 := Ord(MAT[(KMAT + 7)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5909,7 +5909,7 @@ begin
     end
     else begin
       Form1.CDMais3.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais3,uVar3 & 0xffffff00);
-      Form1.CDMais3.Picture.LoadFromFile(MAT[(KMAT + 8)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMais3.Picture, MAT[(KMAT + 8)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 8) * 0x240 + 0x204));
       Form1.CDMais3.Show;
       iVar2 := Ord(MAT[(KMAT + 8)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5945,7 +5945,7 @@ begin
     end
     else begin
       Form1.CDMais4.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais4,uVar3 & 0xffffff00);
-      Form1.CDMais4.Picture.LoadFromFile(MAT[(KMAT + 9)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMais4.Picture, MAT[(KMAT + 9)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 9) * 0x240 + 0x204));
       Form1.CDMais4.Show;
       iVar2 := Ord(MAT[(KMAT + 9)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -5981,7 +5981,7 @@ begin
     end
     else begin
       Form1.CDMais5.Stretch := False;  // C convertido: EXTCTRLS_TCUSTOMIMAGE____SETSTRETCH_BOOLEAN (Form1.CDMais5,uVar3 & 0xffffff00);
-      Form1.CDMais5.Picture.LoadFromFile(MAT[(KMAT + 10)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 10) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDMais5.Picture, MAT[(KMAT + 10)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDMais5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (U_JUKELINUX1_KMAT + 10) * 0x240 + 0x204));
       Form1.CDMais5.Show;
       iVar2 := Ord(MAT[(KMAT + 10)].Escolha <> 'S');  // C convertido: iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S");
       if iVar2 = 0 then begin
@@ -6077,7 +6077,7 @@ begin
     else begin
       Form1.ButtonEX1.Show;
       Form1.ComboBoxMG1.Show;
-      Form1.CDE1.Picture.LoadFromFile(MAT[local_8].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE1.Picture, MAT[local_8].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x204));
       Form1.CDE1.Show;
       local_38 := '';
       local_6c := '';
@@ -6128,7 +6128,7 @@ begin
     else begin
       Form1.ButtonEX2.Show;
       Form1.ComboBoxMG2.Show;
-      Form1.CDE2.Picture.LoadFromFile(MAT[(local_8 + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE2.Picture, MAT[(local_8 + 1)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 1) * 0x240 + 0x204));
       Form1.CDE2.Show;
       local_70 := '';
       local_6c := '';
@@ -6179,7 +6179,7 @@ begin
     else begin
       Form1.ButtonEX3.Show;
       Form1.ComboBoxMG3.Show;
-      Form1.CDE3.Picture.LoadFromFile(MAT[(local_8 + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 2) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE3.Picture, MAT[(local_8 + 2)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE3.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 2) * 0x240 + 0x204));
       Form1.CDE3.Show;
       local_70 := '';
       local_90 := '';
@@ -6230,7 +6230,7 @@ begin
     else begin
       Form1.ButtonEX4.Show;
       Form1.ComboBoxMG4.Show;
-      Form1.CDE4.Picture.LoadFromFile(MAT[(local_8 + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 3) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE4.Picture, MAT[(local_8 + 3)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE4.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 3) * 0x240 + 0x204));
       Form1.CDE4.Show;
       local_98 := '';
       local_94 := '';
@@ -6281,7 +6281,7 @@ begin
     else begin
       Form1.ButtonEX5.Show;
       Form1.ComboBoxMG5.Show;
-      Form1.CDE5.Picture.LoadFromFile(MAT[(local_8 + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 4) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE5.Picture, MAT[(local_8 + 4)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE5.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 4) * 0x240 + 0x204));
       Form1.CDE5.Show;
       local_98 := '';
       local_b8 := '';
@@ -6332,7 +6332,7 @@ begin
     else begin
       Form1.ButtonEX6.Show;
       Form1.ComboBoxMG6.Show;
-      Form1.CDE6.Picture.LoadFromFile(MAT[(local_8 + 5)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE6.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 5) * 0x240 + 0x204));
+      Nova_Carrega_Imagem(Form1.CDE6.Picture, MAT[(local_8 + 5)].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.CDE6.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + (local_8 + 5) * 0x240 + 0x204));
       Form1.CDE6.Show;
       local_c0 := '';
       local_bc := '';
@@ -6582,6 +6582,11 @@ begin
         end;
       until not (KLJ < iVar1);
     end;
+    // Nova: sem imagem do letra e sem a imagem padrão, mostra o nome dele (Nova_Carrega_Imagem desenha o
+    // nome de um arquivo que falta).
+    if not FileExists(local_c) then begin
+      local_c := PASTA + 'letras/' + local_8 + '.jpg';
+    end;
   end;
   local_3c := '';
   Result := local_c;  // completar: local_c é o resultado (ponteiro do C)
@@ -6622,6 +6627,11 @@ begin
         end;
       until not (KRJ < iVar1);
     end;
+    // Nova: sem imagem do ritmo e sem a imagem padrão, mostra o nome dele (Nova_Carrega_Imagem desenha o
+    // nome de um arquivo que falta).
+    if not FileExists(local_c) then begin
+      local_c := PASTA + 'ritmos/' + local_8 + '.jpg';
+    end;
   end;
   local_3c := '';
   Result := local_c;  // completar: local_c é o resultado (ponteiro do C)
@@ -6636,7 +6646,7 @@ begin
   begin
     local_30 := '';
     local_30 := Mostra_Jpg_Letra(MMLETRA[NUMLETRASELECIONADA]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA],local_30);
-    Form1.CDSelecionado.Picture.LoadFromFile(local_30);
+    Nova_Carrega_Imagem(Form1.CDSelecionado.Picture, local_30);
     if NUMLETRASELECIONADA + -1 < 1 then begin
       Form1.CDMenos1.Hide;
     end
@@ -6644,7 +6654,7 @@ begin
       Form1.CDMenos1.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + (-1))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + -1],local_30);
-      Form1.CDMenos1.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos1.Picture, local_30);
       Form1.CDMenos1.Show;
     end;
     if NUMLETRASELECIONADA + -2 < 1 then begin
@@ -6654,7 +6664,7 @@ begin
       Form1.CDMenos2.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + (-2))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + -2],local_30);
-      Form1.CDMenos2.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos2.Picture, local_30);
       Form1.CDMenos2.Show;
     end;
     if NUMLETRASELECIONADA + -3 < 1 then begin
@@ -6664,7 +6674,7 @@ begin
       Form1.CDMenos3.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + (-3))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + -3],local_30);
-      Form1.CDMenos3.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos3.Picture, local_30);
       Form1.CDMenos3.Show;
     end;
     if NUMLETRASELECIONADA + -4 < 1 then begin
@@ -6674,7 +6684,7 @@ begin
       Form1.CDMenos4.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + (-4))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + -4],local_30);
-      Form1.CDMenos4.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos4.Picture, local_30);
       Form1.CDMenos4.Show;
     end;
     if NUMLETRASELECIONADA + -5 < 1 then begin
@@ -6684,7 +6694,7 @@ begin
       Form1.CDMenos5.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + (-5))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + -5],local_30);
-      Form1.CDMenos5.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos5.Picture, local_30);
       Form1.CDMenos5.Show;
     end;
     if TOTALMMLETRA < NUMLETRASELECIONADA + 1 then begin
@@ -6694,7 +6704,7 @@ begin
       Form1.CDMais1.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + 1)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + 1],local_30);
-      Form1.CDMais1.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais1.Picture, local_30);
       Form1.CDMais1.Show;
     end;
     if TOTALMMLETRA < NUMLETRASELECIONADA + 2 then begin
@@ -6704,7 +6714,7 @@ begin
       Form1.CDMais2.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + 2)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + 2],local_30);
-      Form1.CDMais2.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais2.Picture, local_30);
       Form1.CDMais2.Show;
     end;
     if TOTALMMLETRA < NUMLETRASELECIONADA + 3 then begin
@@ -6714,7 +6724,7 @@ begin
       Form1.CDMais3.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + 3)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + 3],local_30);
-      Form1.CDMais3.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais3.Picture, local_30);
       Form1.CDMais3.Show;
     end;
     if TOTALMMLETRA < NUMLETRASELECIONADA + 4 then begin
@@ -6724,7 +6734,7 @@ begin
       Form1.CDMais4.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + 4)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + 4],local_30);
-      Form1.CDMais4.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais4.Picture, local_30);
       Form1.CDMais4.Show;
     end;
     if TOTALMMLETRA < NUMLETRASELECIONADA + 5 then begin
@@ -6734,7 +6744,7 @@ begin
       Form1.CDMais5.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Letra(MMLETRA[(NUMLETRASELECIONADA + 5)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_LETRA_ANSISTRING__ANSISTRING ((&U_JUKELINUX1_CDSELEAPAGARX)[U_JUKELINUX1_NUMLETRASELECIONADA + 5],local_30);
-      Form1.CDMais5.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais5.Picture, local_30);
       Form1.CDMais5.Show;
     end;
   end;
@@ -6856,7 +6866,7 @@ begin
   begin
     local_30 := '';
     local_30 := Mostra_Jpg_Ritmo(MMRITMO[NUMRITMOSELECIONADO]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + U_JUKELINUX1_NUMRITMOSELECIONADO * 4),local_30);
-    Form1.CDSelecionado.Picture.LoadFromFile(local_30);
+    Nova_Carrega_Imagem(Form1.CDSelecionado.Picture, local_30);
     if NUMRITMOSELECIONADO + -1 < 1 then begin
       Form1.CDMenos1.Hide;
     end
@@ -6864,7 +6874,7 @@ begin
       Form1.CDMenos1.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + (-1))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + -1) * 4), local_30);
-      Form1.CDMenos1.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos1.Picture, local_30);
       Form1.CDMenos1.Show;
     end;
     if NUMRITMOSELECIONADO + -2 < 1 then begin
@@ -6874,7 +6884,7 @@ begin
       Form1.CDMenos2.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + (-2))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + -2) * 4), local_30);
-      Form1.CDMenos2.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos2.Picture, local_30);
       Form1.CDMenos2.Show;
     end;
     if NUMRITMOSELECIONADO + -3 < 1 then begin
@@ -6884,7 +6894,7 @@ begin
       Form1.CDMenos3.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + (-3))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + -3) * 4), local_30);
-      Form1.CDMenos3.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos3.Picture, local_30);
       Form1.CDMenos3.Show;
     end;
     if NUMRITMOSELECIONADO + -4 < 1 then begin
@@ -6894,7 +6904,7 @@ begin
       Form1.CDMenos4.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + (-4))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + -4) * 4), local_30);
-      Form1.CDMenos4.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos4.Picture, local_30);
       Form1.CDMenos4.Show;
     end;
     if NUMRITMOSELECIONADO + -5 < 1 then begin
@@ -6904,7 +6914,7 @@ begin
       Form1.CDMenos5.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + (-5))]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + -5) * 4), local_30);
-      Form1.CDMenos5.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMenos5.Picture, local_30);
       Form1.CDMenos5.Show;
     end;
     if TOTALMMRITMO < NUMRITMOSELECIONADO + 1 then begin
@@ -6914,7 +6924,7 @@ begin
       Form1.CDMais1.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + 1)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + 1) * 4), local_30);
-      Form1.CDMais1.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais1.Picture, local_30);
       Form1.CDMais1.Show;
     end;
     if TOTALMMRITMO < NUMRITMOSELECIONADO + 2 then begin
@@ -6924,7 +6934,7 @@ begin
       Form1.CDMais2.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + 2)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + 2) * 4), local_30);
-      Form1.CDMais2.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais2.Picture, local_30);
       Form1.CDMais2.Show;
     end;
     if TOTALMMRITMO < NUMRITMOSELECIONADO + 3 then begin
@@ -6934,7 +6944,7 @@ begin
       Form1.CDMais3.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + 3)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + 3) * 4), local_30);
-      Form1.CDMais3.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais3.Picture, local_30);
       Form1.CDMais3.Show;
     end;
     if TOTALMMRITMO < NUMRITMOSELECIONADO + 4 then begin
@@ -6944,7 +6954,7 @@ begin
       Form1.CDMais4.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + 4)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + 4) * 4), local_30);
-      Form1.CDMais4.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais4.Picture, local_30);
       Form1.CDMais4.Show;
     end;
     if TOTALMMRITMO < NUMRITMOSELECIONADO + 5 then begin
@@ -6954,7 +6964,7 @@ begin
       Form1.CDMais5.Stretch := True;
       local_30 := '';
       local_30 := Mostra_Jpg_Ritmo(MMRITMO[(NUMRITMOSELECIONADO + 5)]);  // C convertido: JUKELINUX1_MOSTRA_JPG_RITMO_ANSISTRING__ANSISTRING ( *(undefined4 * )(&DAT_092fffac + (U_JUKELINUX1_NUMRITMOSELECIONADO + 5) * 4), local_30);
-      Form1.CDMais5.Picture.LoadFromFile(local_30);
+      Nova_Carrega_Imagem(Form1.CDMais5.Picture, local_30);
       Form1.CDMais5.Show;
     end;
   end;
@@ -7159,7 +7169,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1024_2reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7170,7 +7180,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1366_2reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7183,7 +7193,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1024_5reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7194,7 +7204,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1366_5reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7207,7 +7217,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1024_10reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7218,7 +7228,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1366_10reais.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           local_18 := 'ok';
         end;
       end;
@@ -7275,12 +7285,12 @@ begin
       if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'sorteio1366_cds.jpg';
-        Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
       end;
       if RESOLUCAO = 1024 then begin
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'sorteio1024_cds.jpg';
-        Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
       end;
       Form1.ImageSorteio.SendToBack;
       if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
@@ -7309,16 +7319,16 @@ begin
       if cVar2 then begin
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'interrogacao.jpg';
-        Form1.CDSorteio1.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.CDSorteio1.Picture, local_64);
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'interrogacao.jpg';
-        Form1.CDSorteio2.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.CDSorteio2.Picture, local_64);
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'interrogacao.jpg';
-        Form1.CDSorteio3.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.CDSorteio3.Picture, local_64);
         // C: local_64[0] = (undefined1 * )0x0;
         local_64 := PASTA + 'interrogacao.jpg';
-        Form1.CDSorteio4.Picture.LoadFromFile(local_64);
+        Nova_Carrega_Imagem(Form1.CDSorteio4.Picture, local_64);
       end;
       Form1.CDSorteio1.Left := Form1.CapaSorteio1.Left + 23;
       Form1.CDSorteio1.Top := Form1.CapaSorteio1.Top + 8;
@@ -7364,19 +7374,19 @@ begin
         NovaSorteio[2] := NovaSorteio[0];
         NovaSorteio[3] := NovaSorteio[0];
       end;
-      Form1.CDSorteio1.Picture.LoadFromFile(MAT[local_c + NovaSorteio[0]].CapaPequena);
+      Nova_Carrega_Imagem(Form1.CDSorteio1.Picture, MAT[local_c + NovaSorteio[0]].CapaPequena);
       Form1.CDSorteio1.Show;
       Form1.CDSorteio1.Refresh;
       Sleep(100);
-      Form1.CDSorteio2.Picture.LoadFromFile(MAT[local_c + NovaSorteio[1]].CapaPequena);
+      Nova_Carrega_Imagem(Form1.CDSorteio2.Picture, MAT[local_c + NovaSorteio[1]].CapaPequena);
       Form1.CDSorteio2.Show;
       Form1.CDSorteio2.Refresh;
       Sleep(100);
-      Form1.CDSorteio3.Picture.LoadFromFile(MAT[local_c + NovaSorteio[2]].CapaPequena);
+      Nova_Carrega_Imagem(Form1.CDSorteio3.Picture, MAT[local_c + NovaSorteio[2]].CapaPequena);
       Form1.CDSorteio3.Show;
       Form1.CDSorteio3.Refresh;
       Sleep(100);
-      Form1.CDSorteio4.Picture.LoadFromFile(MAT[local_c + NovaSorteio[3]].CapaPequena);
+      Nova_Carrega_Imagem(Form1.CDSorteio4.Picture, MAT[local_c + NovaSorteio[3]].CapaPequena);
       Form1.CDSorteio4.Show;
       Form1.CDSorteio4.Refresh;
       FORM1.Refresh;
@@ -7406,7 +7416,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1366_ganhou1credito.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
         if RESOLUCAO = 1024 then begin
@@ -7416,7 +7426,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1024_ganhou1credito.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
       end;
@@ -7428,7 +7438,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1366_ganhou2creditos.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
         if RESOLUCAO = 1024 then begin
@@ -7438,7 +7448,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1024_ganhou2creditos.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
       end;
@@ -7449,7 +7459,7 @@ begin
         if cVar2 then begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTA + 'sorteio1366_quemsabenaproxima.jpg';
-          Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+          Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
         end;
         if (RESOLUCAO = 1366) or (RESOLUCAO = 1440) then begin
           // C: local_64[0] = (undefined1 * )0x0;
@@ -7458,7 +7468,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1366_quemsabenaproxima.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
         if RESOLUCAO = 1024 then begin
@@ -7468,7 +7478,7 @@ begin
           if cVar2 then begin
             // C: local_64[0] = (undefined1 * )0x0;
             local_64 := PASTA + 'sorteio1024_quemsabenaproxima.jpg';
-            Form1.ImageSorteio.Picture.LoadFromFile(local_64);
+            Nova_Carrega_Imagem(Form1.ImageSorteio.Picture, local_64);
           end;
         end;
       end;
@@ -7970,7 +7980,7 @@ begin
           if cVar1 then begin
             local_30 := '';
             local_30 := PASTA + 'menu1366.jpg';
-            Form1.ImageFundoMenu.Picture.LoadFromFile(local_30);
+            Nova_Carrega_Imagem(Form1.ImageFundoMenu.Picture, local_30);
           end;
         end;
         if RESOLUCAO = 1024 then begin
@@ -7980,7 +7990,7 @@ begin
           if cVar1 then begin
             local_30 := '';
             local_30 := PASTA + 'menu1024.jpg';
-            Form1.ImageFundoMenu.Picture.LoadFromFile(local_30);
+            Nova_Carrega_Imagem(Form1.ImageFundoMenu.Picture, local_30);
           end;
         end;
         if RESOLUCAO = 1440 then begin
@@ -7990,7 +8000,7 @@ begin
           if cVar1 then begin
             local_30 := '';
             local_30 := PASTA + 'menu1440.jpg';
-            Form1.ImageFundoMenu.Picture.LoadFromFile(local_30);
+            Nova_Carrega_Imagem(Form1.ImageFundoMenu.Picture, local_30);
           end;
         end;
         Form1.ImageFundoMenu.Align := alClient;
@@ -9215,7 +9225,7 @@ begin
       if cVar1 then begin
         local_44 := '';
         local_44 := PASTA + 'tela1024.bmp';
-        Form1.ImageTela1.Picture.LoadFromFile(local_44);
+        Nova_Carrega_Imagem(Form1.ImageTela1.Picture, local_44);
       end;
     end;
     if RESOLUCAO = 1366 then begin
@@ -9225,7 +9235,7 @@ begin
       if cVar1 then begin
         local_44 := '';
         local_44 := PASTA + 'tela1366.bmp';
-        Form1.ImageTela1.Picture.LoadFromFile(local_44);
+        Nova_Carrega_Imagem(Form1.ImageTela1.Picture, local_44);
       end;
     end;
     if RESOLUCAO = 1440 then begin
@@ -9235,7 +9245,7 @@ begin
       if cVar1 then begin
         local_44 := '';
         local_44 := PASTA + 'tela1440.bmp';
-        Form1.ImageTela1.Picture.LoadFromFile(local_44);
+        Nova_Carrega_Imagem(Form1.ImageTela1.Picture, local_44);
       end;
     end;
     Form1.PanelTela1.Left := 0;
@@ -9906,8 +9916,8 @@ begin
           Write(ARQTEXTO, MAT[local_8].Pasta);  // C convertido: fpc_write_text_ansistr (0,U_JUKELINUX1_ARQTEXTO, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8));
           Writeln(ARQTEXTO);
           Form1.LabelAT2.Caption := MAT[local_8].Pasta;  // C convertido: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING (Form1.LabelAT2, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x1f8));
-          Form1.ImageAT1.Picture.LoadFromFile(MAT[local_8].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageAT1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x200));
-          Form1.ImageAT2.Picture.LoadFromFile(MAT[local_8].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageAT2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x204));
+          Nova_Carrega_Imagem(Form1.ImageAT1.Picture, MAT[local_8].Capa);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageAT1.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x200));
+          Nova_Carrega_Imagem(Form1.ImageAT2.Picture, MAT[local_8].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageAT2.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_8 * 0x240 + 0x204));
           Write(ARQTEXTO, 'ok');
           Writeln(ARQTEXTO);
           Flush(ARQTEXTO);
@@ -10523,22 +10533,22 @@ begin
     if FOTOPNG = 1 then begin
       local_3c := '';
       local_3c := PASTA + 'png1.png';
-      Form1.ImageGrandePng.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.ImageGrandePng.Picture, local_3c);
     end;
     if FOTOPNG = 2 then begin
       local_3c := '';
       local_3c := PASTA + 'png2.png';
-      Form1.ImageGrandePng.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.ImageGrandePng.Picture, local_3c);
     end;
     if FOTOPNG = 3 then begin
       local_3c := '';
       local_3c := PASTA + 'png3.png';
-      Form1.ImageGrandePng.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.ImageGrandePng.Picture, local_3c);
     end;
     if FOTOPNG = 4 then begin
       local_3c := '';
       local_3c := PASTA + 'png4.png';
-      Form1.ImageGrandePng.Picture.LoadFromFile(local_3c);
+      Nova_Carrega_Imagem(Form1.ImageGrandePng.Picture, local_3c);
     end;
     Form1.ImageGrandePng.BringToFront;
     Form1.ImageGrandePng.Top := 0;
@@ -11980,7 +11990,7 @@ begin
       if cVar1 then begin
         local_5f8 := '';
         local_5f8 := PASTA + 'qrcode.jpg';  // C convertido: fpc_ansistr_concat(&local_5f8,U_JUKELINUX1_PASTA,"qrcode.jpg");
-        Form1.ImageQrcode1.Picture.LoadFromFile(local_5f8);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode1.Picture,local_5f8);
+        Nova_Carrega_Imagem(Form1.ImageQrcode1.Picture, local_5f8);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode1.Picture,local_5f8);
       end;
       Form1.PanelQrcodeCadastro.Left := $1F8;  // C convertido: CONTROLS_TCONTROL____SETLEFT_LONGINT(Form1.PanelQrcodeCadastro,0x1f8);
       Form1.PanelQrcodeCadastro.Top := $104;  // C convertido: CONTROLS_TCONTROL____SETTOP_LONGINT(Form1.PanelQrcodeCadastro,0x104);
@@ -12805,8 +12815,8 @@ begin
                 local_101c := local_1014 + local_1010 + local_100c + local_1008;
                 Form1.LabelMusTot.Caption := local_101c;
                 // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x8bc) + 0x2fc))(Form1.LabelMusTot);
-                Form1.ImageMusCapa.Picture.LoadFromFile(NovaVet_fd0[local_18 + 3]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageMusCapa.Picture, *(undefined4 * )(local_fd0 + local_18 * 4 + 0xc));
-                Form1.ImageMusR.Picture.LoadFromFile(NovaVet_fd0[local_18 + 3]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageMusR.Picture, *(undefined4 * )(local_fd0 + local_18 * 4 + 0xc));
+                Nova_Carrega_Imagem(Form1.ImageMusCapa.Picture, NovaVet_fd0[local_18 + 3]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageMusCapa.Picture, *(undefined4 * )(local_fd0 + local_18 * 4 + 0xc));
+                Nova_Carrega_Imagem(Form1.ImageMusR.Picture, NovaVet_fd0[local_18 + 3]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageMusR.Picture, *(undefined4 * )(local_fd0 + local_18 * 4 + 0xc));
                 FORM1.Refresh;
                 // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x2fc))(U_JUKELINUX1_FORM1);
                 local_1c := 0;
@@ -13349,7 +13359,7 @@ begin
         Form1.LabelNaoQR.Hide;
         local_174 := '';
         local_174 := PASTA + 'qrcode.jpg';  // C convertido: fpc_ansistr_concat(&local_174,U_JUKELINUX1_PASTA,"qrcode.jpg");
-        Form1.ImageQrcode.Picture.LoadFromFile(local_174);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode.Picture,local_174);
+        Nova_Carrega_Imagem(Form1.ImageQrcode.Picture, local_174);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode.Picture,local_174);
         Form1.ImageQrcode.Show;  // C convertido: CONTROLS_TCONTROL____SHOW(Form1.ImageQrcode);
         Form1.LabelNaoQR.Left := (Form1.ImageQrcode.Left + $32);  // C convertido: CONTROLS_TCONTROL____SETLEFT_LONGINT (Form1.LabelNaoQR, Form1.ImageQrcode.Left? + 0x32);
         Form1.LabelNaoQR.Top := ((Form1.ImageQrcode.Top + Form1.ImageQrcode.Height) + $14);  // C convertido: CONTROLS_TCONTROL____SETTOP_LONGINT (Form1.LabelNaoQR, Form1.ImageQrcode.Top? + Form1.ImageQrcode.Height? + 0x14);
@@ -13460,7 +13470,7 @@ begin
     if cVar1 then begin
       local_60 := '';
       local_60 := PASTA + 'qrcode.jpg';  // C convertido: fpc_ansistr_concat(&local_60,U_JUKELINUX1_PASTA,"qrcode.jpg");
-      Form1.ImageQrcode2.Picture.LoadFromFile(local_60);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode2.Picture,local_60);
+      Nova_Carrega_Imagem(Form1.ImageQrcode2.Picture, local_60);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageQrcode2.Picture,local_60);
     end;
     Form1.PanelQrcodeCadastro1.Left := $165;  // C convertido: CONTROLS_TCONTROL____SETLEFT_LONGINT(Form1.PanelQrcodeCadastro1,0x165);
     Form1.PanelQrcodeCadastro1.Top := $39;  // C convertido: CONTROLS_TCONTROL____SETTOP_LONGINT(Form1.PanelQrcodeCadastro1,0x39);
@@ -21875,7 +21885,7 @@ begin
               CDSELEAPAGAR := '';
             end
             else begin
-              Form1.ImageCapaMT.Picture.LoadFromFile(MAT[local_10].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageCapaMT.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x204));
+              Nova_Carrega_Imagem(Form1.ImageCapaMT.Picture, MAT[local_10].CapaPequena);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageCapaMT.Picture, *(undefined4 * )(U_JUKELINUX1_ARQLOG + local_10 * 0x240 + 0x204));
               Form1.ImageCapaMT.Show;
               Form1.CapaMT.Show;
               Form1.LabelCDMt.Show;
@@ -24545,19 +24555,19 @@ begin
     cVar1 := FileExists(MATPROPAGANDA[POSPRO]);  // C convertido: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN((&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
     if cVar1 then begin
       if PROPAGANDA = 'Fotos PNG no Monitor' then begin
-        Form1.ImagePNG.Picture.LoadFromFile(MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImagePNG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
+        Nova_Carrega_Imagem(Form1.ImagePNG.Picture, MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImagePNG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
       end;
       if PROPAGANDA = 'Fotos para Bar no Monitor' then begin
-        Form1.ImageJPG.Picture.LoadFromFile(MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageJPG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
+        Nova_Carrega_Imagem(Form1.ImageJPG.Picture, MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageJPG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
       end;
       if PROPAGANDA = 'Fotos para Boate no Monitor' then begin
-        Form1.ImageJPG.Picture.LoadFromFile(MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageJPG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
+        Nova_Carrega_Imagem(Form1.ImageJPG.Picture, MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageJPG.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
       end;
       if PROPAGANDA = 'Fotos para Bar na TV' then begin
-        Form1.ImageTV.Picture.LoadFromFile(MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageTV.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
+        Nova_Carrega_Imagem(Form1.ImageTV.Picture, MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageTV.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
       end;
       if PROPAGANDA = 'Fotos para Boate na TV' then begin
-        Form1.ImageTV.Picture.LoadFromFile(MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageTV.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
+        Nova_Carrega_Imagem(Form1.ImageTV.Picture, MATPROPAGANDA[POSPRO]);  // C convertido: GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING (Form1.ImageTV.Picture, (&U_JUKELINUX1_TOTALPRO)[U_JUKELINUX1_POSPRO]);
       end;
     end;
   end
@@ -25210,7 +25220,7 @@ begin
           if local_244 = '*' then begin
             local_244 := '';
             local_244 := PASTA + 'fundotocandogratis.jpg';
-            Form1.ImageTocando.Picture.LoadFromFile(local_244);
+            Nova_Carrega_Imagem(Form1.ImageTocando.Picture, local_244);
             Form1.ImageTocando.Show;
             TOCANDOMUSICAGRATIS := 1;
           end
@@ -25221,13 +25231,13 @@ begin
             if cVar2 then begin
               local_244 := '';
               local_244 := PASTA + 'fundotocando.jpg';
-              Form1.ImageTocando.Picture.LoadFromFile(local_244);
+              Nova_Carrega_Imagem(Form1.ImageTocando.Picture, local_244);
               TOCANDOMUSICAGRATIS := 0;
               Form1.ImageTocando.Show;
             end;
           end;
           Form1.ImageCDTocando.Show;
-          Form1.ImageCDTocando.Picture.LoadFromFile(NOMECAPACDTOCANDO);
+          Nova_Carrega_Imagem(Form1.ImageCDTocando.Picture, NOMECAPACDTOCANDO);
           Form1.LabelNomedaMusicaTocando.Caption := NOMEDAMUSICATOCANDO;
           local_24c := '';
           local_24c := Form1.LabelNomedaMusicaTocando.Caption;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.LabelNomedaMusicaTocando,&local_24c);

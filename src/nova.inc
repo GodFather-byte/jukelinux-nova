@@ -388,3 +388,67 @@ begin
   if not TryStrToDate(Trim(Texto), Result) then
     Result := 0;
 end;
+
+var
+  NovaImagensAvisadas: TStringList = nil;
+
+{ Carrega uma imagem num componente. Na original, uma imagem que faltasse (ritmo, letra, capa, propaganda) dava erro
+  e a tela parava pela metade. Aqui, se o arquivo não existir ou não abrir, aparece uma imagem feita na hora com o
+  nome (por exemplo o nome do ritmo, tirado do arquivo axe.jpg -> AXE) e o log registra uma vez qual arquivo falta. }
+procedure Nova_Carrega_Imagem(Imagem: TPicture; const Arquivo: string);
+var
+  Bmp: TBitmap;
+  Nome: string;
+  Estilo: TTextStyle;
+begin
+  if Arquivo = '' then
+  begin
+    Imagem.Clear;
+    Exit;
+  end;
+  if FileExists(Arquivo) then
+  try
+    Imagem.LoadFromFile(Arquivo);
+    Exit;
+  except
+    on E: Exception do
+      Gravalog('Imagem: nao abriu ' + Arquivo + ' (' + E.Message + ')');
+  end
+  else
+  begin
+    if NovaImagensAvisadas = nil then
+    begin
+      NovaImagensAvisadas := TStringList.Create;
+      NovaImagensAvisadas.Sorted := True;
+    end;
+    if NovaImagensAvisadas.IndexOf(Arquivo) < 0 then
+    begin
+      NovaImagensAvisadas.Add(Arquivo);
+      Gravalog('Imagem: falta o arquivo ' + Arquivo + ' (mostrando o nome no lugar)');
+    end;
+  end;
+  Nome := UpperCase(ChangeFileExt(ExtractFileName(ExcludeTrailingPathDelimiter(Arquivo)), ''));
+  if (Nome = 'CAPAPEQUENA') or (Nome = 'CAPA') then
+    Nome := UpperCase(ExtractFileName(ExcludeTrailingPathDelimiter(ExtractFilePath(Arquivo))));
+  Bmp := TBitmap.Create;
+  try
+    Bmp.SetSize(300, 300);
+    Bmp.Canvas.Brush.Color := $00302820;
+    Bmp.Canvas.FillRect(0, 0, 300, 300);
+    Bmp.Canvas.Pen.Color := $00A0A0A0;
+    Bmp.Canvas.Pen.Width := 4;
+    Bmp.Canvas.Rectangle(2, 2, 298, 298);
+    Bmp.Canvas.Font.Color := clWhite;
+    Bmp.Canvas.Font.Style := [fsBold];
+    Bmp.Canvas.Font.Height := -34;
+    Estilo := Bmp.Canvas.TextStyle;
+    Estilo.Alignment := taCenter;
+    Estilo.Layout := tlCenter;
+    Estilo.Wordbreak := True;
+    Estilo.SingleLine := False;
+    Bmp.Canvas.TextRect(Rect(12, 12, 288, 288), 12, 12, Nome, Estilo);
+    Imagem.Assign(Bmp);
+  finally
+    Bmp.Free;
+  end;
+end;

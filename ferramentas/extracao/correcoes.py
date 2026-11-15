@@ -103,4 +103,11 @@ CORRECOES = [
     ('TForm1.TimerRodaDisplayTimer', '    // C: fpc_char_to_ansistr(U_JUKELINUX1_TEXTOTEMPX._1_1_,local_38);\n',
      '    local_38 := TEXTOTEMPX;  // Nova: o caractere tirado do começo vai para o fim (C: fpc_char_to_ansistr)\n',
      'põe o caractere no fim do letreiro'),
+    # Nova: tela de ritmos/letras sem a imagem e sem a imagem padrão (naotemjpg...): mostra o nome.
+    ('Mostra_Jpg_Ritmo', "      until not (KRJ < iVar1);\n    end;\n  end;\n  local_3c := '';",
+     "      until not (KRJ < iVar1);\n    end;\n    // Nova: sem imagem do ritmo e sem a imagem padrão, mostra o nome dele (Nova_Carrega_Imagem desenha o\n    // nome de um arquivo que falta).\n    if not FileExists(local_c) then begin\n      local_c := PASTA + 'ritmos/' + local_8 + '.jpg';\n    end;\n  end;\n  local_3c := '';",
+     'sem imagem, mostra o nome do ritmo'),
+    ('Mostra_Jpg_Letra', "      until not (KLJ < iVar1);\n    end;\n  end;\n  local_3c := '';",
+     "      until not (KLJ < iVar1);\n    end;\n    // Nova: sem imagem do letra e sem a imagem padrão, mostra o nome dele (Nova_Carrega_Imagem desenha o\n    // nome de um arquivo que falta).\n    if not FileExists(local_c) then begin\n      local_c := PASTA + 'letras/' + local_8 + '.jpg';\n    end;\n  end;\n  local_3c := '';",
+     'sem imagem, mostra o nome do letra'),
 ]

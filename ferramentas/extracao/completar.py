@@ -1483,7 +1483,9 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
             except Falha:
                 pass
         saida.append(linha)
-    return vetor_nome_grande(declara_nova_cond('\n'.join(saida)))
+    texto = vetor_nome_grande(declara_nova_cond('\n'.join(saida)))
+    # imagens: a Nova mostra o nome no lugar de uma imagem que falta, em vez de parar a tela com erro (nova.inc)
+    return re.sub(r'\b(Form1\.\w+)\.Picture\.LoadFromFile\((.+?)\);', r'Nova_Carrega_Imagem(\1.Picture, \2);', texto)
 
 
 TIPO_PARAM = {'ansistring': 'texto', 'longint': 'num', 'integer': 'num', 'byte': 'num', 'boolean': 'bool'}
