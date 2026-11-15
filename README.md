@@ -118,6 +118,17 @@ falta de exceções. Roda também no CI.
 6. Licença nova e ferramenta de gerar licenças. **Feito:** ativação pela tela da original e gerador de contra-senhas.
 7. Pacote de instalação e piloto. **Feito:** instalador com troca direta e desfazer; falta o piloto numa máquina real.
 
+## O que ficou do C sem traduzir
+
+Restam 13 linhas `// C:` em `src/jukelinux1_rotinas.inc`, todas sem efeito na Nova:
+
+- **`Criptabuf`/`Descriptabuf`:** a cifra das músicas em blocos. A Nova usa `musicacifra.pas` no lugar.
+- **`ButtonAtivarClick`:** a ativação antiga. A tela de ativação é tratada pela licença da Nova (`nova.inc`).
+- **Duas propriedades de painel (vmt 0x21c) e um byte do Form1 (0x33e) sem nome conhecido.** São aparência na
+  abertura.
+- **Um item do ComboBoxMG6 e uma cópia na lista de discos do `inicio.txt` (o pendrive-chave),** que a licença
+  substitui.
+
 ## Referência
 
 - `referencia/funcoes.txt`: as funções da original com endereço e tamanho no binário.

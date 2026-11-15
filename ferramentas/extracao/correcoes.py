@@ -129,4 +129,15 @@ CORRECOES = [
     ('TForm1.FormKeyUp', '        // C: DAT_09646eb1 = (byte)*local_c;\n',
      '        // Nova: (C: DAT_09646eb1 = tecla) é o 1º caractere de CODIGODOCARTAO, já posto na linha de cima\n',
      'primeiro caractere do código do cartão'),
+    # Nova: limite de volume à noite (limitarvolume.txt). A hora não era lida e as comparações sem sinal do C
+    # (uVar2 - 22 < 2) viraram com sinal: o limite valia o dia todo e o volume nunca era liberado.
+    ('TForm1.TimerVolume22hsTimer', "      // C: puVar4 = local_38;\n      local_3c := '';\n      local_3c := TimeToStr(Time);\n      // C: fpc_ansistr_copy(local_3c,1,2,puVar4);\n      // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_38[0],0x14);\n",
+     "      // Nova: hora atual (o C copiava as 2 primeiras letras de TimeToStr; HourOf não depende do formato da hora)\n      local_3c := '';\n      local_3c := TimeToStr(Time);\n      uVar2 := HourOf(Time);\n",
+     'lê a hora atual'),
+    ('TForm1.TimerVolume22hsTimer', '      if (uVar2 < 9) or (uVar2 - 22 < 2) then begin\n',
+     '      // Nova: no C a hora é sem sinal (uVar2 - 22 < 2 quer dizer 22 ou 23h); com sinal valia o dia todo\n      if (uVar2 < 9) or ((uVar2 >= 22) and (uVar2 <= 23)) then begin\n',
+     'limita das 22h às 8h59'),
+    ('TForm1.TimerVolume22hsTimer', '      if (8 < uVar2) and (1 < uVar2 - 22) then begin\n',
+     '      // Nova: sem sinal no C (1 < uVar2 - 22: fora de 22-23h); com sinal o volume nunca era liberado\n      if (8 < uVar2) and ((uVar2 < 22) or (uVar2 > 23)) then begin\n',
+     'libera das 9h às 21h59'),
 ]

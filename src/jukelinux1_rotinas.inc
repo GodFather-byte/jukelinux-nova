@@ -251,7 +251,7 @@ begin
     if (local_c = '') { C convertido: local_c == (undefined1 * )0x0 } then begin
     end;
     local_3c := local_c;  // C convertido: fpc_pchar_to_ansistr(puVar4,local_3c);
-    local_3c := local_3c;  // C convertido: uVar1 = local_3c[0];
+    ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_3c[0];
     local_4c := 0;
     if (local_8 = '') { C convertido: local_8 == (undefined1 * )0x0 } then begin
     end;
@@ -2170,7 +2170,7 @@ begin
                 if (local_24c = '') { C convertido: local_24c == (undefined1 * )0x0 } then begin
                 end;
                 local_354 := local_24c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_354);
-                local_354 := local_354;  // C convertido: uVar1 = local_354;
+                ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_354;
                 local_358 := '';
                 local_35c := '';
                 local_35c := PASTA + 'creditos.txt';
@@ -6227,7 +6227,7 @@ begin
           local_c := local_c + 1;
           local_dc := '';
           local_dc := MAT[(local_8 + 5)].Genero;  // C convertido: fpc_shortstr_to_ansistr((local_8 + 5) * 0x240 + 0x8e91128,&local_dc);
-          local_dc := local_dc;  // C convertido: uVar1 = local_dc;
+          ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_dc;
           local_e0 := 0;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG6 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG6 + 0x36c),local_c,&local_e0 );
           if local_e0 = uVar1 then begin
@@ -6336,7 +6336,7 @@ begin
         if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_34 := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,local_34);
-        local_34 := local_34;  // C convertido: uVar4 = local_34[0];
+        ;  // apelido (a variável já é ela mesma)  // C convertido: uVar4 = local_34[0];
         local_13c := '';
         local_140 := '';
         local_140 := PASTA + 'tocarx.txt';
@@ -6365,7 +6365,7 @@ begin
           if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
           end;
           local_13c := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-          local_13c := local_13c;  // C convertido: uVar4 = local_13c;
+          ;  // apelido (a variável já é ela mesma)  // C convertido: uVar4 = local_13c;
           local_148 := '';
           local_14c := '';
           local_14c := PASTA + 'tocar.txt';
@@ -7326,15 +7326,13 @@ begin
         if SEMPENDRIVE = 0 then begin
           local_168 := '';
           local_64 := PASTACHAVE + 'creditos.txt';
-          // C: puVar5 = local_64[0];
           if (local_64 = '') { C convertido: local_64[0] == (undefined1 * )0x0 } then begin
           end;
-          // C: fpc_pchar_to_ansistr(puVar5,&local_168);
-          local_168 := local_168;  // C convertido: uVar1 = local_168;
+          local_168 := local_64;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_168);
+          ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_168;
           local_16c := '';
           local_170 := '';
           local_170 := PASTA + 'creditos.txt';
-          // C: puVar5 = local_170;
           if (local_170 = '') { C convertido: local_170 == (undefined1 * )0x0 } then begin
           end;
           local_16c := local_170;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_16c);
@@ -7544,15 +7542,13 @@ begin
       if SEMPENDRIVE = 0 then begin
         local_134 := '';
         local_30 := PASTACHAVE + 'creditos.txt';
-        // C: puVar3 = local_30[0];
         if (local_30 = '') { C convertido: local_30[0] == (undefined1 * )0x0 } then begin
         end;
-        // C: fpc_pchar_to_ansistr(puVar3,&local_134);
-        local_134 := local_134;  // C convertido: uVar1 = local_134;
+        local_134 := local_30;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_134);
+        ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_134;
         local_138 := '';
         local_13c := '';
         local_13c := PASTA + 'creditos.txt';
-        // C: puVar3 = local_13c;
         if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_138);
@@ -7669,7 +7665,7 @@ begin
         if (local_134 = '') { C convertido: local_134 == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_134;  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_138);
-        local_138 := local_138;  // C convertido: uVar1 = local_138;
+        ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_138;
         local_13c := '';
         local_140 := '';
         local_140 := PASTA + 'creditos.txt';
@@ -8384,7 +8380,7 @@ begin
             if (local_50 = '') { C convertido: local_50 == (undefined1 * )0x0 } then begin
             end;
             local_154 := local_50;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_154);
-            local_154 := local_154;  // C convertido: uVar1 = local_154;
+            ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_154;
             local_158 := '';
             local_15c := '';
             local_15c := PASTA + 'creditos.txt';
@@ -8559,7 +8555,7 @@ begin
                 if (local_130 = '') { C convertido: local_130 == (undefined1 * )0x0 } then begin
                 end;
                 local_13c := local_130;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_13c);
-                local_13c := local_13c;  // C convertido: uVar1 = local_13c;
+                ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_13c;
                 local_244 := '';
                 local_248 := '';
                 local_248 := PASTA + 'tocar.txt';
@@ -9805,7 +9801,7 @@ begin
             local_68c := PASTA + 'autoteste1.txt';
             if (local_68c = '') { C convertido: local_68c[0] == (undefined1 * )0x0 } then begin
             end;
-            local_794 := local_7a0;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
+            local_794 := local_68c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
             DeleteFile(local_794);
             local_794 := '';
             local_798 := '';
@@ -12204,7 +12200,7 @@ begin
       if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
       local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_138);
-      local_138 := local_138;  // C convertido: uVar1 = local_138;
+      ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_138;
       local_140 := '';
       local_144 := '';
       local_144 := PASTA + 'interfaceteclado.txt';
@@ -12409,7 +12405,7 @@ begin
                 end;
                 local_ff8 := '';
                 local_ff8 := Form1.FileListBox1.Items[local_18];
-                // C: fpc_ansistr_copy(local_ff8,2,iVar5 + -2);
+                local_ff4 := Copy(local_ff8, 2, (iVar5 + (-2)));  // C convertido: fpc_ansistr_copy(local_ff8,2,iVar5 + -2);
                 iVar5 := local_1c;
                 NovaVet_fc0[iVar5 + 499] := local_ff4;  // C convertido: *(undefined4 * )(local_fc0 + iVar5 * 4 + 0x7cc) = local_ff4;
               end;
@@ -13865,7 +13861,7 @@ begin
       if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
       end;
       local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-      local_13c := local_13c;  // C convertido: uVar1 = local_13c;
+      ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_13c;
       local_140 := 0;
       local_144 := '';
       local_144 := PASTA + 'creditos.txt';
@@ -13915,7 +13911,7 @@ begin
       if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
       ;  // apelido: local_138 = local_13c  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_138);
-      local_13c := local_13c;  // C convertido: uVar1 = local_138;
+      ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_138;
       local_140 := 0;
       local_144 := '';
       local_144 := PASTA + 'tocar.txt';
@@ -19822,7 +19818,7 @@ begin
           if (local_624 = '') { C convertido: local_624 == (undefined1 * )0x0 } then begin
           end;
           ;  // apelido: local_62c = local_624  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_62c);
-          local_624 := local_624;  // C convertido: uVar2 = local_62c;
+          ;  // apelido (a variável já é ela mesma)  // C convertido: uVar2 = local_62c;
           local_634 := '';
           local_638 := '';
           local_638 := PASTA + 'interfaceteclado.txt';
@@ -20002,7 +19998,7 @@ begin
             if (local_740 = '') { C convertido: local_740 == (undefined1 * )0x0 } then begin
             end;
             local_634 := local_740;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_634);
-            local_634 := local_634;  // C convertido: uVar2 = local_634;
+            ;  // apelido (a variável já é ela mesma)  // C convertido: uVar2 = local_634;
             local_744 := 0;
             local_748 := '';
             local_748 := PASTACHAVE + 'tocar.txt';
@@ -20056,7 +20052,7 @@ begin
           if (local_74c = '') { C convertido: local_74c == (undefined1 * )0x0 } then begin
           end;
           ;  // apelido: local_744 = local_74c  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_744);
-          local_74c := local_74c;  // C convertido: uVar2 = local_744;
+          ;  // apelido (a variável já é ela mesma)  // C convertido: uVar2 = local_744;
           local_750 := '';
           local_754 := '';
           local_754 := PASTACHAVE + 'tocar.txt';
@@ -22920,7 +22916,7 @@ begin
         if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-        local_13c := local_13c;  // C convertido: uVar1 = local_13c;
+        ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_13c;
         local_140 := 0;
         local_144 := '';
         local_144 := PASTA + 'creditos.txt';
@@ -23218,7 +23214,7 @@ begin
               if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
               end;
               local_38 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,local_38);
-              local_38 := local_38;  // C convertido: uVar1 = local_38[0];
+              ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_38[0];
               local_140 := '';
               local_144 := '';
               local_144 := PASTA + 'tocar.txt';
@@ -23273,7 +23269,7 @@ begin
               if (local_148 = '') { C convertido: local_148 == (undefined1 * )0x0 } then begin
               end;
               local_140 := local_148;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
-              local_140 := local_140;  // C convertido: uVar1 = local_140;
+              ;  // apelido (a variável já é ela mesma)  // C convertido: uVar1 = local_140;
               local_14c := 0;
               local_150 := '';
               local_150 := PASTA + 'tocar.txt';
@@ -24185,7 +24181,7 @@ begin
       Form1.LabelCreditos.Show;
       Form1.LabelCreditos.Refresh;  // C convertido: Repaint (vmt 0x2fc)
       Form1.LabelCreditos.Font.Color := 16777215;
-      // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 3000) + 0xd8)) (Form1.TimerPiscaCreditos,extraout_EDX & 0xffffff00, **(int ** )(U_JUKELINUX1_FORM1 + 3000),Self,Sender);
+      Form1.TimerPiscaCreditos.Enabled := False;  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 3000) + 0xd8)) (Form1.TimerPiscaCreditos,extraout_EDX & 0xffffff00, **(int ** )(U_JUKELINUX1_FORM1 + 3000),Self,Sender);
     end;
   end;
 end;
@@ -24785,7 +24781,7 @@ begin
             if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
             end;
             local_240 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_240);
-            local_240 := local_240;  // C convertido: uVar7 = local_240;
+            ;  // apelido (a variável já é ela mesma)  // C convertido: uVar7 = local_240;
             local_244 := '';
             local_248 := '';
             local_248 := PASTA + 'tocar.txt';
@@ -25167,12 +25163,12 @@ begin
   if (iVar1 = 0) and (0 < LIMITARVOLUME) then begin
     if LIMITARVOLUME < VOLUME then begin
       local_38 := 0;
-      // C: puVar4 = local_38;
+      // Nova: hora atual (o C copiava as 2 primeiras letras de TimeToStr; HourOf não depende do formato da hora)
       local_3c := '';
       local_3c := TimeToStr(Time);
-      // C: fpc_ansistr_copy(local_3c,1,2,puVar4);
-      // C: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_38[0],0x14);
-      if (uVar2 < 9) or (uVar2 - 22 < 2) then begin
+      uVar2 := HourOf(Time);
+      // Nova: no C a hora é sem sinal (uVar2 - 22 < 2 quer dizer 22 ou 23h); com sinal valia o dia todo
+      if (uVar2 < 9) or ((uVar2 >= 22) and (uVar2 <= 23)) then begin
         local_3c := '';
         local_3c := PASTA + 'VolumeAntesdas22.Txt';
         local_13c := local_3c;
@@ -25207,12 +25203,12 @@ begin
     end
     else if VOLUMELIMITADO <> 0 then begin
       local_3c := '';
-      // C: puVar4 = &local_3c;
       local_140 := '';
       local_140 := TimeToStr(Time);
       local_3c := Copy(local_140, 1, 2);  // C convertido: fpc_ansistr_copy(local_140,1,2,puVar4);
       uVar2 := StrToIntDef(local_3c, $14);  // C convertido: uVar2 = SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(local_3c,0x14);
-      if (8 < uVar2) and (1 < uVar2 - 22) then begin
+      // Nova: sem sinal no C (1 < uVar2 - 22: fora de 22-23h); com sinal o volume nunca era liberado
+      if (8 < uVar2) and ((uVar2 < 22) or (uVar2 > 23)) then begin
         local_140 := '';
         local_140 := PASTA + 'VolumeAntesdas22.Txt';
         local_13c := local_140;

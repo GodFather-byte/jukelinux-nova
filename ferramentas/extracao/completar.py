@@ -238,6 +238,7 @@ class Tradutor:
         self.mult = {}
         # Variável zerada na linha anterior (X := ''): o FPC zera o destino antes de uma função que devolve texto.
         self.zerada = None
+        self.zeradas = []
         # Variável atribuída na linha Pascal anterior: valor de um Write cujo argumento o Ghidra perdeu (registrador).
         self.ultima_atribuida = None
         self.rotinas = {}
@@ -879,6 +880,7 @@ def chamada(nome, args, destino, tr):
         # o Ghidra perdeu o destino (registrador); é a variável zerada logo antes
         ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
         destino, tr.zerada = tr.zerada, None
+        tr.zeradas = [z for z in tr.zeradas if z[0] != destino]
         return _atribui(tr, destino, f'Copy({texto_de(args[0], tr)}, {ini}, {qtd})', 'texto')
     if nome == 'fpc_ansistr_copy' and n == 4:
         ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
@@ -959,7 +961,7 @@ def chamada(nome, args, destino, tr):
 
 # Método virtual: ( **(code ** )( **(int ** )(OBJ + CAMPO) + VMT)) (args)
 VIRTUAL = re.compile(r'^(?:(\w+) = )?\(\s*\*\*\(code\s*\*\*\s*\)\(\s*\*\*\(int\s*\*\*\s*\)\((Form1\.\w+|U_JUKELINUX1_FORM1)'
-                     r' \+ (0x[0-9a-f]+)\) \+ (0x[0-9a-f]+)\)\)\s*\((.*)\);$')
+                     r' \+ (0x[0-9a-f]+|\d+)\) \+ (0x[0-9a-f]+)\)\)\s*\((.*)\);$')
 
 
 def virtual(m, tr):
@@ -1181,6 +1183,8 @@ def comando(c, tr):
             return f'{nome} := {v};'
         if e[1] != tipo and not (tipo == 'texto' and e[1] == 'char'):
             raise Falha(f'atribuição de {e[1]} a {tipo}')
+        if nome == e[0]:
+            return ';  // apelido (a variável já é ela mesma)'
         return f'{nome} := {e[0]};'
     raise Falha('comando não reconhecido')
 
@@ -1524,7 +1528,7 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
         if m:
             tr.ptrs[m.group(1).upper()] = m.group(2)
         # puVar5 = local_13c: temporária do Ghidra que só aponta para o texto (PChar de um AnsiString)
-        m = re.match(r'^\s*// C: (pu?[a-z]*Var\d+) = (local_\w+|U_JUKELINUX1_\w+);\s*$', linha)
+        m = re.match(r'^\s*// C: (pu?[a-z]*Var\d+) = (local_\w+|U_JUKELINUX1_\w+)(?:\[0\])?;\s*$', linha)
         if m and m.group(1).upper() not in tr.locais:
             tr.ptrs[m.group(1).upper()] = m.group(2)
         # uVar1 = local_354 com uVar1 declarada como número e local_354 texto: o registrador só leva o texto
@@ -1604,12 +1608,17 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
             except Falha:
                 pass
         # Última variável zerada (X := '') que nenhuma linha Pascal usou depois: destino perdido de um Copy.
-        mz = re.match(r"^\s*(\w+) := '';\s*$", linha)
+        # (guarda todas as zeradas ainda não usadas: o destino pode ser uma zerada antes de outra)
+        # (só temporárias locais, zeradas há no máximo 12 linhas)
+        n_linha = len(saida)
+        mz = re.match(r"^\s*((?:local|[iu]Stack)_\w+) := '';\s*$", linha)
         if mz:
-            tr.zerada = mz.group(1)
-        elif tr.zerada and not re.match(r'^\s*//', linha) \
-                and re.search(r'\b' + re.escape(tr.zerada) + r'\b', linha.split('//')[0]):
-            tr.zerada = None
+            tr.zeradas = [z for z in tr.zeradas if z[0] != mz.group(1)] + [(mz.group(1), n_linha)]
+        elif tr.zeradas and not re.match(r'^\s*//', linha):
+            codigo = linha.split('//')[0]
+            tr.zeradas = [z for z in tr.zeradas if not re.search(r'\b' + re.escape(z[0]) + r'\b', codigo)]
+        tr.zeradas = [z for z in tr.zeradas if n_linha - z[1] <= 12]
+        tr.zerada = tr.zeradas[-1][0] if tr.zeradas else None
         if not re.match(r'^\s*//', linha):
             ma = re.match(r'^\s*(\w+) := [^;]+;', linha)
             tr.ultima_atribuida = ma.group(1) if ma else None
