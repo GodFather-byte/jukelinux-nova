@@ -153,7 +153,7 @@ def campo_cd(desl):
 
 
 IDX = r'(\((?:[^()]|\([^()]*\))*\)|[A-Za-z_]\w*)'
-CAST = r'\*\(\s*(?:undefined[124]?|u?int|char\s*\*)\s*\*\s*\)\s*'
+CAST = r'\*\(\s*(?:undefined[124]?|u?int|char\s*\*|undefined\s*\*)\s*\*\s*\)\s*'
 FORMAS_CD = [
     # (regex, como achar o deslocamento, tem índice k?)
     (re.compile(CAST + r'\(\s*U_JUKELINUX1_ARQLOG \+ ' + IDX + r' \* 0x240 \+ (0x[0-9a-f]+)\s*\)'), 'arqlog', False),
@@ -195,6 +195,22 @@ TIPOS_C = {'char', 'int', 'uint', 'byte', 'bool', 'word', 'dword', 'short', 'ush
            'undefined1', 'undefined2', 'undefined4', 'undefined8', 'uchar', 'longlong', 'ulonglong', 'code'}
 
 
+def literal_pascal(t):
+    """Texto Pascal entre aspas; caracteres de controle (\\r, \\n...) vão como #13 fora das aspas."""
+    partes, atual = [], ''
+    for ch in t:
+        if ord(ch) < 32:
+            if atual:
+                partes.append("'" + atual.replace("'", "''") + "'")
+                atual = ''
+            partes.append(f'#{ord(ch)}')
+        else:
+            atual += ch
+    if atual or not partes:
+        partes.append("'" + atual.replace("'", "''") + "'")
+    return ''.join(partes)
+
+
 def tokens(c):
     pos, saida = 0, []
     while pos < len(c):
@@ -228,6 +244,7 @@ class Tradutor:
         # local_x = "texto" (PChar de um literal) vista antes: pedaço de um fpc_ansistr_concat_multi
         self.literais = {}
         self.seeks = []
+        self.vetlocais = set()
 
     def novo(self):
         t = Tradutor(self.globais, self.locais, self.comps, self.ptrs)
@@ -236,6 +253,7 @@ class Tradutor:
         t.rotinas = self.rotinas
         t.literais = self.literais
         t.seeks = self.seeks
+        t.vetlocais = self.vetlocais
         return t
 
     def substitui_cd(self, c):
@@ -289,6 +307,17 @@ class Tradutor:
         c = re.sub(r'\b0x964703f\b|U_JUKELINUX1_ACARM\[0x1f\]', lambda m: fixo('ACARM.Valor'), c)
         c = re.sub(r'\b0x9647044\b|U_JUKELINUX1_ACARM\[0x24\]', lambda m: fixo('ACARM.Situacao'), c)
         c = re.sub(r'&U_JUKELINUX1_CODIGODOCARTAO\b', 'U_JUKELINUX1_CODIGODOCARTAO', c)
+        # vetor de textos na pilha (base + i * 4 + k): NovaVet_<base>[i + k div 4], declarado por vetores_locais
+        for base in self.vetlocais:
+            def vl(m, base=base):
+                idx = self.num_de(self.novo().traduz(m.group(1)))
+                k = int(m.group(2), 0) // 4
+                return fixo(f'NovaVet_{base[6:]}[{idx}{" + " + str(k) if k > 0 else " - " + str(-k) if k else ""}]')
+            corpo = re.escape(base) + r' \+ ' + IDX + r' \* 4 \+ (0x[0-9a-f]+|-\d+)'
+            c = re.sub(CAST + r'\(\s*' + corpo + r'\s*\)', vl, c)
+            c = re.sub(r'\b' + corpo, vl, c)
+        # propriedade de componente que o gerador escreveu com "?" (deslocamento conferido à mão): Form1.X.Left?
+        c = re.sub(r'\b(Form1\.\w+)\.(Left|Top|Width|Height)\?', lambda m: fixo(f'{m.group(1)}.{m.group(2)}', 'num'), c)
         for nome_v, (base, campos, n) in VETORES_REGISTRO.items():
             for desl, campo in campos.items():
                 h = f'{base + desl:x}'
@@ -362,6 +391,8 @@ class Tradutor:
         return f'{base}.{campo}', tipo
 
     def traduz(self, c):
+        # x / 2 do Pascal (div com sinal) como o compilador escreve: (int)(x + (x >> 0x1f & 1U)) >> 1
+        c = re.sub(r'\(int\)\((\w+) \+ \(\1 >> 0x1f & 1U\)\) >> 1', r'(\1 / 2)', c)
         self.t = tokens(self.substitui_cd(c))
         self.i = 0
         r = self.ou()
@@ -502,7 +533,7 @@ class Tradutor:
                 return ('0', 'num')  # 0x0 também: os testes de ponteiro nulo comparam com '0'
             return (('$' + v[2:].upper()) if v.startswith('0x') else v, 'num')
         if k == 'texto':
-            return ("'" + self.desescapa(v[1:-1]).replace("'", "''") + "'", 'texto')
+            return (literal_pascal(self.desescapa(v[1:-1])), 'texto')
         if k == 'char':
             corpo = self.desescapa(v[1:-1])
             if corpo == '\0':
@@ -713,6 +744,22 @@ def chamada(nome, args, destino, tr):
     n = len(args)
     if destino and nome not in ():
         raise Falha('chamada com resultado: ' + nome)
+    props = {'CONTROLS_TCONTROL____SETLEFT_LONGINT': 'Left', 'CONTROLS_TCONTROL____SETTOP_LONGINT': 'Top',
+             'CONTROLS_TCONTROL____SETWIDTH_LONGINT': 'Width', 'CONTROLS_TCONTROL____SETHEIGHT_LONGINT': 'Height'}
+    if nome in props and n == 2:
+        comp, _ = componente(args[0], tr)
+        return f'Form1.{comp}.{props[nome]} := {tr.num_de(tr.traduz(args[1]))};'
+    if nome in ('CONTROLS_TCONTROL____HIDE', 'CONTROLS_TCONTROL____SHOW') and n == 1:
+        comp, _ = componente(args[0], tr)
+        return f"Form1.{comp}.{'Hide' if nome.endswith('HIDE') else 'Show'};"
+    if nome == 'EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE' and n == 2:
+        comp, _ = componente(args[0], tr)
+        orig, _ = componente(args[1], tr, '.Picture')
+        return f'Form1.{comp}.Picture := Form1.{orig}.Picture;'
+    if nome == 'SYSUTILS_DELETEFILE_ANSISTRING__BOOLEAN' and n == 1:
+        return f'DeleteFile({texto_de(args[0], tr)});'
+    if nome == 'SYSUTILS_REMOVEDIR_ANSISTRING__BOOLEAN' and n == 1:
+        return f'RemoveDir({texto_de(args[0], tr)});'
     if nome == 'fpc_shortstr_copy' and n == 4:
         ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
         return _atribui(tr, args[3], f'Copy({texto_de(args[0], tr)}, {ini}, {qtd})', 'texto')
@@ -778,6 +825,8 @@ def chamada(nome, args, destino, tr):
     if nome == 'CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING' and n == 2:
         return _atribui(tr, args[1], _texto_de_comp(*componente(args[0], tr)), 'texto')
     if nome == 'CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING' and n == 2:
+        if args[1].strip() in ('0', '0x0'):
+            return f"{_texto_de_comp(*componente(args[0], tr))} := '';"
         return f'{_texto_de_comp(*componente(args[0], tr))} := {texto_de(args[1], tr)};'
     if nome == 'GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING' and n == 2:
         comp, _ = componente(args[0], tr, '.Picture')
@@ -917,6 +966,8 @@ def concat44(m, tr):
 
 def comando(c, tr):
     """Traduz uma linha // C: para um comando Pascal, ou levanta Falha."""
+    # argumentos que o Ghidra juntou ao fim da chamada (registradores do evento): ,param_3,Self,Sender
+    c = re.sub(r',\s*param_\d+\s*,\s*Self\s*,\s*Sender\s*\);$', ');', c)
     m = re.match(r'^(local_([0-9a-f]+)) = CONCAT44\((.*)\);$', c)
     if m:
         return concat44(m, tr)
@@ -1130,6 +1181,23 @@ def registro_do_cartao(texto):
             linhas[i] = f'{m.group(1)}ACARM.Codigo := {m.group(3)};{m.group(4)}'
     return '\n'.join(linhas)
 
+RE_VETOR_LOCAL = re.compile(r'\b(local_[0-9a-f]+) \+ [\w()+ -]+? \* 4 \+ (?:0x[0-9a-f]+|-\d+)')
+
+
+def vetores_locais(texto):
+    """Vetor de textos na pilha do C (local_x + i * 4 + k, com local_x sem ser texto): declara NovaVet_x."""
+    locais = le_locais(texto)
+    bases = {m.group(1) for linha in texto.split('\n') if re.match(r'^\s*// C: ', linha)
+             for m in RE_VETOR_LOCAL.finditer(linha) if locais.get(m.group(1).upper()) != 'texto'}
+    corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
+    if not bases or not corpo:
+        return texto, bases
+    novas = [f'  NovaVet_{b[6:]}: array[-4..4999] of AnsiString;  // completar: vetor de textos na pilha ({b} + i * 4)'
+             for b in sorted(bases) if f'NovaVet_{b[6:]}:' not in texto]
+    if novas:
+        texto = texto[:corpo.end(1)] + '\n' + '\n'.join(novas) + texto[corpo.end(1):]
+    return texto, bases
+
 def retipa_textos(texto):
     """Local que recebe o texto de um componente (CONTROLS_TCONTROL____GETTEXT) ou de um fpc_shortstr_copy mas que o
     Ghidra declarou como número (e por isso é zerada com := 0): vira AnsiString, e o := 0 vira := ''."""
@@ -1241,7 +1309,9 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
     texto = contas_flutuantes(texto)
     # a posição 1 do vetor se traduz como texto comum; vetor_nome_grande põe o [1] no fim
     globais = dict(globais, **{n: 'texto' for n in (NOME_GRANDE,) + VETORES_NOME_E_POS1})
+    texto, vetlocais = vetores_locais(texto)
     tr = Tradutor(globais, le_locais(texto), comps)
+    tr.vetlocais = vetlocais
     tr.rotinas = rotinas or {}
     mr = re.match(r'(?:procedure|function) ([\w.]+)', texto)
     tr.seeks = list(POSICOES_SEEK.get(mr.group(1), [])) if mr else []
@@ -1291,6 +1361,29 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
                 linha = (f'{m.group(1)}{m.group(4)} := MAT[{m.group(3)}].{campo};'
                          f'  // ? convertido (leitura do campo do CD): {linha.strip()[6:]}')
                 est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        # `// ?: WX := TC_FORMS_SCREEN.Width;` (Screen da LCL) e `// ?: ShowMessage('...');` (texto fixo)
+        m = re.match(r"^(\s*)// \?: (\w+) := TC_FORMS_SCREEN\.(Width|Height);\s*$", linha)
+        if m and tr.resolve(m.group(2))[1] == 'num':
+            linha = f'{m.group(1)}{m.group(2)} := Screen.{m.group(3)};  // ? convertido: {linha.strip()[6:]}'
+            est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        m = re.match(r"^(\s*)// \?: (ShowMessage\('(?:''|[^'])*'\);)\s*$", linha)
+        if m:
+            linha = f'{m.group(1)}{m.group(2)}  // ? convertido'
+            est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        # `// ?: local_1b0 + i * 4 + 12 := valor;`: escrita num vetor de textos da pilha (NovaVet_1b0)
+        m = re.match(r"^(\s*)// \?: (local_[0-9a-f]+) \+ (.+?) \* 4 \+ (-?\d+) := (.+);\s*$", linha)
+        if m and m.group(2) in tr.vetlocais:
+            try:
+                valor = tr.traduz(pascal_para_c(m.group(5)))
+                idx = tr.num_de(tr.traduz(pascal_para_c(m.group(3))))
+                if valor[1] != 'texto':
+                    raise Falha('vetor de textos')
+                k = int(m.group(4)) // 4
+                pos = f'{idx}{" + " + str(k) if k > 0 else " - " + str(-k) if k else ""}'
+                linha = f'{m.group(1)}NovaVet_{m.group(2)[6:]}[{pos}] := {valor[0]};  // ? convertido: {linha.strip()[6:]}'
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+            except Falha:
+                pass
         # `// ?: TOTALPRO + KPRO := valor;`: escrita num vetor de VETORES_GLOBAIS acessado pela global de antes.
         m = re.match(r"^(\s*)// \?: (\w+) \+ (\w+) := (.+);\s*$", linha)
         antes = {v[2]: k for k, v in VETORES_GLOBAIS.items() if v[2]}
