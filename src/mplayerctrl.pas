@@ -10,7 +10,8 @@ unit MPlayerCtrl;
 interface
 
 uses
-  Classes, SysUtils, Controls, Process;
+  Classes, SysUtils, Controls, ExtCtrls, Graphics, Process
+  {$IFDEF LCLGTK2}, gtk2, gdk2x{$ENDIF};
 
 type
 
@@ -22,8 +23,11 @@ type
     FLoop: Integer;
     FMPlayerPath: string;
     FProcesso: TProcess;
+    { Painel preto onde o mplayer desenha o vídeo (-wid), como o FDisplayPanel do componente original. }
+    FTela: TPanel;
     FStartParam: string;
     FVolume: Integer;
+    function JanelaDoVideo: PtrUInt;
     procedure ApagaProcesso;
     procedure DrenaSaida;
     procedure EnviaComando(const ATexto: string);
@@ -76,6 +80,27 @@ begin
   FVolume := 100;
   FMPlayerPath := '';
   FProcesso := nil;
+  FTela := TPanel.Create(Self);
+  FTela.Parent := Self;
+  FTela.Align := alClient;
+  FTela.BevelOuter := bvNone;
+  FTela.Color := clBlack;
+end;
+
+function TMPlayerControl.JanelaDoVideo: PtrUInt;
+begin
+  { Janela X do painel (o mplayer desenha o vídeo dentro da jukebox). 0 = ainda não existe: vídeo em janela própria. }
+  Result := 0;
+  {$IFDEF LCLGTK2}
+  try
+    if not FTela.HandleAllocated then
+      FTela.HandleNeeded;
+    if (FTela.Handle <> 0) and (PGtkWidget(PtrUInt(FTela.Handle))^.window <> nil) then
+      Result := GDK_WINDOW_XWINDOW(PGtkWidget(PtrUInt(FTela.Handle))^.window);
+  except
+    Result := 0;
+  end;
+  {$ENDIF}
 end;
 
 destructor TMPlayerControl.Destroy;
@@ -151,6 +176,7 @@ var
   Partes: TStringList;
   i: Integer;
   Executavel: string;
+  Janela: PtrUInt;
 begin
   Stop;
   { Sem arquivo, o mplayer em modo -slave fica ocioso em vez de sair: não iniciar evita dar como tocando. }
@@ -164,10 +190,20 @@ begin
   FProcesso := TProcess.Create(nil);
   FProcesso.Executable := Executavel;
   FProcesso.Options := [poUsePipes, poStderrToOutPut];
+  { mesmos parâmetros do componente original (lazarus-ccr) }
   FProcesso.Parameters.Add('-slave');
   FProcesso.Parameters.Add('-quiet');
+  FProcesso.Parameters.Add('-identify');
   FProcesso.Parameters.Add('-volume');
   FProcesso.Parameters.Add(IntToStr(FVolume));
+  FProcesso.Parameters.Add('-vf');
+  FProcesso.Parameters.Add('screenshot');
+  Janela := JanelaDoVideo;
+  if Janela <> 0 then
+  begin
+    FProcesso.Parameters.Add('-wid');
+    FProcesso.Parameters.Add(IntToStr(Janela));
+  end;
 
   Partes := TStringList.Create;
   try
