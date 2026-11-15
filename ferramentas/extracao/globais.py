@@ -41,13 +41,47 @@ def usos(n):
 
 # Tipos conferidos à mão no código descompilado (o tamanho do símbolo engana nesses).
 MANUAL = {
-    'NOMEMUSICAORIGINALGRANDE': 'AnsiString',  # usada como texto (lê o tamanho em -4); o símbolo tem 160 bytes
+    # 160 bytes = 40 textos: o nome original de cada música da tela (o C lê as posições 2 a 12 como DAT_09301dc4...)
+    'NOMEMUSICAORIGINALGRANDE': 'array[1..40] of AnsiString',
     'MAT': 'array[1..8000] of TIPOCD',  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
+    # 200 bytes = 50 textos: caminho das músicas mais tocadas (o C usa &DAT_0964721c + i * 4, i de 1 a 50)
+    'LISTA50MUSICASMAISTOCADAS': 'array[1..50] of AnsiString',
+    # vetores de 4 bytes por elemento que o Ghidra acessa pelo endereço (ver VETORES_GLOBAIS em completar.py)
+    'MMRITMO': 'array[1..100] of AnsiString',
+    'MMRITMOTOCOU': 'array[1..100] of LongInt',
+    'MMLETRA': 'array[1..100] of AnsiString',
+    'MATKARAOKE': 'array[1..9999] of AnsiString',
+    'MATPROPAGANDA': 'array[1..500] of AnsiString',
+    'MATFRASES': 'array[1..50] of AnsiString',
+    'MATFRASESORI': 'array[1..50] of AnsiString',
+    # ritmo/letra -> imagem (ritmosxjgps.txt, letrasxjgps.txt): 100 registros de 8 bytes (ver VETORES_REGISTRO)
+    'RJ': 'array[1..100] of TIPOJPG',
+    'LJ': 'array[1..100] of TIPOJPG',
+    # cartões: registros de 38 bytes (TIPOCARTAO) e os arquivos tipados de cartoes.ccc e dos .CAR
+    'MMCARTAO': 'array[1..90000] of TIPOCARTAO',
+    'MMCARTAOJADEUCREDITO': 'array[1..100] of TIPOCARTAO',
+    'ARQCARTAOM': 'file of TIPOCARTAO',
+    'ACARM': 'TIPOCARTAO',
+    'ARQCARTAOV': 'file of String[93]',
+    'TEXTOTEMPX': 'String[1]',  # 2 bytes: o caractere que roda no letreiro
 }
 
 # O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
 # usa a mesma tabela (CAMPOS_CD) para traduzir os acessos.
 TIPO_CD = '''type
+  { Um cartão (registro de cartoes.ccc e da memória da original, 38 bytes: o packed mantém o formato do arquivo). }
+  TIPOCARTAO = packed record
+    Codigo: String[30];                       // 0: código do cartão (cifrado no arquivo)
+    Valor: String[4];                         // 31: créditos (cifrado no arquivo)
+    Situacao: String[1];                      // 36: 'N' (cifrado no arquivo)
+  end;
+
+  { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
+  TIPOJPG = record
+    Nome: AnsiString;                         // 0
+    Jpg: AnsiString;                          // 4
+  end;
+
   { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
     deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
   TIPOCD = record
@@ -65,7 +99,7 @@ TIPO_CD = '''type
     Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
     Marca3: Byte;                             // 556: zerado ao carregar
     Escolha: String[1];                       // 558: 'S' ou 'N'
-    Marca4: Byte;                             // 560: zerado ao carregar
+    Lancamento: AnsiString;                   // 560: data do .ATU (lançamento); mostrada como "De: ..."
     TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
   end;
 

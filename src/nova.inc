@@ -368,3 +368,23 @@ begin
   if Ponto > 0 then
     Result := Copy(Result, 1, Ponto + 2);
 end;
+
+{ Data do arquivo .ATU de um CD de lançamento. A original usava StrToDate com o formato do sistema; aqui vale
+  dd/mm/aaaa (também com '-' ou '.') e, se não der, o formato do sistema. 0 = data que não deu para ler (o CD não
+  entra como lançamento, em vez de a jukebox parar com erro). }
+function Nova_Data_Atu(const Texto: string): TDateTime;
+var
+  Formato: TFormatSettings;
+  Separador: Char;
+begin
+  for Separador in ['/', '-', '.'] do
+  begin
+    Formato := DefaultFormatSettings;
+    Formato.DateSeparator := Separador;
+    Formato.ShortDateFormat := 'dd' + Separador + 'mm' + Separador + 'yyyy';
+    if TryStrToDate(Trim(Texto), Result, Formato) then
+      Exit;
+  end;
+  if not TryStrToDate(Trim(Texto), Result) then
+    Result := 0;
+end;

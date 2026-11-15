@@ -47,6 +47,10 @@ def tipo_base(t):
         return 'registro'
     if t == 'text':
         return 'arquivo'
+    if t.startswith('file of'):
+        return 'arqtipado'
+    if t in ('tipocartao',):
+        return 'cartao'
     return None
 
 
@@ -102,7 +106,38 @@ GLOBAL_NO_CD = {  # global -> deslocamento dentro do registro
 CAMPOS_CD = {0: ('Marca', 'num'), 8: ('Pasta', 'texto'), 12: ('Nome', 'texto'), 16: ('Capa', 'texto'),
              20: ('CapaPequena', 'texto'), 24: ('Genero', 'texto'), 376: ('TotalMusicas', 'num'),
              380: ('Tipo', 'texto'), 384: ('Marca2', 'num'), 556: ('Marca3', 'num'), 558: ('Escolha', 'texto'),
-             560: ('Marca4', 'num'), 572: ('TotalTocadas', 'num')}
+             560: ('Lancamento', 'texto'), 572: ('TotalTocadas', 'num')}
+# Vetores globais [1..n] de 4 bytes por elemento (AnsiString ou LongInt) que o Ghidra não reconheceu como vetor.
+# nome -> (tipo, endereço da posição 0 (= posição 1 - 4) ou None, global logo antes do vetor ou None, n).
+# Formas aceitas: *(t *)(&DAT_<pos0> + i * 4), &DAT_<pos0> + i * 4, *(t *)(i * 4 + 0x<pos0>), i * 4 + 0x<pos0>,
+# DAT_<pos0 + 4k> (posição k fixa) e (&U_JUKELINUX1_<global antes>)[i]. O nome sem índice (só o que está em
+# VETORES_NOME_E_POS1) é a posição 1.
+VETORES_GLOBAIS = {
+    'MMRITMO': ('texto', 0x092fffac, None, 100),  # ritmos que existem no acervo
+    'MMRITMOTOCOU': ('num', 0x0930013c, None, 100),  # vezes que cada ritmo tocou
+    'MMLETRA': ('texto', None, 'CDSELEAPAGARX', 100),  # letras iniciais dos CDs
+    'MATKARAOKE': ('texto', 0x092f635c, None, 9999),  # arquivos de karaokê
+    'MATPROPAGANDA': ('texto', None, 'TOTALPRO', 500),  # imagens e vídeos de propaganda
+    'MATFRASES': ('texto', 0x09301bfc, None, 50),  # frases do letreiro (com espaços no fim)
+    'MATFRASESORI': ('texto', 0x09301ccc, None, 50),  # frases como foram digitadas
+    'LISTA50MUSICASMAISTOCADAS': ('texto', 0x0964721c, None, 50),  # caminho das 50 mais tocadas
+}
+VETORES_NOME_E_POS1 = ('MATFRASES', 'MATFRASESORI')
+# Vetores globais de registros de 8 bytes (TIPOJPG): nome -> (endereço do registro 0, campos por deslocamento, n).
+# Forma: *(t *)(i * 8 + 0x<registro 0 + deslocamento do campo>).
+VETORES_REGISTRO = {
+    'RJ': (0x093008c8, {0: 'Nome', 4: 'Jpg'}, 100),  # ritmosxjgps.txt
+    'LJ': (0x09300bf8, {0: 'Nome', 4: 'Jpg'}, 100),  # letrasxjgps.txt
+}
+# Posições dos Seek em arquivo tipado, em ordem, por rotina (o Ghidra perdeu o Int64 da posição; tiradas do fluxo
+# do C: o registro 0 de cada arquivo é o cabeçalho e o laço lê do 1 em diante; gravar crédito novo vai para o fim).
+POSICOES_SEEK = {
+    'Carregando_Cartoes': ['0', 'local_10', '0', 'local_10', 'local_10'],
+    'Gravacreditonocartao': ['local_14', 'local_14', 'local_14'],
+    'Lecreditodocartao': ['local_14'],
+}
+# Outras formas de chegar ao vetor (IDX = o índice): ARQTOCARX + 0x24c é o endereço da posição 0 de MATFRASES.
+APELIDOS_VETORES = {'MATFRASES': (r'U_JUKELINUX1_ARQTOCARX \+ IDX \* 4 \+ 0x24c',)}
 # vetores [1..40]: deslocamento do elemento k = base + 4*k
 VETORES_CD = {52: ('Caminho', 'texto'), 212: ('Musica', 'texto'), 392: ('Tocadas', 'num')}
 
@@ -118,7 +153,7 @@ def campo_cd(desl):
 
 
 IDX = r'(\((?:[^()]|\([^()]*\))*\)|[A-Za-z_]\w*)'
-CAST = r'\*\(\s*(?:undefined[124]?|u?int|char\s*\*)\s*\*\s*\)\s*'
+CAST = r'\*\(\s*(?:undefined[124]?|u?int|char|byte)\s*\*\s*\*?\s*\)\s*'
 FORMAS_CD = [
     # (regex, como achar o deslocamento, tem índice k?)
     (re.compile(CAST + r'\(\s*U_JUKELINUX1_ARQLOG \+ ' + IDX + r' \* 0x240 \+ (0x[0-9a-f]+)\s*\)'), 'arqlog', False),
@@ -160,6 +195,22 @@ TIPOS_C = {'char', 'int', 'uint', 'byte', 'bool', 'word', 'dword', 'short', 'ush
            'undefined1', 'undefined2', 'undefined4', 'undefined8', 'uchar', 'longlong', 'ulonglong', 'code'}
 
 
+def literal_pascal(t):
+    """Texto Pascal entre aspas; caracteres de controle (\\r, \\n...) vão como #13 fora das aspas."""
+    partes, atual = [], ''
+    for ch in t:
+        if ord(ch) < 32:
+            if atual:
+                partes.append("'" + atual.replace("'", "''") + "'")
+                atual = ''
+            partes.append(f'#{ord(ch)}')
+        else:
+            atual += ch
+    if atual or not partes:
+        partes.append("'" + atual.replace("'", "''") + "'")
+    return ''.join(partes)
+
+
 def tokens(c):
     pos, saida = 0, []
     while pos < len(c):
@@ -189,15 +240,25 @@ class Tradutor:
         self.zerada = None
         # Variável atribuída na linha Pascal anterior: valor de um Write cujo argumento o Ghidra perdeu (registrador).
         self.ultima_atribuida = None
+        self.rotinas = {}
+        # local_x = "texto" (PChar de um literal) vista antes: pedaço de um fpc_ansistr_concat_multi
+        self.literais = {}
+        self.seeks = []
+        self.vetlocais = set()
 
     def novo(self):
         t = Tradutor(self.globais, self.locais, self.comps, self.ptrs)
         t.buffers = self.buffers
         t.mult = self.mult
+        t.rotinas = self.rotinas
+        t.literais = self.literais
+        t.seeks = self.seeks
+        t.vetlocais = self.vetlocais
         return t
 
     def substitui_cd(self, c):
         """Troca cada acesso ao acervo (as formas de FORMAS_CD) por um nome CDREF_n, resolvido em resolve()."""
+        c = self.substitui_vetores(c)
         for rx, forma, com_k in FORMAS_CD:
             def troca(m, forma=forma, com_k=com_k):
                 nome = f'CDREF_{len(self.cd)}'
@@ -221,9 +282,88 @@ class Tradutor:
                    r'COMPRIMENTO_(\1)', c)
         return c
 
+    def substitui_vetores(self, c):
+        """Troca cada acesso a um vetor de VETORES_GLOBAIS por um nome CDREF_n (forma 'vglobal')."""
+        def ref(nome_v, idx, campo=None):
+            nome = f'CDREF_{len(self.cd)}'
+            self.cd[nome] = ('vglobal', (nome_v, idx, campo), False)
+            return nome
+        def fixo(pascal, tipo='texto'):
+            nome = f'CDREF_{len(self.cd)}'
+            self.cd[nome] = ('fixo', (pascal, tipo), False)
+            return nome
+        # Cartões (registro TIPOCARTAO de 38 bytes: Codigo String[30] em 0, Valor String[4] em 0x1f, Situacao
+        # String[1] em 0x24). MMCARTAO[i] fica em 0x0930303a + i * 0x26; MMCARTAOJADEUCREDITO[i] em 0x09645f9a + i * 0x26;
+        # ACARM em 0x09647020.
+        def cartao(vetor, campo):
+            return lambda m: fixo(f'{vetor}[{self.num_de(self.novo().traduz(m.group(1)))}].{campo}')
+        c = re.sub(CAST + r'\(\s*\(int\)&U_JUKELINUX1_VOLUMEPELOPAINEL \+ ' + IDX + r' \* 0x26 \+ 1\s*\)',
+                   cartao('MMCARTAO', 'Valor'), c)
+        for end_, campo in (('0930303a', 'Codigo'), ('0930305e', 'Situacao')):
+            c = re.sub(r'\(&DAT_' + end_ + r'\)\s*\[' + IDX + r' \* 0x26\]', cartao('MMCARTAO', campo), c)
+            c = re.sub(r'&DAT_' + end_ + r' \+ ' + IDX + r' \* 0x26\b', cartao('MMCARTAO', campo), c)
+        c = re.sub(r'\b' + IDX + r' \* 0x26 \+ 0x9303059\b', cartao('MMCARTAO', 'Valor'), c)
+        c = re.sub(r'\b' + IDX + r' \* 0x26 \+ 0x9645f9a\b', cartao('MMCARTAOJADEUCREDITO', 'Codigo'), c)
+        c = re.sub(r'\b0x964703f\b|U_JUKELINUX1_ACARM\[0x1f\]', lambda m: fixo('ACARM.Valor'), c)
+        c = re.sub(r'\b0x9647044\b|U_JUKELINUX1_ACARM\[0x24\]', lambda m: fixo('ACARM.Situacao'), c)
+        c = re.sub(r'&U_JUKELINUX1_CODIGODOCARTAO\b', 'U_JUKELINUX1_CODIGODOCARTAO', c)
+        # vetor de textos na pilha (base + i * 4 + k): NovaVet_<base>[i + k div 4], declarado por vetores_locais
+        for base in self.vetlocais:
+            def vl(m, base=base):
+                idx = self.num_de(self.novo().traduz(m.group(1)))
+                k = int(m.group(2), 0) // 4
+                return fixo(f'NovaVet_{base[6:]}[{idx}{" + " + str(k) if k > 0 else " - " + str(-k) if k else ""}]')
+            corpo = re.escape(base) + r' \+ ' + IDX + r' \* 4 \+ (0x[0-9a-f]+|-\d+)'
+            c = re.sub(CAST + r'\(\s*' + corpo + r'\s*\)', vl, c)
+            c = re.sub(r'\b' + corpo, vl, c)
+        # (int)&U_JUKELINUX1_G + i * 0x240 + k: byte k do campo G do CD i (o comprimento de um String[n])
+        def campo_byte(m):
+            g, idx, k = m.group(1), m.group(2), int(m.group(3), 0)
+            if g not in GLOBAL_NO_CD:
+                return m.group(0)
+            campo, tipo = campo_cd(GLOBAL_NO_CD[g] + k)
+            return fixo(f'MAT[{self.num_de(self.novo().traduz(idx))}].{campo}', tipo)
+        c = re.sub(CAST + r'\(\s*\(int\)&U_JUKELINUX1_(\w+) \+ ' + IDX + r' \* 0x240 \+ (\d+)\s*\)', campo_byte, c)
+        # propriedade de componente que o gerador escreveu com "?" (deslocamento conferido à mão): Form1.X.Left?
+        c = re.sub(r'\b(Form1\.\w+)\.(Left|Top|Width|Height)\?', lambda m: fixo(f'{m.group(1)}.{m.group(2)}', 'num'), c)
+        for nome_v, (base, campos, n) in VETORES_REGISTRO.items():
+            for desl, campo in campos.items():
+                h = f'{base + desl:x}'
+                c = re.sub(CAST + r'\(\s*' + IDX + r' \* 8 \+ 0x' + h + r'\s*\)',
+                           lambda m, nv=nome_v, cp=campo: ref(nv, m.group(1), cp), c)
+        for nome_v, (tipo, pos0, antes, n) in VETORES_GLOBAIS.items():
+            if antes:
+                c = re.sub(r'\(&U_JUKELINUX1_' + antes + r'\)\s*\[([^\[\]]+)\]',
+                           lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            for alias in APELIDOS_VETORES.get(nome_v, ()):
+                c = re.sub(CAST + r'\(\s*' + alias.replace('IDX', IDX) + r'\s*\)', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            if pos0 is None:
+                continue
+            h = f'{pos0:08x}'
+            c = re.sub(CAST + r'\(\s*&DAT_' + h + r' \+ ' + IDX + r' \* 4\s*\)', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(CAST + r'\(\s*' + IDX + r' \* 4 \+ 0x' + h.lstrip('0') + r'\s*\)',
+                       lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(r'&DAT_' + h + r' \+ ' + IDX + r' \* 4\b', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(r'\b' + IDX + r' \* 4 \+ 0x' + h.lstrip('0') + r'\b', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+
+            def fixa(m, nv=nome_v, pos0=pos0, n=n):
+                k = (int(m.group(1), 16) - pos0) // 4
+                if (int(m.group(1), 16) - pos0) % 4 or not 1 <= k <= n:
+                    return m.group(0)
+                return ref(nv, str(k))
+            c = re.sub(r'\bDAT_(0' + h[1:5] + r'[0-9a-f]{3})\b', fixa, c)
+        return c
+
     def resolve_cd(self, v):
         forma, g, com_k = self.cd[v]
         k_c = None
+        if forma == 'fixo':
+            return g[0], g[1]
+        if forma == 'vglobal':
+            idx = self.num_de(self.novo().traduz(g[1]))
+            if g[2]:
+                return f'{g[0]}[{idx}].{g[2]}', 'texto'
+            return f'{g[0]}[{idx}]', VETORES_GLOBAIS[g[0]][0]
         if forma.startswith('mult_'):
             base = f'MAT[{self.mult[g[0].upper()]}]'
             if forma == 'mult_arqlog':
@@ -259,6 +399,8 @@ class Tradutor:
         return f'{base}.{campo}', tipo
 
     def traduz(self, c):
+        # x / 2 do Pascal (div com sinal) como o compilador escreve: (int)(x + (x >> 0x1f & 1U)) >> 1
+        c = re.sub(r'\(int\)\((\w+) \+ \(\1 >> 0x1f & 1U\)\) >> 1', r'(\1 / 2)', c)
         self.t = tokens(self.substitui_cd(c))
         self.i = 0
         r = self.ou()
@@ -370,6 +512,7 @@ class Tradutor:
         return k == 'nome' and v.lower() in TIPOS_C
 
     def conversao(self):
+        ini = self.i
         self.pega('(')
         ponteiro = False
         while self.olha()[1] != ')':
@@ -379,7 +522,10 @@ class Tradutor:
             elif not (k == 'nome' and v.lower() in TIPOS_C):
                 raise Falha('conversão desconhecida')
         self.pega(')')
+        tipos_conv = [t for t in re.findall(r'\w+', ' '.join(v for _, v in self.t[ini:self.i]))]
         e = self.unario()
+        if not ponteiro and e[1] == 'char' and any(t in ('byte', 'uint', 'int', 'uchar') for t in tipos_conv):
+            return (f'Ord({e[0]})', 'num')
         if ponteiro:
             if e[0] == '0':
                 return ('nulo', 'nulo')
@@ -399,7 +545,7 @@ class Tradutor:
                 return ('0', 'num')  # 0x0 também: os testes de ponteiro nulo comparam com '0'
             return (('$' + v[2:].upper()) if v.startswith('0x') else v, 'num')
         if k == 'texto':
-            return ("'" + self.desescapa(v[1:-1]).replace("'", "''") + "'", 'texto')
+            return (literal_pascal(self.desescapa(v[1:-1])), 'texto')
         if k == 'char':
             corpo = self.desescapa(v[1:-1])
             if corpo == '\0':
@@ -439,7 +585,7 @@ class Tradutor:
         'SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT': ('Pos', ('texto', 'texto'), 'num'),
         'SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT': ('StrToIntDef', ('texto', 'num'), 'num'),
     }
-    # Devolvem 0 quando os textos são iguais.
+    # Devolvem 0 quando os textos são iguais (as sem _equal também dizem a ordem: CompareStr).
     COMPARA = {'fpc_ansistr_compare_equal', 'FPC_SHORTSTR_COMPARE_EQUAL', 'fpc_ansistr_compare',
                'fpc_shortstr_compare'}
 
@@ -476,6 +622,9 @@ class Tradutor:
             args = self.argumentos()
             if len(args) != 2 or {args[0][1], args[1][1]} - {'texto', 'char'}:
                 raise Falha(f'{v}: argumentos')
+            if v in ('fpc_ansistr_compare', 'fpc_shortstr_compare'):
+                # ordem (negativo, 0, positivo), usada para ordenar: não só igual/diferente
+                return (f'CompareStr({args[0][0]}, {args[1][0]})', 'num')
             return (f'Ord({args[0][0]} <> {args[1][0]})', 'num')
         raise Falha(f'chamada de {v}')
 
@@ -587,8 +736,10 @@ def booleano_de_registrador(arg):
     """O Ghidra escreve o Boolean passado em registrador como (x & 0xffffff00) = False ou CONCAT31(x, 1) = True."""
     if re.search(r'&\s*0xffffff00\s*$', arg.strip()):
         return 'False'
-    if re.fullmatch(r'CONCAT31\(.*,\s*1\)', arg.strip()):
+    if re.fullmatch(r'CONCAT31\(.*,\s*1\)', arg.strip()) or arg.strip() == '1':
         return 'True'
+    if arg.strip() == '0':
+        return 'False'
     raise Falha('booleano desconhecido: ' + arg)
 
 
@@ -608,6 +759,65 @@ def chamada(nome, args, destino, tr):
     n = len(args)
     if destino and nome not in ():
         raise Falha('chamada com resultado: ' + nome)
+    props = {'CONTROLS_TCONTROL____SETLEFT_LONGINT': 'Left', 'CONTROLS_TCONTROL____SETTOP_LONGINT': 'Top',
+             'CONTROLS_TCONTROL____SETWIDTH_LONGINT': 'Width', 'CONTROLS_TCONTROL____SETHEIGHT_LONGINT': 'Height'}
+    if nome in props and n == 2:
+        comp, _ = componente(args[0], tr)
+        return f'Form1.{comp}.{props[nome]} := {tr.num_de(tr.traduz(args[1]))};'
+    if nome in ('CONTROLS_TCONTROL____HIDE', 'CONTROLS_TCONTROL____SHOW') and n == 1:
+        comp, _ = componente(args[0], tr)
+        return f"Form1.{comp}.{'Hide' if nome.endswith('HIDE') else 'Show'};"
+    if nome == 'EXTCTRLS_TCUSTOMIMAGE____SETPICTURE_TPICTURE' and n == 2:
+        comp, _ = componente(args[0], tr)
+        orig, _ = componente(args[1], tr, '.Picture')
+        return f'Form1.{comp}.Picture := Form1.{orig}.Picture;'
+    if nome == 'SYSUTILS_DELETEFILE_ANSISTRING__BOOLEAN' and n == 1:
+        return f'DeleteFile({texto_de(args[0], tr)});'
+    if nome == 'SYSUTILS_REMOVEDIR_ANSISTRING__BOOLEAN' and n == 1:
+        return f'RemoveDir({texto_de(args[0], tr)});'
+    if nome == 'fpc_read_text_ansistr' and n == 2:
+        arq, tipo = tr.resolve(args[0].strip())
+        if tipo != 'arquivo':
+            raise Falha('Read fora de arquivo texto')
+        dest, td = tr.destino(args[1])
+        if td != 'texto':
+            raise Falha('Read em destino não texto')
+        return f'Read({arq}, {dest});'
+    if nome == 'fpc_shortstr_copy' and n == 4:
+        ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
+        return _atribui(tr, args[3], f'Copy({texto_de(args[0], tr)}, {ini}, {qtd})', 'texto')
+    tipados = {'OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING': 'AssignFile', 'fpc_reset_typed': 'Reset',
+               'FPC_REWRITE_TYPED': 'Rewrite', 'OBJPAS_CLOSEFILE_file': 'CloseFile', 'SYSTEM_SEEK_file_INT64': 'Seek',
+               'FPC_TYPED_READ': 'Read', 'FPC_TYPED_WRITE': 'Write'}
+    if nome in tipados:
+        arg_arq = args[1] if nome in ('FPC_TYPED_READ', 'FPC_TYPED_WRITE') else args[0]
+        arq, tipo = tr.resolve(arg_arq.strip())
+        if tipo != 'arqtipado':
+            raise Falha('arquivo tipado desconhecido')
+        rot = tipados[nome]
+        if rot == 'AssignFile' and n == 2:
+            return f'AssignFile({arq}, {texto_de(args[1], tr)});'
+        if rot in ('Reset', 'Rewrite', 'CloseFile'):
+            return f'{rot}({arq});'
+        if rot == 'Seek' and n == 1:
+            # a posição veio em registrador (Int64) e o Ghidra a perdeu: vem da lista POSICOES_SEEK da rotina
+            if not tr.seeks:
+                raise Falha('posição do Seek desconhecida')
+            return f'Seek({arq}, {tr.seeks.pop(0)});  // posição: POSICOES_SEEK'
+        if rot in ('Read', 'Write') and n == 3:
+            buf, _ = tr.resolve(args[2].strip())
+            return f'{rot}({arq}, {buf});'
+        raise Falha('arquivo tipado: argumentos')
+    if nome == 'fpc_ansistr_concat_multi' and n == 3:
+        # (destino, &primeiro, High): os pedaços são locais seguidas na pilha, de 4 em 4 bytes para baixo
+        mb = re.fullmatch(r'&(local_)([0-9a-f]+)', args[1].strip())
+        if not mb or not re.fullmatch(r'\d+|0x[0-9a-f]+', args[2].strip()):
+            raise Falha('concat_multi desconhecido')
+        partes = []
+        for i in range(int(args[2], 0) + 1):
+            v = f'local_{int(mb.group(2), 16) - 4 * i:x}'
+            partes.append(tr.literais[v] if v in tr.literais else texto_de(v, tr))
+        return _atribui(tr, args[0], ' + '.join(partes), 'texto')
     if nome == 'fpc_ansistr_concat' and n == 3:
         return _atribui(tr, args[0], f'{texto_de(args[1], tr)} + {texto_de(args[2], tr)}', 'texto')
     if nome == 'fpc_shortstr_to_ansistr' and n == 2:
@@ -638,6 +848,8 @@ def chamada(nome, args, destino, tr):
     if nome == 'CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING' and n == 2:
         return _atribui(tr, args[1], _texto_de_comp(*componente(args[0], tr)), 'texto')
     if nome == 'CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING' and n == 2:
+        if args[1].strip() in ('0', '0x0'):
+            return f"{_texto_de_comp(*componente(args[0], tr))} := '';"
         return f'{_texto_de_comp(*componente(args[0], tr))} := {texto_de(args[1], tr)};'
     if nome == 'GRAPHICS_TPICTURE____LOADFROMFILE_ANSISTRING' and n == 2:
         comp, _ = componente(args[0], tr, '.Picture')
@@ -680,6 +892,15 @@ def chamada(nome, args, destino, tr):
         return f'Write({arq}, {e[0]});'
     if nome == 'fpc_pchar_to_ansistr' and n == 2:
         # PChar de um texto (temporária puVar = local_x) de volta para AnsiString
+        md = re.fullmatch(r'&?(local_\w+)', args[1].strip())
+        mo = re.fullmatch(r'\w+', args[0].strip())
+        if md and mo and tr.locais.get(md.group(1).upper()) == 'num' and md.group(1).upper() not in tr.ptrs:
+            # o Ghidra declarou a local como número: ela só guarda o texto para a chamada seguinte (apelido)
+            origem = tr.ptrs.get(mo.group(0).upper(), mo.group(0))
+            if tr.resolve(origem)[1] != 'texto':
+                raise Falha('apelido de algo que não é texto')
+            tr.ptrs[md.group(1).upper()] = origem
+            return f';  // apelido: {md.group(1)} = {origem}'
         return _atribui(tr, args[1], texto_de(args[0], tr), 'texto')
     if nome == 'SYSUTILS_RENAMEFILE_ANSISTRING_ANSISTRING__BOOLEAN' and n == 2:
         return f'RenameFile({texto_de(args[0], tr)}, {texto_de(args[1], tr)});'
@@ -721,6 +942,8 @@ def virtual(m, tr):
             return f'{lista}.Add({texto_de(args[1], tr)});'
         if vmt == '0xb8' and len(args) == 1 and not destino:        # TStrings.Clear
             return f'{lista}.Clear;'
+        if vmt == '0x8c' and len(args) == 3 and not destino:        # TStrings.Put
+            return f'{lista}[{tr.num_de(tr.traduz(args[1]))}] := {texto_de(args[2], tr)};'
     if vmt == '0x450' and len(args) == 1 and destino:  # TCustomCheckBox.GetChecked (RadioButton/CheckBox)
         comp, classe = componente(args[0], tr)
         if classe not in ('TRadioButton', 'TCheckBox'):
@@ -729,6 +952,11 @@ def virtual(m, tr):
         if tipo != 'bool':
             raise Falha('Checked em destino não Boolean')
         return f'{nome} := Form1.{comp}.Checked;'
+    if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xd8' and len(args) == 2 and not destino:  # TCustomTimer.SetEnabled
+        comp, classe = componente(args[0], tr)
+        if classe != 'TTimer':
+            raise Falha('SetEnabled fora de TTimer')
+        return f'Form1.{comp}.Enabled := {booleano_de_registrador(args[1])};'
     if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xdc' and len(args) == 2 and not destino:  # TCustomTimer.SetInterval
         comp, classe = componente(args[0], tr)
         if classe != 'TTimer':
@@ -768,6 +996,8 @@ def concat44(m, tr):
 
 def comando(c, tr):
     """Traduz uma linha // C: para um comando Pascal, ou levanta Falha."""
+    # argumentos que o Ghidra juntou ao fim da chamada (registradores do evento): ,param_3,Self,Sender
+    c = re.sub(r',\s*param_\d+\s*,\s*Self\s*,\s*Sender\s*\);$', ');', c)
     m = re.match(r'^(local_([0-9a-f]+)) = CONCAT44\((.*)\);$', c)
     if m:
         return concat44(m, tr)
@@ -781,7 +1011,33 @@ def comando(c, tr):
     m = VIRTUAL.match(c)
     if m:
         return virtual(m, tr)
+    m = re.match(r'^(\w+) = SYSTEM_POS_CHAR_ANSISTRING__LONGINT\s*\((0x[0-9a-f]+|\d+),\s*(.+)\);$', c)
+    if m:
+        ch = chr(int(m.group(2), 0))
+        return _atribui(tr, m.group(1), f'Pos({literal_pascal(ch)}, {texto_de(m.group(3), tr)})', 'num')
+    m = re.match(r'^(\w+) = STDCTRLS_TCUSTOMLISTBOX____GETSELECTED_LONGINT__BOOLEAN\s*\((Form1\.\w+),(.+)\);$', c)
+    if m:
+        comp, _ = componente(m.group(2), tr)
+        if tr.locais.get(m.group(1).upper()) != 'bool':
+            raise Falha('Selected em destino não Boolean')
+        return f'{m.group(1)} := Form1.{comp}.Selected[{tr.num_de(tr.traduz(m.group(3)))}];'
+    # método virtual chamado direto no objeto: ( **(code ** )( *(int * )Form1.X + VMT))(Form1.X, ...)
+    m = re.match(r'^\(\s*\*\*\(code\s*\*\*\s*\)\(\s*\*\(int\s*\*\s*\)(Form1\.\w+) \+ (0x[0-9a-f]+)\)\)\s*\((.*)\);$', c)
+    if m:
+        comp, classe = componente(m.group(1), tr)
+        args = separa_args(m.group(3))
+        if m.group(2) == '0xdc' and classe == 'TTimer' and len(args) == 2 and args[0].strip() == m.group(1):
+            return f'Form1.{comp}.Interval := {tr.num_de(tr.traduz(args[1]))};'
+        raise Falha('método virtual direto desconhecido')
+    m = re.match(r'^(\w+) = SYSTEM_EOF_file__BOOLEAN\((U_JUKELINUX1_\w+)\);$', c)
+    if m:
+        arq, tipo = tr.resolve(m.group(2))
+        if tipo != 'arqtipado' or tr.locais.get(m.group(1).upper()) != 'bool':
+            raise Falha('Eof desconhecido')
+        return f'{m.group(1)} := Eof({arq});'
     m = CHAMADA.match(c)
+    if m and m.group(2) in tr.rotinas and fecha_no_fim('(' + m.group(3) + ')'):
+        return chamada_rotina(m.group(2), separa_args(m.group(3)), m.group(1), tr)
     if m and m.group(2) != 'MPLAYERCTRL' and not m.group(2).startswith('MPLAYERCTRL_') \
             and fecha_no_fim('(' + m.group(3) + ')'):
         if not m.group(1):
@@ -809,14 +1065,16 @@ def comando(c, tr):
                 raise Falha('destino não é Boolean')
             return f"{destino} := {alvo}.{'Playing' if metodo.startswith('PLAYING') else 'Running'};"
         raise Falha('chamada do player desconhecida')
-    m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?) = (.+);$', c)
+    m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?'
+                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[|\b0x26\b|U_JUKELINUX1_ACARM\[|U_JUKELINUX1_ARQLOG|0x8e9[0-9a-f]+)[^=;]*?)'
+                 r' = (.+);$', c)
     if m:
         if m.group(1).upper() in tr.ptrs and m.group(1).upper() not in tr.locais:
             raise Falha('apelido de ponteiro (puVar = x) não é atribuição')
         # destino: variável simples ou campo do acervo ((&G)[i*0x90 + k], ARQLOG + i*0x240 + c, ...)
         nome, tipo = tr.destino(m.group(1))
         e = tr.traduz(m.group(2))
-        if e[1] in ('zero', 'nulo'):
+        if e[1] in ('zero', 'nulo') or (e[0] == '0' and tipo == 'texto'):
             v = tr.vazio_para(tipo)
             if v is None:
                 raise Falha('vazio para ' + str(tipo))
@@ -943,6 +1201,85 @@ def retipa_temporarias_cd(texto):
     return texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
 
 
+def devolve_resultado(texto):
+    """Função que devolve texto e em que o Ghidra trocou o resultado por uma local (local_c := Result no começo e
+    nenhum Result := depois): a local é o resultado, então ela é devolvida no fim."""
+    cab = texto.split('\n', 1)[0]
+    m = re.search(r'^\s*(local_\w+) := Result;\s*$', texto, re.M)
+    if not cab.startswith('function') or not cab.rstrip().endswith('AnsiString;') or not m \
+            or re.search(r'\bResult :=', texto) or re.search(r'\bExit\b', texto):
+        return texto
+    fim = texto.rstrip().rfind('\nend;')
+    if fim < 0:
+        return texto
+    return (texto[:fim] + f'\n  Result := {m.group(1)};  // completar: {m.group(1)} é o resultado (ponteiro do C)'
+            + texto[fim:])
+
+def registro_do_cartao(texto):
+    """`ACARM := x;` / `ACARV := x;`: logo depois de `x := '';` é leitura do registro lido do arquivo (o tradutor
+    inverteu: x := ACARM.Codigo); senão é gravação do código no registro."""
+    linhas = texto.split('\n')
+    for i, linha in enumerate(linhas):
+        m = re.match(r'^(\s*)(ACARM|ACARV) := (\w+);(.*)$', linha)
+        if not m:
+            continue
+        alvo = 'ACARM.Codigo' if m.group(2) == 'ACARM' else 'ACARV'
+        if i and re.match(r'^\s*' + m.group(3) + r" := '';\s*$", linhas[i - 1]):
+            linhas[i] = f'{m.group(1)}{m.group(3)} := {alvo};  // completar: leitura do registro do cartão'
+        elif m.group(2) == 'ACARM':
+            linhas[i] = f'{m.group(1)}ACARM.Codigo := {m.group(3)};{m.group(4)}'
+    return '\n'.join(linhas)
+
+RE_VETOR_LOCAL = re.compile(r'\b(local_[0-9a-f]+) \+ [\w()+ -]+? \* 4 \+ (?:0x[0-9a-f]+|-\d+)')
+
+
+def vetores_locais(texto):
+    """Vetor de textos na pilha do C (local_x + i * 4 + k, com local_x sem ser texto): declara NovaVet_x."""
+    locais = le_locais(texto)
+    bases = {m.group(1) for linha in texto.split('\n') if re.match(r'^\s*// C: ', linha)
+             for m in RE_VETOR_LOCAL.finditer(linha) if locais.get(m.group(1).upper()) != 'texto'}
+    corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
+    if not bases or not corpo:
+        return texto, bases
+    novas = [f'  NovaVet_{b[6:]}: array[-4..4999] of AnsiString;  // completar: vetor de textos na pilha ({b} + i * 4)'
+             for b in sorted(bases) if f'NovaVet_{b[6:]}:' not in texto]
+    if novas:
+        texto = texto[:corpo.end(1)] + '\n' + '\n'.join(novas) + texto[corpo.end(1):]
+    return texto, bases
+
+def retipa_textos(texto):
+    """Local que recebe o texto de um componente (CONTROLS_TCONTROL____GETTEXT) ou de um fpc_shortstr_copy mas que o
+    Ghidra declarou como número (e por isso é zerada com := 0): vira AnsiString, e o := 0 vira := ''."""
+    temps = set(re.findall(r'GETTEXT__TTRANSLATESTRING\s*\(Form1\.\w+,\s*&?(local_\w+)\)', texto))
+    # buffer de texto curto (fpc_shortstr_copy(origem, i, n, buffer)) que o Ghidra declarou como número
+    temps |= set(re.findall(r'fpc_shortstr_copy\s*\([^;]*,\s*&?(local_\w+)\);', texto))
+    corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
+    if not temps or not corpo:
+        return texto
+    nums = set()
+    for linha in corpo.group(1).split('\n'):
+        m = re.match(r'\s+([\w, ]+): (LongInt|Integer|Cardinal|Byte);', linha)
+        if m:
+            nums |= {n.strip() for n in m.group(1).split(',')}
+    temps &= nums
+    if not temps:
+        return texto
+    linhas = []
+    for linha in corpo.group(1).split('\n'):
+        m = re.match(r'(\s+)([\w, ]+): (.+);$', linha)
+        if m and m.group(3) in ('LongInt', 'Integer', 'Cardinal', 'Byte'):
+            nomes = [n.strip() for n in m.group(2).split(',') if n.strip() not in temps]
+            if not nomes:
+                continue
+            linha = f'{m.group(1)}{", ".join(nomes)}: {m.group(3)};'
+        linhas.append(linha)
+    linhas += [f'  {t}: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)' for t in sorted(temps)]
+    texto = texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
+    for t in temps:
+        texto = re.sub(r'^(\s*)' + t + r' := 0;', r"\1" + t + " := '';", texto, flags=re.M)
+    return texto
+
+
 # Contas em ponto flutuante (x87) que o Ghidra perdeu: os divisores sumiram, mas o padrão é sempre o mesmo.
 def _re_horas(primeira):
     return re.compile(
@@ -978,10 +1315,55 @@ def contas_flutuantes(texto):
     return texto
 
 
-def completa_rotina(texto, globais, estatistica=None, comps=None):
+# NOMEMUSICAORIGINALGRANDE é um vetor de 40 AnsiString (160 bytes em 0x09301dc0): a posição 1 o Ghidra chamou pelo
+# nome, as seguintes de DAT_09301dc4, DAT_09301dc8, ... (o nome original de cada uma das 12 músicas da tela).
+NOME_GRANDE = 'NOMEMUSICAORIGINALGRANDE'
+END_NOME_GRANDE = 0x09301dc0
+
+
+def _pos_grande(m):
+    return (int(m, 16) - END_NOME_GRANDE) // 4 + 1
+
+
+def vetor_nome_grande(texto):
+    rx = r'DAT_(09301d[0-9a-f]{2})'
+    v = lambda m: f'{NOME_GRANDE}[{_pos_grande(m)}]'
+    # posição 1: o nome sem índice, só no Pascal (o comentário C fica como está)
+    linhas = []
+    for linha in texto.split('\n'):
+        if not re.match(r'^\s*//', linha):
+            codigo, sep, coment = linha.partition('//')
+            for nome_v in (NOME_GRANDE,) + VETORES_NOME_E_POS1:
+                codigo = re.sub(r'\b' + nome_v + r'\b(?!\[)', nome_v + '[1]', codigo)
+            linha = codigo + sep + coment
+        linhas.append(linha)
+    texto = '\n'.join(linhas)
+    texto = re.sub(r'^(\s*)// C: ' + rx + r' = (local_\w+)\[0\];$',
+                   lambda m: f'{m[1]}{v(m[2])} := {m[3]};  // C convertido: DAT_{m[2]} = {m[3]}[0];', texto, flags=re.M)
+    texto = re.sub(r'if False \{ C: ' + rx + r' != 0 \} then',
+                   lambda m: f"if {v(m[1])} <> '' {{ C convertido: DAT_{m[1]} != 0 }} then", texto)
+    texto = re.sub(r'^(\s*)// C: (\w+) = \*\(int \* \)\(' + rx + r' \+ -4\);$',
+                   lambda m: f'{m[1]}{m[2]} := Length({v(m[3])});  // C convertido: tamanho de DAT_{m[3]}', texto, flags=re.M)
+    texto = re.sub(r'^(\s*)// C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING \(Form1\.(\w+),' + rx + r'\);$',
+                   lambda m: f'{m[1]}Form1.{m[2]}.Caption := {v(m[3])};  // C convertido: SetText(Form1.{m[2]}, DAT_{m[3]})',
+                   texto, flags=re.M)
+    return texto
+
+
+def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
     texto = retipa_temporarias_cd(texto)
+    texto = retipa_textos(texto)
+    texto = devolve_resultado(texto)
+    texto = registro_do_cartao(texto)
     texto = contas_flutuantes(texto)
+    # a posição 1 do vetor se traduz como texto comum; vetor_nome_grande põe o [1] no fim
+    globais = dict(globais, **{n: 'texto' for n in (NOME_GRANDE,) + VETORES_NOME_E_POS1})
+    texto, vetlocais = vetores_locais(texto)
     tr = Tradutor(globais, le_locais(texto), comps)
+    tr.vetlocais = vetlocais
+    tr.rotinas = rotinas or {}
+    mr = re.match(r'(?:procedure|function) ([\w.]+)', texto)
+    tr.seeks = list(POSICOES_SEEK.get(mr.group(1), [])) if mr else []
     est = estatistica if estatistica is not None else {}
 
     def troca_if(m):
@@ -996,6 +1378,9 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
 
     saida = []
     for linha in texto.split('\n'):
+        m = re.match(r'^\s*// C: (local_[0-9a-f]+) = ("(?:[^"\\\\]|\\\\.)*");\s*$', linha)
+        if m:
+            tr.literais[m.group(1)] = tr.traduz(m.group(2))[0]
         m = RE_PONTEIRO.match(linha)
         if m:
             tr.ptrs[m.group(1).upper()] = m.group(2)
@@ -1003,9 +1388,65 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
         m = re.match(r'^\s*// C: (pu?[a-z]*Var\d+) = (local_\w+|U_JUKELINUX1_\w+);\s*$', linha)
         if m and m.group(1).upper() not in tr.locais:
             tr.ptrs[m.group(1).upper()] = m.group(2)
+        # uVar1 = local_354 com uVar1 declarada como número e local_354 texto: o registrador só leva o texto
+        m = re.match(r'^\s*// C: ([a-z]{0,3}Var\d+) = (local_\w+)(?:\[0\])?;\s*$', linha)
+        if m and tr.locais.get(m.group(1).upper()) in ('num', 'char') and (
+                tr.locais.get(m.group(2).upper()) == 'texto' or m.group(2).upper() in tr.ptrs):
+            tr.ptrs[m.group(1).upper()] = tr.ptrs.get(m.group(2).upper(), m.group(2))
+        # atribuição Pascal a um apelido: ele volta a ser a própria variável
+        m = re.match(r'^\s*(\w+) := ', linha)
+        if m and m.group(1).upper() in tr.ptrs and m.group(1).upper() in tr.locais:
+            del tr.ptrs[m.group(1).upper()]
         m = re.match(r'^\s*(\w+) := (.+) \* 576;\s*$', linha)
         if m:
             tr.mult[m.group(1).upper()] = m.group(2)
+        # `// ?: SERIAL + i * 144 := local_x;` logo depois de `local_x := '';`: o tradutor inverteu a leitura de um
+        # campo do CD (fpc_shortstr_to_ansistr / fpc_ansistr_assign com o campo como origem).
+        m = re.match(r"^(\s*)// \?: (\w+) \+ (\(\w+ \+ \d+\)|\w+) \* 144 := (\w+);\s*$", linha)
+        if m and m.group(2) in GLOBAL_NO_CD and saida and \
+                re.match(r"^\s*" + re.escape(m.group(4)) + r" := '';\s*$", saida[-1]):
+            campo, tipo = campo_cd(GLOBAL_NO_CD[m.group(2)])
+            if tipo == 'texto':
+                linha = (f'{m.group(1)}{m.group(4)} := MAT[{m.group(3)}].{campo};'
+                         f'  // ? convertido (leitura do campo do CD): {linha.strip()[6:]}')
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        # `// ?: WX := TC_FORMS_SCREEN.Width;` (Screen da LCL) e `// ?: ShowMessage('...');` (texto fixo)
+        m = re.match(r"^(\s*)// \?: (\w+) := TC_FORMS_SCREEN\.(Width|Height);\s*$", linha)
+        if m and tr.resolve(m.group(2))[1] == 'num':
+            linha = f'{m.group(1)}{m.group(2)} := Screen.{m.group(3)};  // ? convertido: {linha.strip()[6:]}'
+            est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        m = re.match(r"^(\s*)// \?: (ShowMessage\('(?:''|[^'])*'\);)\s*$", linha)
+        if m:
+            linha = f'{m.group(1)}{m.group(2)}  // ? convertido'
+            est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        # `// ?: local_1b0 + i * 4 + 12 := valor;`: escrita num vetor de textos da pilha (NovaVet_1b0)
+        m = re.match(r"^(\s*)// \?: (local_[0-9a-f]+) \+ (.+?) \* 4 \+ (-?\d+) := (.+);\s*$", linha)
+        if m and m.group(2) in tr.vetlocais:
+            try:
+                valor = tr.traduz(pascal_para_c(m.group(5)))
+                idx = tr.num_de(tr.traduz(pascal_para_c(m.group(3))))
+                if valor[1] != 'texto':
+                    raise Falha('vetor de textos')
+                k = int(m.group(4)) // 4
+                pos = f'{idx}{" + " + str(k) if k > 0 else " - " + str(-k) if k else ""}'
+                linha = f'{m.group(1)}NovaVet_{m.group(2)[6:]}[{pos}] := {valor[0]};  // ? convertido: {linha.strip()[6:]}'
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+            except Falha:
+                pass
+        # `// ?: TOTALPRO + KPRO := valor;`: escrita num vetor de VETORES_GLOBAIS acessado pela global de antes.
+        m = re.match(r"^(\s*)// \?: (\w+) \+ (\w+) := (.+);\s*$", linha)
+        antes = {v[2]: k for k, v in VETORES_GLOBAIS.items() if v[2]}
+        if m and m.group(2) in antes:
+            nome_v = antes[m.group(2)]
+            try:
+                valor = tr.traduz(pascal_para_c(m.group(4)))
+                idx = tr.num_de(tr.traduz(pascal_para_c(m.group(3))))
+                if valor[1] != VETORES_GLOBAIS[nome_v][0]:
+                    raise Falha('tipo do vetor')
+                linha = f'{m.group(1)}{nome_v}[{idx}] := {valor[0]};  // ? convertido: {linha.strip()[6:]}'
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+            except Falha:
+                pass
         m = RE_TALVEZ.match(linha)
         if m:
             try:
@@ -1042,7 +1483,70 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
             except Falha:
                 pass
         saida.append(linha)
-    return declara_nova_cond('\n'.join(saida))
+    return vetor_nome_grande(declara_nova_cond('\n'.join(saida)))
+
+
+TIPO_PARAM = {'ansistring': 'texto', 'longint': 'num', 'integer': 'num', 'byte': 'num', 'boolean': 'bool'}
+
+
+def le_rotinas(texto):
+    """Rotinas do próprio programa: nome do Ghidra (JUKELINUX1_X_ANSISTRING__ANSISTRING) -> (nome Pascal, tipos dos
+    parâmetros, tipo do resultado ou None), pelos comentários { JUKELINUX1_X$ANSISTRING$$ANSISTRING } dos cabeçalhos."""
+    rotinas = {}
+    for m in re.finditer(r'\{ (JUKELINUX1_TFORM1_\$__(\w+)\$TOBJECT) \}\nprocedure TForm1\.(\w+)\(Sender: TObject\);', texto):
+        # evento do formulário chamado direto (JUKELINUX1_TFORM1____X_TOBJECT(Form1, Sender))
+        rotinas[m.group(1).replace('$', '_')] = ('Form1.' + m.group(3), ['evento'], None)
+    for m in re.finditer(r'\{ (JUKELINUX1_[\w$]+) \}\n(procedure|function) (\w+)(?:\(([^)]*)\))?(?:: (\w+))?;', texto):
+        tipos = []
+        for grupo in (m.group(4) or '').split(';'):
+            if ':' not in grupo:
+                continue
+            nomes, tipo = grupo.split(':')
+            t = TIPO_PARAM.get(tipo.strip().lower())
+            if t is None:
+                break
+            tipos += [t] * len(nomes.split(','))
+        else:
+            res = TIPO_PARAM.get((m.group(5) or '').lower()) if m.group(5) else None
+            if m.group(5) and res is None:
+                continue
+            rotinas[m.group(1).replace('$$', '__').replace('$', '_')] = (m.group(3), tipos, res)
+    return rotinas
+
+
+def chamada_rotina(nome, args, destino, tr):
+    """Chamada de uma rotina do próprio programa. Função que devolve texto: o resultado vem no último argumento."""
+    pascal, tipos, res = tr.rotinas[nome]
+    if tipos == ['evento']:
+        if len(args) != 2 or destino:
+            raise Falha('evento com argumentos')
+        return f'{pascal}(Form1);'
+    # argumentos de registrador que o Ghidra juntou no fim (Sender, Self, param_n)
+    esperado = len(tipos) + (1 if res == 'texto' and not destino else 0)
+    while len(args) > esperado and re.fullmatch(r'Sender|Self|param_\d+|extraout_\w+', args[-1].strip()):
+        args = args[:-1]
+    if res == 'texto' and not destino:
+        if len(args) != len(tipos) + 1:
+            raise Falha('argumentos da rotina')
+        args, dest = args[:-1], args[-1]
+    elif len(args) != len(tipos):
+        raise Falha('argumentos da rotina')
+    valores = []
+    for a, t in zip(args, tipos):
+        e = tr.traduz(a)
+        if e[1] in ('zero', 'nulo') and t in ('texto', 'num'):
+            e = (tr.vazio_para(t), t)
+        if e[1] != t and not (t == 'texto' and e[1] == 'char'):
+            raise Falha(f'argumento {e[1]} para {t}')
+        valores.append(e[0])
+    texto_chamada = pascal + (f'({", ".join(valores)})' if valores else '')
+    if res == 'texto' and not destino:
+        return _atribui(tr, dest, texto_chamada, 'texto')
+    if destino:
+        if res is None:
+            raise Falha('procedimento com resultado')
+        return _atribui(tr, destino, texto_chamada, res)
+    return texto_chamada + ';'
 
 
 def completa_arquivo(globais_inc, rotinas_inc, form_inc=None):
@@ -1053,11 +1557,12 @@ def completa_arquivo(globais_inc, rotinas_inc, form_inc=None):
     texto = open(rotinas_inc, encoding='utf-8').read()
     # cabeçalhos: com parâmetros "(", sem parâmetros ";" e funções sem parâmetros ": Tipo;"
     partes = re.split(r'\n(?=(?:procedure|function) [\w.]+\s*[(:;])', texto)
+    rotinas = le_rotinas(texto)
     est = {}
     novas = []
     for p in partes:
         if re.match(r'(procedure|function) ', p) and not p.split('\n', 1)[0].endswith('forward;'):
-            p = completa_rotina(p, globais, est, comps)
+            p = completa_rotina(p, globais, est, comps, rotinas)
         novas.append(p)
     open(rotinas_inc, 'w', encoding='utf-8', newline='\n').write('\n'.join(novas))
     return est

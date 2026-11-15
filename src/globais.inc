@@ -1,6 +1,19 @@
 { Variáveis globais da unit jukelinux1 da original, com o tipo deduzido por ferramentas/extracao/globais.py
   (tamanho do símbolo + uso no código descompilado). Os marcados {revisar} ainda não têm o tipo certo. }
 type
+  { Um cartão (registro de cartoes.ccc e da memória da original, 38 bytes: o packed mantém o formato do arquivo). }
+  TIPOCARTAO = packed record
+    Codigo: String[30];                       // 0: código do cartão (cifrado no arquivo)
+    Valor: String[4];                         // 31: créditos (cifrado no arquivo)
+    Situacao: String[1];                      // 36: 'N' (cifrado no arquivo)
+  end;
+
+  { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
+  TIPOJPG = record
+    Nome: AnsiString;                         // 0
+    Jpg: AnsiString;                          // 4
+  end;
+
   { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
     deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
   TIPOCD = record
@@ -18,7 +31,7 @@ type
     Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
     Marca3: Byte;                             // 556: zerado ao carregar
     Escolha: String[1];                       // 558: 'S' ou 'N'
-    Marca4: Byte;                             // 560: zerado ao carregar
+    Lancamento: AnsiString;                   // 560: data do .ATU (lançamento); mostrada como "De: ..."
     TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
   end;
 
@@ -156,11 +169,11 @@ var
   KMAT: LongInt;
   KMATMUSICA: LongInt;
   TOTALCDS: LongInt;
-  MATKARAOKE: array[0..39995] of Byte {revisar};
+  MATKARAOKE: array[1..9999] of AnsiString;
   KMATKARAOKE: LongInt;
   TOTALKARAOKES: LongInt;
-  MMRITMO: array[0..399] of Byte {revisar};
-  MMRITMOTOCOU: array[0..399] of Byte {revisar};
+  MMRITMO: array[1..100] of AnsiString;
+  MMRITMOTOCOU: array[1..100] of LongInt;
   RITMODOCD: AnsiString;
   RITMO: AnsiString;
   RITMOSELECIONADO: AnsiString;
@@ -173,7 +186,7 @@ var
   KKRITMO: LongInt;
   CDSELEAPAGAR: AnsiString;
   CDSELEAPAGARX: AnsiString;
-  MMLETRA: array[0..399] of Byte {revisar};
+  MMLETRA: array[1..100] of AnsiString;
   LETRADOCD: AnsiString;
   LETRASELECIONADA: AnsiString;
   LETRAESCOLHIDA: AnsiString;
@@ -187,10 +200,10 @@ var
   KKLETRA: LongInt;
   ARQFEC: file;
   AF: array[0..692] of Byte {revisar};
-  RJ: array[0..799] of Byte {revisar};
+  RJ: array[1..100] of TIPOJPG;
   KRJ: LongInt;
   TOTALRJ: LongInt;
-  LJ: array[0..799] of Byte {revisar};
+  LJ: array[1..100] of TIPOJPG;
   KLJ: LongInt;
   TOTALLJ: LongInt;
   BLOQUEARQUANDOTOCAR: LongInt;
@@ -215,23 +228,23 @@ var
   TEMPOPROPAGANDA: LongInt;
   POSPRO: LongInt;
   TOTALPRO: LongInt;
-  MATPROPAGANDA: array[0..1999] of Byte {revisar};
+  MATPROPAGANDA: array[1..500] of AnsiString;
   TEMPOPARAPAGINARSOZINHO: LongInt;
   TEMPOPARAPAGINARSOZINHOOPC: AnsiString;
   DIRECAO: AnsiString;
   TEMPOEMSEGUNDOSPAGINARSOZINHO: LongInt;
   ARQTOCAR: Text;
   ARQTOCARX: Text;
-  MATFRASES: array[0..199] of Byte {revisar};
-  MATFRASESORI: array[0..199] of Byte {revisar};
+  MATFRASES: array[1..50] of AnsiString;
+  MATFRASESORI: array[1..50] of AnsiString;
   KFRASE: LongInt;
   POSFRASE: LongInt;
   TOTALFRASE: LongInt;
   TEXTOX: AnsiString;
-  TEXTOTEMPX: array[0..1] of Byte {revisar};
+  TEXTOTEMPX: String[1];
   VELOCIDADEDISPLAY: LongInt;
   MUSICAROLARTEXTO: LongInt;
-  NOMEMUSICAORIGINALGRANDE: AnsiString;
+  NOMEMUSICAORIGINALGRANDE: array[1..40] of AnsiString;
   TEXTOMUSICAGRANDE: AnsiString;
   ALTEROUMUSICAGRANDE: Byte;
   MUSICASELECIONADAANT: LongInt;
@@ -324,16 +337,16 @@ var
   AUTOTESTE: AnsiString;
   VOLUMEPELOPAINEL: AnsiString;
   ALTEROUPRO: Byte;
-  MMCARTAO: array[0..3419999] of Byte {revisar};
-  MMCARTAOJADEUCREDITO: array[0..3799] of Byte {revisar};
+  MMCARTAO: array[1..90000] of TIPOCARTAO;
+  MMCARTAOJADEUCREDITO: array[1..100] of TIPOCARTAO;
   KMMCC: LongInt;
   KMMCARTAO: LongInt;
   TOTMMCARTAO: LongInt;
   CODIGODOCARTAO: String[20];
   LENDOCODIGODOCARTAO: LongInt;
-  ARQCARTAOM: file;
-  ACARM: String[37];
-  ARQCARTAOV: file;
+  ARQCARTAOM: file of TIPOCARTAO;
+  ACARM: TIPOCARTAO;
+  ARQCARTAOV: file of String[93];
   ACARV: String[93];
   PULSOSPARACARTAO: LongInt;
   CREDITOSCARTAO: LongInt;
@@ -342,7 +355,7 @@ var
   CREDITOSBONUS: LongInt;
   CREDITOSTELA: LongInt;
   ZERA50: LongInt;
-  LISTA50MUSICASMAISTOCADAS: array[0..199] of Byte {revisar};
+  LISTA50MUSICASMAISTOCADAS: array[1..50] of AnsiString;
   SELECAOMG: AnsiString;
   TOTALMG: LongInt;
   LIMITEARQ: LongInt;
