@@ -100,6 +100,13 @@ músicas, relógios e `creditos.txt`).
   creditadas duas vezes. Tudo vai para o `log.txt` com o prefixo `Pix:`.
 - Teste contra um PSP simulado (HTTPS com certificado de cliente): `testes/pix/rodar.sh`.
 
+## Teste de integração
+
+`sudo sh testes/integracao/rodar.sh` monta uma máquina de teste em `/home/jkb/jukelinux` e `/home/jkb/musicas` (o que
+já estiver lá é guardado e volta no fim), abre a jukebox numa tela virtual (Xvfb) e confere o que ela grava: as
+configurações padrão, o ranking das mais tocadas, um cartão lido do `.CAR` e do `cartoes.ccc`, um CD de lançamento e a
+falta de exceções. Roda também no CI.
+
 ## Fases
 
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
