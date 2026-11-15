@@ -15,10 +15,39 @@ autorização do desenvolvedor da original.
 
 ```bash
 sudo apt install lazarus-ide lcl-gtk2 lcl-units fpc
+ferramentas/licenca/nova_chave.sh   # uma vez: cria src/licenca_chave.inc (a chave secreta das licenças)
 lazbuild --widgetset=gtk2 jukelinux.lpi
 ```
 
-A CI (GitHub Actions → **Build**) compila a cada push e publica o executável em *Artifacts*.
+A CI (GitHub Actions → **Build**) roda os testes, compila a cada push e publica o executável em *Artifacts*. Para o
+executável do CI servir nas máquinas, cadastre o segredo `LICENCA_CHAVE` no repositório (o valor de
+`NOVA_CHAVE_LICENCA` do seu `src/licenca_chave.inc`); sem ele o CI usa a chave de desenvolvimento e avisa.
+
+## Licença
+
+No lugar do pendrive-chave, a Nova usa a tela de ativação da original. Sem licença válida, a jukebox abre em
+**Ativação da Jukebox** mostrando o código da máquina (16 dígitos, tirados do número de série do disco do sistema;
+uma imagem clonada em outro HD tem outro código) e não responde às teclas. A empresa gera a contra-senha:
+
+```bash
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379              # permanente
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379 31/12/2027   # vence nesse dia
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379 30           # vence em 30 dias
+```
+
+O técnico digita os 12 dígitos e clica em Ativar (ou Enter): aparece o "Ativação OK" da original e a jukebox libera
+na hora, sem desligar. A contra-senha leva a validade e uma assinatura HMAC com a chave secreta; o `licenca.txt` guarda
+também o último dia visto, assinado, para atrasar o relógio não estender a validade. A licença é conferida de novo a
+cada hora. Testes: `testes/licenca/rodar.sh`.
+
+Máquina antiga trocada pela Nova continua com o serial da chave antiga (lido dos arquivos dela); máquina nova recebe um
+serial tirado do código da licença.
+
+## Músicas
+
+A Nova toca as músicas cifradas das máquinas atuais (mesmo formato: chave do `chavecriptografica.txt`, 71 por padrão;
+0 = sem cifra) com uma rotina própria, `src/musicacifra.pas`. Novidade: uma música comum, sem cifra, toca mesmo numa
+máquina com chave. Testes contra um codificador independente do formato: `testes/musica/rodar.sh`.
 
 ## Pix
 
@@ -41,10 +70,10 @@ músicas, relógios e `creditos.txt`).
 
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
 2. Tela principal idêntica, navegando pelos CDs reais.
-3. Créditos, fila e player (mplayer).
+3. Créditos, fila e player (mplayer). **Feito:** acervo, fila, músicas cifradas e player tocando em sequência.
 4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV.
 5. Menu do operador.
-6. Licença nova e ferramenta de gerar licenças.
+6. Licença nova e ferramenta de gerar licenças. **Feito:** ativação pela tela da original e gerador de contra-senhas.
 7. Pacote de instalação e piloto.
 
 ## Referência

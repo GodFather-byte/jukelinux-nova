@@ -34,11 +34,13 @@ var
 
 { Liga o Pix se houver pix.txt na pasta da jukebox (rotina da Nova, em nova.inc). Chamar depois de criar o Form1. }
 procedure Nova_Inicia_Pix;
+{ Confere a licença e, sem licença válida, põe a tela de ativação da original por cima (nova.inc). }
+procedure Nova_Inicia_Licenca;
 
 implementation
 
 uses
-  Types, Process, FileUtil, Variants, Pix, PixTela, MusicaCifra;
+  Types, Process, FileUtil, Variants, LCLType, Pix, PixTela, MusicaCifra, Licenca;
 
 {$R *.lfm}
 

@@ -12,3 +12,7 @@ __pycache__/
 
 # Testes
 /testes/pix/teste_pix
+
+# Chave secreta da licença (ferramentas/licenca/nova_chave.sh)
+/src/licenca_chave.inc
+/ferramentas/licenca/gerar_contrasenha

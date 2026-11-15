@@ -22,6 +22,22 @@ jobs:
           sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc >/dev/null
           lazbuild --version
 
+      - name: Chave da licença
+        env:
+          LICENCA_CHAVE: ${{ secrets.LICENCA_CHAVE }}
+        run: |
+          if [ -n "$LICENCA_CHAVE" ]; then
+            printf "const\n  NOVA_CHAVE_LICENCA = '%s';\n  NOVA_CHAVE_DESENVOLVIMENTO = False;\n" "$LICENCA_CHAVE" > src/licenca_chave.inc
+          else
+            echo "::warning::Sem o segredo LICENCA_CHAVE: compilando com a chave de DESENVOLVIMENTO (não usar nas máquinas)"
+            cp src/licenca_chave.desenvolvimento.inc src/licenca_chave.inc
+          fi
+
+      - name: Testes (músicas cifradas e licença)
+        run: |
+          sh testes/musica/rodar.sh
+          sh testes/licenca/rodar.sh
+
       - name: Compilar
         run: lazbuild --widgetset=gtk2 --build-mode=Default jukelinux.lpi
 

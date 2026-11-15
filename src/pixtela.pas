@@ -343,7 +343,7 @@ end;
 
 procedure TTelaPix.Abre;
 begin
-  if FEstado <> peFechada then
+  if (FEstado <> peFechada) or TelaDaOriginalPorCima then
     Exit;
   FEstado := peEscolhendo;
   FTitulo.Caption := 'Pague com Pix';
