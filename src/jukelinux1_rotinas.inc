@@ -7857,7 +7857,7 @@ begin
         local_13c := '';
         local_13c := Cripta(RELOGIOTOTALSTR);
         RELOGIOTOTALSTR := local_13c;
-        // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+        Write(ARQTEXTO, RELOGIOTOTALSTR);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
@@ -7873,7 +7873,7 @@ begin
         local_13c := '';
         local_13c := Cripta(RELOGIOPARCIALSTR);
         RELOGIOPARCIALSTR := local_13c;
-        // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+        Write(ARQTEXTO, RELOGIOPARCIALSTR);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
@@ -8686,7 +8686,7 @@ begin
             local_130 := '';
             local_130 := Cripta(CREDITOSSTR);
             CREDITOSSTR := local_130;
-            // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+            Write(ARQTEXTO, CREDITOSSTR);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
             Writeln(ARQTEXTO);
             local_130 := '';
             local_130 := Cripta(JC_SERIALPENDRIVE);
@@ -11132,7 +11132,7 @@ begin
           local_188 := '';
           local_188 := Form1.ComboBox1.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING (Form1.ComboBox1,&local_188);
           REAISXMUSICAS := local_188;
-          // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+          Write(ARQTEXTO, REAISXMUSICAS);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
           Writeln(ARQTEXTO);
           Flush(ARQTEXTO);
           CloseFile(ARQTEXTO);
@@ -11885,7 +11885,7 @@ begin
       local_5f8 := '';
       local_5f8 := Criptasuper2(local_4c0);
       TEXTO := local_5f8;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, TEXTO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -13238,14 +13238,8 @@ begin
         local_6c := IntToStr(MINUTOSLIGADA);
         MINUTOSLIGADASTR := local_6c;
         local_6c := '';
-        // C: local_70 = (undefined * ) SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(U_JUKELINUX1_MINUTOSLIGADASTR,0);
-        // C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING(local_6c);
-        MINUTOSLIGADASTR := local_6c;
-        local_6c := '';
-        // C: uVar4 = SUB42(local_6c,0);
-        // C: iVar3 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT (CONCAT31((int3)((uint)local_6c >> 8),0x2e),U_JUKELINUX1_MINUTOSLIGADASTR);
-        uVar4 := Copy(MINUTOSLIGADASTR, 1, iVar3 + 2);
-        MINUTOSLIGADASTR := local_6c;
+        // Nova: minutos -> horas (conta em ponto flutuante da original)
+        MINUTOSLIGADASTR := Nova_Horas(StrToIntDef(MINUTOSLIGADASTR, 0));
         local_8c := 'JukeLinux ';
         local_88 := VERSAO;
         local_84 := '   Data:';
@@ -14077,7 +14071,7 @@ begin
       local_44 := '';
       local_44 := Criptasuper2(local_10);
       TEXTO := local_44;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, TEXTO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -14282,14 +14276,8 @@ begin
       local_13c := IntToStr(MINUTOSLIGADA);
       MINUTOSLIGADASTR := local_13c;
       local_13c := '';
-      // C: local_3c = (char * )SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT (U_JUKELINUX1_MINUTOSLIGADASTR,0);
-      // C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING(&local_13c);
-      MINUTOSLIGADASTR := local_13c;
-      local_13c := '';
-      // C: uVar3 = SUB42(&local_13c,0);
-      // C: iVar2 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT (CONCAT31((int3)((uint)&local_13c >> 8),0x2e),U_JUKELINUX1_MINUTOSLIGADASTR);
-      uVar3 := Copy(MINUTOSLIGADASTR, 1, iVar2 + 2);
-      MINUTOSLIGADASTR := local_13c;
+      // Nova: minutos -> horas (conta em ponto flutuante da original)
+      MINUTOSLIGADASTR := Nova_Horas(StrToIntDef(MINUTOSLIGADASTR, 0));
       local_140 := '';
       local_4c := 'Relógio Parcial.: R$ ';
       local_13c := '';
@@ -14300,8 +14288,7 @@ begin
       local_3c := 'hs Ligada]';
       local_140 := local_4c + local_48 + local_44 + local_40 + local_3c;
       Form1.LabelRP.Caption := local_140;
-      // ?: local_14c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
-      VALORPONTO := local_14c;  // C convertido: U_JUKELINUX1_VALORPONTO = (int)local_14c;
+      VALORPONTO := Round(PORCENTAGEMDOPONTO * (RELOGIOPARCIAL / 100));  // Nova: valor do ponto (conta em ponto flutuante da original)
       local_140 := '';
       local_44 := 'Valor do Ponto: R$ ';
       local_13c := '';
@@ -14752,7 +14739,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox12.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox12,&local_3c);
       SENTIDODAPAGINACAO := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, SENTIDODAPAGINACAO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -15280,7 +15267,7 @@ begin
         local_88 := '';
         local_88 := Form1.ComboBox1.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox1,&local_88);
         REAISXMUSICAS := local_88;
-        // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+        Write(ARQTEXTO, REAISXMUSICAS);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
         Writeln(ARQTEXTO);
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
@@ -15526,7 +15513,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox2.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox2,&local_3c);
       EXIBIRVIDEOSNO := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, EXIBIRVIDEOSNO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -15585,7 +15572,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox3.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox3,&local_3c);
       ORDEMDOSCDS := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, ORDEMDOSCDS);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -15668,7 +15655,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox4.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox4,&local_3c);
       MUSICAGRATIS := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, MUSICAGRATIS);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -15733,7 +15720,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox5.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox5,&local_3c);
       PROPAGANDA := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, PROPAGANDA);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -16051,7 +16038,7 @@ begin
       local_3c := '';
       local_3c := Form1.ComboBox9.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox9,&local_3c);
       FORMADESELECIONARRITMO := local_3c;
-      // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+      Write(ARQTEXTO, FORMADESELECIONARRITMO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
@@ -16494,7 +16481,7 @@ begin
     local_138 := '';
     local_138 := Form1.ComboBoxPorcento.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBoxPorcento,&local_138);
     PORCENTAGEMDOPONTOSTR := local_138;
-    // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+    Write(ARQTEXTO, PORCENTAGEMDOPONTOSTR);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
     Writeln(ARQTEXTO);
     Flush(ARQTEXTO);
     CloseFile(ARQTEXTO);
@@ -22435,14 +22422,8 @@ begin
       local_38 := IntToStr(MINUTOSLIGADA);
       MINUTOSLIGADASTR := local_38;
       // C: local_38[0] = (char * )0x0;
-      local_3c := StrToIntDef(MINUTOSLIGADASTR, 0);
-      // C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING(local_38);
-      MINUTOSLIGADASTR := local_38;
-      // C: local_38[0] = (char * )0x0;
-      // C: uVar4 = SUB42(local_38,0);
-      // C: iVar3 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT (CONCAT31((int3)((uint)local_38 >> 8),0x2e),U_JUKELINUX1_MINUTOSLIGADASTR);
-      uVar4 := Copy(MINUTOSLIGADASTR, 1, iVar3 + 2);
-      MINUTOSLIGADASTR := local_38;
+      // Nova: minutos -> horas (conta em ponto flutuante da original)
+      MINUTOSLIGADASTR := Nova_Horas(StrToIntDef(MINUTOSLIGADASTR, 0));
       local_40 := '';
       local_4c := 'Relógio Total...: R$ ';
       // C: local_38[0] = (char * )0x0;
@@ -22466,8 +22447,7 @@ begin
       local_64 := IntToStr(PORCENTAGEMDOPONTO);
       local_40 := '% do  Ponto: ' + local_64;
       Form1.LabelPor.Caption := local_40;
-      // ?: local_6c := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
-      VALORPONTO := local_6c;  // C convertido: U_JUKELINUX1_VALORPONTO = (int)local_6c;
+      VALORPONTO := Round(PORCENTAGEMDOPONTO * (RELOGIOPARCIAL / 100));  // Nova: valor do ponto (conta em ponto flutuante da original)
       local_40 := '';
       local_4c := 'Valor do Ponto..: R$ ';
       local_64 := '';
@@ -22535,14 +22515,8 @@ begin
         Read(ARQTEXTO, TEXTO);
         Readln(ARQTEXTO);
         local_80 := '';
-        // C: local_84 = (char * )SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(U_JUKELINUX1_TEXTO,0);
-        // C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING(&local_80);
-        TEXTO := local_80;
-        local_80 := '';
-        // C: uVar4 = SUB42(&local_80,0);
-        // C: iVar3 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT (CONCAT31((int3)((uint)&local_80 >> 8),0x2e),U_JUKELINUX1_TEXTO);
-        uVar4 := Copy(TEXTO, 1, iVar3 + 2);
-        TEXTO := local_80;
+        // Nova: minutos -> horas (conta em ponto flutuante da original)
+        TEXTO := Nova_Horas(StrToIntDef(TEXTO, 0));
         local_184 := '';
         local_80 := '';
         local_80 := Form1.LabelUF2.Caption;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.LabelUF2,&local_80);
@@ -22660,14 +22634,8 @@ begin
       local_188 := IntToStr(MINUTOSLIGADA);
       MINUTOSLIGADASTR := local_188;
       local_188 := '';
-      // C: local_18c = (undefined * ) SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT(U_JUKELINUX1_MINUTOSLIGADASTR,0);
-      // C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING(&local_188);
-      MINUTOSLIGADASTR := local_188;
-      local_188 := '';
-      // C: uVar4 = SUB42(&local_188,0);
-      // C: iVar3 = SYSTEM_POS_CHAR_ANSISTRING__LONGINT (CONCAT31((int3)((uint)&local_188 >> 8),0x2e),U_JUKELINUX1_MINUTOSLIGADASTR);
-      uVar4 := Copy(MINUTOSLIGADASTR, 1, iVar3 + 2);
-      MINUTOSLIGADASTR := local_188;
+      // Nova: minutos -> horas (conta em ponto flutuante da original)
+      MINUTOSLIGADASTR := Nova_Horas(StrToIntDef(MINUTOSLIGADASTR, 0));
       local_198 := '';
       local_194 := 'Relógio Total...: R$ ';
       local_188 := '';
@@ -22677,17 +22645,16 @@ begin
       local_198 := local_194 + local_190 + local_18c;
       Form1.LabelRT.Caption := local_198;
       local_198 := '';
-      // C: local_1ac = CONCAT44(local_1ac._4_4_,"Relógio Parcial: R$ ");
+      local_1ac := 'Relógio Parcial: R$ ';  // C convertido: local_1ac = CONCAT44(local_1ac._4_4_,"Relógio Parcial: R$ ");
       local_188 := '';
       local_188 := IntToStr(RELOGIOPARCIAL);
-      // C: local_1ac = CONCAT44(local_188,(int)local_1ac);
+      local_1a8 := local_188;  // C convertido: local_1ac = CONCAT44(local_188,(int)local_1ac);
       local_1a4 := ',00  [';  // C convertido: local_1a4 = ",00  [";
       local_1a0 := MINUTOSLIGADASTR;
       local_19c := 'hs Ligada]';
       local_198 := local_1ac + local_1a8 + local_1a4 + local_1a0 + local_19c;
       Form1.LabelRP.Caption := local_198;
-      // ?: local_1ac := (longlong) ROUND((float10)PORCENTAGEMDOPONTO * ((float10)RELOGIOPARCIAL div ''));
-      // C: U_JUKELINUX1_VALORPONTO = (int)local_1ac;
+      VALORPONTO := Round(PORCENTAGEMDOPONTO * (RELOGIOPARCIAL / 100));  // Nova: valor do ponto (conta em ponto flutuante da original)
       local_198 := '';
       local_1a4 := 'Valor do Ponto..: R$ ';
       local_1b0 := '';
@@ -24952,7 +24919,7 @@ begin
             end;
             local_138 := Copy(TEXTOTOCANDO, (iVar4 + 1), uVar7);  // C convertido: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCANDO,iVar4 + 1,uVar7);
             TEXTO := local_138;
-            // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+            Write(ARQTEXTO, TEXTO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
             Writeln(ARQTEXTO);
             Flush(ARQTEXTO);
             CloseFile(ARQTEXTO);
@@ -24989,7 +24956,7 @@ begin
             end;
             local_138 := Copy(TEXTOTOCANDO, (iVar4 + 1), uVar7);  // C convertido: fpc_ansistr_copy(U_JUKELINUX1_TEXTOTOCANDO,iVar4 + 1,uVar7);
             TEXTO := local_138;
-            // C: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
+            Write(ARQTEXTO, TEXTO);  // C convertido: fpc_write_text_ansistr(0,U_JUKELINUX1_ARQTEXTO);
             Writeln(ARQTEXTO);
             Flush(ARQTEXTO);
             CloseFile(ARQTEXTO);

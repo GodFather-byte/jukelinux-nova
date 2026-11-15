@@ -187,6 +187,8 @@ class Tradutor:
         self.mult = {}
         # Variável zerada na linha anterior (X := ''): o FPC zera o destino antes de uma função que devolve texto.
         self.zerada = None
+        # Variável atribuída na linha Pascal anterior: valor de um Write cujo argumento o Ghidra perdeu (registrador).
+        self.ultima_atribuida = None
 
     def novo(self):
         t = Tradutor(self.globais, self.locais, self.comps, self.ptrs)
@@ -658,6 +660,13 @@ def chamada(nome, args, destino, tr):
     if nome == 'FILECTRL_TCUSTOMFILELISTBOX____SETDIRECTORY_ANSISTRING' and n == 2:
         comp, _ = componente(args[0], tr)
         return f'Form1.{comp}.Directory := {texto_de(args[1], tr)};'
+    if nome == 'fpc_write_text_ansistr' and n == 2 and args[0].strip() == '0' and tr.ultima_atribuida:
+        # o valor ficou no registrador: é o que acabou de ser atribuído na linha anterior
+        arq, tipo = tr.resolve(args[1].strip())
+        valor, tipo_valor = tr.resolve(tr.ultima_atribuida)
+        if tipo != 'arquivo' or tipo_valor != 'texto':
+            raise Falha('write sem valor fora do padrão')
+        return f'Write({arq}, {valor});'
     if nome in ('fpc_write_text_ansistr', 'fpc_write_text_shortstr', 'fpc_write_text_sint') and n == 3 \
             and args[0].strip() == '0':
         arq, tipo = tr.resolve(args[1].strip())
@@ -739,8 +748,27 @@ def fecha_no_fim(texto):
     return prof == 0
 
 
+def concat44(m, tr):
+    """local_N = CONCAT44(alta, baixa): o Ghidra juntou duas locais de 4 bytes vizinhas na pilha; a baixa é a própria
+    local_N e a alta é a de 4 bytes acima (local_N-4). Partes que só repetem o valor de antes não geram comando."""
+    alvo, desl = m.group(1), int(m.group(2), 16)
+    alta_c, baixa_c = separa_args(m.group(3))
+    vizinha = f'local_{desl - 4:x}'
+    comandos = []
+    if not re.fullmatch(r'(\(int\))?\s*' + re.escape(alvo), baixa_c.strip()):
+        comandos.append(_atribui(tr, alvo, texto_de(baixa_c, tr), 'texto'))
+    if not re.fullmatch(re.escape(alvo) + r'\._4_4_', alta_c.strip()):
+        comandos.append(_atribui(tr, vizinha, texto_de(alta_c, tr), 'texto'))
+    if not comandos:
+        raise Falha('CONCAT44 sem mudança')
+    return ' '.join(comandos)
+
+
 def comando(c, tr):
     """Traduz uma linha // C: para um comando Pascal, ou levanta Falha."""
+    m = re.match(r'^(local_([0-9a-f]+)) = CONCAT44\((.*)\);$', c)
+    if m:
+        return concat44(m, tr)
     m = re.match(r'^(\w+) = fpc_setjmp\(\);$', c)
     if m:
         nome, tipo = tr.resolve(m.group(1))
@@ -845,8 +873,44 @@ def retipa_temporarias_cd(texto):
     return texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
 
 
+# Contas em ponto flutuante (x87) que o Ghidra perdeu: os divisores sumiram, mas o padrão é sempre o mesmo.
+def _re_horas(primeira):
+    return re.compile(
+        primeira +
+        r"[ ]*// C: SYSUTILS_FLOATTOSTR_EXTENDED__ANSISTRING\(&?(?P<d>\w+)\);\n"
+        r"[ ]*(?P=s) := (?P=d);\n"
+        r"[ ]*(?:(?P=d) := '';|// C: (?P=d)\[0\] = \(char \* \)0x0;)\n"
+        r"[ ]*// C: \w+ = SUB42\([^\n]*\n"
+        r"[ ]*// C: \w+ = SYSTEM_POS_CHAR_ANSISTRING__LONGINT[^\n]*\n"
+        r"[ ]*\w+ := Copy\((?P=s), 1, \w+ \+ 2\);\n"
+        r"[ ]*(?P=s) := (?P=d);\n")
+
+
+# Contas em ponto flutuante (x87) que o Ghidra perdeu: os divisores sumiram, mas o padrão é sempre o mesmo.
+RE_HORAS = [
+    _re_horas(r"(?P<ind>[ ]*)// C: \w+ = \([^)]*\) ?SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT ?"
+              r"\(U_JUKELINUX1_(?P<s>\w+),0\);\n"),
+    _re_horas(r"(?P<ind>[ ]*)\w+ := StrToIntDef\((?P<s>\w+), 0\);\n"),
+]
+RE_PONTO = re.compile(
+    r"(?P<ind>[ ]*)// \?: (?P<v>\w+) := \(longlong\) ROUND\(\(float10\)PORCENTAGEMDOPONTO \* "
+    r"\(\(float10\)RELOGIOPARCIAL div ''\)\);\n"
+    r"[ ]*// C: U_JUKELINUX1_VALORPONTO = \(int\)(?P=v);\n")
+
+
+def contas_flutuantes(texto):
+    """Horas ligadas (minutos / 60, até 2 casas) e valor do ponto (% do ponto sobre o relógio parcial)."""
+    for rx in RE_HORAS:
+        texto = rx.sub(lambda m: f"{m['ind']}// Nova: minutos -> horas (conta em ponto flutuante da original)\n"
+                                 f"{m['ind']}{m['s']} := Nova_Horas(StrToIntDef({m['s']}, 0));\n", texto)
+    texto = RE_PONTO.sub(lambda m: f"{m['ind']}VALORPONTO := Round(PORCENTAGEMDOPONTO * (RELOGIOPARCIAL / 100));"
+                                   f"  // Nova: valor do ponto (conta em ponto flutuante da original)\n", texto)
+    return texto
+
+
 def completa_rotina(texto, globais, estatistica=None, comps=None):
     texto = retipa_temporarias_cd(texto)
+    texto = contas_flutuantes(texto)
     tr = Tradutor(globais, le_locais(texto), comps)
     est = estatistica if estatistica is not None else {}
 
@@ -888,6 +952,9 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
         elif tr.zerada and not re.match(r'^\s*//', linha) \
                 and re.search(r'\b' + re.escape(tr.zerada) + r'\b', linha.split('//')[0]):
             tr.zerada = None
+        if not re.match(r'^\s*//', linha):
+            ma = re.match(r'^\s*(\w+) := [^;]+;', linha)
+            tr.ultima_atribuida = ma.group(1) if ma else None
         m = RE_LINHA_C.match(linha)
         if m:
             try:
