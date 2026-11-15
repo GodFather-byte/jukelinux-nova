@@ -36,6 +36,27 @@ sudo sh instalar.sh --desfazer  # volta o executável anterior
 A Nova fica em `/home/jkb/jukelinux/jukelinux`, mesmo caminho e nome da antiga: o que já inicia a jukebox continua
 iniciando, e músicas, configurações, relógios e créditos ficam como estão. Na primeira vez aparece a tela de ativação.
 
+## Máquina nova
+
+Numa máquina que nunca teve a JukeLinux, a Nova cria o que falta na primeira abertura:
+
+- **Configurações:** todos os `.txt` com os valores padrão da original (créditos, relógios, teclado, paginação...).
+  A original já fazia isso; o que impedia era o `inicio.sh`.
+- **`inicio.sh`:** a original o executava para listar os discos e achar o pendrive-chave, e sem ele a abertura parava
+  pela metade. A Nova o cria; a licença substitui o pendrive, e a abertura não espera mais por ele (eram 5 s).
+- **Imagens:** uma imagem que falte (ritmo, letra, capa, propaganda) não para a tela. Aparece o nome no lugar, por
+  exemplo o nome do ritmo, e o log registra uma vez o arquivo que falta.
+
+O instalador cria as pastas `/home/jkb/musicas`, `ritmos/` e `letras/`. O que vem de cada bar:
+
+| O quê | Onde | Formato |
+|---|---|---|
+| CD/DVD | `/home/jkb/musicas/ARTISTA - CD/` | as músicas (`01 - NOME.mp3`, `.mp4` para DVD), `genero.txt` (ritmo, ex. `MP - MPB`), `capapequena.jpg` e outra `.jpg` como capa |
+| Lançamento | `qualquer.atu` na pasta do CD | linha 1: dias que fica como lançamento; linha 2: data (`dd/mm/aaaa`, também com `-` ou `.`) |
+| Imagem do ritmo/letra | `ritmos/`, `letras/` + `ritmosxjgps.txt`, `letrasxjgps.txt` | nos `.txt`, pares de linhas: nome do ritmo, arquivo `.jpg` |
+| Cartões | `*.CAR` na pasta da jukebox | arquivo de registros de 94 bytes (String[93]); o 0 é cabeçalho, os outros são códigos cifrados |
+| Créditos dos cartões | `cartoes.ccc` (criado sozinho) | registros de 38 bytes: código, créditos e situação, cifrados; o 0 é a data de criação |
+
 ## Licença
 
 No lugar do pendrive-chave, a Nova usa a tela de ativação da original. Sem licença válida, a jukebox abre em
@@ -79,6 +100,14 @@ músicas, relógios e `creditos.txt`).
   creditadas duas vezes. Tudo vai para o `log.txt` com o prefixo `Pix:`.
 - Teste contra um PSP simulado (HTTPS com certificado de cliente): `testes/pix/rodar.sh`.
 
+## Teste de integração
+
+`sudo sh testes/integracao/rodar.sh` monta uma máquina de teste em `/home/jkb/jukelinux` e `/home/jkb/musicas` (o que
+já estiver lá é guardado e volta no fim), abre a jukebox numa tela virtual (Xvfb) e confere o que ela grava: as
+configurações padrão, o ranking das mais tocadas, os cartões (lidos do `.CAR` e do `cartoes.ccc`, e um lido pelo
+leitor de código de barras no modo Bar, que usa 1 crédito), um CD de lançamento e a
+falta de exceções. Roda também no CI.
+
 ## Fases
 
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
@@ -88,6 +117,17 @@ músicas, relógios e `creditos.txt`).
 5. Menu do operador. Senha e as cinco seções abrem com a configuração da máquina; falta testar cada opção.
 6. Licença nova e ferramenta de gerar licenças. **Feito:** ativação pela tela da original e gerador de contra-senhas.
 7. Pacote de instalação e piloto. **Feito:** instalador com troca direta e desfazer; falta o piloto numa máquina real.
+
+## O que ficou do C sem traduzir
+
+Restam 13 linhas `// C:` em `src/jukelinux1_rotinas.inc`, todas sem efeito na Nova:
+
+- **`Criptabuf`/`Descriptabuf`:** a cifra das músicas em blocos. A Nova usa `musicacifra.pas` no lugar.
+- **`ButtonAtivarClick`:** a ativação antiga. A tela de ativação é tratada pela licença da Nova (`nova.inc`).
+- **Duas propriedades de painel (vmt 0x21c) e um byte do Form1 (0x33e) sem nome conhecido.** São aparência na
+  abertura.
+- **Um item do ComboBoxMG6 e uma cópia na lista de discos do `inicio.txt` (o pendrive-chave),** que a licença
+  substitui.
 
 ## Referência
 

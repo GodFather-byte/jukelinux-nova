@@ -19,7 +19,7 @@ jobs:
       - name: Instalar Lazarus e Free Pascal
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc >/dev/null
+          sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc xvfb xdotool >/dev/null
           lazbuild --version
 
       - name: Chave da licença
@@ -45,6 +45,9 @@ jobs:
         run: |
           file jukelinux
           ldd jukelinux | grep -i "not found" && exit 1 || true
+
+      - name: Teste de integração (jukebox aberta em tela virtual)
+        run: sudo -E env "PATH=$PATH" sh testes/integracao/rodar.sh ./jukelinux
 
       - name: Montar o pacote de instalação
         run: |
