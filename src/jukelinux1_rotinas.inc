@@ -248,13 +248,13 @@ begin
     local_c := local_48 + local_44 + local_40;
     local_3c := '';
     // C: puVar4 = local_c;
-    if False { C: local_c == (undefined1 * )0x0 } then begin
+    if (local_c = '') { C convertido: local_c == (undefined1 * )0x0 } then begin
     end;
     local_3c := local_c;  // C convertido: fpc_pchar_to_ansistr(puVar4,local_3c);
     // C: uVar1 = local_3c[0];
     local_4c := 0;
     // C: puVar4 = local_8;
-    if False { C: local_8 == (undefined1 * )0x0 } then begin
+    if (local_8 = '') { C convertido: local_8 == (undefined1 * )0x0 } then begin
     end;
     // C: fpc_pchar_to_ansistr(puVar4,&local_4c);
     // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_4c,uVar1,extraout_ECX & 0xffffff00);
@@ -796,7 +796,7 @@ begin
                       uStack_478c84 := Copy(uStack_478c80, 1, 2);  // C convertido: fpc_ansistr_copy(uStack_478c80,1,2,puVar9);
                       if uStack_478c84 = 'AX' then begin
                         iVar3 := 0;
-                        if False { C: local_28 != (char * )0x0 } then begin
+                        if (local_28 <> '') { C convertido: local_28 != (char * )0x0 } then begin
                           iVar3 := Length(local_28);
                         end;
                         if iVar3 = 3 then begin
@@ -810,7 +810,7 @@ begin
                       uStack_478c84 := Copy(uStack_478d88, 1, 4);  // C convertido: fpc_ansistr_copy(uStack_478d88,1,4,puVar9);
                       if uStack_478c84 = 'FORR' then begin
                         iVar3 := 0;
-                        if False { C: local_28 != (char * )0x0 } then begin
+                        if (local_28 <> '') { C convertido: local_28 != (char * )0x0 } then begin
                           iVar3 := Length(local_28);
                         end;
                         if iVar3 = 5 then begin
@@ -2294,7 +2294,7 @@ begin
                 local_24c := '';
                 local_24c := PASTACHAVE + 'creditos.txt';
                 // C: puVar5 = local_24c;
-                if False { C: local_24c == (undefined1 * )0x0 } then begin
+                if (local_24c = '') { C convertido: local_24c == (undefined1 * )0x0 } then begin
                 end;
                 local_354 := local_24c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_354);
                 // C: uVar1 = local_354;
@@ -2302,7 +2302,7 @@ begin
                 local_35c := '';
                 local_35c := PASTA + 'creditos.txt';
                 // C: puVar5 = local_35c;
-                if False { C: local_35c == (undefined1 * )0x0 } then begin
+                if (local_35c = '') { C convertido: local_35c == (undefined1 * )0x0 } then begin
                 end;
                 local_358 := local_35c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_358);
                 // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_358,uVar1,extraout_ECX & 0xffffff00);
@@ -4218,7 +4218,7 @@ begin
       local_34 := '';
       local_34 := PASTA + 'apagaatu.txt';
       // C: puVar4 = local_34;
-      if False { C: local_34 == (undefined1 * )0x0 } then begin
+      if (local_34 = '') { C convertido: local_34 == (undefined1 * )0x0 } then begin
       end;
       local_30 := local_34;  // C convertido: fpc_pchar_to_ansistr(puVar4,local_30);
       DeleteFile(local_30);
@@ -6432,7 +6432,7 @@ begin
         local_138 := '';
         local_138 := PASTA + 'tocar.txt';
         // C: puVar3 = local_138;
-        if False { C: local_138 == (undefined1 * )0x0 } then begin
+        if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_34 := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,local_34);
         // C: uVar4 = local_34[0];
@@ -6440,7 +6440,7 @@ begin
         local_140 := '';
         local_140 := PASTA + 'tocarx.txt';
         // C: puVar3 = local_140;
-        if False { C: local_140 == (undefined1 * )0x0 } then begin
+        if (local_140 = '') { C convertido: local_140 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_140;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
         // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar4,extraout_ECX & 0xffffff00);
@@ -6463,7 +6463,7 @@ begin
           local_144 := '';
           local_144 := PASTACHAVE + 'tocar.txt';
           // C: puVar3 = local_144;
-          if False { C: local_144 == (undefined1 * )0x0 } then begin
+          if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
           end;
           local_13c := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
           // C: uVar4 = local_13c;
@@ -6471,7 +6471,7 @@ begin
           local_14c := '';
           local_14c := PASTA + 'tocar.txt';
           // C: puVar3 = local_14c;
-          if False { C: local_14c == (undefined1 * )0x0 } then begin
+          if (local_14c = '') { C convertido: local_14c == (undefined1 * )0x0 } then begin
           end;
           local_148 := local_14c;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_148);
           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_148,uVar4,extraout_ECX_00 & 0xffffff00);
@@ -7486,7 +7486,7 @@ begin
           // C: local_64[0] = (undefined1 * )0x0;
           local_64 := PASTACHAVE + 'creditos.txt';
           // C: puVar5 = local_64[0];
-          if False { C: local_64[0] == (undefined1 * )0x0 } then begin
+          if (local_64 = '') { C convertido: local_64[0] == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar5,&local_168);
           // C: uVar1 = local_168;
@@ -7494,7 +7494,7 @@ begin
           local_170 := '';
           local_170 := PASTA + 'creditos.txt';
           // C: puVar5 = local_170;
-          if False { C: local_170 == (undefined1 * )0x0 } then begin
+          if (local_170 = '') { C convertido: local_170 == (undefined1 * )0x0 } then begin
           end;
           local_16c := local_170;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_16c);
           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_16c,uVar1,extraout_ECX & 0xffffff00);
@@ -7711,7 +7711,7 @@ begin
         // C: local_30[0] = (undefined1 * )0x0;
         local_30 := PASTACHAVE + 'creditos.txt';
         // C: puVar3 = local_30[0];
-        if False { C: local_30[0] == (undefined1 * )0x0 } then begin
+        if (local_30 = '') { C convertido: local_30[0] == (undefined1 * )0x0 } then begin
         end;
         // C: fpc_pchar_to_ansistr(puVar3,&local_134);
         // C: uVar1 = local_134;
@@ -7719,7 +7719,7 @@ begin
         local_13c := '';
         local_13c := PASTA + 'creditos.txt';
         // C: puVar3 = local_13c;
-        if False { C: local_13c == (undefined1 * )0x0 } then begin
+        if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_138);
         // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_138,uVar1,extraout_ECX & 0xffffff00);
@@ -7824,7 +7824,7 @@ begin
         local_134 := '';
         local_134 := PASTACHAVE + 'creditos.txt';
         // C: puVar4 = local_134;
-        if False { C: local_134 == (undefined1 * )0x0 } then begin
+        if (local_134 = '') { C convertido: local_134 == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_134;  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_138);
         // C: uVar1 = local_138;
@@ -7832,7 +7832,7 @@ begin
         local_140 := '';
         local_140 := PASTA + 'creditos.txt';
         // C: puVar4 = local_140;
-        if False { C: local_140 == (undefined1 * )0x0 } then begin
+        if (local_140 = '') { C convertido: local_140 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_140;  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_13c);
         // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar1,extraout_ECX & 0xffffff00);
@@ -8556,7 +8556,7 @@ begin
             local_50 := '';
             local_50 := PASTACHAVE + 'creditos.txt';
             // C: puVar5 = local_50;
-            if False { C: local_50 == (undefined1 * )0x0 } then begin
+            if (local_50 = '') { C convertido: local_50 == (undefined1 * )0x0 } then begin
             end;
             local_154 := local_50;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_154);
             // C: uVar1 = local_154;
@@ -8564,7 +8564,7 @@ begin
             local_15c := '';
             local_15c := PASTA + 'creditos.txt';
             // C: puVar5 = local_15c;
-            if False { C: local_15c == (undefined1 * )0x0 } then begin
+            if (local_15c = '') { C convertido: local_15c == (undefined1 * )0x0 } then begin
             end;
             local_158 := local_15c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_158);
             // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_158,uVar1,extraout_ECX & 0xffffff00);
@@ -8702,7 +8702,7 @@ begin
               local_138 := '';
               local_138 := PASTACHAVE + 'creditos.txt';
               // C: puVar6 = local_138;
-              if False { C: local_138 == (undefined1 * )0x0 } then begin
+              if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
               end;
               local_130 := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_130);
               // C: puVar6 = local_130;
@@ -8710,7 +8710,7 @@ begin
               local_140 := '';
               local_140 := PASTA + 'creditos.txt';
               // C: puVar7 = local_140;
-              if False { C: local_140 == (undefined1 * )0x0 } then begin
+              if (local_140 = '') { C convertido: local_140 == (undefined1 * )0x0 } then begin
               end;
               local_13c := local_140;  // C convertido: fpc_pchar_to_ansistr(puVar7,&local_13c);
               CopyFile(local_13c, local_130, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,puVar6,extraout_ECX & 0xffffff00);
@@ -8737,7 +8737,7 @@ begin
                 local_130 := '';
                 local_130 := PASTACHAVE + 'tocar.txt';
                 // C: puVar6 = local_130;
-                if False { C: local_130 == (undefined1 * )0x0 } then begin
+                if (local_130 = '') { C convertido: local_130 == (undefined1 * )0x0 } then begin
                 end;
                 local_13c := local_130;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_13c);
                 // C: uVar1 = local_13c;
@@ -8745,7 +8745,7 @@ begin
                 local_248 := '';
                 local_248 := PASTA + 'tocar.txt';
                 // C: puVar6 = local_248;
-                if False { C: local_248 == (undefined1 * )0x0 } then begin
+                if (local_248 = '') { C convertido: local_248 == (undefined1 * )0x0 } then begin
                 end;
                 local_244 := local_248;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_244);
                 // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar1,extraout_ECX_00 & 0xffffff00);
@@ -9895,7 +9895,7 @@ begin
       local_79c := '';
       local_79c := PASTA + 'autoteste1.txt';
       // C: puVar5 = local_79c;
-      if False { C: local_79c == (undefined1 * )0x0 } then begin
+      if (local_79c = '') { C convertido: local_79c == (undefined1 * )0x0 } then begin
       end;
       local_794 := local_79c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
       DeleteFile(local_794);
@@ -9903,7 +9903,7 @@ begin
       local_7a0 := '';
       local_7a0 := PASTA + 'autoteste2.txt';
       // C: puVar5 = local_7a0;
-      if False { C: local_7a0 == (undefined1 * )0x0 } then begin
+      if (local_7a0 = '') { C convertido: local_7a0 == (undefined1 * )0x0 } then begin
       end;
       local_794 := local_7a0;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
       DeleteFile(local_794);
@@ -10000,7 +10000,7 @@ begin
             // C: local_68c[0] = (undefined1 * )0x0;
             local_68c := PASTA + 'autoteste1.txt';
             // C: puVar5 = local_68c[0];
-            if False { C: local_68c[0] == (undefined1 * )0x0 } then begin
+            if (local_68c = '') { C convertido: local_68c[0] == (undefined1 * )0x0 } then begin
             end;
             local_794 := local_7a0;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
             DeleteFile(local_794);
@@ -10008,7 +10008,7 @@ begin
             local_798 := '';
             local_798 := PASTA + 'autoteste2.txt';
             // C: puVar5 = local_798;
-            if False { C: local_798 == (undefined1 * )0x0 } then begin
+            if (local_798 = '') { C convertido: local_798 == (undefined1 * )0x0 } then begin
             end;
             local_794 := local_798;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_794);
             DeleteFile(local_794);
@@ -11079,7 +11079,7 @@ begin
             local_180 := '';
             local_180 := PASTACHAVE + 'creditos.txt';
             // C: pcVar4 = local_180;
-            if False { C: local_180 == (char * )0x0 } then begin
+            if (local_180 = '') { C convertido: local_180 == (char * )0x0 } then begin
               // C: pcVar4 = &FPC_EMPTYCHAR;
             end;
             // C: fpc_pchar_to_ansistr(pcVar4,&local_184);
@@ -11088,7 +11088,7 @@ begin
             local_7c := '';
             local_7c := PASTACHAVE + 'tocar.txt';
             // C: puVar5 = local_7c;
-            if False { C: local_7c == (undefined * )0x0 } then begin
+            if (local_7c = '') { C convertido: local_7c == (undefined * )0x0 } then begin
             end;
             local_184 := local_7c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_184);
             DeleteFile(local_184);
@@ -12433,7 +12433,7 @@ begin
       local_13c := '';
       local_13c := PASTACHAVE + 'interfaceteclado.txt';
       // C: puVar5 = local_13c;
-      if False { C: local_13c == (undefined1 * )0x0 } then begin
+      if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
       local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_138);
       // C: uVar1 = local_138;
@@ -12441,7 +12441,7 @@ begin
       local_144 := '';
       local_144 := PASTA + 'interfaceteclado.txt';
       // C: puVar5 = local_144;
-      if False { C: local_144 == (undefined1 * )0x0 } then begin
+      if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
       local_140 := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
       // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
@@ -12824,7 +12824,7 @@ begin
                         local_1134 := '';
                         local_1134 := Form1.FileListBox1.Items[local_14];  // C convertido: ( **(code ** )( **(int ** )(Form1.FileListBox1 + 0x364) + 0x78)) (Form1.FileListBox1.Items,local_14, &local_1134);
                         uVar7 := 0;  // C convertido: uVar7 = 0;
-                        if False { C: local_1134 != (char * )0x0 } then begin
+                        if (local_1134 <> '') { C convertido: local_1134 != (char * )0x0 } then begin
                           uVar7 := Length(local_1134);  // C convertido: uVar7 = *(undefined4 * )(local_1134 + -4);
                         end;
                         local_1134 := '';
@@ -12890,13 +12890,13 @@ begin
                           // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xa2c) + 0x2fc)) (Form1.PanelCarregarMusica);
                           local_1134 := '';
                           // C: puVar8 = U_JUKELINUX1_DESTINO;
-                          if False { C: U_JUKELINUX1_DESTINO == (undefined1 * )0x0 } then begin
+                          if (DESTINO = '') { C convertido: U_JUKELINUX1_DESTINO == (undefined1 * )0x0 } then begin
                           end;
                           local_1134 := DESTINO;  // C convertido: fpc_pchar_to_ansistr(puVar8,&local_1134);
                           // C: pcVar1 = local_1134;
                           local_1138 := '';
                           // C: puVar8 = U_JUKELINUX1_ORIGEM;
-                          if False { C: U_JUKELINUX1_ORIGEM == (undefined1 * )0x0 } then begin
+                          if (ORIGEM = '') { C convertido: U_JUKELINUX1_ORIGEM == (undefined1 * )0x0 } then begin
                           end;
                           local_1138 := ORIGEM;  // C convertido: fpc_pchar_to_ansistr(puVar8,&local_1138);
                           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_1138,pcVar1,1);
@@ -13028,7 +13028,7 @@ begin
           local_148 := '';
           local_148 := PASTA + 'instalacao.txt';
           // C: puVar3 = local_148;
-          if False { C: local_148 == (undefined1 * )0x0 } then begin
+          if (local_148 = '') { C convertido: local_148 == (undefined1 * )0x0 } then begin
           end;
           local_140 := local_148;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_140);
           DeleteFile(local_140);
@@ -13628,13 +13628,13 @@ begin
           // C: fpc_ansistr_concat(&local_1b0,"//home/jkb/upgrade/", *(undefined4 * )(local_19c + local_1a0 * 4 + -4));
           local_1e0 := '';
           // C: puVar6 = local_1b0;
-          if False { C: local_1b0 == (undefined1 * )0x0 } then begin
+          if (local_1b0 = '') { C convertido: local_1b0 == (undefined1 * )0x0 } then begin
           end;
           local_1e0 := local_1b0;  // C convertido: fpc_pchar_to_ansistr(puVar6,local_1e0);
           uVar1 := local_1e0;  // C convertido: uVar1 = local_1e0[0];
           local_1e4 := '';
           // C: puVar6 = local_1ac;
-          if False { C: local_1ac == (undefined1 * )0x0 } then begin
+          if (local_1ac = '') { C convertido: local_1ac == (undefined1 * )0x0 } then begin
           end;
           local_1e4 := local_1ac;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_1e4);
           CopyFile(local_1e4, uVar1, True);
@@ -13750,13 +13750,13 @@ begin
             local_1b0 := local_1f4 + local_1f0 + local_1ec;
             local_1f8 := '';
             // C: puVar6 = local_1b0;
-            if False { C: local_1b0 == (undefined1 * )0x0 } then begin
+            if (local_1b0 = '') { C convertido: local_1b0 == (undefined1 * )0x0 } then begin
             end;
             local_1f8 := local_1b0;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_1f8);
             uVar1 := local_1f8;  // C convertido: uVar1 = local_1f8;
             local_1fc := '';
             // C: puVar6 = local_1ac;
-            if False { C: local_1ac == (undefined1 * )0x0 } then begin
+            if (local_1ac = '') { C convertido: local_1ac == (undefined1 * )0x0 } then begin
             end;
             local_1fc := local_1ac;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_1fc);
             CopyFile(local_1fc, uVar1, True);
@@ -14121,7 +14121,7 @@ begin
       local_138 := '';
       local_138 := PASTACHAVE + 'creditos.txt';
       // C: puVar3 = local_138;
-      if False { C: local_138 == (undefined1 * )0x0 } then begin
+      if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
       end;
       local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
       // C: uVar1 = local_13c;
@@ -14129,7 +14129,7 @@ begin
       local_144 := '';
       local_144 := PASTA + 'creditos.txt';
       // C: puVar3 = local_144;
-      if False { C: local_144 == (undefined1 * )0x0 } then begin
+      if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
       // C: fpc_pchar_to_ansistr(puVar3,&local_140);
       // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
@@ -14173,7 +14173,7 @@ begin
       local_13c := '';
       local_13c := PASTACHAVE + 'tocar.txt';
       // C: puVar3 = local_13c;
-      if False { C: local_13c == (undefined1 * )0x0 } then begin
+      if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
       // C: fpc_pchar_to_ansistr(puVar3,&local_138);
       uVar1 := local_138;  // C convertido: uVar1 = local_138;
@@ -14181,7 +14181,7 @@ begin
       local_144 := '';
       local_144 := PASTA + 'tocar.txt';
       // C: puVar3 = local_144;
-      if False { C: local_144 == (undefined1 * )0x0 } then begin
+      if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
       // C: fpc_pchar_to_ansistr(puVar3,&local_140);
       // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
@@ -17892,7 +17892,7 @@ begin
     end;
     Form1.ComboBox2.Caption := EXIBIRVIDEOSNO;
     RESOLUCAO := 0;
-    // C: U_JUKELINUX1_RESOLUCAOSTR = (undefined * )0x0;
+    RESOLUCAOSTR := '';  // C convertido: U_JUKELINUX1_RESOLUCAOSTR = (undefined * )0x0;
     NOMEARQ := PASTA + 'resolucao.txt';
     cVar3 := FileExists(NOMEARQ);
     if not cVar3 then begin
@@ -18120,7 +18120,7 @@ begin
           // C: iVar5 = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("usb-",*(undefined4 * )(local_e4 + local_10 * 4 + -4));
           if 0 < iVar5 then begin
             // C: local_fc = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("usb-",*(undefined4 * )(local_e4 + local_10 * 4 + -4) );
-            if False { C: local_e8 == (char * )0x0 } then begin
+            if (local_e8 = '') { C convertido: local_e8 == (char * )0x0 } then begin
               // C: iVar5 = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("-0:0",*(undefined4 * )(local_e4 + local_10 * 4 + -4));
               // C: fpc_ansistr_copy( *(undefined4 * )(local_e4 + local_10 * 4 + -4),local_fc, iVar5 - local_fc);
             end
@@ -18134,14 +18134,14 @@ begin
           end;
         until not (local_10 < 50);
         // C: local_f8 = (int)(local_f8 + (local_f8 >> 0x1f & 1U)) >> 1;
-        // C: U_JUKELINUX1_SERIALUUIDHD = (char * )0x0;
+        SERIALUUIDHD := '';  // C convertido: U_JUKELINUX1_SERIALUUIDHD = (char * )0x0;
         local_10 := 0;
         repeat
           local_10 := local_10 + 1;
           // C: iVar5 = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("ata-",*(undefined4 * )(local_e4 + local_10 * 4 + -4));
           if 0 < iVar5 then begin
             // C: local_fc = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT ("ata-",*(undefined4 * )(local_e4 + local_10 * 4 + -4) );
-            if False { C: U_JUKELINUX1_SERIALUUIDHD == (char * )0x0 } then begin
+            if (SERIALUUIDHD = '') { C convertido: U_JUKELINUX1_SERIALUUIDHD == (char * )0x0 } then begin
               local_414 := '';
               // C: iVar5 = SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT (" ->",*(undefined4 * )(local_e4 + local_10 * 4 + -4));
               // C: fpc_ansistr_copy( *(undefined4 * )(local_e4 + local_10 * 4 + -4),local_fc, iVar5 - local_fc);
@@ -18426,7 +18426,7 @@ begin
           local_f4 := TEXTO;
           local_18 := 0;
           iVar5 := 0;
-          if False { C: U_JUKELINUX1_TEXTO != (char * )0x0 } then begin
+          if (TEXTO <> '') { C convertido: U_JUKELINUX1_TEXTO != (char * )0x0 } then begin
             iVar5 := Length(TEXTO);
           end;
           local_1c := 1;
@@ -18583,7 +18583,7 @@ begin
             local_f4 := local_f4 + TEXTO;
             local_18 := 0;
             iVar5 := 0;
-            if False { C: local_f4 != (char * )0x0 } then begin
+            if (local_f4 <> '') { C convertido: local_f4 != (char * )0x0 } then begin
               iVar5 := Length(local_f4);
             end;
             local_1c := 1;
@@ -20060,7 +20060,7 @@ begin
           local_624 := '';
           local_624 := PASTACHAVE + 'interfaceteclado.txt';
           // C: puVar6 = local_624;
-          if False { C: local_624 == (undefined1 * )0x0 } then begin
+          if (local_624 = '') { C convertido: local_624 == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar6,&local_62c);
           uVar2 := local_62c;  // C convertido: uVar2 = local_62c;
@@ -20068,7 +20068,7 @@ begin
           local_638 := '';
           local_638 := PASTA + 'interfaceteclado.txt';
           // C: puVar6 = local_638;
-          if False { C: local_638 == (undefined1 * )0x0 } then begin
+          if (local_638 = '') { C convertido: local_638 == (undefined1 * )0x0 } then begin
           end;
           local_634 := local_638;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_634);
           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_634,uVar2,extraout_ECX_00 & 0xffffff00);
@@ -20080,7 +20080,7 @@ begin
           local_628 := '';
           local_628 := PASTA + 'interfaceteclado.txt';
           // C: puVar6 = local_628;
-          if False { C: local_628 == (undefined1 * )0x0 } then begin
+          if (local_628 = '') { C convertido: local_628 == (undefined1 * )0x0 } then begin
           end;
           local_624 := local_628;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_624);
           // C: puVar6 = local_624;
@@ -20088,7 +20088,7 @@ begin
           local_630 := '';
           local_630 := PASTACHAVE + 'interfaceteclado.txt';
           // C: puVar7 = local_630;
-          if False { C: local_630 == (undefined1 * )0x0 } then begin
+          if (local_630 = '') { C convertido: local_630 == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar7,&local_62c);
           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_62c,puVar6,extraout_ECX & 0xffffff00);
@@ -20245,7 +20245,7 @@ begin
             local_740 := '';
             local_740 := PASTA + 'tocar.txt';
             // C: puVar6 = local_740;
-            if False { C: local_740 == (undefined1 * )0x0 } then begin
+            if (local_740 = '') { C convertido: local_740 == (undefined1 * )0x0 } then begin
             end;
             local_634 := local_740;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_634);
             // C: uVar2 = local_634;
@@ -20253,7 +20253,7 @@ begin
             local_748 := '';
             local_748 := PASTACHAVE + 'tocar.txt';
             // C: puVar6 = local_748;
-            if False { C: local_748 == (undefined1 * )0x0 } then begin
+            if (local_748 = '') { C convertido: local_748 == (undefined1 * )0x0 } then begin
             end;
             // C: fpc_pchar_to_ansistr(puVar6,&local_744);
             // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_744,uVar2,extraout_ECX_01 & 0xffffff00);
@@ -20301,7 +20301,7 @@ begin
           local_74c := '';
           local_74c := PASTA + 'tocar.txt';
           // C: puVar6 = local_74c;
-          if False { C: local_74c == (undefined1 * )0x0 } then begin
+          if (local_74c = '') { C convertido: local_74c == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar6,&local_744);
           uVar2 := local_744;  // C convertido: uVar2 = local_744;
@@ -20309,7 +20309,7 @@ begin
           local_754 := '';
           local_754 := PASTACHAVE + 'tocar.txt';
           // C: puVar6 = local_754;
-          if False { C: local_754 == (undefined1 * )0x0 } then begin
+          if (local_754 = '') { C convertido: local_754 == (undefined1 * )0x0 } then begin
           end;
           local_750 := local_754;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_750);
           // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_750,uVar2,extraout_ECX_02 & 0xffffff00);
@@ -20925,7 +20925,7 @@ begin
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
       end;
-      // C: U_JUKELINUX1_JC_SPC = (char * )0x0;
+      JC_SPC := '';  // C convertido: U_JUKELINUX1_JC_SPC = (char * )0x0;
       cVar3 := FileExists(NOMEARQ);
       if cVar3 then begin
         local_858 := NOMEARQ;
@@ -20985,7 +20985,7 @@ begin
               local_860 := '';
               local_860 := PASTA + 'creditos.txt';
               // C: puVar6 = local_860;
-              if False { C: local_860 == (undefined1 * )0x0 } then begin
+              if (local_860 = '') { C convertido: local_860 == (undefined1 * )0x0 } then begin
               end;
               local_85c := local_860;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_85c);
               // C: pcVar1 = local_85c;
@@ -20993,14 +20993,14 @@ begin
               local_868 := '';
               local_868 := PASTACHAVE + 'creditos.txt';
               // C: puVar6 = local_868;
-              if False { C: local_868 == (undefined1 * )0x0 } then begin
+              if (local_868 = '') { C convertido: local_868 == (undefined1 * )0x0 } then begin
               end;
               local_864 := local_868;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_864);
               CopyFile(local_864, local_85c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_864,pcVar1,extraout_ECX_03 & 0xffffff00);
               local_864 := '';
               local_864 := 'Restaurando os Creditos do Pendrive Chave, Créditos = ' + XCREDITOSSTR;
               Gravalog(local_864);
-              // C: U_JUKELINUX1_JC_SPC = (char * )0x0;
+              JC_SPC := '';  // C convertido: U_JUKELINUX1_JC_SPC = (char * )0x0;
               NOMEARQ := PASTA + 'creditos.txt';
               cVar3 := FileExists(NOMEARQ);
               if cVar3 then begin
@@ -21058,7 +21058,7 @@ begin
         Flush(ARQTEXTO);
         CloseFile(ARQTEXTO);
       end;
-      // C: U_JUKELINUX1_JC_SPC = (char * )0x0;
+      JC_SPC := '';  // C convertido: U_JUKELINUX1_JC_SPC = (char * )0x0;
       cVar3 := FileExists(NOMEARQ);
       if cVar3 then begin
         local_858 := NOMEARQ;
@@ -21142,13 +21142,13 @@ begin
         TEMPOPALHINHA := 0;
         MUDOUDECDOUMUSICA := 1;
         if RODAVOLUME = 0 then begin
-          if False { C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME == (char * )0x0 } then begin
+          if (TECLAANTERIORRODAVOLUME = '') { C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME == (char * )0x0 } then begin
             RODAVOLUME := 1;
             TECLAANTERIORRODAVOLUME := 'CD+';
           end
           else begin
             RODAVOLUME := 0;
-            // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+            TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
           end;
         end;
         if RODAVOLUME = 3 then begin
@@ -21158,7 +21158,7 @@ begin
           end
           else begin
             RODAVOLUME := 0;
-            // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+            TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
           end;
         end;
         iVar3 := Ord(TECLAANTERIORRODAVOLUME <> 'CD-');  // C convertido: iVar3 = fpc_ansistr_compare_equal(U_JUKELINUX1_TECLAANTERIORRODAVOLUME,"CD-");
@@ -21187,7 +21187,7 @@ begin
           end
           else begin
             RODAVOLUME := 0;
-            // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+            TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
           end;
         end;
         if RODAVOLUME = 5 then begin
@@ -21197,7 +21197,7 @@ begin
           end
           else begin
             RODAVOLUME := 0;
-            // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+            TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
           end;
         end;
         if VOLUMEATIVADO = 0 then begin
@@ -21227,7 +21227,7 @@ begin
             end
             else begin
               RODAVOLUME := 0;
-              // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+              TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
             end;
           end;
           if RODAVOLUME = 4 then begin
@@ -21237,7 +21237,7 @@ begin
             end
             else begin
               RODAVOLUME := 0;
-              // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+              TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
             end;
           end;
           if VOLUMEATIVADO <> 0 then begin
@@ -21323,7 +21323,7 @@ begin
         TEMPOPALHINHA := 0;
         MUDOUDECDOUMUSICA := 1;
         RODAVOLUME := 0;
-        // C: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
+        TECLAANTERIORRODAVOLUME := '';  // C convertido: U_JUKELINUX1_TECLAANTERIORRODAVOLUME = (char * )0x0;
         if MUSICASELECIONADAPOSTELA < 1 then begin
           Mostra_Musicas(KMAT + 5);
           MUSICASELECIONADA := MAT[(KMAT + 5)].TotalMusicas;  // C convertido: U_JUKELINUX1_MUSICASELECIONADA = (&U_JUKELINUX1_NOMEDOCLIENTE)[(U_JUKELINUX1_KMAT + 5) * 0x90];
@@ -23166,7 +23166,7 @@ begin
         local_138 := '';
         local_138 := PASTACHAVE + 'creditos.txt';
         // C: puVar3 = local_138;
-        if False { C: local_138 == (undefined1 * )0x0 } then begin
+        if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
         // C: uVar1 = local_13c;
@@ -23174,7 +23174,7 @@ begin
         local_144 := '';
         local_144 := PASTA + 'creditos.txt';
         // C: puVar3 = local_144;
-        if False { C: local_144 == (undefined1 * )0x0 } then begin
+        if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
         end;
         // C: fpc_pchar_to_ansistr(puVar3,&local_140);
         // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
@@ -23475,7 +23475,7 @@ begin
               local_13c := '';
               local_13c := PASTACHAVE + 'tocar.txt';
               // C: puVar5 = local_13c;
-              if False { C: local_13c == (undefined1 * )0x0 } then begin
+              if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
               end;
               local_38 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,local_38);
               // C: uVar1 = local_38[0];
@@ -23483,7 +23483,7 @@ begin
               local_144 := '';
               local_144 := PASTA + 'tocar.txt';
               // C: puVar5 = local_144;
-              if False { C: local_144 == (undefined1 * )0x0 } then begin
+              if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
               end;
               local_140 := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
               // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
@@ -23532,7 +23532,7 @@ begin
               local_148 := '';
               local_148 := PASTACHAVE + 'tocar.txt';
               // C: puVar5 = local_148;
-              if False { C: local_148 == (undefined1 * )0x0 } then begin
+              if (local_148 = '') { C convertido: local_148 == (undefined1 * )0x0 } then begin
               end;
               local_140 := local_148;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
               // C: uVar1 = local_140;
@@ -23540,7 +23540,7 @@ begin
               local_150 := '';
               local_150 := PASTA + 'tocar.txt';
               // C: puVar5 = local_150;
-              if False { C: local_150 == (undefined1 * )0x0 } then begin
+              if (local_150 = '') { C convertido: local_150 == (undefined1 * )0x0 } then begin
               end;
               // C: fpc_pchar_to_ansistr(puVar5,&local_14c);
               // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_14c,uVar1,extraout_ECX_00 & 0xffffff00);
@@ -24575,7 +24575,7 @@ begin
     // C: local_38[0] = (undefined1 * )0x0;
     // C: fpc_char_to_ansistr(U_JUKELINUX1_TEXTOTEMPX._1_1_,local_38);
     iVar2 := 0;
-    if False { C: U_JUKELINUX1_TEXTOX != (undefined1 * )0x0 } then begin
+    if (TEXTOX <> '') { C convertido: U_JUKELINUX1_TEXTOX != (undefined1 * )0x0 } then begin
       iVar2 := Length(TEXTOX);
     end;
     Insert(local_38, TEXTOX, iVar2 + 1);
@@ -25044,7 +25044,7 @@ begin
             local_13c := '';
             local_13c := PASTACHAVE + 'tocar.txt';
             // C: puVar5 = local_13c;
-            if False { C: local_13c == (undefined1 * )0x0 } then begin
+            if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
             end;
             local_240 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_240);
             // C: uVar7 = local_240;
@@ -25052,7 +25052,7 @@ begin
             local_248 := '';
             local_248 := PASTA + 'tocar.txt';
             // C: puVar5 = local_248;
-            if False { C: local_248 == (undefined1 * )0x0 } then begin
+            if (local_248 = '') { C convertido: local_248 == (undefined1 * )0x0 } then begin
             end;
             local_244 := local_248;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_244);
             // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar7,extraout_ECX & 0xffffff00);
@@ -25497,7 +25497,7 @@ begin
         local_144 := '';
         local_144 := PASTA + 'VolumeAntesdas22.Txt';
         // C: puVar3 = local_144;
-        if False { C: local_144 == (undefined1 * )0x0 } then begin
+        if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
         end;
         local_140 := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_140);
         DeleteFile(local_140);

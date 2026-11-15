@@ -395,6 +395,8 @@ class Tradutor:
             self.pega(')')
             return e
         if k == 'num':
+            if int(v, 0) == 0:
+                return ('0', 'num')  # 0x0 também: os testes de ponteiro nulo comparam com '0'
             return (('$' + v[2:].upper()) if v.startswith('0x') else v, 'num')
         if k == 'texto':
             return ("'" + self.desescapa(v[1:-1]).replace("'", "''") + "'", 'texto')
