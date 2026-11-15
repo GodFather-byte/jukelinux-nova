@@ -61,6 +61,134 @@ begin
 end;
 
 { ---------------------------------------------------------------------------------------------------------------
+  Pix no relógio. O relógio parcial conta o dinheiro do noteiro e o do Pix juntos (um Pix de R$ N é N pulsos); o
+  Pix vai direto para a conta do dono. pixrelogio.txt guarda, cifrado como os relógios, o Pix do período (zera com
+  o relógio parcial) e o total. No menu Relógios aparecem o Pix, o dinheiro no noteiro e o acerto com a casa. }
+
+const
+  ARQ_PIX_RELOGIO = 'pixrelogio.txt';
+
+var
+  NovaPixParcial: LongInt = 0;
+  NovaPixTotal: LongInt = 0;
+  NovaPixLabels: array[1..3] of TLabel;
+
+procedure Nova_Le_Pix_Relogio;
+var
+  L: TStringList;
+begin
+  NovaPixParcial := 0;
+  NovaPixTotal := 0;
+  if not FileExists(PASTA + ARQ_PIX_RELOGIO) then
+    Exit;
+  L := TStringList.Create;
+  try
+    try
+      L.LoadFromFile(PASTA + ARQ_PIX_RELOGIO);
+      if L.Count > 0 then NovaPixParcial := StrToIntDef(Descripta(L[0]), 0);
+      if L.Count > 1 then NovaPixTotal := StrToIntDef(Descripta(L[1]), 0);
+    except
+      on E: Exception do
+        Gravalog('Pix: nao li ' + ARQ_PIX_RELOGIO + ' (' + E.Message + ')');
+    end;
+  finally
+    L.Free;
+  end;
+end;
+
+procedure Nova_Grava_Pix_Relogio;
+var
+  L: TStringList;
+begin
+  L := TStringList.Create;
+  try
+    L.Add(Cripta(IntToStr(NovaPixParcial)));
+    L.Add(Cripta(IntToStr(NovaPixTotal)));
+    try
+      L.SaveToFile(PASTA + ARQ_PIX_RELOGIO);
+    except
+      on E: Exception do
+        Gravalog('Pix: nao gravei ' + ARQ_PIX_RELOGIO + ' (' + E.Message + ')');
+    end;
+  finally
+    L.Free;
+  end;
+end;
+
+procedure Nova_Soma_Pix_Relogio(Reais: LongInt);
+begin
+  if Reais <= 0 then
+    Exit;
+  Nova_Le_Pix_Relogio;
+  NovaPixParcial := NovaPixParcial + Reais;
+  NovaPixTotal := NovaPixTotal + Reais;
+  Nova_Grava_Pix_Relogio;
+  Gravalog('Pix no relogio: +R$ ' + IntToStr(Reais) + ' [Pix parcial=' + IntToStr(NovaPixParcial) + ' total=' +
+    IntToStr(NovaPixTotal) + ']');
+end;
+
+{ Fechamento (zerar o relógio parcial): o Pix do período vai para o histórico pixfechamentos.txt e zera. }
+procedure Nova_Zera_Pix_Parcial;
+var
+  F: TextFile;
+begin
+  Nova_Le_Pix_Relogio;
+  try
+    AssignFile(F, PASTA + 'pixfechamentos.txt');
+    if FileExists(PASTA + 'pixfechamentos.txt') then Append(F) else Rewrite(F);
+    Writeln(F, FormatDateTime('dd/mm/yyyy hh:nn', Now), ' - Pix no periodo: R$ ', NovaPixParcial, ',00');
+    CloseFile(F);
+  except
+    on E: Exception do
+      Gravalog('Pix: nao gravei pixfechamentos.txt (' + E.Message + ')');
+  end;
+  Gravalog('Pix no relogio: fechamento, Pix do periodo R$ ' + IntToStr(NovaPixParcial) + ',00');
+  NovaPixParcial := 0;
+  Nova_Grava_Pix_Relogio;
+end;
+
+{ Linhas do Pix no menu Relógios, abaixo do Valor do Ponto, no mesmo estilo das da original. A casa fica com o
+  Valor do Ponto; como o Pix já está com o dono, a casa recebe a parte dela do dinheiro do noteiro e, se ele não
+  bastar, o dono completa. }
+procedure Nova_Mostra_Pix_Relogio;
+var
+  i, Dinheiro, Casa: LongInt;
+  Pai: TWinControl;
+begin
+  Nova_Le_Pix_Relogio;
+  Pai := Form1.LabelVE.Parent;
+  for i := 1 to 3 do
+    if NovaPixLabels[i] = nil then
+    begin
+      NovaPixLabels[i] := TLabel.Create(Form1);
+      NovaPixLabels[i].Parent := Pai;
+      NovaPixLabels[i].Left := Form1.LabelVE.Left;
+      { entre os avisos do menu (LabelPress2 termina em 506) e o Último Fechamento (586), à esquerda do QR }
+      NovaPixLabels[i].Top := 508 + (i - 1) * 25;
+      NovaPixLabels[i].Font.Name := Form1.LabelVE.Font.Name;
+      NovaPixLabels[i].Font.Height := -21;
+      NovaPixLabels[i].Font.Color := clWhite;
+      NovaPixLabels[i].Transparent := True;
+    end;
+  Dinheiro := RELOGIOPARCIAL - NovaPixParcial;
+  if Dinheiro < 0 then Dinheiro := 0;
+  Casa := VALORPONTO;
+  NovaPixLabels[1].Caption := 'Pix (conta do dono): R$ ' + IntToStr(NovaPixParcial) + ',00';
+  NovaPixLabels[2].Caption := 'Dinheiro no noteiro: R$ ' + IntToStr(Dinheiro) + ',00';
+  NovaPixLabels[3].Font.Color := clYellow;
+  if Casa <= Dinheiro then
+    NovaPixLabels[3].Caption := 'Acerto: casa tira R$ ' + IntToStr(Casa) + ',00 do noteiro'
+  else
+    NovaPixLabels[3].Caption := 'Acerto: casa tira R$ ' + IntToStr(Dinheiro) + ',00 + dono paga R$ ' +
+      IntToStr(Casa - Dinheiro) + ',00';
+  for i := 1 to 3 do
+  begin
+    NovaPixLabels[i].Show;
+    NovaPixLabels[i].BringToFront;
+  end;
+end;
+
+{ ---------------------------------------------------------------------------------------------------------------
   Pix (pixtela.pas e pix.pas). Liga a tela do Pix às rotinas da original. Fica desligado se não houver pix.txt na
   pasta da jukebox; o modelo do arquivo está em instalacao/pix.txt.exemplo. }
 
@@ -75,13 +203,16 @@ var
 
 procedure TNovaPix.Creditar(Reais: Integer);
 var
-  i, Antes: LongInt;
+  i, Antes, RelogioAntes: LongInt;
 begin
   { Um Pix de R$ N vale N pulsos de R$ 1 do noteiro: a própria Rotina_Creditos soma os créditos, grava o
     creditos.txt e os relógios e aplica o bônus de cédula do modo REAISXMUSICAS, como faria com dinheiro. }
   Antes := CREDITOS;
+  RelogioAntes := RELOGIOPARCIAL;
   for i := 1 to Reais do
     Rotina_Creditos('Normal');
+  { o que entrou no relógio por Pix (o dinheiro foi para a conta do dono, não para o noteiro) }
+  Nova_Soma_Pix_Relogio(RELOGIOPARCIAL - RelogioAntes);
   Gravalog('Pix: R$ ' + IntToStr(Reais) + ' viraram créditos (' + IntToStr(Antes) + ' -> ' + IntToStr(CREDITOS) +
     ')');
   if CREDITOS = Antes then

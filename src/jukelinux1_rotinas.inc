@@ -13996,6 +13996,7 @@ begin
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
       RELOGIOPARCIAL := 0;
+      Nova_Zera_Pix_Parcial;  // Nova: o Pix do período vai para o histórico e zera junto
       local_13c := '';
       local_13c := PASTA + 'minutosligada.txt';
       local_138 := local_13c;
@@ -22213,6 +22214,7 @@ begin
       local_74 := ',00';
       local_70 := local_7c + local_78 + local_74;
       Form1.LabelVE.Caption := local_70;
+      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa
       local_80 := '';
       local_80 := PASTA + 'ultimofechamento.txt';
       cVar1 := FileExists(local_80);
@@ -22420,6 +22422,7 @@ begin
       local_19c := ',00';
       local_198 := local_1a4 + local_1a0 + local_19c;
       Form1.LabelVE.Caption := local_198;
+      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa
       local_1b0 := '';
       local_1b0 := PASTA + 'ultimofechamento.txt';
       cVar1 := FileExists(local_1b0);
