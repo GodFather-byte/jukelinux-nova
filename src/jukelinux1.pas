@@ -38,7 +38,7 @@ procedure Nova_Inicia_Pix;
 implementation
 
 uses
-  Types, Process, FileUtil, Variants, Pix, PixTela;
+  Types, Process, FileUtil, Variants, Pix, PixTela, MusicaCifra;
 
 {$R *.lfm}
 

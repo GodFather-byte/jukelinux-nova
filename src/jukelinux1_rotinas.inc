@@ -3357,80 +3357,15 @@ begin
         end;
       end;
     end;
-    iVar2 := 0;
+    // Nova: decifra (ou só copia) a música para DESTINO com a rotina própria (musicacifra.pas), no mesmo formato das
+    // máquinas atuais. A original fazia isto com arquivos binários e um timer, que o tradutor não acompanha.
     if DESTINO <> '' then begin
-      iVar2 := Length(DESTINO);
-    end;
-    if 0 < iVar2 then begin
-      if CHAVECRIPTOGRAFICA = 0 then begin
-        ESTADESCRIPTOGRAFANDO := 1;
-        CopyFile(ORIGEM, DESTINO, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (U_JUKELINUX1_ORIGEM,U_JUKELINUX1_DESTINO,uVar4 & 0xffffff00);
-        ESTADESCRIPTOGRAFANDO := 0;
-      end
-      else begin
-        ESTADESCRIPTOGRAFANDO := 1;
-        ERROTOCAR := 0;
-        TIMER1ORIGEM := ORIGEM;
-        local_3c := '';
-        // C: SYSUTILS_CHANGEFILEEXT_ANSISTRING_ANSISTRING__ANSISTRING (U_JUKELINUX1_DESTINO,".INF",&local_3c);
-        TIMER1DESTINOINF := local_3c;
-        TIMER1DESTINOMP3 := DESTINO;
-        local_13c := TIMER1ORIGEM;
-        // C: OBJPAS_ASSIGNFILE_file_SHORTSTRING(U_JUKELINUX1_TIMER1FROMORIGEM,local_13c);
-        // C: SYSTEM_RESET_file_LONGINT(U_JUKELINUX1_TIMER1FROMORIGEM,1);
-        local_13c := TIMER1DESTINOINF;
-        // C: OBJPAS_ASSIGNFILE_file_SHORTSTRING(U_JUKELINUX1_TIMER1TODESTINOINF,local_13c);
-        // C: SYSTEM_REWRITE_file_LONGINT(U_JUKELINUX1_TIMER1TODESTINOINF,1);
-        local_13c := TIMER1DESTINOMP3;
-        // C: OBJPAS_ASSIGNFILE_file_SHORTSTRING(U_JUKELINUX1_TIMER1TODESTINOMP3,local_13c);
-        // C: SYSTEM_REWRITE_file_LONGINT(U_JUKELINUX1_TIMER1TODESTINOMP3,1);
-        // C: SYSTEM_BLOCKREAD_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1FROMORIGEM,U_JUKELINUX1_TIMER1BUFINI,10, &U_JUKELINUX1_TIMER1NUMREAD);
-        local_3c := '';
-        local_38 := '';
-        // C: fpc_chararray_to_ansistr(U_JUKELINUX1_TIMER1BUFINI,9,extraout_ECX_02 & 0xffffff00,local_38);
-        local_3c := Trim(local_38);
-        TIMER1TAMINT := StrToIntDef(local_3c, 0);
-        if 0 < TIMER1TAMINT then begin
-          // C: U_JUKELINUX1_TIMER1GRAVADORA = (undefined1 * )0x0;
-          TIMER1K := 0;
-          repeat
-            TIMER1K := TIMER1K + 1;
-            // C: SYSTEM_BLOCKREAD_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1FROMORIGEM,&U_JUKELINUX1_TIMER1BUFUM,1, &U_JUKELINUX1_TIMER1NUMREAD);
-            local_3c := '';
-            // C: fpc_chararray_to_ansistr (&U_JUKELINUX1_TIMER1BUFUM,0,extraout_ECX_03 & 0xffffff00,&local_3c);
-            TIMER1GRAVADORA := TIMER1GRAVADORA + local_3c;
-          until not (TIMER1K < 30);
-          local_3c := '';
-          local_3c := Descripta(TIMER1GRAVADORA);
-          iVar2 := TIMER1TAMINT;
-          TIMER1GRAVADORA := local_3c;
-          TIMER1K := 1;
-          if 0 < TIMER1TAMINT then begin
-            TIMER1K := 0;
-            repeat
-              TIMER1K := TIMER1K + 1;
-              // C: SYSTEM_BLOCKREAD_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1FROMORIGEM,&U_JUKELINUX1_TIMER1BUFUM,1, &U_JUKELINUX1_TIMER1NUMREAD);
-              // C: SYSTEM_BLOCKWRITE_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1TODESTINOINF,&U_JUKELINUX1_TIMER1BUFUM, U_JUKELINUX1_TIMER1NUMREAD,&U_JUKELINUX1_TIMER1NUMWRITTEN);
-            until not (TIMER1K < iVar2);
-          end;
-          repeat
-            // C: SYSTEM_BLOCKREAD_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1FROMORIGEM,U_JUKELINUX1_TIMER1BUF,0x800, &U_JUKELINUX1_TIMER1NUMREAD);
-            Descriptabuf;
-            // C: SYSTEM_BLOCKWRITE_file_formal_LONGINT_LONGINT (U_JUKELINUX1_TIMER1TODESTINOMP3,U_JUKELINUX1_TIMER1BUF, U_JUKELINUX1_TIMER1NUMREAD,&U_JUKELINUX1_TIMER1NUMWRITTEN);
-            if TIMER1NUMREAD = 0 then begin Break; end;
-          until not (TIMER1NUMWRITTEN = TIMER1NUMREAD);
-          // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_TIMER1FROMORIGEM);
-          // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_TIMER1TODESTINOMP3);
-          // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_TIMER1TODESTINOINF);
-          local_3c := '';
-          // C: puVar3 = U_JUKELINUX1_TIMER1DESTINOINF;
-          if False { C: U_JUKELINUX1_TIMER1DESTINOINF == (undefined1 * )0x0 } then begin
-          end;
-          local_3c := TIMER1DESTINOINF;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_3c);
-          DeleteFile(local_3c);
-        end;
-        ESTADESCRIPTOGRAFANDO := 0;
+      ESTADESCRIPTOGRAFANDO := 1;
+      ERROTOCAR := 0;
+      if not Nova_Decifra_Musica(ORIGEM, DESTINO, CHAVECRIPTOGRAFICA) then begin
+        ERROTOCAR := 1;
       end;
+      ESTADESCRIPTOGRAFANDO := 0;
     end;
   end;
   local_3c := '';

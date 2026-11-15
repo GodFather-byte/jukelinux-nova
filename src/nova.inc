@@ -112,3 +112,16 @@ begin
   NovaPix := TNovaPix.Create;
   TTelaPix.Cria(Form1, Config, Pasta, @NovaPix.Creditar, @NovaPix.Registrar);
 end;
+
+{ ---------------------------------------------------------------------------------------------------------------
+  Músicas: decifra (ou copia) a música da fila para o arquivo que o player toca. Ver musicacifra.pas. }
+function Nova_Decifra_Musica(const Origem, Destino: string; Chave: LongInt): Boolean;
+var
+  Gravadora, Erro: string;
+begin
+  Result := DecifraMusica(Origem, Destino, Chave, Gravadora, Erro);
+  if Result then
+    TIMER1GRAVADORA := Gravadora
+  else
+    Gravalog('Musica: nao consegui preparar ' + Origem + ' (' + Erro + ')');
+end;
