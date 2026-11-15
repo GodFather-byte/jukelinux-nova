@@ -46,8 +46,13 @@ jobs:
           file jukelinux
           ldd jukelinux | grep -i "not found" && exit 1 || true
 
+      - name: Montar o pacote de instalação
+        run: |
+          mkdir pacote
+          cp jukelinux instalacao/instalar.sh instalacao/pix.txt.exemplo pacote/
+
       - uses: actions/upload-artifact@v4
         with:
-          name: jukelinux-linux-x86_64
-          path: jukelinux
+          name: jukelinux-nova-linux-x86_64
+          path: pacote/
           if-no-files-found: error

@@ -23,6 +23,19 @@ A CI (GitHub Actions → **Build**) roda os testes, compila a cada push e public
 executável do CI servir nas máquinas, cadastre o segredo `LICENCA_CHAVE` no repositório (o valor de
 `NOVA_CHAVE_LICENCA` do seu `src/licenca_chave.inc`); sem ele o CI usa a chave de desenvolvimento e avisa.
 
+## Instalar numa máquina
+
+O CI publica o pacote **jukelinux-nova-linux-x86_64** (em *Actions → Build → Artifacts*): o executável, o instalador
+e o exemplo do Pix. Na máquina:
+
+```bash
+sudo sh instalar.sh             # instala dependências, guarda o executável antigo e põe a Nova no lugar dele
+sudo sh instalar.sh --desfazer  # volta o executável anterior
+```
+
+A Nova fica em `/home/jkb/jukelinux/jukelinux`, mesmo caminho e nome da antiga: o que já inicia a jukebox continua
+iniciando, e músicas, configurações, relógios e créditos ficam como estão. Na primeira vez aparece a tela de ativação.
+
 ## Licença
 
 No lugar do pendrive-chave, a Nova usa a tela de ativação da original. Sem licença válida, a jukebox abre em
@@ -71,10 +84,10 @@ músicas, relógios e `creditos.txt`).
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
 2. Tela principal idêntica, navegando pelos CDs reais.
 3. Créditos, fila e player (mplayer). **Feito:** acervo, fila, músicas cifradas e player tocando em sequência.
-4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV.
-5. Menu do operador.
+4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV. Vídeo dentro da tela (`-wid`) feito.
+5. Menu do operador. Senha e as cinco seções abrem com a configuração da máquina; falta testar cada opção.
 6. Licença nova e ferramenta de gerar licenças. **Feito:** ativação pela tela da original e gerador de contra-senhas.
-7. Pacote de instalação e piloto.
+7. Pacote de instalação e piloto. **Feito:** instalador com troca direta e desfazer; falta o piloto numa máquina real.
 
 ## Referência
 
