@@ -24637,10 +24637,10 @@ begin
     // C: local_38[0] = (undefined1 * )0x0;
     local_38 := Form1.LabelDisplay.Caption;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.LabelDisplay,local_38);
     TEXTOX := local_38;
-    // C: U_JUKELINUX1_TEXTOTEMPX._1_1_ = *local_38[0];
+    TEXTOTEMPX := Copy(local_38, 1, 1);  // Nova: primeiro caractere do letreiro (C: TEXTOTEMPX._1_1_ = *local_38[0])
     Delete(TEXTOX, 1, 1);
     // C: local_38[0] = (undefined1 * )0x0;
-    // C: fpc_char_to_ansistr(U_JUKELINUX1_TEXTOTEMPX._1_1_,local_38);
+    local_38 := TEXTOTEMPX;  // Nova: o caractere tirado do começo vai para o fim (C: fpc_char_to_ansistr)
     iVar2 := 0;
     if (TEXTOX <> '') { C convertido: U_JUKELINUX1_TEXTOX != (undefined1 * )0x0 } then begin
       iVar2 := Length(TEXTOX);

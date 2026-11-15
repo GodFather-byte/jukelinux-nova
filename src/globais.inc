@@ -241,7 +241,7 @@ var
   POSFRASE: LongInt;
   TOTALFRASE: LongInt;
   TEXTOX: AnsiString;
-  TEXTOTEMPX: array[0..1] of Byte {revisar};
+  TEXTOTEMPX: String[1];
   VELOCIDADEDISPLAY: LongInt;
   MUSICAROLARTEXTO: LongInt;
   NOMEMUSICAORIGINALGRANDE: array[1..40] of AnsiString;

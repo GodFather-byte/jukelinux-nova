@@ -63,6 +63,7 @@ MANUAL = {
     'ARQCARTAOM': 'file of TIPOCARTAO',
     'ACARM': 'TIPOCARTAO',
     'ARQCARTAOV': 'file of String[93]',
+    'TEXTOTEMPX': 'String[1]',  # 2 bytes: o caractere que roda no letreiro
 }
 
 # O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
