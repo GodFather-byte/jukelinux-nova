@@ -710,6 +710,14 @@ def virtual(m, tr):
             return f'{lista}.Add({texto_de(args[1], tr)});'
         if vmt == '0xb8' and len(args) == 1 and not destino:        # TStrings.Clear
             return f'{lista}.Clear;'
+    if vmt == '0x450' and len(args) == 1 and destino:  # TCustomCheckBox.GetChecked (RadioButton/CheckBox)
+        comp, classe = componente(args[0], tr)
+        if classe not in ('TRadioButton', 'TCheckBox'):
+            raise Falha('Checked fora de RadioButton/CheckBox')
+        nome, tipo = tr.resolve(destino)
+        if tipo != 'bool':
+            raise Falha('Checked em destino não Boolean')
+        return f'{nome} := Form1.{comp}.Checked;'
     if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xdc' and len(args) == 2 and not destino:  # TCustomTimer.SetInterval
         comp, classe = componente(args[0], tr)
         if classe != 'TTimer':

@@ -12732,7 +12732,7 @@ begin
           repeat
             local_18 := local_18 + 1;
             local_fc4 := 1;
-            // C: cVar2 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x6a0) + 0x450)) (Form1.CheckBoxSubstituir);
+            cVar2 := Form1.CheckBoxSubstituir.Checked;  // C convertido: cVar2 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x6a0) + 0x450)) (Form1.CheckBoxSubstituir);
             if not cVar2 then begin
               local_1018 := '';
               // C: fpc_ansistr_concat(&local_1018,U_JUKELINUX1_PASTAMUSICAS, *(undefined4 * )(local_fc0 + local_18 * 4 + 0x7cc));
@@ -12989,7 +12989,7 @@ begin
   local_8 := Sender;
   begin
     if CHAVEDEINSTALACAO <> 0 then begin
-      // C: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xa8c) + 0x450))(Form1.RadioButton2);
+      cVar1 := Form1.RadioButton2.Checked;  // C convertido: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xa8c) + 0x450))(Form1.RadioButton2);
       if cVar1 then begin
         local_3c := '';
         local_3c := PASTA + 'jukesm.txt';
@@ -13038,7 +13038,7 @@ begin
           Rotina_Menu;
         end;
       end;
-      // C: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xa88) + 0x450))(Form1.RadioButton1);
+      cVar1 := Form1.RadioButton1.Checked;  // C convertido: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xa88) + 0x450))(Form1.RadioButton1);
       if cVar1 then begin
         local_140 := '';
         local_140 := PASTA + 'jukes.txt';
@@ -14538,7 +14538,7 @@ procedure TForm1.CheckBox1Change(Sender: TObject);
 var
   cVar1: Boolean;
 begin
-  // C: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x5b0) + 0x450))(Form1.CheckBox1);
+  cVar1 := Form1.CheckBox1.Checked;  // C convertido: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x5b0) + 0x450))(Form1.CheckBox1);
   if cVar1 then begin
     Form1.ShellTreeViewCC.Show;
     Form1.EditCC.Show;
@@ -14557,7 +14557,7 @@ begin
   local_c := Self;
   local_8 := Sender;
   begin
-    // C: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x69c) + 0x450))(Form1.CheckBoxResolucaoMonitor);
+    cVar1 := Form1.CheckBoxResolucaoMonitor.Checked;  // C convertido: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x69c) + 0x450))(Form1.CheckBoxResolucaoMonitor);
     if cVar1 then begin
       local_138 := '';
       local_138 := PASTA + 'alterarresolucaodolinux.txt';
@@ -14569,7 +14569,7 @@ begin
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
     end;
-    // C: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x69c) + 0x450))(Form1.CheckBoxResolucaoMonitor);
+    cVar1 := Form1.CheckBoxResolucaoMonitor.Checked;  // C convertido: cVar1 = ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x69c) + 0x450))(Form1.CheckBoxResolucaoMonitor);
     if not cVar1 then begin
       local_138 := '';
       local_138 := PASTA + 'alterarresolucaodolinux.txt';
