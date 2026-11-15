@@ -110,6 +110,16 @@ músicas, relógios e `creditos.txt`).
   creditadas duas vezes. Tudo vai para o `log.txt` com o prefixo `Pix:`.
 - Teste contra um PSP simulado (HTTPS com certificado de cliente): `testes/pix/rodar.sh`.
 
+## Baixar músicas do YouTube
+
+`baixar-youtube.sh` (instalado na pasta da jukebox, com atalho no menu do Linux) usa o
+[yt-dlp](https://github.com/yt-dlp/yt-dlp): o link de um vídeo ou de uma playlist vira um CD em `/home/jkb/musicas`,
+no formato da jukebox. As faixas ficam `01 - NOME.mp3` (ou `.mp4` para DVD), com nome em maiúsculas e sem acento;
+o script grava o `genero.txt` e tira `capa.jpg` (400x400) e `capapequena.jpg` (200x200) da miniatura. Num CD que
+já existe, as faixas entram depois das que estão, até 40. Sem argumentos, o script abre janelas (zenity); pelo
+terminal: `baixar-youtube.sh LINK "ARTISTA - CD" "MP - MPB" [mp3|mp4]`. O yt-dlp se atualiza antes de cada
+download, porque o YouTube muda sempre. Baixe só o que tem direito de tocar (direitos autorais / ECAD).
+
 ## Teste de integração
 
 `sudo sh testes/integracao/rodar.sh` monta uma máquina de teste em `/home/jkb/jukelinux` e `/home/jkb/musicas` (o que
