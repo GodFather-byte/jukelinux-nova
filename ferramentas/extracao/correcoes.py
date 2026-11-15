@@ -114,4 +114,19 @@ CORRECOES = [
     ('TForm1.FormCreate', "          PASTACHAVE := PASTACHAVE1;\n        end;\n      end;\n      repeat\n        local_518 := '';\n        local_518 := PASTACHAVE + 'jukebox.chave';\n",
      "          PASTACHAVE := PASTACHAVE1;\n        end;\n      end;\n      // Nova: sem o pendrive-chave antigo, não espera por ele (a original tentava 51 vezes, 5 s, e enchia o log);\n      // a licença da Nova substitui a chave.\n      if not FileExists(PASTACHAVE + 'jukebox.chave') then begin\n        Gravalog('Nova: sem o pendrive-chave antigo (jukebox.chave); a licenca nova substitui');\n        local_14 := 50;\n      end;\n      repeat\n        local_518 := '';\n        local_518 := PASTACHAVE + 'jukebox.chave';\n",
      'não espera o pendrive-chave que a licença substitui'),
+    # Nova: palhinha (prévia da música). O if que decide quando ela começa ficou como comentário C (operador
+    # vírgula dentro de ||), e o código abaixo rodava sempre.
+    ('TForm1.TimerPalhinhaTimer', "  // C: if ((((U_JUKELINUX1_TEMPOPALHINHA != U_JUKELINUX1_TEMPOPARAINICIARAPALHINHA) || (U_JUKELINUX1_PALHINHASPORREAL < 1)) || (U_JUKELINUX1_ESTANOMENU != '\\0')) || (((U_JUKELINUX1_TOCANDOMUSICA != '\\0' || (U_JUKELINUX1_TEMCREDITO == '\\0')) || ((U_JUKELINUX1_MUSICASELECIONADA < 1 || (iVar3 = fpc_ansistr_compare_equal (U_JUKELINUX1_MUSICAQUEJATOCOUAPALHINHA, *(undefined4 * ) ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91144 + U_JUKELINUX1_MUSICASELECIONADA * 4)), iVar3 == 0)))))) goto LAB_080e3a45;\n",
+     '  // Nova: a condição veio como um if do C com o operador vírgula (reescrita à mão seguindo o C). A palhinha só\n  // começa quando o tempo chega, há crédito, nada toca, o menu está fechado e a música ainda não teve palhinha.\n  if (TEMPOPALHINHA <> TEMPOPARAINICIARAPALHINHA) or (PALHINHASPORREAL < 1) or (ESTANOMENU <> 0) or\n     (TOCANDOMUSICA <> 0) or (TEMCREDITO = 0) or (MUSICASELECIONADA < 1) or\n     (MUSICAQUEJATOCOUAPALHINHA = MAT[KMAT + 5].Caminho[MUSICASELECIONADA]) then begin\n    goto LAB_080e3a45;\n  end;\n',
+     'quando a palhinha começa'),
+    ('TForm1.TimerPalhinhaTimer', '  // C: cVar1 = SYSUTILS_FILEEXISTS_ANSISTRING__BOOLEAN();\n',
+     '  cVar1 := FileExists(ORIGEMPALHINHA);  // Nova: o argumento veio em registrador (C: FileExists())\n',
+     'confere o arquivo da palhinha'),
+    # Nova: leitura do cartão pelo código de barras (as teclas vão se juntando em CODIGODOCARTAO).
+    ('TForm1.FormKeyUp', '      // C: local_210[0] = (ushort)(byte)*local_c << 8 | 1;\n      // C: fpc_shortstr_concat(local_110,0xff,&U_JUKELINUX1_CODIGODOCARTAO,local_210);\n      // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_110);\n',
+     '      // Nova: leitor de código de barras do cartão: cada tecla entra no fim do código (C: monta um String[1]\n      // com a tecla e concatena em CODIGODOCARTAO, String[20]).\n      CODIGODOCARTAO := CODIGODOCARTAO + Chr(local_c);\n',
+     'junta as teclas do leitor de código de barras'),
+    ('TForm1.FormKeyUp', '        // C: DAT_09646eb1 = (byte)*local_c;\n',
+     '        // Nova: (C: DAT_09646eb1 = tecla) é o 1º caractere de CODIGODOCARTAO, já posto na linha de cima\n',
+     'primeiro caractere do código do cartão'),
 ]

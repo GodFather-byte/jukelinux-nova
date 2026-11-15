@@ -104,7 +104,8 @@ músicas, relógios e `creditos.txt`).
 
 `sudo sh testes/integracao/rodar.sh` monta uma máquina de teste em `/home/jkb/jukelinux` e `/home/jkb/musicas` (o que
 já estiver lá é guardado e volta no fim), abre a jukebox numa tela virtual (Xvfb) e confere o que ela grava: as
-configurações padrão, o ranking das mais tocadas, um cartão lido do `.CAR` e do `cartoes.ccc`, um CD de lançamento e a
+configurações padrão, o ranking das mais tocadas, os cartões (lidos do `.CAR` e do `cartoes.ccc`, e um lido pelo
+leitor de código de barras no modo Bar, que usa 1 crédito), um CD de lançamento e a
 falta de exceções. Roda também no CI.
 
 ## Fases

@@ -39,6 +39,10 @@ def ss(b, cap):
 
 cripta = lambda s: bytes((ord(c) + i + 17) & 255 for i, c in enumerate(s, 1))
 criptasuper = lambda s: b'XXXXX' + bytes((ord(c) + i + 72) & 255 for i, c in enumerate(s, 1))
-escreve(f'{juke}/teste.CAR', ss(b'CABECALHO', 93) + ss(criptasuper('12345678'), 93), 'wb')
+escreve(f'{juke}/teste.CAR', ss(b'CABECALHO', 93) + ss(criptasuper('12345678'), 93) + ss(criptasuper('01234567'), 93), 'wb')
 reg = lambda cod, val, sit: ss(cod, 30) + ss(val, 4) + ss(sit, 1)
-escreve(f'{juke}/cartoes.ccc', reg(cripta('01-01-26'), b'', b'') + reg(cripta('12345678'), cripta('7'), cripta('N')), 'wb')
+escreve(f'{juke}/cartoes.ccc', reg(cripta('01-01-26'), b'', b'') + reg(cripta('12345678'), cripta('7'), cripta('N')) +
+       reg(cripta('01234567'), cripta('5'), cripta('N')), 'wb')
+# cartão no modo Bar (o leitor de código de barras digita 0 + 7 dígitos e Enter), 1 crédito por música
+escreve(f'{juke}/cartaojukebox.txt', 'Bar\n')
+escreve(f'{juke}/reaisxmusicas.txt', '1x1\n')

@@ -19,7 +19,7 @@ jobs:
       - name: Instalar Lazarus e Free Pascal
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc xvfb >/dev/null
+          sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc xvfb xdotool >/dev/null
           lazbuild --version
 
       - name: Chave da licença
