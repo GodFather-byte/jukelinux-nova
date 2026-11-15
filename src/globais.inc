@@ -18,7 +18,7 @@ type
     Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
     Marca3: Byte;                             // 556: zerado ao carregar
     Escolha: String[1];                       // 558: 'S' ou 'N'
-    Marca4: Byte;                             // 560: zerado ao carregar
+    Lancamento: AnsiString;                   // 560: data do .ATU (lançamento); mostrada como "De: ..."
     TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
   end;
 
@@ -156,11 +156,11 @@ var
   KMAT: LongInt;
   KMATMUSICA: LongInt;
   TOTALCDS: LongInt;
-  MATKARAOKE: array[0..39995] of Byte {revisar};
+  MATKARAOKE: array[1..9999] of AnsiString;
   KMATKARAOKE: LongInt;
   TOTALKARAOKES: LongInt;
-  MMRITMO: array[0..399] of Byte {revisar};
-  MMRITMOTOCOU: array[0..399] of Byte {revisar};
+  MMRITMO: array[1..100] of AnsiString;
+  MMRITMOTOCOU: array[1..100] of LongInt;
   RITMODOCD: AnsiString;
   RITMO: AnsiString;
   RITMOSELECIONADO: AnsiString;
@@ -173,7 +173,7 @@ var
   KKRITMO: LongInt;
   CDSELEAPAGAR: AnsiString;
   CDSELEAPAGARX: AnsiString;
-  MMLETRA: array[0..399] of Byte {revisar};
+  MMLETRA: array[1..100] of AnsiString;
   LETRADOCD: AnsiString;
   LETRASELECIONADA: AnsiString;
   LETRAESCOLHIDA: AnsiString;
@@ -215,15 +215,15 @@ var
   TEMPOPROPAGANDA: LongInt;
   POSPRO: LongInt;
   TOTALPRO: LongInt;
-  MATPROPAGANDA: array[0..1999] of Byte {revisar};
+  MATPROPAGANDA: array[1..500] of AnsiString;
   TEMPOPARAPAGINARSOZINHO: LongInt;
   TEMPOPARAPAGINARSOZINHOOPC: AnsiString;
   DIRECAO: AnsiString;
   TEMPOEMSEGUNDOSPAGINARSOZINHO: LongInt;
   ARQTOCAR: Text;
   ARQTOCARX: Text;
-  MATFRASES: array[0..199] of Byte {revisar};
-  MATFRASESORI: array[0..199] of Byte {revisar};
+  MATFRASES: array[1..50] of AnsiString;
+  MATFRASESORI: array[1..50] of AnsiString;
   KFRASE: LongInt;
   POSFRASE: LongInt;
   TOTALFRASE: LongInt;
@@ -231,7 +231,7 @@ var
   TEXTOTEMPX: array[0..1] of Byte {revisar};
   VELOCIDADEDISPLAY: LongInt;
   MUSICAROLARTEXTO: LongInt;
-  NOMEMUSICAORIGINALGRANDE: AnsiString;
+  NOMEMUSICAORIGINALGRANDE: array[1..40] of AnsiString;
   TEXTOMUSICAGRANDE: AnsiString;
   ALTEROUMUSICAGRANDE: Byte;
   MUSICASELECIONADAANT: LongInt;
@@ -342,7 +342,7 @@ var
   CREDITOSBONUS: LongInt;
   CREDITOSTELA: LongInt;
   ZERA50: LongInt;
-  LISTA50MUSICASMAISTOCADAS: array[0..199] of Byte {revisar};
+  LISTA50MUSICASMAISTOCADAS: array[1..50] of AnsiString;
   SELECAOMG: AnsiString;
   TOTALMG: LongInt;
   LIMITEARQ: LongInt;

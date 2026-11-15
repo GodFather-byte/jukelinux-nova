@@ -40,7 +40,7 @@ procedure Nova_Inicia_Licenca;
 implementation
 
 uses
-  Types, Process, FileUtil, Variants, LCLType, Pix, PixTela, MusicaCifra, Licenca;
+  Types, Process, FileUtil, Variants, LCLType, DateUtils, Pix, PixTela, MusicaCifra, Licenca;
 
 {$R *.lfm}
 

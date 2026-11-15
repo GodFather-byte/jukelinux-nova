@@ -41,8 +41,18 @@ def usos(n):
 
 # Tipos conferidos à mão no código descompilado (o tamanho do símbolo engana nesses).
 MANUAL = {
-    'NOMEMUSICAORIGINALGRANDE': 'AnsiString',  # usada como texto (lê o tamanho em -4); o símbolo tem 160 bytes
-    'MAT': 'array[1..8000] of TIPOCD',  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
+    # 160 bytes = 40 textos: o nome original de cada música da tela (o C lê as posições 2 a 12 como DAT_09301dc4...)
+    'NOMEMUSICAORIGINALGRANDE': 'array[1..40] of AnsiString',
+    'MAT': 'array[1..8000] of TIPOCD',
+    # 200 bytes = 50 textos: caminho das músicas mais tocadas (o C usa &DAT_0964721c + i * 4, i de 1 a 50)
+    'LISTA50MUSICASMAISTOCADAS': 'array[1..50] of AnsiString',
+    'MMRITMO': 'array[1..100] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MMRITMOTOCOU': 'array[1..100] of LongInt',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MMLETRA': 'array[1..100] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MATKARAOKE': 'array[1..9999] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MATPROPAGANDA': 'array[1..500] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MATFRASES': 'array[1..50] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
+    'MATFRASESORI': 'array[1..50] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
 }
 
 # O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
@@ -65,7 +75,7 @@ TIPO_CD = '''type
     Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
     Marca3: Byte;                             // 556: zerado ao carregar
     Escolha: String[1];                       // 558: 'S' ou 'N'
-    Marca4: Byte;                             // 560: zerado ao carregar
+    Lancamento: AnsiString;                   // 560: data do .ATU (lançamento); mostrada como "De: ..."
     TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
   end;
 

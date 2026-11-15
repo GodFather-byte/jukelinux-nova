@@ -102,7 +102,25 @@ GLOBAL_NO_CD = {  # global -> deslocamento dentro do registro
 CAMPOS_CD = {0: ('Marca', 'num'), 8: ('Pasta', 'texto'), 12: ('Nome', 'texto'), 16: ('Capa', 'texto'),
              20: ('CapaPequena', 'texto'), 24: ('Genero', 'texto'), 376: ('TotalMusicas', 'num'),
              380: ('Tipo', 'texto'), 384: ('Marca2', 'num'), 556: ('Marca3', 'num'), 558: ('Escolha', 'texto'),
-             560: ('Marca4', 'num'), 572: ('TotalTocadas', 'num')}
+             560: ('Lancamento', 'texto'), 572: ('TotalTocadas', 'num')}
+# Vetores globais [1..n] de 4 bytes por elemento (AnsiString ou LongInt) que o Ghidra não reconheceu como vetor.
+# nome -> (tipo, endereço da posição 0 (= posição 1 - 4) ou None, global logo antes do vetor ou None, n).
+# Formas aceitas: *(t *)(&DAT_<pos0> + i * 4), &DAT_<pos0> + i * 4, *(t *)(i * 4 + 0x<pos0>), i * 4 + 0x<pos0>,
+# DAT_<pos0 + 4k> (posição k fixa) e (&U_JUKELINUX1_<global antes>)[i]. O nome sem índice (só o que está em
+# VETORES_NOME_E_POS1) é a posição 1.
+VETORES_GLOBAIS = {
+    'MMRITMO': ('texto', 0x092fffac, None, 100),  # ritmos que existem no acervo
+    'MMRITMOTOCOU': ('num', 0x0930013c, None, 100),  # vezes que cada ritmo tocou
+    'MMLETRA': ('texto', None, 'CDSELEAPAGARX', 100),  # letras iniciais dos CDs
+    'MATKARAOKE': ('texto', 0x092f635c, None, 9999),  # arquivos de karaokê
+    'MATPROPAGANDA': ('texto', None, 'TOTALPRO', 500),  # imagens e vídeos de propaganda
+    'MATFRASES': ('texto', 0x09301bfc, None, 50),  # frases do letreiro (com espaços no fim)
+    'MATFRASESORI': ('texto', 0x09301ccc, None, 50),  # frases como foram digitadas
+    'LISTA50MUSICASMAISTOCADAS': ('texto', 0x0964721c, None, 50),  # caminho das 50 mais tocadas
+}
+VETORES_NOME_E_POS1 = ('MATFRASES', 'MATFRASESORI')
+# Outras formas de chegar ao vetor (IDX = o índice): ARQTOCARX + 0x24c é o endereço da posição 0 de MATFRASES.
+APELIDOS_VETORES = {'MATFRASES': (r'U_JUKELINUX1_ARQTOCARX \+ IDX \* 4 \+ 0x24c',)}
 # vetores [1..40]: deslocamento do elemento k = base + 4*k
 VETORES_CD = {52: ('Caminho', 'texto'), 212: ('Musica', 'texto'), 392: ('Tocadas', 'num')}
 
@@ -189,15 +207,21 @@ class Tradutor:
         self.zerada = None
         # Variável atribuída na linha Pascal anterior: valor de um Write cujo argumento o Ghidra perdeu (registrador).
         self.ultima_atribuida = None
+        self.rotinas = {}
+        # local_x = "texto" (PChar de um literal) vista antes: pedaço de um fpc_ansistr_concat_multi
+        self.literais = {}
 
     def novo(self):
         t = Tradutor(self.globais, self.locais, self.comps, self.ptrs)
         t.buffers = self.buffers
         t.mult = self.mult
+        t.rotinas = self.rotinas
+        t.literais = self.literais
         return t
 
     def substitui_cd(self, c):
         """Troca cada acesso ao acervo (as formas de FORMAS_CD) por um nome CDREF_n, resolvido em resolve()."""
+        c = self.substitui_vetores(c)
         for rx, forma, com_k in FORMAS_CD:
             def troca(m, forma=forma, com_k=com_k):
                 nome = f'CDREF_{len(self.cd)}'
@@ -221,9 +245,40 @@ class Tradutor:
                    r'COMPRIMENTO_(\1)', c)
         return c
 
+    def substitui_vetores(self, c):
+        """Troca cada acesso a um vetor de VETORES_GLOBAIS por um nome CDREF_n (forma 'vglobal')."""
+        def ref(nome_v, idx):
+            nome = f'CDREF_{len(self.cd)}'
+            self.cd[nome] = ('vglobal', (nome_v, idx), False)
+            return nome
+        for nome_v, (tipo, pos0, antes, n) in VETORES_GLOBAIS.items():
+            if antes:
+                c = re.sub(r'\(&U_JUKELINUX1_' + antes + r'\)\s*\[([^\[\]]+)\]',
+                           lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            for alias in APELIDOS_VETORES.get(nome_v, ()):
+                c = re.sub(CAST + r'\(\s*' + alias.replace('IDX', IDX) + r'\s*\)', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            if pos0 is None:
+                continue
+            h = f'{pos0:08x}'
+            c = re.sub(CAST + r'\(\s*&DAT_' + h + r' \+ ' + IDX + r' \* 4\s*\)', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(CAST + r'\(\s*' + IDX + r' \* 4 \+ 0x' + h.lstrip('0') + r'\s*\)',
+                       lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(r'&DAT_' + h + r' \+ ' + IDX + r' \* 4\b', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+            c = re.sub(r'\b' + IDX + r' \* 4 \+ 0x' + h.lstrip('0') + r'\b', lambda m, nv=nome_v: ref(nv, m.group(1)), c)
+
+            def fixa(m, nv=nome_v, pos0=pos0, n=n):
+                k = (int(m.group(1), 16) - pos0) // 4
+                if (int(m.group(1), 16) - pos0) % 4 or not 1 <= k <= n:
+                    return m.group(0)
+                return ref(nv, str(k))
+            c = re.sub(r'\bDAT_(0' + h[1:5] + r'[0-9a-f]{3})\b', fixa, c)
+        return c
+
     def resolve_cd(self, v):
         forma, g, com_k = self.cd[v]
         k_c = None
+        if forma == 'vglobal':
+            return f'{g[0]}[{self.num_de(self.novo().traduz(g[1]))}]', VETORES_GLOBAIS[g[0]][0]
         if forma.startswith('mult_'):
             base = f'MAT[{self.mult[g[0].upper()]}]'
             if forma == 'mult_arqlog':
@@ -608,6 +663,16 @@ def chamada(nome, args, destino, tr):
     n = len(args)
     if destino and nome not in ():
         raise Falha('chamada com resultado: ' + nome)
+    if nome == 'fpc_ansistr_concat_multi' and n == 3:
+        # (destino, &primeiro, High): os pedaços são locais seguidas na pilha, de 4 em 4 bytes para baixo
+        mb = re.fullmatch(r'&(local_)([0-9a-f]+)', args[1].strip())
+        if not mb or not re.fullmatch(r'\d+|0x[0-9a-f]+', args[2].strip()):
+            raise Falha('concat_multi desconhecido')
+        partes = []
+        for i in range(int(args[2], 0) + 1):
+            v = f'local_{int(mb.group(2), 16) - 4 * i:x}'
+            partes.append(tr.literais[v] if v in tr.literais else texto_de(v, tr))
+        return _atribui(tr, args[0], ' + '.join(partes), 'texto')
     if nome == 'fpc_ansistr_concat' and n == 3:
         return _atribui(tr, args[0], f'{texto_de(args[1], tr)} + {texto_de(args[2], tr)}', 'texto')
     if nome == 'fpc_shortstr_to_ansistr' and n == 2:
@@ -782,6 +847,8 @@ def comando(c, tr):
     if m:
         return virtual(m, tr)
     m = CHAMADA.match(c)
+    if m and m.group(2) in tr.rotinas and fecha_no_fim('(' + m.group(3) + ')'):
+        return chamada_rotina(m.group(2), separa_args(m.group(3)), m.group(1), tr)
     if m and m.group(2) != 'MPLAYERCTRL' and not m.group(2).startswith('MPLAYERCTRL_') \
             and fecha_no_fim('(' + m.group(3) + ')'):
         if not m.group(1):
@@ -809,14 +876,15 @@ def comando(c, tr):
                 raise Falha('destino não é Boolean')
             return f"{destino} := {alvo}.{'Playing' if metodo.startswith('PLAYING') else 'Running'};"
         raise Falha('chamada do player desconhecida')
-    m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?) = (.+);$', c)
+    m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?'
+                 r'|[^=;]*?(?:&DAT_|\* 4 \+ 0x|\)\s*\[)[^=;]*?) = (.+);$', c)
     if m:
         if m.group(1).upper() in tr.ptrs and m.group(1).upper() not in tr.locais:
             raise Falha('apelido de ponteiro (puVar = x) não é atribuição')
         # destino: variável simples ou campo do acervo ((&G)[i*0x90 + k], ARQLOG + i*0x240 + c, ...)
         nome, tipo = tr.destino(m.group(1))
         e = tr.traduz(m.group(2))
-        if e[1] in ('zero', 'nulo'):
+        if e[1] in ('zero', 'nulo') or (e[0] == '0' and tipo == 'texto'):
             v = tr.vazio_para(tipo)
             if v is None:
                 raise Falha('vazio para ' + str(tipo))
@@ -978,10 +1046,48 @@ def contas_flutuantes(texto):
     return texto
 
 
-def completa_rotina(texto, globais, estatistica=None, comps=None):
+# NOMEMUSICAORIGINALGRANDE é um vetor de 40 AnsiString (160 bytes em 0x09301dc0): a posição 1 o Ghidra chamou pelo
+# nome, as seguintes de DAT_09301dc4, DAT_09301dc8, ... (o nome original de cada uma das 12 músicas da tela).
+NOME_GRANDE = 'NOMEMUSICAORIGINALGRANDE'
+END_NOME_GRANDE = 0x09301dc0
+
+
+def _pos_grande(m):
+    return (int(m, 16) - END_NOME_GRANDE) // 4 + 1
+
+
+def vetor_nome_grande(texto):
+    rx = r'DAT_(09301d[0-9a-f]{2})'
+    v = lambda m: f'{NOME_GRANDE}[{_pos_grande(m)}]'
+    # posição 1: o nome sem índice, só no Pascal (o comentário C fica como está)
+    linhas = []
+    for linha in texto.split('\n'):
+        if not re.match(r'^\s*//', linha):
+            codigo, sep, coment = linha.partition('//')
+            for nome_v in (NOME_GRANDE,) + VETORES_NOME_E_POS1:
+                codigo = re.sub(r'\b' + nome_v + r'\b(?!\[)', nome_v + '[1]', codigo)
+            linha = codigo + sep + coment
+        linhas.append(linha)
+    texto = '\n'.join(linhas)
+    texto = re.sub(r'^(\s*)// C: ' + rx + r' = (local_\w+)\[0\];$',
+                   lambda m: f'{m[1]}{v(m[2])} := {m[3]};  // C convertido: DAT_{m[2]} = {m[3]}[0];', texto, flags=re.M)
+    texto = re.sub(r'if False \{ C: ' + rx + r' != 0 \} then',
+                   lambda m: f"if {v(m[1])} <> '' {{ C convertido: DAT_{m[1]} != 0 }} then", texto)
+    texto = re.sub(r'^(\s*)// C: (\w+) = \*\(int \* \)\(' + rx + r' \+ -4\);$',
+                   lambda m: f'{m[1]}{m[2]} := Length({v(m[3])});  // C convertido: tamanho de DAT_{m[3]}', texto, flags=re.M)
+    texto = re.sub(r'^(\s*)// C: CONTROLS_TCONTROL____SETTEXT_TTRANSLATESTRING \(Form1\.(\w+),' + rx + r'\);$',
+                   lambda m: f'{m[1]}Form1.{m[2]}.Caption := {v(m[3])};  // C convertido: SetText(Form1.{m[2]}, DAT_{m[3]})',
+                   texto, flags=re.M)
+    return texto
+
+
+def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
     texto = retipa_temporarias_cd(texto)
     texto = contas_flutuantes(texto)
+    # a posição 1 do vetor se traduz como texto comum; vetor_nome_grande põe o [1] no fim
+    globais = dict(globais, **{n: 'texto' for n in (NOME_GRANDE,) + VETORES_NOME_E_POS1})
     tr = Tradutor(globais, le_locais(texto), comps)
+    tr.rotinas = rotinas or {}
     est = estatistica if estatistica is not None else {}
 
     def troca_if(m):
@@ -996,6 +1102,9 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
 
     saida = []
     for linha in texto.split('\n'):
+        m = re.match(r'^\s*// C: (local_[0-9a-f]+) = ("(?:[^"\\\\]|\\\\.)*");\s*$', linha)
+        if m:
+            tr.literais[m.group(1)] = tr.traduz(m.group(2))[0]
         m = RE_PONTEIRO.match(linha)
         if m:
             tr.ptrs[m.group(1).upper()] = m.group(2)
@@ -1006,6 +1115,30 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
         m = re.match(r'^\s*(\w+) := (.+) \* 576;\s*$', linha)
         if m:
             tr.mult[m.group(1).upper()] = m.group(2)
+        # `// ?: SERIAL + i * 144 := local_x;` logo depois de `local_x := '';`: o tradutor inverteu a leitura de um
+        # campo do CD (fpc_shortstr_to_ansistr / fpc_ansistr_assign com o campo como origem).
+        m = re.match(r"^(\s*)// \?: (\w+) \+ (\(\w+ \+ \d+\)|\w+) \* 144 := (\w+);\s*$", linha)
+        if m and m.group(2) in GLOBAL_NO_CD and saida and \
+                re.match(r"^\s*" + re.escape(m.group(4)) + r" := '';\s*$", saida[-1]):
+            campo, tipo = campo_cd(GLOBAL_NO_CD[m.group(2)])
+            if tipo == 'texto':
+                linha = (f'{m.group(1)}{m.group(4)} := MAT[{m.group(3)}].{campo};'
+                         f'  // ? convertido (leitura do campo do CD): {linha.strip()[6:]}')
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+        # `// ?: TOTALPRO + KPRO := valor;`: escrita num vetor de VETORES_GLOBAIS acessado pela global de antes.
+        m = re.match(r"^(\s*)// \?: (\w+) \+ (\w+) := (.+);\s*$", linha)
+        antes = {v[2]: k for k, v in VETORES_GLOBAIS.items() if v[2]}
+        if m and m.group(2) in antes:
+            nome_v = antes[m.group(2)]
+            try:
+                valor = tr.traduz(pascal_para_c(m.group(4)))
+                idx = tr.num_de(tr.traduz(pascal_para_c(m.group(3))))
+                if valor[1] != VETORES_GLOBAIS[nome_v][0]:
+                    raise Falha('tipo do vetor')
+                linha = f'{m.group(1)}{nome_v}[{idx}] := {valor[0]};  // ? convertido: {linha.strip()[6:]}'
+                est['talvez_convertido'] = est.get('talvez_convertido', 0) + 1
+            except Falha:
+                pass
         m = RE_TALVEZ.match(linha)
         if m:
             try:
@@ -1042,7 +1175,59 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
             except Falha:
                 pass
         saida.append(linha)
-    return declara_nova_cond('\n'.join(saida))
+    return vetor_nome_grande(declara_nova_cond('\n'.join(saida)))
+
+
+TIPO_PARAM = {'ansistring': 'texto', 'longint': 'num', 'integer': 'num', 'byte': 'num', 'boolean': 'bool'}
+
+
+def le_rotinas(texto):
+    """Rotinas do próprio programa: nome do Ghidra (JUKELINUX1_X_ANSISTRING__ANSISTRING) -> (nome Pascal, tipos dos
+    parâmetros, tipo do resultado ou None), pelos comentários { JUKELINUX1_X$ANSISTRING$$ANSISTRING } dos cabeçalhos."""
+    rotinas = {}
+    for m in re.finditer(r'\{ (JUKELINUX1_[\w$]+) \}\n(procedure|function) (\w+)(?:\(([^)]*)\))?(?:: (\w+))?;', texto):
+        tipos = []
+        for grupo in (m.group(4) or '').split(';'):
+            if ':' not in grupo:
+                continue
+            nomes, tipo = grupo.split(':')
+            t = TIPO_PARAM.get(tipo.strip().lower())
+            if t is None:
+                break
+            tipos += [t] * len(nomes.split(','))
+        else:
+            res = TIPO_PARAM.get((m.group(5) or '').lower()) if m.group(5) else None
+            if m.group(5) and res is None:
+                continue
+            rotinas[m.group(1).replace('$$', '__').replace('$', '_')] = (m.group(3), tipos, res)
+    return rotinas
+
+
+def chamada_rotina(nome, args, destino, tr):
+    """Chamada de uma rotina do próprio programa. Função que devolve texto: o resultado vem no último argumento."""
+    pascal, tipos, res = tr.rotinas[nome]
+    if res == 'texto' and not destino:
+        if len(args) != len(tipos) + 1:
+            raise Falha('argumentos da rotina')
+        args, dest = args[:-1], args[-1]
+    elif len(args) != len(tipos):
+        raise Falha('argumentos da rotina')
+    valores = []
+    for a, t in zip(args, tipos):
+        e = tr.traduz(a)
+        if e[1] in ('zero', 'nulo') and t in ('texto', 'num'):
+            e = (tr.vazio_para(t), t)
+        if e[1] != t and not (t == 'texto' and e[1] == 'char'):
+            raise Falha(f'argumento {e[1]} para {t}')
+        valores.append(e[0])
+    texto_chamada = pascal + (f'({", ".join(valores)})' if valores else '')
+    if res == 'texto' and not destino:
+        return _atribui(tr, dest, texto_chamada, 'texto')
+    if destino:
+        if res is None:
+            raise Falha('procedimento com resultado')
+        return _atribui(tr, destino, texto_chamada, res)
+    return texto_chamada + ';'
 
 
 def completa_arquivo(globais_inc, rotinas_inc, form_inc=None):
@@ -1053,11 +1238,12 @@ def completa_arquivo(globais_inc, rotinas_inc, form_inc=None):
     texto = open(rotinas_inc, encoding='utf-8').read()
     # cabeçalhos: com parâmetros "(", sem parâmetros ";" e funções sem parâmetros ": Tipo;"
     partes = re.split(r'\n(?=(?:procedure|function) [\w.]+\s*[(:;])', texto)
+    rotinas = le_rotinas(texto)
     est = {}
     novas = []
     for p in partes:
         if re.match(r'(procedure|function) ', p) and not p.split('\n', 1)[0].endswith('forward;'):
-            p = completa_rotina(p, globais, est, comps)
+            p = completa_rotina(p, globais, est, comps, rotinas)
         novas.append(p)
     open(rotinas_inc, 'w', encoding='utf-8', newline='\n').write('\n'.join(novas))
     return est
