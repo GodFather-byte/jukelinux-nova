@@ -9,7 +9,8 @@
 #   2. guarda o executável atual em /home/jkb/jukelinux/jukelinux.antes-da-nova-AAAAMMDD-HHMMSS;
 #   3. põe a Nova no mesmo lugar e com o mesmo nome (/home/jkb/jukelinux/jukelinux): o que já inicia a jukebox nessa
 #      máquina continua iniciando a Nova;
-#   4. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
+#   4. numa máquina nova, cria as pastas /home/jkb/musicas, ritmos/ e letras/ (as configurações a Nova cria ao abrir);
+#   5. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
 # Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina (ver README, "Licença").
 set -e
 
@@ -42,7 +43,7 @@ for programa in mplayer curl xrandr; do
   command -v "$programa" >/dev/null 2>&1 || falha "falta o programa $programa"
 done
 
-mkdir -p "$PASTA"
+mkdir -p "$PASTA" "$PASTA/ritmos" "$PASTA/letras" /home/jkb/musicas
 if [ -f "$PASTA/jukelinux" ] && cmp -s "$PASTA/jukelinux" "$NOVO"; then
   echo "Esta versão já está instalada; nada a guardar."
 elif [ -f "$PASTA/jukelinux" ]; then
@@ -57,7 +58,7 @@ if [ -f "$AQUI/pix.txt.exemplo" ] && [ ! -f "$PASTA/pix.txt.exemplo" ]; then
   cp "$AQUI/pix.txt.exemplo" "$PASTA/pix.txt.exemplo"
 fi
 if id "$USUARIO" >/dev/null 2>&1; then
-  chown "$USUARIO": "$PASTA/jukelinux"
+  chown "$USUARIO": "$PASTA" "$PASTA/ritmos" "$PASTA/letras" /home/jkb/musicas "$PASTA/jukelinux"
   [ -f "$PASTA/pix.txt.exemplo" ] && chown "$USUARIO": "$PASTA/pix.txt.exemplo"
 fi
 

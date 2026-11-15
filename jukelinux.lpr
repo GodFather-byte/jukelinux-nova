@@ -42,6 +42,7 @@ begin
   RequireDerivedFormResource := True;
   Application.Title := 'JukeLinux';
   Application.Initialize;
+  Nova_Prepara_Pasta;
   Application.CreateForm(TForm1, Form1);
   Nova_Inicia_Licenca;
   Nova_Inicia_Pix;

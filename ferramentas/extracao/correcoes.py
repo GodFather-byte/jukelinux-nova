@@ -110,4 +110,8 @@ CORRECOES = [
     ('Mostra_Jpg_Letra', "      until not (KLJ < iVar1);\n    end;\n  end;\n  local_3c := '';",
      "      until not (KLJ < iVar1);\n    end;\n    // Nova: sem imagem do letra e sem a imagem padrão, mostra o nome dele (Nova_Carrega_Imagem desenha o\n    // nome de um arquivo que falta).\n    if not FileExists(local_c) then begin\n      local_c := PASTA + 'letras/' + local_8 + '.jpg';\n    end;\n  end;\n  local_3c := '';",
      'sem imagem, mostra o nome do letra'),
+    # Nova: espera pelo pendrive-chave antigo.
+    ('TForm1.FormCreate', "          PASTACHAVE := PASTACHAVE1;\n        end;\n      end;\n      repeat\n        local_518 := '';\n        local_518 := PASTACHAVE + 'jukebox.chave';\n",
+     "          PASTACHAVE := PASTACHAVE1;\n        end;\n      end;\n      // Nova: sem o pendrive-chave antigo, não espera por ele (a original tentava 51 vezes, 5 s, e enchia o log);\n      // a licença da Nova substitui a chave.\n      if not FileExists(PASTACHAVE + 'jukebox.chave') then begin\n        Gravalog('Nova: sem o pendrive-chave antigo (jukebox.chave); a licenca nova substitui');\n        local_14 := 50;\n      end;\n      repeat\n        local_518 := '';\n        local_518 := PASTACHAVE + 'jukebox.chave';\n",
+     'não espera o pendrive-chave que a licença substitui'),
 ]

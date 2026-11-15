@@ -36,11 +36,13 @@ var
 procedure Nova_Inicia_Pix;
 { Confere a licença e, sem licença válida, põe a tela de ativação da original por cima (nova.inc). }
 procedure Nova_Inicia_Licenca;
+{ Antes de criar o Form1: cria na pasta da jukebox o que uma máquina nova não tem (nova.inc). }
+procedure Nova_Prepara_Pasta;
 
 implementation
 
 uses
-  Types, Process, FileUtil, Variants, LCLType, DateUtils, Pix, PixTela, MusicaCifra, Licenca;
+  Types, Process, FileUtil, Variants, LCLType, DateUtils, BaseUnix, Pix, PixTela, MusicaCifra, Licenca;
 
 {$R *.lfm}
 

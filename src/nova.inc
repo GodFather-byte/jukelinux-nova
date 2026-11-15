@@ -464,3 +464,33 @@ begin
       Gravalog('Foco: ' + Controle.Name + ' (' + E.Message + ')');
   end;
 end;
+
+{ Uma máquina nova (sem a JukeLinux antiga) não tem os arquivos que a original esperava achar prontos. Cria só o
+  que falta, sem mexer no que já existe:
+  - a pasta /home/jkb/jukelinux/;
+  - inicio.sh: a original o executava para listar os discos (ls -l /dev/disk/by-id > inicio.txt) e achar o pendrive
+    -chave; sem ele a abertura dava erro e a tela ficava pela metade. A licença da Nova substitui o pendrive, mas a
+    lista dos discos continua sendo usada (serial do HD). }
+procedure Nova_Prepara_Pasta;
+const
+  PASTA_JUKE = '/home/jkb/jukelinux/';
+var
+  F: TextFile;
+begin
+  try
+    ForceDirectories(PASTA_JUKE);
+    if not FileExists(PASTA_JUKE + 'inicio.sh') then
+    begin
+      AssignFile(F, PASTA_JUKE + 'inicio.sh');
+      Rewrite(F);
+      Writeln(F, '#!/bin/sh');
+      Writeln(F, '# Criado pela JukeLinux Nova: lista os discos para a jukebox (pendrive e HD).');
+      Writeln(F, 'ls -l /dev/disk/by-id/ > ' + PASTA_JUKE + 'inicio.txt 2>/dev/null');
+      Writeln(F, '[ -f ' + PASTA_JUKE + 'inicio.txt ] || : > ' + PASTA_JUKE + 'inicio.txt');
+      CloseFile(F);
+      fpChmod(PASTA_JUKE + 'inicio.sh', &755);
+    end;
+  except
+    { sem permissão na pasta: a abertura segue e registra o erro como a original }
+  end;
+end;

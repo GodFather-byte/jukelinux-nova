@@ -18446,6 +18446,12 @@ begin
           PASTACHAVE := PASTACHAVE1;
         end;
       end;
+      // Nova: sem o pendrive-chave antigo, não espera por ele (a original tentava 51 vezes, 5 s, e enchia o log);
+      // a licença da Nova substitui a chave.
+      if not FileExists(PASTACHAVE + 'jukebox.chave') then begin
+        Gravalog('Nova: sem o pendrive-chave antigo (jukebox.chave); a licenca nova substitui');
+        local_14 := 50;
+      end;
       repeat
         local_518 := '';
         local_518 := PASTACHAVE + 'jukebox.chave';
