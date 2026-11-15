@@ -57,11 +57,24 @@ MANUAL = {
     # ritmo/letra -> imagem (ritmosxjgps.txt, letrasxjgps.txt): 100 registros de 8 bytes (ver VETORES_REGISTRO)
     'RJ': 'array[1..100] of TIPOJPG',
     'LJ': 'array[1..100] of TIPOJPG',
+    # cartões: registros de 38 bytes (TIPOCARTAO) e os arquivos tipados de cartoes.ccc e dos .CAR
+    'MMCARTAO': 'array[1..90000] of TIPOCARTAO',
+    'MMCARTAOJADEUCREDITO': 'array[1..100] of TIPOCARTAO',
+    'ARQCARTAOM': 'file of TIPOCARTAO',
+    'ACARM': 'TIPOCARTAO',
+    'ARQCARTAOV': 'file of String[93]',
 }
 
 # O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
 # usa a mesma tabela (CAMPOS_CD) para traduzir os acessos.
 TIPO_CD = '''type
+  { Um cartão (registro de cartoes.ccc e da memória da original, 38 bytes: o packed mantém o formato do arquivo). }
+  TIPOCARTAO = packed record
+    Codigo: String[30];                       // 0: código do cartão (cifrado no arquivo)
+    Valor: String[4];                         // 31: créditos (cifrado no arquivo)
+    Situacao: String[1];                      // 36: 'N' (cifrado no arquivo)
+  end;
+
   { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
   TIPOJPG = record
     Nome: AnsiString;                         // 0

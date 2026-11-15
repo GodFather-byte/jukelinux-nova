@@ -1,6 +1,13 @@
 { Variáveis globais da unit jukelinux1 da original, com o tipo deduzido por ferramentas/extracao/globais.py
   (tamanho do símbolo + uso no código descompilado). Os marcados {revisar} ainda não têm o tipo certo. }
 type
+  { Um cartão (registro de cartoes.ccc e da memória da original, 38 bytes: o packed mantém o formato do arquivo). }
+  TIPOCARTAO = packed record
+    Codigo: String[30];                       // 0: código do cartão (cifrado no arquivo)
+    Valor: String[4];                         // 31: créditos (cifrado no arquivo)
+    Situacao: String[1];                      // 36: 'N' (cifrado no arquivo)
+  end;
+
   { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
   TIPOJPG = record
     Nome: AnsiString;                         // 0
@@ -330,16 +337,16 @@ var
   AUTOTESTE: AnsiString;
   VOLUMEPELOPAINEL: AnsiString;
   ALTEROUPRO: Byte;
-  MMCARTAO: array[0..3419999] of Byte {revisar};
-  MMCARTAOJADEUCREDITO: array[0..3799] of Byte {revisar};
+  MMCARTAO: array[1..90000] of TIPOCARTAO;
+  MMCARTAOJADEUCREDITO: array[1..100] of TIPOCARTAO;
   KMMCC: LongInt;
   KMMCARTAO: LongInt;
   TOTMMCARTAO: LongInt;
   CODIGODOCARTAO: String[20];
   LENDOCODIGODOCARTAO: LongInt;
-  ARQCARTAOM: file;
-  ACARM: String[37];
-  ARQCARTAOV: file;
+  ARQCARTAOM: file of TIPOCARTAO;
+  ACARM: TIPOCARTAO;
+  ARQCARTAOV: file of String[93];
   ACARV: String[93];
   PULSOSPARACARTAO: LongInt;
   CREDITOSCARTAO: LongInt;

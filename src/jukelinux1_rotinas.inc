@@ -287,9 +287,9 @@ begin
     local_c := 0;
     repeat
       local_c := local_c + 1;
-      // C: (&DAT_0930303a)[local_c * 0x26] = 0;
-      // C: *(undefined1 * )((int)&U_JUKELINUX1_VOLUMEPELOPAINEL + local_c * 0x26 + 1) = 0;
-      // C: (&DAT_0930305e)[local_c * 0x26] = 0;
+      MMCARTAO[local_c].Codigo := '';  // C convertido: (&DAT_0930303a)[local_c * 0x26] = 0;
+      MMCARTAO[local_c].Valor := '';  // C convertido: *(undefined1 * )((int)&U_JUKELINUX1_VOLUMEPELOPAINEL + local_c * 0x26 + 1) = 0;
+      MMCARTAO[local_c].Situacao := '';  // C convertido: (&DAT_0930305e)[local_c * 0x26] = 0;
     until not (local_c < 90000);
     local_c := 0;
     KMMCARTAO := 0;
@@ -319,25 +319,25 @@ begin
               cVar1 := FileExists(NOMEARQ);
               if cVar1 then begin
                 local_150 := NOMEARQ;
-                // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOV,local_150);
-                // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOV,0x5e);
-                // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOV);
-                // C: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
+                AssignFile(ARQCARTAOV, local_150);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOV,local_150);
+                Reset(ARQCARTAOV);  // C convertido: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOV,0x5e);
+                Seek(ARQCARTAOV, 0);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOV);
+                Read(ARQCARTAOV, ACARV);  // C convertido: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
                 local_10 := 0;
                 while True do begin
-                  // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOV);
+                  cVar1 := Eof(ARQCARTAOV);  // C convertido: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOV);
                   if cVar1 then begin Break; end;
                   local_10 := local_10 + 1;
-                  // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOV);
-                  // C: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
+                  Seek(ARQCARTAOV, local_10);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOV);
+                  Read(ARQCARTAOV, ACARV);  // C convertido: FPC_TYPED_READ(0x5e,U_JUKELINUX1_ARQCARTAOV,U_JUKELINUX1_ACARV);
                   KMMCARTAO := KMMCARTAO + 1;
                   local_50 := '';
                   local_4c := '';
-                  ACARV := local_4c;
+                  local_4c := ACARV;  // completar: leitura do registro do cartão
                   local_50 := Descriptasuper(local_4c);
-                  // C: FPC_ANSISTR_TO_SHORTSTR (&DAT_0930303a + U_JUKELINUX1_KMMCARTAO * 0x26,0x1e,local_50);
+                  MMCARTAO[KMMCARTAO].Codigo := local_50;  // C convertido: FPC_ANSISTR_TO_SHORTSTR (&DAT_0930303a + U_JUKELINUX1_KMMCARTAO * 0x26,0x1e,local_50);
                 end;
-                // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOV);
+                CloseFile(ARQCARTAOV);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOV);
               end;
             end;
           end;
@@ -349,41 +349,41 @@ begin
     cVar1 := FileExists(NOMEARQ);
     if not cVar1 then begin
       local_150 := NOMEARQ;
-      // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
-      // C: FPC_REWRITE_TYPED(U_JUKELINUX1_ARQCARTAOM,0x26);
+      AssignFile(ARQCARTAOM, local_150);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
+      Rewrite(ARQCARTAOM);  // C convertido: FPC_REWRITE_TYPED(U_JUKELINUX1_ARQCARTAOM,0x26);
       local_50 := '';
       local_154 := '';
       local_154 := DateToStr(Date);
       local_50 := Cripta(local_154);
-      ACARM := local_50;
+      ACARM.Codigo := local_50;
       local_154 := '';
-      ACARM := local_154;
+      local_154 := ACARM.Codigo;  // completar: leitura do registro do cartão
       local_18 := Descripta(local_154);
-      // C: U_JUKELINUX1_ACARM[0x1f] = 0;
-      // C: U_JUKELINUX1_ACARM[0x24] = 0;
-      // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-      // C: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
-      // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
+      ACARM.Valor := '';  // C convertido: U_JUKELINUX1_ACARM[0x1f] = 0;
+      ACARM.Situacao := '';  // C convertido: U_JUKELINUX1_ACARM[0x24] = 0;
+      Seek(ARQCARTAOM, 0);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+      Write(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+      CloseFile(ARQCARTAOM);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
     end;
     cVar1 := FileExists(NOMEARQ);
     if cVar1 then begin
       local_150 := NOMEARQ;
-      // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
-      // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
+      AssignFile(ARQCARTAOM, local_150);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
+      Reset(ARQCARTAOM);  // C convertido: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
       local_10 := 0;
-      // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-      // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+      Seek(ARQCARTAOM, local_10);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+      Read(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
       local_154 := '';
-      ACARM := local_154;
+      local_154 := ACARM.Codigo;  // completar: leitura do registro do cartão
       local_18 := Descripta(local_154);
       while True do begin
-        // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
+        cVar1 := Eof(ARQCARTAOM);  // C convertido: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
         if cVar1 then begin Break; end;
         local_10 := local_10 + 1;
-        // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-        // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+        Seek(ARQCARTAOM, local_10);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+        Read(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         local_154 := '';
-        ACARM := local_154;
+        local_154 := ACARM.Codigo;  // completar: leitura do registro do cartão
         local_1c := Descripta(local_154);
         iVar3 := TOTMMCARTAO;
         local_14 := 1;
@@ -392,29 +392,29 @@ begin
           repeat
             local_14 := local_14 + 1;
             local_154 := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
+            local_154 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
             if local_154 = local_1c then begin
               local_154 := '';
               local_158 := '';
-              // C: fpc_shortstr_to_ansistr(0x964703f,&local_158);
+              local_158 := ACARM.Valor;  // C convertido: fpc_shortstr_to_ansistr(0x964703f,&local_158);
               local_154 := Descripta(local_158);
-              // C: FPC_ANSISTR_TO_SHORTSTR(local_14 * 0x26 + 0x9303059,4,local_154);
+              MMCARTAO[local_14].Valor := local_154;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(local_14 * 0x26 + 0x9303059,4,local_154);
               local_158 := '';
               local_154 := '';
-              // C: fpc_shortstr_to_ansistr(0x9647044,&local_154);
+              local_154 := ACARM.Situacao;  // C convertido: fpc_shortstr_to_ansistr(0x9647044,&local_154);
               local_158 := Descripta(local_154);
-              // C: FPC_ANSISTR_TO_SHORTSTR(&DAT_0930305e + local_14 * 0x26,1,local_158);
+              MMCARTAO[local_14].Situacao := local_158;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(&DAT_0930305e + local_14 * 0x26,1,local_158);
             end;
           until not (local_14 < iVar3);
         end;
         KMMCARTAO := KMMCARTAO + 1;
         local_158 := '';
         local_154 := '';
-        ACARM := local_154;
+        local_154 := ACARM.Codigo;  // completar: leitura do registro do cartão
         local_158 := Descriptasuper(local_154);
-        // C: FPC_ANSISTR_TO_SHORTSTR(&DAT_0930303a + U_JUKELINUX1_KMMCARTAO * 0x26,0x1e,local_158);
+        MMCARTAO[KMMCARTAO].Codigo := local_158;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(&DAT_0930303a + U_JUKELINUX1_KMMCARTAO * 0x26,0x1e,local_158);
       end;
-      // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
+      CloseFile(ARQCARTAOM);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
     end;
     local_158 := '';
     local_158 := PASTA + 'aacartoes.txt';
@@ -431,15 +431,15 @@ begin
         local_14 := local_14 + 1;
         local_158 := '';
         local_154 := '';
-        // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
+        local_154 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_154);
         local_16c := local_154;
         local_168 := ' - ';
         local_25c := '';
-        // C: fpc_shortstr_to_ansistr(local_14 * 0x26 + 0x9303059,&local_25c);
+        local_25c := MMCARTAO[local_14].Valor;  // C convertido: fpc_shortstr_to_ansistr(local_14 * 0x26 + 0x9303059,&local_25c);
         local_164 := local_25c;
         local_160 := ' - ';
         local_260 := '';
-        // C: fpc_shortstr_to_ansistr(&DAT_0930305e + local_14 * 0x26,&local_260);
+        local_260 := MMCARTAO[local_14].Situacao;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930305e + local_14 * 0x26,&local_260);
         local_15c := local_260;
         local_158 := local_16c + local_168 + local_164 + local_160 + local_15c;
         Write(ARQTEXTO, local_158);
@@ -1772,7 +1772,9 @@ end;
 procedure Cartaocodbar_Bar;
 var
   local_24c, local_250, local_350, local_354, local_358, local_35c: AnsiString;
-  iVar4, local_10, local_14, local_148, local_18, local_1c, local_20, local_248, local_8, local_c, uVar1: LongInt;
+  iVar4, local_10, local_14, local_18, local_1c, local_20, local_8, local_c, uVar1: LongInt;
+  local_148: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
+  local_248: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_35c := '';
   local_358 := '';
@@ -1780,8 +1782,8 @@ begin
   local_250 := '';
   local_24c := '';
   begin
-    // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
-    // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_148);
+    local_148 := Copy(CODIGODOCARTAO, 1, 8);  // C convertido: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
+    CODIGODOCARTAO := local_148;  // C convertido: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_148);
     iVar4 := TOTMMCARTAO;
     if Length(CODIGODOCARTAO) = 8 then begin
       local_8 := 0;
@@ -1790,8 +1792,8 @@ begin
         local_c := 0;
         repeat
           local_c := local_c + 1;
-          // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
-          // C: fpc_shortstr_copy(&DAT_0930303a + local_c * 0x26,1,8,local_248);
+          local_148 := Copy(CODIGODOCARTAO, 1, 8);  // C convertido: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_148);
+          local_248 := Copy(MMCARTAO[local_c].Codigo, 1, 8);  // C convertido: fpc_shortstr_copy(&DAT_0930303a + local_c * 0x26,1,8,local_248);
           if local_248 = local_148 then begin
             local_1c := local_c;
             local_8 := 1;
@@ -1802,7 +1804,7 @@ begin
         if ESTANOMENU = 0 then begin
           if PULSOSPARACARTAO = 0 then begin
             local_24c := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
+            local_24c := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
             CREDITOSCARTAO := Lecreditodocartao(local_24c);
             if CREDITOSCARTAO < 1 then begin
               Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
@@ -1908,7 +1910,7 @@ begin
               Rotina_Creditos('Cartao');
               iVar4 := -local_18;
               local_24c := '';
-              // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
+              local_24c := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
               Gravacreditonocartao(local_24c, iVar4);
               Form1.PanelCJ.Refresh;
               // C: ( **(code ** )( *(int * )Form1.PanelCJ + 0x2fc))(Form1.PanelCJ);
@@ -2131,7 +2133,7 @@ begin
               // C: ( **(code ** )( *(int * )Form1.LabelCreditos + 0x2fc))(Form1.LabelCreditos);
               Form1.LabelCreditos.Font.Color := 16777215;
               local_24c := '';
-              // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
+              local_24c := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
               CREDITOSCARTAO := Lecreditodocartao(local_24c);
               Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
               Form1.PanelCJ.Top := Form1.Height;
@@ -2161,7 +2163,7 @@ begin
               Form1.ImageBonus.Hide;
               Form1.ImageGratis.Hide;
               local_24c := '';
-              // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
+              local_24c := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_24c);
               Gravacreditonocartao(local_24c, CREDITOSPARACARTAO + CREDITOSBONUS);
               iVar4 := CREDITOSPARACARTAO;
               local_10 := 1;
@@ -2282,7 +2284,7 @@ begin
         end
         else begin
           local_358 := '';
-          // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_358);
+          local_358 := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_358);
           CREDITOSCARTAO := Lecreditodocartao(local_358);
           Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
           Form1.PanelCJ.Top := Form1.Height;
@@ -2323,7 +2325,7 @@ begin
           Form1.CreditoCJSombra.Refresh;
           // C: ( **(code ** )( *(int * )Form1.CreditoCJSombra + 0x2fc))(Form1.CreditoCJSombra);
           local_358 := '';
-          // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_358);
+          local_358 := MMCARTAO[local_1c].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_1c * 0x26,&local_358);
           Gravacreditonocartao(local_358, 2);
           Form1.PanelCJ.Refresh;
           // C: ( **(code ** )( *(int * )Form1.PanelCJ + 0x2fc))(Form1.PanelCJ);
@@ -2349,13 +2351,15 @@ end;
 procedure Cartaocodbar_Boate;
 var
   local_248, local_24c: AnsiString;
-  iVar3, local_10, local_14, local_144, local_18, local_1c, local_244, local_8, local_c: LongInt;
+  iVar3, local_10, local_14, local_18, local_1c, local_8, local_c: LongInt;
+  local_144: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
+  local_244: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_24c := '';
   local_248 := '';
   begin
-    // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
-    // C: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_144);
+    local_144 := Copy(CODIGODOCARTAO, 1, 8);  // C convertido: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
+    CODIGODOCARTAO := local_144;  // C convertido: FPC_SHORTSTR_TO_SHORTSTR(&U_JUKELINUX1_CODIGODOCARTAO,0x14,local_144);
     iVar3 := TOTMMCARTAO;
     if Length(CODIGODOCARTAO) = 8 then begin
       local_8 := 0;
@@ -2364,8 +2368,8 @@ begin
         local_c := 0;
         repeat
           local_c := local_c + 1;
-          // C: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
-          // C: fpc_shortstr_copy(&DAT_0930303a + local_c * 0x26,1,8,local_244);
+          local_144 := Copy(CODIGODOCARTAO, 1, 8);  // C convertido: fpc_shortstr_copy(&U_JUKELINUX1_CODIGODOCARTAO,1,8,local_144);
+          local_244 := Copy(MMCARTAO[local_c].Codigo, 1, 8);  // C convertido: fpc_shortstr_copy(&DAT_0930303a + local_c * 0x26,1,8,local_244);
           if local_244 = local_144 then begin
             local_14 := local_c;
             local_8 := 1;
@@ -2376,7 +2380,7 @@ begin
         if ESTANOMENU = 0 then begin
           if PULSOSPARACARTAO < 5 then begin
             local_248 := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+            local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
             CREDITOSCARTAO := Lecreditodocartao(local_248);
             if CREDITOSCARTAO < 1 then begin
               Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
@@ -2466,7 +2470,7 @@ begin
               // C: ( **(code ** )( *(int * )Form1.CreditoCJSombra + 0x2fc))(Form1.CreditoCJSombra);
               Rotina_Creditos('Cartao');
               local_248 := '';
-              // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+              local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
               Gravacreditonocartao(local_248, -1);
               Form1.PanelCJ.Refresh;
               // C: ( **(code ** )( *(int * )Form1.PanelCJ + 0x2fc))(Form1.PanelCJ);
@@ -2485,7 +2489,7 @@ begin
           end
           else begin
             local_248 := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+            local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
             CREDITOSCARTAO := Lecreditodocartao(local_248);
             Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
             Form1.PanelCJ.Top := Form1.Height;
@@ -2526,7 +2530,7 @@ begin
             Form1.CreditoCJSombra.Refresh;
             // C: ( **(code ** )( *(int * )Form1.CreditoCJSombra + 0x2fc))(Form1.CreditoCJSombra);
             local_248 := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+            local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
             Gravacreditonocartao(local_248, PULSOSPARACARTAO div 5);
             Form1.PanelCJ.Refresh;
             // C: ( **(code ** )( *(int * )Form1.PanelCJ + 0x2fc))(Form1.PanelCJ);
@@ -2549,12 +2553,12 @@ begin
           KMMCC := 0;
           repeat
             KMMCC := KMMCC + 1;
-            if False { C: STREQ(&DAT_0930303a + local_14 * 0x26,U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a ) } then begin
+            if (MMCARTAO[local_14].Codigo = MMCARTAOJADEUCREDITO[KMMCC].Codigo) { C convertido: STREQ(&DAT_0930303a + local_14 * 0x26,U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a ) } then begin
               local_1c := 1;
             end;
           until not (KMMCC < 100);
           local_248 := '';
-          // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+          local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
           CREDITOSCARTAO := Lecreditodocartao(local_248);
           Form1.PanelCJ.Left := Form1.LabelCreditos.Left + -270;
           Form1.PanelCJ.Top := Form1.Height;
@@ -2615,7 +2619,7 @@ begin
           // C: ( **(code ** )( *(int * )Form1.CreditoCJSombra + 0x2fc))(Form1.CreditoCJSombra);
           if local_1c = 0 then begin
             local_248 := '';
-            // C: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
+            local_248 := MMCARTAO[local_14].Codigo;  // C convertido: fpc_shortstr_to_ansistr(&DAT_0930303a + local_14 * 0x26,&local_248);
             Gravacreditonocartao(local_248, QTDCREDITOSGRATIS);
             local_18 := 0;
             KMMCC := 0;
@@ -2623,9 +2627,9 @@ begin
               KMMCC := KMMCC + 1;
               if local_18 = 0 then begin
                 local_248 := '';
-                // C: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,&local_248);
+                local_248 := MMCARTAOJADEUCREDITO[KMMCC].Codigo;  // C convertido: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,&local_248);
                 if local_248 = '' then begin
-                  // C: FPC_SHORTSTR_TO_SHORTSTR (U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,0x1e, &DAT_0930303a + local_14 * 0x26);
+                  MMCARTAOJADEUCREDITO[KMMCC].Codigo := MMCARTAO[local_14].Codigo;  // C convertido: FPC_SHORTSTR_TO_SHORTSTR (U_JUKELINUX1_KMMCC * 0x26 + 0x9645f9a,0x1e, &DAT_0930303a + local_14 * 0x26);
                   local_18 := 1;
                 end;
               end;
@@ -3700,55 +3704,55 @@ begin
     end
     else begin
       local_150 := local_20;
-      // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
-      // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
+      AssignFile(ARQCARTAOM, local_150);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_150);
+      Reset(ARQCARTAOM);  // C convertido: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
       local_14 := 0;
       while True do begin
-        // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
+        cVar1 := Eof(ARQCARTAOM);  // C convertido: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
         if cVar1 then begin Break; end;
-        // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-        // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+        Seek(ARQCARTAOM, local_14);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+        Read(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         local_154 := '';
-        ACARM := local_154;
+        local_154 := ACARM.Codigo;  // completar: leitura do registro do cartão
         local_28 := Descripta(local_154);
         if local_8 = local_28 then begin
           local_154 := '';
-          // C: fpc_shortstr_to_ansistr(0x964703f,&local_154);
+          local_154 := ACARM.Valor;  // C convertido: fpc_shortstr_to_ansistr(0x964703f,&local_154);
           local_10 := Descripta(local_154);
           local_18 := StrToIntDef(local_10, 0);
           local_154 := '';
           local_158 := '';
           local_158 := IntToStr(local_18 + local_c);
           local_154 := Cripta(local_158);
-          // C: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_154);
+          ACARM.Valor := local_154;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_154);
           local_158 := '';
           local_158 := Cripta('N');
-          // C: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_158);
-          // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-          // C: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+          ACARM.Situacao := local_158;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_158);
+          Seek(ARQCARTAOM, local_14);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+          Write(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
           local_24 := 1;
         end;
         local_14 := local_14 + 1;
       end;
-      // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
+      CloseFile(ARQCARTAOM);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
       if local_24 = 0 then begin
         local_258 := local_20;
-        // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_258);
-        // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
+        AssignFile(ARQCARTAOM, local_258);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_258);
+        Reset(ARQCARTAOM);  // C convertido: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
         local_158 := '';
         local_158 := Cripta(local_8);
-        ACARM := local_158;
+        ACARM.Codigo := local_158;
         local_158 := '';
         local_25c := '';
         local_25c := IntToStr(local_c);
         local_158 := Cripta(local_25c);
-        // C: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_158);
+        ACARM.Valor := local_158;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(0x964703f,4,local_158);
         local_25c := '';
         local_25c := Cripta('N');
-        // C: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_25c);
-        // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-        // C: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
-        // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
+        ACARM.Situacao := local_25c;  // C convertido: FPC_ANSISTR_TO_SHORTSTR(0x9647044,1,local_25c);
+        Seek(ARQCARTAOM, local_14);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+        Write(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_WRITE(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+        CloseFile(ARQCARTAOM);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
       end;
       Backupcartaoccc;
     end;
@@ -4254,27 +4258,27 @@ begin
     end
     else begin
       local_148 := local_1c;
-      // C: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_148);
-      // C: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
+      AssignFile(ARQCARTAOM, local_148);  // C convertido: OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING(U_JUKELINUX1_ARQCARTAOM,local_148);
+      Reset(ARQCARTAOM);  // C convertido: fpc_reset_typed(U_JUKELINUX1_ARQCARTAOM,0x26);
       local_14 := 0;
       while True do begin
-        // C: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
+        cVar1 := Eof(ARQCARTAOM);  // C convertido: cVar1 = SYSTEM_EOF_file__BOOLEAN(U_JUKELINUX1_ARQCARTAOM);
         if cVar1 then begin Break; end;
-        // C: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
-        // C: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
+        Seek(ARQCARTAOM, local_14);  // posição: POSICOES_SEEK  // C convertido: SYSTEM_SEEK_file_INT64(U_JUKELINUX1_ARQCARTAOM);
+        Read(ARQCARTAOM, ACARM);  // C convertido: FPC_TYPED_READ(0x26,U_JUKELINUX1_ARQCARTAOM,U_JUKELINUX1_ACARM);
         local_14c := '';
-        ACARM := local_14c;
+        local_14c := ACARM.Codigo;  // completar: leitura do registro do cartão
         local_20 := Descripta(local_14c);
         if local_8 = local_20 then begin
           local_14c := '';
-          // C: fpc_shortstr_to_ansistr(0x964703f,&local_14c);
+          local_14c := ACARM.Valor;  // C convertido: fpc_shortstr_to_ansistr(0x964703f,&local_14c);
           local_10 := Descripta(local_14c);
           local_18 := StrToIntDef(local_10, 0);
           local_c := local_18;
         end;
         local_14 := local_14 + 1;
       end;
-      // C: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
+      CloseFile(ARQCARTAOM);  // C convertido: OBJPAS_CLOSEFILE_file(U_JUKELINUX1_ARQCARTAOM);
     end;
   end;
   local_14c := '';
@@ -13468,7 +13472,7 @@ var
   iVar1, iVar2: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_138: AnsiString;  // completar: recebe o texto de um componente
+  local_138: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_138 := '';
   local_c := Self;
@@ -14595,7 +14599,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -14660,7 +14664,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -14725,7 +14729,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -14784,7 +14788,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -14849,7 +14853,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -14914,7 +14918,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -14979,7 +14983,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -15376,7 +15380,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -15441,7 +15445,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';
@@ -15506,7 +15510,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -15566,7 +15570,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -15650,7 +15654,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -15716,7 +15720,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -15776,7 +15780,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_3c := '';
   local_38 := '';
@@ -15850,7 +15854,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_148 := '';
   local_144 := '';
@@ -15955,7 +15959,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_144 := '';
   local_140 := '';
@@ -16037,7 +16041,7 @@ var
   iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
-  local_38: AnsiString;  // completar: recebe o texto de um componente
+  local_38: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)
 begin
   local_140 := '';
   local_3c := '';

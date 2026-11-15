@@ -47,6 +47,10 @@ def tipo_base(t):
         return 'registro'
     if t == 'text':
         return 'arquivo'
+    if t.startswith('file of'):
+        return 'arqtipado'
+    if t in ('tipocartao',):
+        return 'cartao'
     return None
 
 
@@ -124,6 +128,13 @@ VETORES_NOME_E_POS1 = ('MATFRASES', 'MATFRASESORI')
 VETORES_REGISTRO = {
     'RJ': (0x093008c8, {0: 'Nome', 4: 'Jpg'}, 100),  # ritmosxjgps.txt
     'LJ': (0x09300bf8, {0: 'Nome', 4: 'Jpg'}, 100),  # letrasxjgps.txt
+}
+# Posições dos Seek em arquivo tipado, em ordem, por rotina (o Ghidra perdeu o Int64 da posição; tiradas do fluxo
+# do C: o registro 0 de cada arquivo é o cabeçalho e o laço lê do 1 em diante; gravar crédito novo vai para o fim).
+POSICOES_SEEK = {
+    'Carregando_Cartoes': ['0', 'local_10', '0', 'local_10', 'local_10'],
+    'Gravacreditonocartao': ['local_14', 'local_14', 'local_14'],
+    'Lecreditodocartao': ['local_14'],
 }
 # Outras formas de chegar ao vetor (IDX = o índice): ARQTOCARX + 0x24c é o endereço da posição 0 de MATFRASES.
 APELIDOS_VETORES = {'MATFRASES': (r'U_JUKELINUX1_ARQTOCARX \+ IDX \* 4 \+ 0x24c',)}
@@ -216,6 +227,7 @@ class Tradutor:
         self.rotinas = {}
         # local_x = "texto" (PChar de um literal) vista antes: pedaço de um fpc_ansistr_concat_multi
         self.literais = {}
+        self.seeks = []
 
     def novo(self):
         t = Tradutor(self.globais, self.locais, self.comps, self.ptrs)
@@ -223,6 +235,7 @@ class Tradutor:
         t.mult = self.mult
         t.rotinas = self.rotinas
         t.literais = self.literais
+        t.seeks = self.seeks
         return t
 
     def substitui_cd(self, c):
@@ -257,6 +270,25 @@ class Tradutor:
             nome = f'CDREF_{len(self.cd)}'
             self.cd[nome] = ('vglobal', (nome_v, idx, campo), False)
             return nome
+        def fixo(pascal, tipo='texto'):
+            nome = f'CDREF_{len(self.cd)}'
+            self.cd[nome] = ('fixo', (pascal, tipo), False)
+            return nome
+        # Cartões (registro TIPOCARTAO de 38 bytes: Codigo String[30] em 0, Valor String[4] em 0x1f, Situacao
+        # String[1] em 0x24). MMCARTAO[i] fica em 0x0930303a + i * 0x26; MMCARTAOJADEUCREDITO[i] em 0x09645f9a + i * 0x26;
+        # ACARM em 0x09647020.
+        def cartao(vetor, campo):
+            return lambda m: fixo(f'{vetor}[{self.num_de(self.novo().traduz(m.group(1)))}].{campo}')
+        c = re.sub(CAST + r'\(\s*\(int\)&U_JUKELINUX1_VOLUMEPELOPAINEL \+ ' + IDX + r' \* 0x26 \+ 1\s*\)',
+                   cartao('MMCARTAO', 'Valor'), c)
+        for end_, campo in (('0930303a', 'Codigo'), ('0930305e', 'Situacao')):
+            c = re.sub(r'\(&DAT_' + end_ + r'\)\s*\[' + IDX + r' \* 0x26\]', cartao('MMCARTAO', campo), c)
+            c = re.sub(r'&DAT_' + end_ + r' \+ ' + IDX + r' \* 0x26\b', cartao('MMCARTAO', campo), c)
+        c = re.sub(r'\b' + IDX + r' \* 0x26 \+ 0x9303059\b', cartao('MMCARTAO', 'Valor'), c)
+        c = re.sub(r'\b' + IDX + r' \* 0x26 \+ 0x9645f9a\b', cartao('MMCARTAOJADEUCREDITO', 'Codigo'), c)
+        c = re.sub(r'\b0x964703f\b|U_JUKELINUX1_ACARM\[0x1f\]', lambda m: fixo('ACARM.Valor'), c)
+        c = re.sub(r'\b0x9647044\b|U_JUKELINUX1_ACARM\[0x24\]', lambda m: fixo('ACARM.Situacao'), c)
+        c = re.sub(r'&U_JUKELINUX1_CODIGODOCARTAO\b', 'U_JUKELINUX1_CODIGODOCARTAO', c)
         for nome_v, (base, campos, n) in VETORES_REGISTRO.items():
             for desl, campo in campos.items():
                 h = f'{base + desl:x}'
@@ -288,6 +320,8 @@ class Tradutor:
     def resolve_cd(self, v):
         forma, g, com_k = self.cd[v]
         k_c = None
+        if forma == 'fixo':
+            return g[0], g[1]
         if forma == 'vglobal':
             idx = self.num_de(self.novo().traduz(g[1]))
             if g[2]:
@@ -679,6 +713,31 @@ def chamada(nome, args, destino, tr):
     n = len(args)
     if destino and nome not in ():
         raise Falha('chamada com resultado: ' + nome)
+    if nome == 'fpc_shortstr_copy' and n == 4:
+        ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
+        return _atribui(tr, args[3], f'Copy({texto_de(args[0], tr)}, {ini}, {qtd})', 'texto')
+    tipados = {'OBJPAS_ASSIGNFILE_TYPEDFILE_SHORTSTRING': 'AssignFile', 'fpc_reset_typed': 'Reset',
+               'FPC_REWRITE_TYPED': 'Rewrite', 'OBJPAS_CLOSEFILE_file': 'CloseFile', 'SYSTEM_SEEK_file_INT64': 'Seek',
+               'FPC_TYPED_READ': 'Read', 'FPC_TYPED_WRITE': 'Write'}
+    if nome in tipados:
+        arg_arq = args[1] if nome in ('FPC_TYPED_READ', 'FPC_TYPED_WRITE') else args[0]
+        arq, tipo = tr.resolve(arg_arq.strip())
+        if tipo != 'arqtipado':
+            raise Falha('arquivo tipado desconhecido')
+        rot = tipados[nome]
+        if rot == 'AssignFile' and n == 2:
+            return f'AssignFile({arq}, {texto_de(args[1], tr)});'
+        if rot in ('Reset', 'Rewrite', 'CloseFile'):
+            return f'{rot}({arq});'
+        if rot == 'Seek' and n == 1:
+            # a posição veio em registrador (Int64) e o Ghidra a perdeu: vem da lista POSICOES_SEEK da rotina
+            if not tr.seeks:
+                raise Falha('posição do Seek desconhecida')
+            return f'Seek({arq}, {tr.seeks.pop(0)});  // posição: POSICOES_SEEK'
+        if rot in ('Read', 'Write') and n == 3:
+            buf, _ = tr.resolve(args[2].strip())
+            return f'{rot}({arq}, {buf});'
+        raise Falha('arquivo tipado: argumentos')
     if nome == 'fpc_ansistr_concat_multi' and n == 3:
         # (destino, &primeiro, High): os pedaços são locais seguidas na pilha, de 4 em 4 bytes para baixo
         mb = re.fullmatch(r'&(local_)([0-9a-f]+)', args[1].strip())
@@ -871,6 +930,12 @@ def comando(c, tr):
     m = VIRTUAL.match(c)
     if m:
         return virtual(m, tr)
+    m = re.match(r'^(\w+) = SYSTEM_EOF_file__BOOLEAN\((U_JUKELINUX1_\w+)\);$', c)
+    if m:
+        arq, tipo = tr.resolve(m.group(2))
+        if tipo != 'arqtipado' or tr.locais.get(m.group(1).upper()) != 'bool':
+            raise Falha('Eof desconhecido')
+        return f'{m.group(1)} := Eof({arq});'
     m = CHAMADA.match(c)
     if m and m.group(2) in tr.rotinas and fecha_no_fim('(' + m.group(3) + ')'):
         return chamada_rotina(m.group(2), separa_args(m.group(3)), m.group(1), tr)
@@ -902,7 +967,7 @@ def comando(c, tr):
             return f"{destino} := {alvo}.{'Playing' if metodo.startswith('PLAYING') else 'Running'};"
         raise Falha('chamada do player desconhecida')
     m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?'
-                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[)[^=;]*?) = (.+);$', c)
+                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[|\b0x26\b|U_JUKELINUX1_ACARM\[)[^=;]*?) = (.+);$', c)
     if m:
         if m.group(1).upper() in tr.ptrs and m.group(1).upper() not in tr.locais:
             raise Falha('apelido de ponteiro (puVar = x) não é atribuição')
@@ -1050,10 +1115,27 @@ def devolve_resultado(texto):
     return (texto[:fim] + f'\n  Result := {m.group(1)};  // completar: {m.group(1)} é o resultado (ponteiro do C)'
             + texto[fim:])
 
+def registro_do_cartao(texto):
+    """`ACARM := x;` / `ACARV := x;`: logo depois de `x := '';` é leitura do registro lido do arquivo (o tradutor
+    inverteu: x := ACARM.Codigo); senão é gravação do código no registro."""
+    linhas = texto.split('\n')
+    for i, linha in enumerate(linhas):
+        m = re.match(r'^(\s*)(ACARM|ACARV) := (\w+);(.*)$', linha)
+        if not m:
+            continue
+        alvo = 'ACARM.Codigo' if m.group(2) == 'ACARM' else 'ACARV'
+        if i and re.match(r'^\s*' + m.group(3) + r" := '';\s*$", linhas[i - 1]):
+            linhas[i] = f'{m.group(1)}{m.group(3)} := {alvo};  // completar: leitura do registro do cartão'
+        elif m.group(2) == 'ACARM':
+            linhas[i] = f'{m.group(1)}ACARM.Codigo := {m.group(3)};{m.group(4)}'
+    return '\n'.join(linhas)
+
 def retipa_textos(texto):
-    """Local que recebe o texto de um componente (CONTROLS_TCONTROL____GETTEXT) mas que o Ghidra declarou como número
-    (e por isso é zerada com := 0): vira AnsiString, e o := 0 vira := ''."""
+    """Local que recebe o texto de um componente (CONTROLS_TCONTROL____GETTEXT) ou de um fpc_shortstr_copy mas que o
+    Ghidra declarou como número (e por isso é zerada com := 0): vira AnsiString, e o := 0 vira := ''."""
     temps = set(re.findall(r'GETTEXT__TTRANSLATESTRING\s*\(Form1\.\w+,\s*&?(local_\w+)\)', texto))
+    # buffer de texto curto (fpc_shortstr_copy(origem, i, n, buffer)) que o Ghidra declarou como número
+    temps |= set(re.findall(r'fpc_shortstr_copy\s*\([^;]*,\s*&?(local_\w+)\);', texto))
     corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
     if not temps or not corpo:
         return texto
@@ -1074,7 +1156,7 @@ def retipa_textos(texto):
                 continue
             linha = f'{m.group(1)}{", ".join(nomes)}: {m.group(3)};'
         linhas.append(linha)
-    linhas += [f'  {t}: AnsiString;  // completar: recebe o texto de um componente' for t in sorted(temps)]
+    linhas += [f'  {t}: AnsiString;  // completar: guarda texto (o Ghidra a declarou como número)' for t in sorted(temps)]
     texto = texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
     for t in temps:
         texto = re.sub(r'^(\s*)' + t + r' := 0;', r"\1" + t + " := '';", texto, flags=re.M)
@@ -1155,11 +1237,14 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
     texto = retipa_temporarias_cd(texto)
     texto = retipa_textos(texto)
     texto = devolve_resultado(texto)
+    texto = registro_do_cartao(texto)
     texto = contas_flutuantes(texto)
     # a posição 1 do vetor se traduz como texto comum; vetor_nome_grande põe o [1] no fim
     globais = dict(globais, **{n: 'texto' for n in (NOME_GRANDE,) + VETORES_NOME_E_POS1})
     tr = Tradutor(globais, le_locais(texto), comps)
     tr.rotinas = rotinas or {}
+    mr = re.match(r'(?:procedure|function) ([\w.]+)', texto)
+    tr.seeks = list(POSICOES_SEEK.get(mr.group(1), [])) if mr else []
     est = estatistica if estatistica is not None else {}
 
     def troca_if(m):
