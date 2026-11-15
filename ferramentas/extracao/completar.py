@@ -843,6 +843,74 @@ def pascal_para_c(cond):
     return re.sub(r"('(?:''|[^'])*')|(<>|<=|>=|:=|=)|\b(and|or|not|div|mod)\b", troca, cond, flags=re.I)
 
 
+def _separa_topo(s, sep):
+    """Divide s em sep (',' ou '&&') fora de parênteses, colchetes e aspas."""
+    partes, prof, atual, i, aspas = [], 0, '', 0, False
+    while i < len(s):
+        ch = s[i]
+        if ch == '"' and (i == 0 or s[i - 1] != '\\'):
+            aspas = not aspas
+        if not aspas and prof == 0 and s.startswith(sep, i):
+            partes.append(atual.strip())
+            atual = ''
+            i += len(sep)
+            continue
+        if not aspas:
+            prof += {'(': 1, '[': 1, ')': -1, ']': -1}.get(ch, 0)
+        atual += ch
+        i += 1
+    partes.append(atual.strip())
+    return partes
+
+
+def _tira_parenteses(s):
+    s = s.strip()
+    while s.startswith('(') and s.endswith(')') and fecha_no_fim(s):
+        s = s[1:-1].strip()
+    return s
+
+
+RE_IF_LINHA = re.compile(r'^(\s*)if False \{ C: (.*) \} then begin\s*$')
+NOVA_COND = 'NovaCond'
+
+
+def condicao_com_virgula(ind, c, tr):
+    """`A && (x = x + 1, x == 2)`: o operador vírgula do C executa comandos no meio da condição. Vira uma
+    sequência de comandos que guarda o resultado em NovaCond, respeitando o curto-circuito do &&, e o if testa
+    NovaCond. Devolve as linhas, ou levanta Falha."""
+    termos = _separa_topo(c, '&&')
+    if not any(len(_separa_topo(_tira_parenteses(t), ',')) > 1 for t in termos):
+        raise Falha('sem operador vírgula')
+    linhas = []
+    for n, termo in enumerate(termos):
+        partes = _separa_topo(_tira_parenteses(termo), ',')
+        cmds = []
+        for p in partes[:-1]:
+            if re.fullmatch(r'\w+ = extraout_\w+', p):
+                continue  # registrador que o Ghidra guardou: não é comando do programa
+            cmds.append(comando(p + ';', tr))
+        teste = tr.bool_de(tr.traduz(partes[-1]))
+        corpo = cmds + [f'{NOVA_COND} := {teste};']
+        if n == 0:
+            linhas += [ind + x for x in corpo]
+        else:
+            linhas.append(f'{ind}if {NOVA_COND} then begin')
+            linhas += [ind + '  ' + x for x in corpo]
+            linhas.append(f'{ind}end;')
+    linhas.append(f'{ind}if {NOVA_COND} then begin  // C convertido (operador vírgula): {c}')
+    return linhas
+
+
+def declara_nova_cond(texto):
+    if NOVA_COND + ' :=' not in texto or re.search(r'\b' + NOVA_COND + r': Boolean;', texto):
+        return texto
+    corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
+    if not corpo:
+        return texto
+    decl = f'  {NOVA_COND}: Boolean;  // completar: condição com operador vírgula do C'
+    return texto[:corpo.end(1)] + '\n' + decl + texto[corpo.end(1):]
+
+
 RE_TALVEZ = re.compile(r'^(\s*)if False then begin // \?: (.*)$')
 RE_PONTEIRO = re.compile(r'^\s*// C: (\w+) = &(\w+);\s*$')
 
@@ -947,6 +1015,14 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
             except Falha:
                 est['talvez_ficou'] = est.get('talvez_ficou', 0) + 1
         linha = RE_IF.sub(troca_if, linha)
+        m = RE_IF_LINHA.match(linha)
+        if m and not re.search(r'\belse\s*$', saida[-1] if saida else ''):
+            try:
+                saida += condicao_com_virgula(m.group(1), m.group(2), tr)
+                est['virgula_convertido'] = est.get('virgula_convertido', 0) + 1
+                continue
+            except Falha:
+                pass
         # Última variável zerada (X := '') que nenhuma linha Pascal usou depois: destino perdido de um Copy.
         mz = re.match(r"^\s*(\w+) := '';\s*$", linha)
         if mz:
@@ -966,7 +1042,7 @@ def completa_rotina(texto, globais, estatistica=None, comps=None):
             except Falha:
                 pass
         saida.append(linha)
-    return '\n'.join(saida)
+    return declara_nova_cond('\n'.join(saida))
 
 
 def completa_arquivo(globais_inc, rotinas_inc, form_inc=None):
