@@ -353,3 +353,18 @@ begin
     PastaJuke := PASTA_JUKELINUX;
   NovaLicenca := TNovaLicenca.Create(PastaJuke);
 end;
+
+{ Horas ligadas a partir dos minutos, como a original mostra: com ponto e até 2 casas ("12.5", "3.33"). A original
+  cortava o texto em "posição do ponto + 2", o que com horas inteiras de 100 para cima ("120") deixava "12". }
+function Nova_Horas(Minutos: LongInt): string;
+var
+  Formato: TFormatSettings;
+  Ponto: Integer;
+begin
+  Formato := DefaultFormatSettings;
+  Formato.DecimalSeparator := '.';
+  Result := FloatToStr(Minutos / 60, Formato);
+  Ponto := Pos('.', Result);
+  if Ponto > 0 then
+    Result := Copy(Result, 1, Ponto + 2);
+end;
