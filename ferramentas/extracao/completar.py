@@ -952,6 +952,9 @@ def virtual(m, tr):
         if tipo != 'bool':
             raise Falha('Checked em destino não Boolean')
         return f'{nome} := Form1.{comp}.Checked;'
+    if obj == 'U_JUKELINUX1_FORM1' and vmt == '0x430' and len(args) == 1 and not destino:  # TWinControl.SetFocus
+        comp, _ = componente(args[0], tr)
+        return f'Nova_Foca(Form1.{comp});'
     if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xd8' and len(args) == 2 and not destino:  # TCustomTimer.SetEnabled
         comp, classe = componente(args[0], tr)
         if classe != 'TTimer':
@@ -1011,6 +1014,34 @@ def comando(c, tr):
     m = VIRTUAL.match(c)
     if m:
         return virtual(m, tr)
+    # mouse: posição atual (touchscreen) e posição para esconder o cursor
+    m = re.match(r'^CONTROLS_TMOUSE____GETCURSORPOS__TPOINT\(U_CONTROLS_MOUSE,&(local_)([0-9a-f]+)\);$', c)
+    if m:
+        x, y = m.group(1) + m.group(2), f'{m.group(1)}{int(m.group(2), 16) - 4:x}'
+        if tr.locais.get(x.upper()) != 'num' or tr.locais.get(y.upper()) != 'num':
+            raise Falha('GetCursorPos em locais que não são números')
+        # TPoint na pilha: X no endereço menor (local_c), Y logo acima (local_8)
+        return f'{x} := Mouse.CursorPos.X; {y} := Mouse.CursorPos.Y;'
+    if c == 'CONTROLS_TMOUSE____SETCURSORPOS_TPOINT(U_CONTROLS_MOUSE,&U_JUKELINUX1_MOUSEPOS);':
+        return 'Mouse.CursorPos := MOUSEPOS;'
+    m = re.match(r'^U_JUKELINUX1_MOUSEPOS\._([04])_4_ = \*\((?:undefined4|int) \* \)\(U_JUKELINUX1_FORM1 \+ (0x[0-9a-f]+)\)'
+                 r'(?: \+ (-?\d+))?;$', c)
+    if m:
+        props = {0xe8: 'Height', 0x128: 'Left', 0x230: 'Top', 0x23c: 'Width'}  # (trocar_textos.INTERNOS)
+        prop = props.get(int(m.group(2), 16))
+        if not prop:
+            raise Falha('propriedade do Form1 desconhecida')
+        soma = f' + {m.group(3)}' if m.group(3) and not m.group(3).startswith('-') else (f' - {m.group(3)[1:]}' if m.group(3) else '')
+        return f"MOUSEPOS.{'X' if m.group(1) == '0' else 'Y'} := Form1.{prop}{soma};"
+    # SetFocus (vmt 0x430): só se o componente puder receber o foco agora (a original dava erro com a tela escondida)
+    m = re.match(r'^\(\s*\*\*\(code\s*\*\*\s*\)\(\s*\*U_JUKELINUX1_FORM1 \+ 0x430\)\)\(U_JUKELINUX1_FORM1\);$', c)
+    if m:
+        return 'Nova_Foca(Form1);'
+    m = re.match(r'^\(\s*\*\*\(code\s*\*\*\s*\)\((?:\s*\*\*\(int\s*\*\*\s*\)\(U_JUKELINUX1_FORM1 \+ 0x[0-9a-f]+\)|\s*\*\(int\s*\*\s*\)Form1\.\w+)'
+                 r' \+ 0x430\)\)\((Form1\.\w+)\);$', c)
+    if m:
+        comp, _ = componente(m.group(1), tr)
+        return f'Nova_Foca(Form1.{comp});'
     m = re.match(r'^(\w+) = SYSTEM_POS_CHAR_ANSISTRING__LONGINT\s*\((0x[0-9a-f]+|\d+),\s*(.+)\);$', c)
     if m:
         ch = chr(int(m.group(2), 0))

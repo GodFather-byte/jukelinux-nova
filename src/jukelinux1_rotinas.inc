@@ -4229,7 +4229,7 @@ begin
       Gravalog(local_48);
     end;
     Gravalog('Inicio da Operacao do Software JukeLinux (SetFocus no Form)');
-    // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
+    Nova_Foca(Form1);  // C convertido: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
   end;
   local_48 := '';
   local_38 := '';
@@ -4488,9 +4488,9 @@ var
 begin
   Form1.TimerUmMilesegundo.Enabled := False;  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb58) + 0xd8)) (Form1.TimerUmMilesegundo,param_2 & 0xffffff00);
   P_VELOCIDADE_FINAL := TEMPOEMMILLESEGUNDOS;
-  // C: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
+  local_c := Mouse.CursorPos.X; local_8 := Mouse.CursorPos.Y;  // C convertido: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
   P_FINAL_X := local_c;
-  // C: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
+  local_c := Mouse.CursorPos.X; local_8 := Mouse.CursorPos.Y;  // C convertido: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
   P_FINAL_Y := local_8;
   P_DESLOCAMENTO_X := P_FINAL_X - P_INICIAL_X;
   P_DESLOCAMENTO_Y := local_8 - P_INICIAL_Y;
@@ -4501,9 +4501,9 @@ procedure Le_Touchscreen_Inicial;
 var
   local_8, local_c: LongInt;
 begin
-  // C: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
+  local_c := Mouse.CursorPos.X; local_8 := Mouse.CursorPos.Y;  // C convertido: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
   P_INICIAL_X := local_c;
-  // C: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
+  local_c := Mouse.CursorPos.X; local_8 := Mouse.CursorPos.Y;  // C convertido: CONTROLS_TMOUSE____GETCURSORPOS__TPOINT(U_CONTROLS_MOUSE,&local_c);
   P_INICIAL_Y := local_8;
   P_FINAL_X := 0;
   P_FINAL_Y := 0;
@@ -8066,7 +8066,7 @@ begin
         Form1.LabelMenuDSErro.Hide;
         Form1.PanelSenha.BringToFront;
         Form1.PanelMenu.Show;
-        // C: ( **(code ** )( *(int * )Form1.EditSenha + 0x430))(Form1.EditSenha);
+        Nova_Foca(Form1.EditSenha);  // C convertido: ( **(code ** )( *(int * )Form1.EditSenha + 0x430))(Form1.EditSenha);
         Form1.LabelPress.Font.Color := 16777215;
         Form1.LabelPress1.Font.Color := 16777215;
         Form1.LabelPress2.Font.Color := 16777215;
@@ -11253,7 +11253,7 @@ procedure TForm1.ButtonCOQrCodeClick(Sender: TObject);
 begin
   Form1.PanelCadastro.Hide;
   ALTERANDOFRASES := 0;
-  // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
+  Nova_Foca(Form1);  // C convertido: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
 end;
 
 { JUKELINUX1_TFORM1_$__BUTTONEA1CLICK$TOBJECT }
@@ -15301,7 +15301,7 @@ begin
         Form1.PanelAtivacao.Align := alClient;
         Form1.PanelAtivacao.Show;
         Form1.PanelAtivacao.BringToFront;
-        // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9c0) + 0x430))(Form1.EditSenhaAtivacao);
+        Nova_Foca(Form1.EditSenhaAtivacao);  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9c0) + 0x430))(Form1.EditSenhaAtivacao);
       end
       else begin
         local_88 := '';
@@ -16995,7 +16995,7 @@ begin
           Form1.PanelAtivacao.Align := alClient;
           Form1.PanelAtivacao.Show;
           Form1.PanelAtivacao.BringToFront;
-          // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9c0) + 0x430))(Form1.EditSenhaAtivacao);
+          Nova_Foca(Form1.EditSenhaAtivacao);  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9c0) + 0x430))(Form1.EditSenhaAtivacao);
         end;
       end;
     end;
@@ -17770,9 +17770,9 @@ begin
     RODAVOLUME := 0;
     TECLAANTERIORRODAVOLUME := '';
     VOLUMEATIVADO := 0;
-    // C: U_JUKELINUX1_MOUSEPOS._0_4_ = *(undefined4 * )(U_JUKELINUX1_FORM1 + 0x23c);
-    // C: U_JUKELINUX1_MOUSEPOS._4_4_ = *(int * )(U_JUKELINUX1_FORM1 + 0xe8) + -5;
-    // C: CONTROLS_TMOUSE____SETCURSORPOS_TPOINT(U_CONTROLS_MOUSE,&U_JUKELINUX1_MOUSEPOS);
+    MOUSEPOS.X := Form1.Width;  // C convertido: U_JUKELINUX1_MOUSEPOS._0_4_ = *(undefined4 * )(U_JUKELINUX1_FORM1 + 0x23c);
+    MOUSEPOS.Y := Form1.Height - 5;  // C convertido: U_JUKELINUX1_MOUSEPOS._4_4_ = *(int * )(U_JUKELINUX1_FORM1 + 0xe8) + -5;
+    Mouse.CursorPos := MOUSEPOS;  // C convertido: CONTROLS_TMOUSE____SETCURSORPOS_TPOINT(U_CONTROLS_MOUSE,&U_JUKELINUX1_MOUSEPOS);
     NOMEARQ := '//home/jkb/jukelinux/pastas.txt';
     cVar3 := DirectoryExists('//home/jkb/jukelinux/');
     if not cVar3 then begin
@@ -18106,9 +18106,9 @@ begin
         FORM1.Height := RESOLUCAOTVY;
       end;
     end;
-    // C: U_JUKELINUX1_MOUSEPOS._0_4_ = *(undefined4 * )(U_JUKELINUX1_FORM1 + 0x23c);
-    // C: U_JUKELINUX1_MOUSEPOS._4_4_ = *(int * )(U_JUKELINUX1_FORM1 + 0xe8) + -5;
-    // C: CONTROLS_TMOUSE____SETCURSORPOS_TPOINT(U_CONTROLS_MOUSE,&U_JUKELINUX1_MOUSEPOS);
+    MOUSEPOS.X := Form1.Width;  // C convertido: U_JUKELINUX1_MOUSEPOS._0_4_ = *(undefined4 * )(U_JUKELINUX1_FORM1 + 0x23c);
+    MOUSEPOS.Y := Form1.Height - 5;  // C convertido: U_JUKELINUX1_MOUSEPOS._4_4_ = *(int * )(U_JUKELINUX1_FORM1 + 0xe8) + -5;
+    Mouse.CursorPos := MOUSEPOS;  // C convertido: CONTROLS_TMOUSE____SETCURSORPOS_TPOINT(U_CONTROLS_MOUSE,&U_JUKELINUX1_MOUSEPOS);
     local_410 := '';
     local_414 := '';
     local_414 := IntToStr(RESOLUCAO);
@@ -22449,7 +22449,7 @@ begin
   Form1.PanelCadastro.Hide;
   // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xbc8) + 0xd8)) (Form1.TimerCadastro,extraout_EDX & 0xffffff00,**(int ** )(U_JUKELINUX1_FORM1 + 0xbc8), Self,Sender);
   ALTERANDOFRASES := 0;
-  // C: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
+  Nova_Foca(Form1);  // C convertido: ( **(code ** )( *U_JUKELINUX1_FORM1 + 0x430))(U_JUKELINUX1_FORM1);
 end;
 
 { JUKELINUX1_TFORM1_$__PANELERROCLICK$TOBJECT }
@@ -23154,10 +23154,10 @@ begin
           Form1.PanelCadastro.BringToFront;
           Form1.PanelCadastro.Show;
           Form1.PanelQrcodeCadastro.Hide;  // C convertido: CONTROLS_TCONTROL____HIDE(Form1.PanelQrcodeCadastro);
-          // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9b4) + 0x430))(Form1.CodigodaMaquina);
+          Nova_Foca(Form1.CodigodaMaquina);  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0x9b4) + 0x430))(Form1.CodigodaMaquina);
           Form1.CodigodaMaquina.Visible := True;
           if JC_CODIGODAMAQUINA <> '0' then begin
-            // C: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb04) + 0x430))(Form1.NomeDoPonto);
+            Nova_Foca(Form1.NomeDoPonto);  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb04) + 0x430))(Form1.NomeDoPonto);
             Form1.CodigodaMaquina.Caption := JC_CODIGODAMAQUINA;
             Form1.CodigodaMaquina.Visible := False;
           end;

@@ -452,3 +452,15 @@ begin
     Bmp.Free;
   end;
 end;
+
+{ SetFocus que não para a jukebox: só foca o que está visível e pode receber o foco agora. }
+procedure Nova_Foca(Controle: TWinControl);
+begin
+  try
+    if (Controle <> nil) and Controle.CanFocus then
+      Controle.SetFocus;
+  except
+    on E: Exception do
+      Gravalog('Foco: ' + Controle.Name + ' (' + E.Message + ')');
+  end;
+end;

@@ -4,3 +4,4 @@ function Nova_Decifra_Musica(const Origem, Destino: string; Chave: LongInt): Boo
 function Nova_Horas(Minutos: LongInt): string; forward;
 function Nova_Data_Atu(const Texto: string): TDateTime; forward;
 procedure Nova_Carrega_Imagem(Imagem: TPicture; const Arquivo: string); forward;
+procedure Nova_Foca(Controle: TWinControl); forward;
