@@ -23,7 +23,13 @@ JukeLinux Nova - instalação (Linux Mint 21/22, Ubuntu 22.04/24.04 ou máquina 
    ou vídeo (mp4). O CD fica pronto em /home/jkb/musicas, com as capas tiradas da miniatura; feche e abra a jukebox.
    Baixe só o que vocês têm direito de tocar (direitos autorais / ECAD e termos de uso do YouTube).
 
-5. Limite de volume à noite: vem desligado ("Não Limitar Volume"). Só liga se escolher no menu do operador.
+5. Pesquisa: aperte Cancelar 3 vezes seguidas. CD+/CD- escolhem a letra, Tocar põe a letra, Música+/- andam nos
+   resultados, Tocar no resultado vai para o CD com a música selecionada (outro Tocar põe na fila), Cancelar apaga/sai.
+
+6. Pix no relógio: o menu Relógios mostra o Pix do período (que caiu na conta do dono), o dinheiro no noteiro e o
+   acerto com a casa.
+
+7. Limite de volume à noite: vem desligado ("Não Limitar Volume"). Só liga se escolher no menu do operador.
 
 Voltar o executável anterior:  sudo sh instalar.sh --desfazer
 Erros ficam em /home/jkb/jukelinux/log.txt e /tmp/jukelinux-nova-erros.log.

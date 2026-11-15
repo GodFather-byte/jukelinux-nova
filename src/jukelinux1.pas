@@ -38,6 +38,8 @@ procedure Nova_Inicia_Pix;
 procedure Nova_Inicia_Licenca;
 { Antes de criar o Form1: cria na pasta da jukebox o que uma máquina nova não tem (nova.inc). }
 procedure Nova_Prepara_Pasta;
+{ Pesquisa de músicas pelas teclas da jukebox (nova.inc). Chamar depois de criar o Form1. }
+procedure Nova_Inicia_Pesquisa;
 
 implementation
 

@@ -625,3 +625,412 @@ begin
     { sem permissão na pasta: a abertura segue e registra o erro como a original }
   end;
 end;
+
+{ ---------------------------------------------------------------------------------------------------------------
+  Pesquisa de músicas pelas teclas da jukebox (sem teclado). Abre com Cancelar apertado 3 vezes seguidas (ou com a
+  tecla de teclapesquisa.txt, se houver um botão para isso). Na tela de pesquisa:
+    CD+ / CD-          escolhem a letra
+    Tocar              põe a letra (ou, na lista, vai para o CD/música escolhido)
+    Música+ / Música-  andam pela lista de resultados
+    Cancelar           apaga a última letra; sem letras, fecha
+  O resultado leva ao CD (como se tivesse paginado até ele) com a música já selecionada: é só apertar Tocar para
+  pô-la na fila, com a cobrança de créditos normal. As teclas de crédito e de menu continuam funcionando. }
+
+type
+  TNovaResultado = record
+    Cd, Musica: LongInt;
+    Texto: string;
+  end;
+
+  TNovaPesquisa = class
+  private
+    FPainel: TPanel;
+    FTitulo, FTexto, FAjuda: TLabel;
+    FLetras: array[0..12] of TLabel;
+    FLinhas: array[0..7] of TLabel;
+    FTimer: TTimer;
+    FOrigDown, FOrigUp: TKeyEvent;
+    FAberta: Boolean;
+    FBusca: string;
+    FLetra: Integer;
+    FNaLista: Boolean;
+    FSel, FTopo: Integer;
+    FResultados: array of TNovaResultado;
+    FCancelas: array[0..2] of QWord;
+    FTeclaPesquisa: Integer;
+    procedure Monta;
+    procedure Mostra;
+    procedure Busca;
+    procedure Abre;
+    procedure Fecha;
+    procedure VaiPara(const R: TNovaResultado);
+    procedure Inativo(Sender: TObject);
+    function Trata(Key: Word): Boolean;
+  public
+    procedure KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+  end;
+
+const
+  NOVA_ALFABETO = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ';
+
+var
+  NovaPesquisa: TNovaPesquisa = nil;
+
+function Nova_Sem_Acento(const S: string): string;
+const
+  DE = 'ÁÀÂÃÄÉÈÊËÍÌÎÏÓÒÔÕÖÚÙÛÜÇÑáàâãäéèêëíìîïóòôõöúùûüçñ';
+  PARA = 'AAAAAEEEEIIIIOOOOOUUUUCNAAAAAEEEEIIIIOOOOOUUUUCN';
+var
+  U: UnicodeString;
+  i, p: Integer;
+begin
+  U := UTF8Decode(S);
+  for i := 1 to Length(U) do
+  begin
+    p := Pos(U[i], UnicodeString(UTF8Decode(DE)));
+    if p > 0 then U[i] := WideChar(PARA[p]);
+  end;
+  Result := UpperCase(UTF8Encode(U));
+end;
+
+procedure TNovaPesquisa.Monta;
+var
+  i, W, H: Integer;
+  function Rotulo(Topo, Altura, Fonte: Integer; Cor: TColor): TLabel;
+  begin
+    Result := TLabel.Create(FPainel);
+    Result.Parent := FPainel;
+    Result.AutoSize := False;
+    Result.Left := W div 40;
+    Result.Width := W - 2 * (W div 40);
+    Result.Top := Topo;
+    Result.Height := Altura;
+    Result.Font.Name := 'Sans';
+    Result.Font.Style := [fsBold];
+    Result.Font.Height := -Fonte;
+    Result.Font.Color := Cor;
+    Result.Transparent := False;
+    Result.Color := clTeal;
+    Result.Layout := tlCenter;
+  end;
+begin
+  W := Form1.ClientWidth;
+  H := Form1.ClientHeight;
+  FPainel := TPanel.Create(Form1);
+  FPainel.Parent := Form1;
+  FPainel.SetBounds(0, 0, W, H);
+  FPainel.BevelOuter := bvNone;
+  FPainel.Color := clTeal;
+  FPainel.Visible := False;
+  FTitulo := Rotulo(H div 40, H div 12, H div 16, clYellow);
+  FTitulo.Caption := 'PESQUISA';
+  FTitulo.Alignment := taCenter;
+  FTexto := Rotulo(H div 40 + H div 11, H div 10, H div 14, clWhite);
+  FTexto.Alignment := taCenter;
+  FTexto.Color := clBlack;
+  for i := 0 to High(FLetras) do
+  begin
+    FLetras[i] := Rotulo(H div 4, H div 10, H div 14, clWhite);
+    FLetras[i].Left := W div 2 + (i - 6) * (W div 15) - (W div 30);
+    FLetras[i].Width := W div 16;
+    FLetras[i].Alignment := taCenter;
+  end;
+  for i := 0 to High(FLinhas) do
+    FLinhas[i] := Rotulo(H div 4 + H div 8 + i * (H div 15), H div 16, H div 24, clWhite);
+  FAjuda := Rotulo(H - H div 12, H div 14, H div 34, clSilver);
+  FAjuda.Alignment := taCenter;
+  FAjuda.Caption := 'CD+/CD-: letra    TOCAR: escolhe    MÚSICA+/-: resultados    CANCELAR: apaga / sai';
+  FTimer := TTimer.Create(Form1);
+  FTimer.Enabled := False;
+  FTimer.Interval := 60000;  // sem ninguém mexer por 1 minuto, a pesquisa fecha
+  FTimer.OnTimer := @Inativo;
+end;
+
+procedure TNovaPesquisa.Busca;
+var
+  i, k, n: Integer;
+  Alvo, Nome: string;
+  procedure Junta(Cd, Musica: Integer; const Texto: string);
+  begin
+    if n >= 300 then Exit;
+    if n >= Length(FResultados) then SetLength(FResultados, n + 50);
+    FResultados[n].Cd := Cd;
+    FResultados[n].Musica := Musica;
+    FResultados[n].Texto := Texto;
+    Inc(n);
+  end;
+begin
+  n := 0;
+  SetLength(FResultados, 0);
+  Alvo := Trim(Nova_Sem_Acento(FBusca));
+  { (o nome do CD na original termina com "/": só aparece sem ela) }
+  if Alvo <> '' then
+    for i := 1 to TOTALCDS do
+    begin
+      if MAT[i].Genero = '50+TOCADOS' then Continue;  // cópias do ranking: o CD de verdade já aparece
+      Nome := Nova_Sem_Acento(MAT[i].Nome);
+      if Pos(Alvo, Nome) > 0 then
+        Junta(i, 0, 'CD: ' + ExcludeTrailingPathDelimiter(MAT[i].Nome));
+      for k := 1 to MAT[i].TotalMusicas do
+        if Pos(Alvo, Nova_Sem_Acento(MAT[i].Musica[k])) > 0 then
+          Junta(i, k, MAT[i].Musica[k] + '   (' + ExcludeTrailingPathDelimiter(MAT[i].Nome) + ')');
+    end;
+  SetLength(FResultados, n);
+  FSel := 0;
+  FTopo := 0;
+  if n = 0 then FNaLista := False;
+end;
+
+procedure TNovaPesquisa.Mostra;
+var
+  i, p: Integer;
+begin
+  FTexto.Caption := FBusca + '_';
+  for i := 0 to High(FLetras) do
+  begin
+    p := (FLetra + i - 6 + Length(NOVA_ALFABETO) * 3) mod Length(NOVA_ALFABETO) + 1;
+    if NOVA_ALFABETO[p] = ' ' then FLetras[i].Caption := '␣' else FLetras[i].Caption := NOVA_ALFABETO[p];
+    if (i = 6) and not FNaLista then
+    begin
+      FLetras[i].Color := clYellow;
+      FLetras[i].Font.Color := clBlack;
+    end
+    else
+    begin
+      FLetras[i].Color := clTeal;
+      FLetras[i].Font.Color := clWhite;
+    end;
+  end;
+  if FSel < FTopo then FTopo := FSel;
+  if FSel > FTopo + High(FLinhas) then FTopo := FSel - High(FLinhas);
+  for i := 0 to High(FLinhas) do
+  begin
+    p := FTopo + i;
+    if p < Length(FResultados) then
+      FLinhas[i].Caption := FResultados[p].Texto
+    else if (i = 0) and (Trim(FBusca) <> '') then
+      FLinhas[i].Caption := 'Nada encontrado'
+    else
+      FLinhas[i].Caption := '';
+    if FNaLista and (p = FSel) then
+    begin
+      FLinhas[i].Color := clYellow;
+      FLinhas[i].Font.Color := clBlack;
+    end
+    else
+    begin
+      FLinhas[i].Color := clTeal;
+      FLinhas[i].Font.Color := clWhite;
+    end;
+  end;
+  if Length(FResultados) > 0 then
+    FTitulo.Caption := 'PESQUISA  (' + IntToStr(Length(FResultados)) + ')'
+  else
+    FTitulo.Caption := 'PESQUISA';
+end;
+
+procedure TNovaPesquisa.Abre;
+begin
+  if FPainel = nil then Monta;
+  FBusca := '';
+  FLetra := 0;
+  FNaLista := False;
+  SetLength(FResultados, 0);
+  FAberta := True;
+  Mostra;
+  FPainel.Show;
+  FPainel.BringToFront;
+  FTimer.Enabled := False;
+  FTimer.Enabled := True;
+  Gravalog('Pesquisa: aberta');
+end;
+
+procedure TNovaPesquisa.Fecha;
+begin
+  FAberta := False;
+  if FPainel <> nil then FPainel.Hide;
+  if FTimer <> nil then FTimer.Enabled := False;
+end;
+
+procedure TNovaPesquisa.Inativo(Sender: TObject);
+begin
+  Fecha;
+end;
+
+procedure TNovaPesquisa.VaiPara(const R: TNovaResultado);
+var
+  i: Integer;
+begin
+  Fecha;
+  Gravalog('Pesquisa: ' + FBusca + ' -> ' + R.Texto);
+  { como a paginação: o CD do centro é MAT[KMAT + 5] }
+  KMAT := R.Cd - 5;
+  if KMAT < -4 then KMAT := -4;
+  Desselecionamusica;
+  MUSICASELECIONADA := 0;
+  MUSICASELECIONADAPOSTELA := 0;
+  MUSICASELECIONADATS := 0;
+  MOSTRANDORITMOS := 0;
+  MOSTRANDOLETRAS := 0;
+  MUDOUDECDOUMUSICA := 1;
+  TEMPOPALHINHA := 0;
+  Mostra_Cds(' ');
+  Mostra_Nome_Das_Musicas;
+  { a música: os mesmos passos da tecla Música, sem o bipe de cada um }
+  for i := 1 to R.Musica do
+    if MUSICASELECIONADA < MAT[KMAT + 5].TotalMusicas then
+    begin
+      Desselecionamusica;
+      MUSICASELECIONADA := MUSICASELECIONADA + 1;
+      MUSICASELECIONADAPOSTELA := MUSICASELECIONADAPOSTELA + 1;
+      if 12 < MUSICASELECIONADAPOSTELA then MUSICASELECIONADAPOSTELA := 12;
+      Selecionamusica;
+    end;
+end;
+
+{ True = a tecla era da pesquisa (não vai para a jukebox) }
+function TNovaPesquisa.Trata(Key: Word): Boolean;
+var
+  N: Integer;
+begin
+  Result := True;
+  FTimer.Enabled := False;
+  FTimer.Enabled := True;
+  N := Length(NOVA_ALFABETO);
+  if (Key = TECLACDMAIS) and not FNaLista then
+    FLetra := (FLetra + 1) mod N
+  else if (Key = TECLACDMENOS) and not FNaLista then
+    FLetra := (FLetra + N - 1) mod N
+  else if Key = TECLAMUSICAMENOS then
+  begin
+    if not FNaLista then
+    begin
+      if Length(FResultados) > 0 then
+      begin
+        FNaLista := True;
+        FSel := 0;
+      end;
+    end
+    else if FSel < High(FResultados) then
+      Inc(FSel);
+  end
+  else if Key = TECLAMUSICAMAIS then
+  begin
+    if FNaLista then
+    begin
+      if FSel > 0 then Dec(FSel) else FNaLista := False;
+    end;
+  end
+  else if (Key = TECLACDMAIS) or (Key = TECLACDMENOS) then
+    FNaLista := False
+  else if Key = TECLATOCAR then
+  begin
+    if FNaLista and (FSel < Length(FResultados)) then
+    begin
+      VaiPara(FResultados[FSel]);
+      Exit;
+    end;
+    if Length(FBusca) < 30 then
+      FBusca := FBusca + NOVA_ALFABETO[FLetra + 1];
+    Busca;
+  end
+  else if Key = TECLACANCELAR then
+  begin
+    if FNaLista then
+      FNaLista := False
+    else if FBusca = '' then
+    begin
+      Fecha;
+      Exit;
+    end
+    else
+    begin
+      Delete(FBusca, Length(FBusca), 1);
+      Busca;
+    end;
+  end
+  else
+    Result := False;  // crédito, menu, volume...: a jukebox trata
+  Mostra;
+end;
+
+procedure TNovaPesquisa.KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if FAberta and ((Key = TECLACDMAIS) or (Key = TECLACDMENOS) or (Key = TECLAMUSICAMAIS) or
+    (Key = TECLAMUSICAMENOS) or (Key = TECLATOCAR) or (Key = TECLACANCELAR)) then
+  begin
+    Key := 0;  // a jukebox não pagina nem anda nas músicas por baixo da pesquisa
+    Exit;
+  end;
+  if Assigned(FOrigDown) then FOrigDown(Sender, Key, Shift);
+end;
+
+procedure TNovaPesquisa.KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+var
+  Agora: QWord;
+begin
+  if FAberta then
+  begin
+    if Trata(Key) then
+    begin
+      Key := 0;
+      Exit;
+    end;
+  end
+  else if (ESTANOMENU = 0) and (SENHAOK = 0) then
+  begin
+    if (FTeclaPesquisa > 0) and (Key = FTeclaPesquisa) then
+    begin
+      Abre;
+      Key := 0;
+      Exit;
+    end;
+    if Key = TECLACANCELAR then
+    begin
+      { Cancelar 3 vezes em 1,5 s abre a pesquisa (cada Cancelar faz também o que fazia) }
+      Agora := GetTickCount64;
+      FCancelas[0] := FCancelas[1];
+      FCancelas[1] := FCancelas[2];
+      FCancelas[2] := Agora;
+      if (FCancelas[0] > 0) and (Agora - FCancelas[0] <= 1500) then
+      begin
+        FillChar(FCancelas, SizeOf(FCancelas), 0);
+        if Assigned(FOrigUp) then FOrigUp(Sender, Key, Shift);
+        Abre;
+        Key := 0;
+        Exit;
+      end;
+    end;
+  end;
+  if Assigned(FOrigUp) then FOrigUp(Sender, Key, Shift);
+end;
+
+procedure Nova_Inicia_Pesquisa;
+var
+  Texto: string;
+  L: TStringList;
+begin
+  NovaPesquisa := TNovaPesquisa.Create;
+  NovaPesquisa.FOrigDown := Form1.OnKeyDown;
+  NovaPesquisa.FOrigUp := Form1.OnKeyUp;
+  Form1.OnKeyDown := @NovaPesquisa.KeyDown;
+  Form1.OnKeyUp := @NovaPesquisa.KeyUp;
+  NovaPesquisa.FTeclaPesquisa := 0;
+  if FileExists(PASTA + 'teclapesquisa.txt') then
+  begin
+    L := TStringList.Create;
+    try
+      L.LoadFromFile(PASTA + 'teclapesquisa.txt');
+      if L.Count > 0 then
+      begin
+        Texto := Trim(L[0]);
+        NovaPesquisa.FTeclaPesquisa := StrToIntDef(Texto, 0);
+        if (NovaPesquisa.FTeclaPesquisa = 0) and (Length(Texto) = 1) then
+          NovaPesquisa.FTeclaPesquisa := Ord(UpCase(Texto[1]));
+      end;
+    finally
+      L.Free;
+    end;
+  end;
+end;
