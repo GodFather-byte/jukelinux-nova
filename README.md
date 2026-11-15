@@ -29,9 +29,19 @@ O CI publica o pacote **jukelinux-nova-linux-x86_64** (em *Actions → Build →
 e o exemplo do Pix. Na máquina:
 
 ```bash
-sudo sh instalar.sh             # instala dependências, guarda o executável antigo e põe a Nova no lugar dele
-sudo sh instalar.sh --desfazer  # volta o executável anterior
+sudo sh instalar.sh                    # instala dependências, guarda o executável antigo e põe a Nova no lugar dele
+sudo sh instalar.sh --iniciar-sozinha  # idem, e a jukebox abre sozinha ao entrar no Linux
+sudo sh instalar.sh --desfazer         # volta o executável anterior
 ```
+
+Funciona no Linux Mint 21/22 e Ubuntu 22.04/24.04 (o executável pede glibc 2.34+; o pacote do GTK2 tem nome novo no
+24.04 e o instalador escolhe o certo). Numa máquina nova, sem a JukeLinux antiga, o instalador:
+- usa o usuário `jkb` ou, se não houver, quem rodou o `sudo`;
+- cria `iniciar-jukebox.sh`, que deixa a tela sem apagar nem bloquear e não abre duas jukeboxes;
+- põe a jukebox para abrir sozinha ao entrar no Linux (falta só ligar o login automático do usuário).
+
+O pacote traz um `LEIA-ME.txt` com o passo a passo. O CI publica também o **gerador-contrasenha-linux-x86_64**,
+executável estático com a mesma chave do build: é da empresa e não vai para as máquinas.
 
 A Nova fica em `/home/jkb/jukelinux/jukelinux`, mesmo caminho e nome da antiga: o que já inicia a jukebox continua
 iniciando, e músicas, configurações, relógios e créditos ficam como estão. Na primeira vez aparece a tela de ativação.
