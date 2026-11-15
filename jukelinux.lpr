@@ -46,5 +46,6 @@ begin
   Application.CreateForm(TForm1, Form1);
   Nova_Inicia_Licenca;
   Nova_Inicia_Pix;
+  Nova_Inicia_Pesquisa;
   Application.Run;
 end.

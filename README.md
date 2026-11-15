@@ -110,6 +110,43 @@ músicas, relógios e `creditos.txt`).
   creditadas duas vezes. Tudo vai para o `log.txt` com o prefixo `Pix:`.
 - Teste contra um PSP simulado (HTTPS com certificado de cliente): `testes/pix/rodar.sh`.
 
+## Pesquisa pelas teclas da jukebox
+
+Apertar **Cancelar 3 vezes seguidas** (em 1,5 s) abre a tela de pesquisa. Se houver um botão sobrando, o código da
+tecla dele (ou a letra) pode ir em `teclapesquisa.txt` para abrir direto. Na pesquisa:
+
+- **CD+ / CD-** escolhem a letra;
+- **Tocar** põe a letra;
+- **Música+ / Música-** andam pelos resultados;
+- **Cancelar** apaga a última letra e, sem letras, fecha.
+
+A busca não liga para acentos e procura no nome do CD e no das músicas. Tocar num resultado leva ao CD, como se
+tivesse paginado até ele, com a música já selecionada: outro Tocar a põe na fila, cobrando créditos como sempre.
+As teclas de crédito e de menu continuam funcionando com a pesquisa aberta, e ela fecha sozinha depois de um minuto
+sem uso.
+
+## Pix no relógio
+
+O relógio parcial soma dinheiro e Pix (um Pix de R$ N vale N pulsos), mas o Pix cai na conta do dono. O menu
+**Relógios** mostra, abaixo do Valor do Ponto:
+
+- o Pix do período;
+- o dinheiro no noteiro;
+- o acerto: a casa tira a parte dela (o Valor do Ponto) do noteiro e, se não der, o dono paga a diferença.
+
+`pixrelogio.txt` guarda os valores cifrados. Ao zerar o relógio parcial, o Pix do período vai para
+`pixfechamentos.txt`.
+
+## Baixar músicas do YouTube
+
+`baixar-youtube.sh` (instalado na pasta da jukebox, com atalho no menu do Linux) usa o
+[yt-dlp](https://github.com/yt-dlp/yt-dlp): o link de um vídeo ou de uma playlist vira um CD em `/home/jkb/musicas`,
+no formato da jukebox. As faixas ficam `01 - NOME.mp3` (ou `.mp4` para DVD), com nome em maiúsculas e sem acento;
+o script grava o `genero.txt` e tira `capa.jpg` (400x400) e `capapequena.jpg` (200x200) da miniatura. Num CD que
+já existe, as faixas entram depois das que estão, até 40. Sem argumentos, o script abre janelas (zenity); pelo
+terminal: `baixar-youtube.sh LINK "ARTISTA - CD" "MP - MPB" [mp3|mp4]`. O yt-dlp se atualiza antes de cada
+download, porque o YouTube muda sempre. Baixe só o que tem direito de tocar (direitos autorais / ECAD).
+
 ## Teste de integração
 
 `sudo sh testes/integracao/rodar.sh` monta uma máquina de teste em `/home/jkb/jukelinux` e `/home/jkb/musicas` (o que

@@ -140,4 +140,14 @@ CORRECOES = [
     ('TForm1.TimerVolume22hsTimer', '      if (8 < uVar2) and (1 < uVar2 - 22) then begin\n',
      '      // Nova: sem sinal no C (1 < uVar2 - 22: fora de 22-23h); com sinal o volume nunca era liberado\n      if (8 < uVar2) and ((uVar2 < 22) or (uVar2 > 23)) then begin\n',
      'libera das 9h às 21h59'),
+    # Nova: Pix no relógio (quanto do relógio parcial veio por Pix e o acerto com a casa).
+    ('TForm1.ButtonZRPClick', '      RELOGIOPARCIAL := 0;\n',
+     '      RELOGIOPARCIAL := 0;\n      Nova_Zera_Pix_Parcial;  // Nova: o Pix do período vai para o histórico e zera junto\n',
+     'fechamento também do Pix'),
+    ('TForm1.PanelMenu2Click', '      Form1.LabelVE.Caption := local_70;\n',
+     '      Form1.LabelVE.Caption := local_70;\n      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa\n',
+     'Pix no menu Relógios'),
+    ('TForm1.PanelMenu2Click', '      Form1.LabelVE.Caption := local_198;\n',
+     '      Form1.LabelVE.Caption := local_198;\n      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa\n',
+     'Pix no menu Relógios'),
 ]

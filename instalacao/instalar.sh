@@ -13,7 +13,8 @@
 #   4. numa máquina nova (sem a JukeLinux antiga): cria /home/jkb/musicas, ritmos/ e letras/, deixa tudo do usuário
 #      que vai rodar a jukebox (jkb, ou quem rodou o sudo se não houver jkb) e põe a jukebox para abrir sozinha ao
 #      entrar no Linux, com a tela sem apagar nem bloquear (iniciar-jukebox.sh). As configurações a Nova cria ao abrir;
-#   5. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
+#   5. instala o baixador de músicas do YouTube (baixar-youtube.sh, yt-dlp, ffmpeg) com um atalho no menu;
+#   6. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
 # Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina (ver README, "Licença").
 set -e
 
@@ -55,6 +56,8 @@ if [ -z "$INSTALAR_SEM_APT" ]; then
   GTK=libgtk2.0-0
   apt-cache show libgtk2.0-0t64 >/dev/null 2>&1 && GTK=libgtk2.0-0t64
   apt-get install -y -qq mplayer curl x11-xserver-utils "$GTK" >/dev/null
+  # para baixar músicas do YouTube (baixar-youtube.sh): ffmpeg, zenity (janelas) e python3 (o yt-dlp)
+  apt-get install -y -qq ffmpeg zenity python3 >/dev/null || echo "Aviso: não instalei ffmpeg/zenity (baixar do YouTube)"
 fi
 for programa in mplayer curl xrandr; do
   command -v "$programa" >/dev/null 2>&1 || falha "falta o programa $programa"
@@ -75,6 +78,20 @@ chmod 755 "$PASTA/jukelinux.novo"
 mv -f "$PASTA/jukelinux.novo" "$PASTA/jukelinux"
 if [ -f "$AQUI/pix.txt.exemplo" ] && [ ! -f "$PASTA/pix.txt.exemplo" ]; then
   cp "$AQUI/pix.txt.exemplo" "$PASTA/pix.txt.exemplo"
+fi
+
+# baixar músicas do YouTube: o script e o yt-dlp na pasta da jukebox (do usuário dela, para ele se atualizar sozinho)
+if [ -f "$AQUI/baixar-youtube.sh" ]; then
+  cp "$AQUI/baixar-youtube.sh" "$PASTA/baixar-youtube.sh"
+  chmod 755 "$PASTA/baixar-youtube.sh"
+  if [ ! -x "$PASTA/yt-dlp" ]; then
+    if curl -fsSL -o "$PASTA/yt-dlp.novo" https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp; then
+      chmod 755 "$PASTA/yt-dlp.novo" && mv -f "$PASTA/yt-dlp.novo" "$PASTA/yt-dlp"
+    else
+      rm -f "$PASTA/yt-dlp.novo"
+      echo "Aviso: não baixei o yt-dlp (sem internet?); o baixador tenta o yt-dlp do sistema"
+    fi
+  fi
 fi
 
 # script que abre a jukebox: tela sempre ligada, sem bloqueio, uma jukebox só
@@ -99,6 +116,7 @@ if [ -n "$USUARIO" ]; then
     chown -R "$USUARIO": /home/jkb
   else
     chown "$USUARIO": "$PASTA" "$PASTA/ritmos" "$PASTA/letras" "$MUSICAS" "$PASTA/jukelinux" "$PASTA/iniciar-jukebox.sh"
+    for f in baixar-youtube.sh yt-dlp; do [ -f "$PASTA/$f" ] && chown "$USUARIO": "$PASTA/$f"; done
     [ -f "$PASTA/pix.txt.exemplo" ] && chown "$USUARIO": "$PASTA/pix.txt.exemplo"
   fi
 fi
@@ -116,6 +134,29 @@ X-GNOME-Autostart-enabled=true
 FIM
   chown -R "$USUARIO": "$CASA/.config/autostart"
   echo "A jukebox abre sozinha quando $USUARIO entrar no Linux (ligue o login automático desse usuário)."
+fi
+
+# atalho "Baixar músicas do YouTube" no menu de aplicativos (e na área de trabalho, se houver)
+if [ -n "$USUARIO" ] && [ -f "$PASTA/baixar-youtube.sh" ]; then
+  CASA=$(getent passwd "$USUARIO" | cut -d: -f6)
+  ATALHO="[Desktop Entry]
+Type=Application
+Name=Baixar músicas do YouTube
+Comment=Baixa um vídeo ou uma playlist do YouTube para um CD da jukebox
+Exec=$PASTA/baixar-youtube.sh
+Icon=folder-download
+Terminal=false
+Categories=AudioVideo;"
+  mkdir -p "$CASA/.local/share/applications"
+  printf '%s\n' "$ATALHO" > "$CASA/.local/share/applications/jukelinux-baixar-youtube.desktop"
+  for MESA in "$CASA/Área de Trabalho" "$CASA/Desktop"; do
+    if [ -d "$MESA" ]; then
+      printf '%s\n' "$ATALHO" > "$MESA/jukelinux-baixar-youtube.desktop"
+      chmod 755 "$MESA/jukelinux-baixar-youtube.desktop"
+      chown "$USUARIO": "$MESA/jukelinux-baixar-youtube.desktop"
+    fi
+  done
+  chown -R "$USUARIO": "$CASA/.local/share/applications"
 fi
 
 echo "JukeLinux Nova instalada em $PASTA/jukelinux (usuário: ${USUARIO:-root})."

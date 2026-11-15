@@ -63,6 +63,14 @@ if command -v xdotool >/dev/null; then
     sleep 0.5
   done
   CARTAO_LIDO=sim
+  # pesquisa pelas teclas da jukebox: Cancelar 3x abre; CD+ escolhe a letra, Tocar põe; Música- desce na lista
+  sleep 1
+  xdotool key q; sleep 0.3; xdotool key q; sleep 0.3; xdotool key q; sleep 1
+  for L in 4 8 2; do                       # E (A+4), M (E+8), O (M+2)
+    for i in $(seq "$L"); do xdotool key h; sleep 0.1; done
+    xdotool key k; sleep 0.3
+  done
+  xdotool key i; sleep 0.3; xdotool key i; sleep 0.3; xdotool key k; sleep 2
 else
   echo "(sem xdotool: a leitura do cartão pelo código de barras não é testada)"
 fi
@@ -84,6 +92,7 @@ confere "cartoes.ccc continua com 3 registros de 38 bytes" '[ "$(stat -c %s "$JU
 confere "lançamento: ritmo LANCAMENTOS na lista de ritmos" 'grep -q "LANCAMENTOS" "$JUKE/ritmos.txt"'
 confere "inicio.sh criado" '[ -x "$JUKE/inicio.sh" ]'
 if [ -n "$CARTAO_LIDO" ]; then
+  confere "pesquisa EMO pelas teclas leva à música 01 - EMOCOES" 'grep -q "Pesquisa: EMO -> 01 - EMOCOES" "$JUKE/log.txt"'
   confere "cartão 01234567 lido no modo Bar: usou 1 crédito (5 -> 4 no cartoes.ccc)" 'python3 -I "$AQUI/cartao.py" "$JUKE/cartoes.ccc" | grep -qx "01234567 - 4"'
 fi
 if [ "$FALHAS" -gt 0 ]; then
