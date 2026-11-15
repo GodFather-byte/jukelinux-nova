@@ -15,10 +15,52 @@ autorização do desenvolvedor da original.
 
 ```bash
 sudo apt install lazarus-ide lcl-gtk2 lcl-units fpc
+ferramentas/licenca/nova_chave.sh   # uma vez: cria src/licenca_chave.inc (a chave secreta das licenças)
 lazbuild --widgetset=gtk2 jukelinux.lpi
 ```
 
-A CI (GitHub Actions → **Build**) compila a cada push e publica o executável em *Artifacts*.
+A CI (GitHub Actions → **Build**) roda os testes, compila a cada push e publica o executável em *Artifacts*. Para o
+executável do CI servir nas máquinas, cadastre o segredo `LICENCA_CHAVE` no repositório (o valor de
+`NOVA_CHAVE_LICENCA` do seu `src/licenca_chave.inc`); sem ele o CI usa a chave de desenvolvimento e avisa.
+
+## Instalar numa máquina
+
+O CI publica o pacote **jukelinux-nova-linux-x86_64** (em *Actions → Build → Artifacts*): o executável, o instalador
+e o exemplo do Pix. Na máquina:
+
+```bash
+sudo sh instalar.sh             # instala dependências, guarda o executável antigo e põe a Nova no lugar dele
+sudo sh instalar.sh --desfazer  # volta o executável anterior
+```
+
+A Nova fica em `/home/jkb/jukelinux/jukelinux`, mesmo caminho e nome da antiga: o que já inicia a jukebox continua
+iniciando, e músicas, configurações, relógios e créditos ficam como estão. Na primeira vez aparece a tela de ativação.
+
+## Licença
+
+No lugar do pendrive-chave, a Nova usa a tela de ativação da original. Sem licença válida, a jukebox abre em
+**Ativação da Jukebox** mostrando o código da máquina (16 dígitos, tirados do número de série do disco do sistema;
+uma imagem clonada em outro HD tem outro código) e não responde às teclas. A empresa gera a contra-senha:
+
+```bash
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379              # permanente
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379 31/12/2027   # vence nesse dia
+ferramentas/licenca/gerar.sh 1020-7373-4289-6379 30           # vence em 30 dias
+```
+
+O técnico digita os 12 dígitos e clica em Ativar (ou Enter): aparece o "Ativação OK" da original e a jukebox libera
+na hora, sem desligar. A contra-senha leva a validade e uma assinatura HMAC com a chave secreta; o `licenca.txt` guarda
+também o último dia visto, assinado, para atrasar o relógio não estender a validade. A licença é conferida de novo a
+cada hora. Testes: `testes/licenca/rodar.sh`.
+
+Máquina antiga trocada pela Nova continua com o serial da chave antiga (lido dos arquivos dela); máquina nova recebe um
+serial tirado do código da licença.
+
+## Músicas
+
+A Nova toca as músicas cifradas das máquinas atuais (mesmo formato: chave do `chavecriptografica.txt`, 71 por padrão;
+0 = sem cifra) com uma rotina própria, `src/musicacifra.pas`. Novidade: uma música comum, sem cifra, toca mesmo numa
+máquina com chave. Testes contra um codificador independente do formato: `testes/musica/rodar.sh`.
 
 ## Pix
 
@@ -41,11 +83,11 @@ músicas, relógios e `creditos.txt`).
 
 1. Base: repositório, CI, extração completa do formulário, fotos de referência da original.
 2. Tela principal idêntica, navegando pelos CDs reais.
-3. Créditos, fila e player (mplayer).
-4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV.
-5. Menu do operador.
-6. Licença nova e ferramenta de gerar licenças.
-7. Pacote de instalação e piloto.
+3. Créditos, fila e player (mplayer). **Feito:** acervo, fila, músicas cifradas e player tocando em sequência.
+4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV. Vídeo dentro da tela (`-wid`) feito.
+5. Menu do operador. Senha e as cinco seções abrem com a configuração da máquina; falta testar cada opção.
+6. Licença nova e ferramenta de gerar licenças. **Feito:** ativação pela tela da original e gerador de contra-senhas.
+7. Pacote de instalação e piloto. **Feito:** instalador com troca direta e desfazer; falta o piloto numa máquina real.
 
 ## Referência
 
@@ -59,3 +101,7 @@ músicas, relógios e `creditos.txt`).
   `completar.py`, converte no Pascal gerado o que o tradutor deixou como `if False { C: ... }` e `// C:` quando
   todos os nomes têm tipo conhecido (teclas, chamadas do player, textos); roda sozinho com
   `python3 ferramentas/extracao/completar.py src/globais.inc src/jukelinux1_rotinas.inc`.
+- O acervo de CDs da original (`MAT`, 8000 registros de 576 bytes) é o registro `TIPOCD` em `src/globais.inc`, com
+  os campos deduzidos dos acessos no código descompilado (pasta, nome, capas, gênero, as 40 músicas, contadores).
+  Trechos em que o Ghidra perdeu informação demais são reescritos à mão, seguindo o C, em
+  `ferramentas/extracao/correcoes.py` (por exemplo a leitura das pastas dos CDs em `Carregando_Cds`).

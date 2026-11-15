@@ -1,5 +1,27 @@
 { Variáveis globais da unit jukelinux1 da original, com o tipo deduzido por ferramentas/extracao/globais.py
   (tamanho do símbolo + uso no código descompilado). Os marcados {revisar} ainda não têm o tipo certo. }
+type
+  { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
+    deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
+  TIPOCD = record
+    Marca: Byte;                              // 0: zerado ao carregar
+    Pasta: AnsiString;                        // 8: pasta do CD, com a barra no fim
+    Nome: AnsiString;                         // 12: nome mostrado ("ARTISTA - CD"; no modo 50+ tocados leva a posição)
+    Capa: AnsiString;                         // 16: o .jpg da pasta que não é capapequena.jpg
+    CapaPequena: AnsiString;                  // 20: capapequena.jpg
+    Genero: String[30];                       // 24: lido de genero.txt
+    Caminho: array[1..40] of AnsiString;      // 56: pasta + arquivo de cada música
+    Musica: array[1..40] of AnsiString;       // 216: nome de cada música (arquivo sem a extensão)
+    TotalMusicas: LongInt;                    // 376
+    Tipo: String[3];                          // 380: 'CD' (áudio) ou 'DVD' (vídeo)
+    Marca2: Byte;                             // 384: zerado ao carregar
+    Tocadas: array[1..40] of LongInt;         // 396: vezes que cada música tocou
+    Marca3: Byte;                             // 556: zerado ao carregar
+    Escolha: String[1];                       // 558: 'S' ou 'N'
+    Marca4: Byte;                             // 560: zerado ao carregar
+    TotalTocadas: LongInt;                    // 572: vezes que o CD tocou
+  end;
+
 var
   PASTAPRINCIPAL: AnsiString;
   PASTA: AnsiString;
@@ -130,7 +152,7 @@ var
   CIDADESTR: AnsiString;
   DATADAINSTALACAOSTR: AnsiString;
   SELOSSTR: AnsiString;
-  MAT: array[0..4607999] of Byte {revisar};
+  MAT: array[1..8000] of TIPOCD;
   KMAT: LongInt;
   KMATMUSICA: LongInt;
   TOTALCDS: LongInt;

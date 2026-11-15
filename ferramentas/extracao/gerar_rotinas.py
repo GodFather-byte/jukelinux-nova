@@ -342,8 +342,10 @@ for rot, velho, novo, _motivo in CORRECOES:
 # Converte o que dá dos "if False { C: ... }" e "// C:" que sobraram (teclas, player, textos): completar.py.
 import completar  # noqa: E402
 _tipos_globais = completar.le_globais(globais_inc)
-rotinas = [completar.completa_rotina(r, _tipos_globais) for r in rotinas]
-metodos = [completar.completa_rotina(r, _tipos_globais) for r in metodos]
+_form_inc = os.path.join(pasta_src, 'jukelinux1_form.inc')
+_comps = completar.le_componentes(_form_inc) if os.path.exists(_form_inc) else {}
+rotinas = [completar.completa_rotina(r, _tipos_globais, None, _comps) for r in rotinas]
+metodos = [completar.completa_rotina(r, _tipos_globais, None, _comps) for r in metodos]
 
 with open(os.path.join(pasta_src, 'jukelinux1_rotinas.inc'), 'w', encoding='utf-8', newline='\n') as f:
     f.write('{ Rotinas da JukeLinux original traduzidas do código descompilado por ferramentas/extracao/gerar_rotinas.py.\n'

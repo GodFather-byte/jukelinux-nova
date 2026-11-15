@@ -10,7 +10,8 @@ unit MPlayerCtrl;
 interface
 
 uses
-  Classes, SysUtils, Controls, Process;
+  Classes, SysUtils, Controls, ExtCtrls, Graphics, Process
+  {$IFDEF LCLGTK2}, gtk2, gdk2x{$ENDIF};
 
 type
 
@@ -22,8 +23,11 @@ type
     FLoop: Integer;
     FMPlayerPath: string;
     FProcesso: TProcess;
+    { Painel preto onde o mplayer desenha o vídeo (-wid), como o FDisplayPanel do componente original. }
+    FTela: TPanel;
     FStartParam: string;
     FVolume: Integer;
+    function JanelaDoVideo: PtrUInt;
     procedure ApagaProcesso;
     procedure DrenaSaida;
     procedure EnviaComando(const ATexto: string);
@@ -34,6 +38,7 @@ type
     procedure SetFileName(const AArquivo: string);
     { Ajusta o volume (0 a 100). Se já estiver tocando, o ajuste vale na hora. }
     procedure SetVolume(AVolume: Integer);
+    procedure SetLoop(ALoop: Integer);
     { Inicia o mplayer com Filename. Se já houver algo tocando, para antes. Se o mplayer não puder ser
       executado, Playing devolve False. }
     procedure Play;
@@ -48,8 +53,10 @@ type
     property Anchors;
     property Visible;
     property Filename: string read FFilename write SetFileName;
-    { -1 desligado, 0 para sempre, n vezes (mesmo significado do parâmetro -loop do mplayer). }
-    property Loop: Integer read FLoop write FLoop;
+    { -1 não repete, 0 para sempre, n vezes. Como no TMPlayerControl original (lazarus-ccr), não vai para a linha
+      de comando: só é enviado ao mplayer (comando "loop") quando muda com ele tocando. O Loop = 0 gravado no
+      formulário é lido antes de tocar e não tem efeito: cada música toca uma vez. }
+    property Loop: Integer read FLoop write SetLoop;
     { Caminho do executável; vazio usa o mplayer do PATH. }
     property MPlayerPath: string read FMPlayerPath write FMPlayerPath;
     { Parâmetros extras separados por espaço, passados ao mplayer antes do arquivo. }
@@ -73,6 +80,27 @@ begin
   FVolume := 100;
   FMPlayerPath := '';
   FProcesso := nil;
+  FTela := TPanel.Create(Self);
+  FTela.Parent := Self;
+  FTela.Align := alClient;
+  FTela.BevelOuter := bvNone;
+  FTela.Color := clBlack;
+end;
+
+function TMPlayerControl.JanelaDoVideo: PtrUInt;
+begin
+  { Janela X do painel (o mplayer desenha o vídeo dentro da jukebox). 0 = ainda não existe: vídeo em janela própria. }
+  Result := 0;
+  {$IFDEF LCLGTK2}
+  try
+    if not FTela.HandleAllocated then
+      FTela.HandleNeeded;
+    if (FTela.Handle <> 0) and (PGtkWidget(PtrUInt(FTela.Handle))^.window <> nil) then
+      Result := GDK_WINDOW_XWINDOW(PGtkWidget(PtrUInt(FTela.Handle))^.window);
+  except
+    Result := 0;
+  end;
+  {$ENDIF}
 end;
 
 destructor TMPlayerControl.Destroy;
@@ -134,11 +162,21 @@ begin
     EnviaComando('volume ' + IntToStr(FVolume) + ' 1');
 end;
 
+procedure TMPlayerControl.SetLoop(ALoop: Integer);
+begin
+  if FLoop = ALoop then
+    Exit;
+  FLoop := ALoop;
+  if Running then
+    EnviaComando('loop ' + IntToStr(FLoop));
+end;
+
 procedure TMPlayerControl.Play;
 var
   Partes: TStringList;
   i: Integer;
   Executavel: string;
+  Janela: PtrUInt;
 begin
   Stop;
   { Sem arquivo, o mplayer em modo -slave fica ocioso em vez de sair: não iniciar evita dar como tocando. }
@@ -152,15 +190,20 @@ begin
   FProcesso := TProcess.Create(nil);
   FProcesso.Executable := Executavel;
   FProcesso.Options := [poUsePipes, poStderrToOutPut];
+  { mesmos parâmetros do componente original (lazarus-ccr) }
   FProcesso.Parameters.Add('-slave');
   FProcesso.Parameters.Add('-quiet');
-  if FLoop >= 0 then
-  begin
-    FProcesso.Parameters.Add('-loop');
-    FProcesso.Parameters.Add(IntToStr(FLoop));
-  end;
+  FProcesso.Parameters.Add('-identify');
   FProcesso.Parameters.Add('-volume');
   FProcesso.Parameters.Add(IntToStr(FVolume));
+  FProcesso.Parameters.Add('-vf');
+  FProcesso.Parameters.Add('screenshot');
+  Janela := JanelaDoVideo;
+  if Janela <> 0 then
+  begin
+    FProcesso.Parameters.Add('-wid');
+    FProcesso.Parameters.Add(IntToStr(Janela));
+  end;
 
   Partes := TStringList.Create;
   try

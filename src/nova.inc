@@ -40,8 +40,10 @@ begin
     Hardware := Descripta(PrimeiraLinha(PASTA + 'jukelinux.ini'));
     Contadores := Descriptasuper2(PrimeiraLinha(PASTA + 'bloquearquandotocar.txt'));
     if Hardware = '' then begin
-      Gravalog('Serial da chave: nao achei o jukelinux.ini; a maquina precisa de licenca nova');
-      Exit;
+      { Instalação nova (sem os arquivos da máquina antiga): o serial vem do código da máquina da licença nova. }
+      Hardware := 'NOVA' + SoDigitos(CodigoDaMaquina(IdentidadeDaMaquina));
+      Contadores := Hardware;
+      Gravalog('Serial da chave: maquina nova, serial tirado do codigo da licenca: ' + Hardware);
     end;
     AssignFile(F, PASTA + ARQ_SERIAL_DA_CHAVE);
     Rewrite(F);
@@ -95,14 +97,14 @@ end;
 procedure Nova_Inicia_Pix;
 var
   Config: TPixConfig;
-  Erro, Pasta: string;
+  Erro, PastaJuke: string;
 begin
-  Pasta := PASTA;
-  if Pasta = '' then
-    Pasta := PASTA_JUKELINUX;
-  if not FileExists(Pasta + 'pix.txt') then
+  PastaJuke := PASTA;
+  if PastaJuke = '' then
+    PastaJuke := PASTA_JUKELINUX;
+  if not FileExists(PastaJuke + 'pix.txt') then
     Exit;
-  if not LeConfigPix(Pasta + 'pix.txt', Config, Erro) then
+  if not LeConfigPix(PastaJuke + 'pix.txt', Config, Erro) then
   begin
     Gravalog('Pix desligado: ' + Erro);
     Exit;
@@ -110,5 +112,244 @@ begin
   if not Config.Ativo then
     Exit;
   NovaPix := TNovaPix.Create;
-  TTelaPix.Cria(Form1, Config, Pasta, @NovaPix.Creditar, @NovaPix.Registrar);
+  TTelaPix.Cria(Form1, Config, PastaJuke, @NovaPix.Creditar, @NovaPix.Registrar);
+end;
+
+{ ---------------------------------------------------------------------------------------------------------------
+  Músicas: decifra (ou copia) a música da fila para o arquivo que o player toca. Ver musicacifra.pas. }
+function Nova_Decifra_Musica(const Origem, Destino: string; Chave: LongInt): Boolean;
+var
+  Gravadora, Erro: string;
+begin
+  Result := DecifraMusica(Origem, Destino, Chave, Gravadora, Erro);
+  if Result then
+    TIMER1GRAVADORA := Gravadora
+  else
+    Gravalog('Musica: nao consegui preparar ' + Origem + ' (' + Erro + ')');
+end;
+
+{ ---------------------------------------------------------------------------------------------------------------
+  Licença (licenca.pas). Usa a tela de ativação da original (PanelAtivacao): sem licença válida ela fica por cima, as
+  teclas da jukebox não respondem (só o campo da contra-senha) e a fila não toca. }
+
+type
+  TNovaLicenca = class
+  private
+    FPasta: string;
+    FCodigo: string;
+    FBloqueada: Boolean;
+    FTimer: TTimer;
+    FTicks: Integer;
+    FAvisoAte: TDateTime;
+    FAntigoKeyDown, FAntigoKeyUp: TKeyEvent;
+    procedure Bloqueia(const Titulo: string);
+    procedure Libera;
+    procedure Confere;
+  public
+    constructor Create(const APasta: string);
+    procedure AtivarClick(Sender: TObject);
+    procedure KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure Tick(Sender: TObject);
+  end;
+
+const
+  TEXTO_ATIVACAO4 = ' Digite o Número Informado pela Empresa no Campo Abaixo e Clique em Ativar';
+
+var
+  NovaLicenca: TNovaLicenca = nil;
+
+constructor TNovaLicenca.Create(const APasta: string);
+begin
+  inherited Create;
+  FPasta := APasta;
+  FAntigoKeyDown := Form1.OnKeyDown;
+  FAntigoKeyUp := Form1.OnKeyUp;
+  Form1.OnKeyDown := @KeyDown;
+  Form1.OnKeyUp := @KeyUp;
+  Form1.ButtonAtivar.OnClick := @AtivarClick;
+  FTimer := TTimer.Create(Form1);
+  FTimer.Interval := 500;
+  FTimer.OnTimer := @Tick;
+  if NOVA_CHAVE_DESENVOLVIMENTO then
+    Gravalog('Licenca: ATENCAO, compilado com a chave de DESENVOLVIMENTO (qualquer um gera contra-senha)');
+  Confere;
+  FTimer.Enabled := True;
+end;
+
+procedure TNovaLicenca.Confere;
+var
+  L: TLicenca;
+begin
+  L := LeLicenca(FPasta, Now);
+  FCodigo := L.Codigo;
+  case L.Estado of
+    elValida:
+      begin
+        if L.Validade = LICENCA_PERMANENTE then
+          Gravalog('Licenca: valida, permanente (maquina ' + FCodigo + ')')
+        else
+          Gravalog('Licenca: valida ate ' + FormatDateTime('dd"/"mm"/"yyyy', ValidadeParaData(L.Validade)) +
+            ' (maquina ' + FCodigo + ')');
+        { guarda o dia de hoje: atrasar o relógio depois não estende a validade }
+        GravaLicenca(FPasta, FCodigo, L.ContraSenha, L.Hoje);
+        if FBloqueada then
+          Libera;
+      end;
+    elVencida:
+      begin
+        Gravalog('Licenca: vencida (maquina ' + FCodigo + ')');
+        Bloqueia('Licença Vencida');
+      end;
+  else
+    Gravalog('Licenca: ' + DescreveEstado(L.Estado) + ' (maquina ' + FCodigo + ')');
+    Bloqueia('Ativação da Jukebox');
+  end;
+end;
+
+procedure TNovaLicenca.Bloqueia(const Titulo: string);
+begin
+  FBloqueada := True;
+  Form1.LabelAtivacao1.Caption := Titulo;
+  Form1.LabelAtivacao2.Caption := FCodigo;
+  Form1.LabelAtivacao4.Caption := TEXTO_ATIVACAO4;
+  Form1.LabelAtivacao4.Font.Color := clTeal;
+  Form1.EditSenhaAtivacao.Text := '';
+  Form1.PanelAtivacao.Align := alClient;
+  Form1.PanelAtivacao.Show;
+  Form1.PanelAtivacao.BringToFront;
+  Form1.TimerTocar.Enabled := False;
+  if Form1.Play.Running then
+    Form1.Play.Stop;
+  { o foco no campo vem no Tick: aqui a janela pode ainda não estar na tela }
+end;
+
+procedure FocaSemErro(Controle: TWinControl);
+begin
+  try
+    if Form1.Showing and Controle.CanFocus then
+      Controle.SetFocus;
+  except
+    { a janela ainda não aceita foco: tenta no próximo Tick }
+  end;
+end;
+
+procedure TNovaLicenca.Libera;
+begin
+  FBloqueada := False;
+  Form1.PanelAtivacao.Hide;
+  Form1.TimerTocar.Enabled := True;
+  FocaSemErro(Form1);
+end;
+
+procedure TNovaLicenca.AtivarClick(Sender: TObject);
+var
+  Validade: Integer;
+  Estado: TEstadoLicenca;
+begin
+  Estado := ConfereContraSenha(FCodigo, Form1.EditSenhaAtivacao.Text, NOVA_CHAVE_LICENCA, Now, Validade);
+  if Estado = elValida then
+  begin
+    GravaLicenca(FPasta, FCodigo, Form1.EditSenhaAtivacao.Text, Now);
+    Gravalog('Licenca: ativada (maquina ' + FCodigo + ')');
+    { a mesma tela de "Ativação OK" da original; a Nova libera sem precisar desligar }
+    Form1.PanelAtivacao.Hide;
+    Form1.PanelErro.Align := alClient;
+    Form1.LabelErro1.Caption := 'Ativação';
+    Form1.LabelErro2.Caption := 'OK';
+    Form1.MemoErro.Caption := 'Ativação OK';
+    Form1.PanelErro.Show;
+    Form1.PanelErro.BringToFront;
+    FAvisoAte := Now + 4 / SecsPerDay;
+    FBloqueada := False;
+    Form1.TimerTocar.Enabled := True;
+  end
+  else
+  begin
+    Gravalog('Licenca: tentativa de ativacao recusada: ' + DescreveEstado(Estado));
+    if Estado = elVencida then
+      Form1.LabelAtivacao4.Caption := ' Este Número Já Venceu. Ligue para a Empresa'
+    else
+      Form1.LabelAtivacao4.Caption := ' Número Errado. Confira e Digite de Novo';
+    Form1.LabelAtivacao4.Font.Color := clRed;
+    Form1.EditSenhaAtivacao.Text := '';
+    FAvisoAte := Now + 5 / SecsPerDay;
+  end;
+end;
+
+procedure TNovaLicenca.KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if FBloqueada then
+  begin
+    if Form1.ActiveControl = Form1.EditSenhaAtivacao then
+    begin
+      if Key = VK_RETURN then
+      begin
+        Key := 0;
+        AtivarClick(nil);
+      end;
+    end
+    else
+      Key := 0;  // a jukebox não responde sem licença
+    Exit;
+  end;
+  if Assigned(FAntigoKeyDown) then
+    FAntigoKeyDown(Sender, Key, Shift);
+end;
+
+procedure TNovaLicenca.KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+begin
+  if FBloqueada then
+  begin
+    if Form1.ActiveControl <> Form1.EditSenhaAtivacao then
+      Key := 0;
+    Exit;
+  end;
+  if Assigned(FAntigoKeyUp) then
+    FAntigoKeyUp(Sender, Key, Shift);
+end;
+
+procedure TNovaLicenca.Tick(Sender: TObject);
+begin
+  if (FAvisoAte <> 0) and (Now >= FAvisoAte) then
+  begin
+    FAvisoAte := 0;
+    if FBloqueada then
+    begin
+      Form1.LabelAtivacao4.Caption := TEXTO_ATIVACAO4;
+      Form1.LabelAtivacao4.Font.Color := clTeal;
+    end
+    else if Form1.PanelErro.Visible and (Form1.LabelErro1.Caption = 'Ativação') then
+    begin
+      Form1.PanelErro.Hide;
+      FocaSemErro(Form1);
+    end;
+  end;
+  if FBloqueada then
+  begin
+    { a original mexe nos painéis e timers por conta própria: a ativação fica por cima }
+    if not Form1.PanelAtivacao.Visible then
+      Form1.PanelAtivacao.Show;
+    Form1.PanelAtivacao.BringToFront;
+    Form1.TimerTocar.Enabled := False;
+    if Form1.ActiveControl <> Form1.EditSenhaAtivacao then
+      FocaSemErro(Form1.EditSenhaAtivacao);
+  end;
+  { confere de novo a cada hora (a licença pode vencer com a jukebox ligada) }
+  Inc(FTicks);
+  if FTicks >= 7200 then
+  begin
+    FTicks := 0;
+    Confere;
+  end;
+end;
+
+procedure Nova_Inicia_Licenca;
+var
+  PastaJuke: string;
+begin
+  PastaJuke := PASTA;  // a global (o nome da local não pode ser Pasta: o Pascal não diferencia maiúsculas)
+  if PastaJuke = '' then
+    PastaJuke := PASTA_JUKELINUX;
+  NovaLicenca := TNovaLicenca.Create(PastaJuke);
 end;
