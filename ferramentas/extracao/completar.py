@@ -153,7 +153,7 @@ def campo_cd(desl):
 
 
 IDX = r'(\((?:[^()]|\([^()]*\))*\)|[A-Za-z_]\w*)'
-CAST = r'\*\(\s*(?:undefined[124]?|u?int|char\s*\*|undefined\s*\*)\s*\*\s*\)\s*'
+CAST = r'\*\(\s*(?:undefined[124]?|u?int|char|byte)\s*\*\s*\*?\s*\)\s*'
 FORMAS_CD = [
     # (regex, como achar o deslocamento, tem índice k?)
     (re.compile(CAST + r'\(\s*U_JUKELINUX1_ARQLOG \+ ' + IDX + r' \* 0x240 \+ (0x[0-9a-f]+)\s*\)'), 'arqlog', False),
@@ -316,6 +316,14 @@ class Tradutor:
             corpo = re.escape(base) + r' \+ ' + IDX + r' \* 4 \+ (0x[0-9a-f]+|-\d+)'
             c = re.sub(CAST + r'\(\s*' + corpo + r'\s*\)', vl, c)
             c = re.sub(r'\b' + corpo, vl, c)
+        # (int)&U_JUKELINUX1_G + i * 0x240 + k: byte k do campo G do CD i (o comprimento de um String[n])
+        def campo_byte(m):
+            g, idx, k = m.group(1), m.group(2), int(m.group(3), 0)
+            if g not in GLOBAL_NO_CD:
+                return m.group(0)
+            campo, tipo = campo_cd(GLOBAL_NO_CD[g] + k)
+            return fixo(f'MAT[{self.num_de(self.novo().traduz(idx))}].{campo}', tipo)
+        c = re.sub(CAST + r'\(\s*\(int\)&U_JUKELINUX1_(\w+) \+ ' + IDX + r' \* 0x240 \+ (\d+)\s*\)', campo_byte, c)
         # propriedade de componente que o gerador escreveu com "?" (deslocamento conferido à mão): Form1.X.Left?
         c = re.sub(r'\b(Form1\.\w+)\.(Left|Top|Width|Height)\?', lambda m: fixo(f'{m.group(1)}.{m.group(2)}', 'num'), c)
         for nome_v, (base, campos, n) in VETORES_REGISTRO.items():
@@ -504,6 +512,7 @@ class Tradutor:
         return k == 'nome' and v.lower() in TIPOS_C
 
     def conversao(self):
+        ini = self.i
         self.pega('(')
         ponteiro = False
         while self.olha()[1] != ')':
@@ -513,7 +522,10 @@ class Tradutor:
             elif not (k == 'nome' and v.lower() in TIPOS_C):
                 raise Falha('conversão desconhecida')
         self.pega(')')
+        tipos_conv = [t for t in re.findall(r'\w+', ' '.join(v for _, v in self.t[ini:self.i]))]
         e = self.unario()
+        if not ponteiro and e[1] == 'char' and any(t in ('byte', 'uint', 'int', 'uchar') for t in tipos_conv):
+            return (f'Ord({e[0]})', 'num')
         if ponteiro:
             if e[0] == '0':
                 return ('nulo', 'nulo')
@@ -573,7 +585,7 @@ class Tradutor:
         'SYSTEM_POS_ANSISTRING_ANSISTRING__LONGINT': ('Pos', ('texto', 'texto'), 'num'),
         'SYSUTILS_STRTOINTDEF_ANSISTRING_LONGINT__LONGINT': ('StrToIntDef', ('texto', 'num'), 'num'),
     }
-    # Devolvem 0 quando os textos são iguais.
+    # Devolvem 0 quando os textos são iguais (as sem _equal também dizem a ordem: CompareStr).
     COMPARA = {'fpc_ansistr_compare_equal', 'FPC_SHORTSTR_COMPARE_EQUAL', 'fpc_ansistr_compare',
                'fpc_shortstr_compare'}
 
@@ -610,6 +622,9 @@ class Tradutor:
             args = self.argumentos()
             if len(args) != 2 or {args[0][1], args[1][1]} - {'texto', 'char'}:
                 raise Falha(f'{v}: argumentos')
+            if v in ('fpc_ansistr_compare', 'fpc_shortstr_compare'):
+                # ordem (negativo, 0, positivo), usada para ordenar: não só igual/diferente
+                return (f'CompareStr({args[0][0]}, {args[1][0]})', 'num')
             return (f'Ord({args[0][0]} <> {args[1][0]})', 'num')
         raise Falha(f'chamada de {v}')
 
@@ -760,6 +775,14 @@ def chamada(nome, args, destino, tr):
         return f'DeleteFile({texto_de(args[0], tr)});'
     if nome == 'SYSUTILS_REMOVEDIR_ANSISTRING__BOOLEAN' and n == 1:
         return f'RemoveDir({texto_de(args[0], tr)});'
+    if nome == 'fpc_read_text_ansistr' and n == 2:
+        arq, tipo = tr.resolve(args[0].strip())
+        if tipo != 'arquivo':
+            raise Falha('Read fora de arquivo texto')
+        dest, td = tr.destino(args[1])
+        if td != 'texto':
+            raise Falha('Read em destino não texto')
+        return f'Read({arq}, {dest});'
     if nome == 'fpc_shortstr_copy' and n == 4:
         ini, qtd = tr.num_de(tr.traduz(args[1])), tr.num_de(tr.traduz(args[2]))
         return _atribui(tr, args[3], f'Copy({texto_de(args[0], tr)}, {ini}, {qtd})', 'texto')
@@ -919,6 +942,8 @@ def virtual(m, tr):
             return f'{lista}.Add({texto_de(args[1], tr)});'
         if vmt == '0xb8' and len(args) == 1 and not destino:        # TStrings.Clear
             return f'{lista}.Clear;'
+        if vmt == '0x8c' and len(args) == 3 and not destino:        # TStrings.Put
+            return f'{lista}[{tr.num_de(tr.traduz(args[1]))}] := {texto_de(args[2], tr)};'
     if vmt == '0x450' and len(args) == 1 and destino:  # TCustomCheckBox.GetChecked (RadioButton/CheckBox)
         comp, classe = componente(args[0], tr)
         if classe not in ('TRadioButton', 'TCheckBox'):
@@ -927,6 +952,11 @@ def virtual(m, tr):
         if tipo != 'bool':
             raise Falha('Checked em destino não Boolean')
         return f'{nome} := Form1.{comp}.Checked;'
+    if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xd8' and len(args) == 2 and not destino:  # TCustomTimer.SetEnabled
+        comp, classe = componente(args[0], tr)
+        if classe != 'TTimer':
+            raise Falha('SetEnabled fora de TTimer')
+        return f'Form1.{comp}.Enabled := {booleano_de_registrador(args[1])};'
     if obj == 'U_JUKELINUX1_FORM1' and vmt == '0xdc' and len(args) == 2 and not destino:  # TCustomTimer.SetInterval
         comp, classe = componente(args[0], tr)
         if classe != 'TTimer':
@@ -981,6 +1011,24 @@ def comando(c, tr):
     m = VIRTUAL.match(c)
     if m:
         return virtual(m, tr)
+    m = re.match(r'^(\w+) = SYSTEM_POS_CHAR_ANSISTRING__LONGINT\s*\((0x[0-9a-f]+|\d+),\s*(.+)\);$', c)
+    if m:
+        ch = chr(int(m.group(2), 0))
+        return _atribui(tr, m.group(1), f'Pos({literal_pascal(ch)}, {texto_de(m.group(3), tr)})', 'num')
+    m = re.match(r'^(\w+) = STDCTRLS_TCUSTOMLISTBOX____GETSELECTED_LONGINT__BOOLEAN\s*\((Form1\.\w+),(.+)\);$', c)
+    if m:
+        comp, _ = componente(m.group(2), tr)
+        if tr.locais.get(m.group(1).upper()) != 'bool':
+            raise Falha('Selected em destino não Boolean')
+        return f'{m.group(1)} := Form1.{comp}.Selected[{tr.num_de(tr.traduz(m.group(3)))}];'
+    # método virtual chamado direto no objeto: ( **(code ** )( *(int * )Form1.X + VMT))(Form1.X, ...)
+    m = re.match(r'^\(\s*\*\*\(code\s*\*\*\s*\)\(\s*\*\(int\s*\*\s*\)(Form1\.\w+) \+ (0x[0-9a-f]+)\)\)\s*\((.*)\);$', c)
+    if m:
+        comp, classe = componente(m.group(1), tr)
+        args = separa_args(m.group(3))
+        if m.group(2) == '0xdc' and classe == 'TTimer' and len(args) == 2 and args[0].strip() == m.group(1):
+            return f'Form1.{comp}.Interval := {tr.num_de(tr.traduz(args[1]))};'
+        raise Falha('método virtual direto desconhecido')
     m = re.match(r'^(\w+) = SYSTEM_EOF_file__BOOLEAN\((U_JUKELINUX1_\w+)\);$', c)
     if m:
         arq, tipo = tr.resolve(m.group(2))
@@ -1018,7 +1066,8 @@ def comando(c, tr):
             return f"{destino} := {alvo}.{'Playing' if metodo.startswith('PLAYING') else 'Running'};"
         raise Falha('chamada do player desconhecida')
     m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?'
-                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[|\b0x26\b|U_JUKELINUX1_ACARM\[)[^=;]*?) = (.+);$', c)
+                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[|\b0x26\b|U_JUKELINUX1_ACARM\[|U_JUKELINUX1_ARQLOG|0x8e9[0-9a-f]+)[^=;]*?)'
+                 r' = (.+);$', c)
     if m:
         if m.group(1).upper() in tr.ptrs and m.group(1).upper() not in tr.locais:
             raise Falha('apelido de ponteiro (puVar = x) não é atribuição')
@@ -1444,6 +1493,9 @@ def le_rotinas(texto):
     """Rotinas do próprio programa: nome do Ghidra (JUKELINUX1_X_ANSISTRING__ANSISTRING) -> (nome Pascal, tipos dos
     parâmetros, tipo do resultado ou None), pelos comentários { JUKELINUX1_X$ANSISTRING$$ANSISTRING } dos cabeçalhos."""
     rotinas = {}
+    for m in re.finditer(r'\{ (JUKELINUX1_TFORM1_\$__(\w+)\$TOBJECT) \}\nprocedure TForm1\.(\w+)\(Sender: TObject\);', texto):
+        # evento do formulário chamado direto (JUKELINUX1_TFORM1____X_TOBJECT(Form1, Sender))
+        rotinas[m.group(1).replace('$', '_')] = ('Form1.' + m.group(3), ['evento'], None)
     for m in re.finditer(r'\{ (JUKELINUX1_[\w$]+) \}\n(procedure|function) (\w+)(?:\(([^)]*)\))?(?:: (\w+))?;', texto):
         tipos = []
         for grupo in (m.group(4) or '').split(';'):
@@ -1465,6 +1517,14 @@ def le_rotinas(texto):
 def chamada_rotina(nome, args, destino, tr):
     """Chamada de uma rotina do próprio programa. Função que devolve texto: o resultado vem no último argumento."""
     pascal, tipos, res = tr.rotinas[nome]
+    if tipos == ['evento']:
+        if len(args) != 2 or destino:
+            raise Falha('evento com argumentos')
+        return f'{pascal}(Form1);'
+    # argumentos de registrador que o Ghidra juntou no fim (Sender, Self, param_n)
+    esperado = len(tipos) + (1 if res == 'texto' and not destino else 0)
+    while len(args) > esperado and re.fullmatch(r'Sender|Self|param_\d+|extraout_\w+', args[-1].strip()):
+        args = args[:-1]
     if res == 'texto' and not destino:
         if len(args) != len(tipos) + 1:
             raise Falha('argumentos da rotina')
