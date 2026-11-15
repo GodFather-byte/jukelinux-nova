@@ -52,10 +52,24 @@ jobs:
       - name: Montar o pacote de instalação
         run: |
           mkdir pacote
-          cp jukelinux instalacao/instalar.sh instalacao/pix.txt.exemplo pacote/
+          cp jukelinux instalacao/instalar.sh instalacao/pix.txt.exemplo instalacao/LEIA-ME.txt pacote/
 
       - uses: actions/upload-artifact@v4
         with:
           name: jukelinux-nova-linux-x86_64
           path: pacote/
+          if-no-files-found: error
+
+      # Gerador de contra-senhas com a mesma chave do executável acima. Fica num pacote separado: é da empresa e
+      # NÃO vai para as máquinas (com a chave de desenvolvimento, serve só para testes).
+      - name: Compilar o gerador de contra-senhas
+        run: |
+          mkdir -p gerador /tmp/gerador-u
+          fpc -Mobjfpc -Sh -O2 -Fusrc -Fisrc -FU/tmp/gerador-u -FEgerador ferramentas/licenca/gerar_contrasenha.lpr >/dev/null
+          ./gerador/gerar_contrasenha 0000-0000-0000-0000 | grep -q "Contra-senha"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gerador-contrasenha-linux-x86_64
+          path: gerador/gerar_contrasenha
           if-no-files-found: error
