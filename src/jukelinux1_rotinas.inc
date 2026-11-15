@@ -251,13 +251,13 @@ begin
     if (local_c = '') { C convertido: local_c == (undefined1 * )0x0 } then begin
     end;
     local_3c := local_c;  // C convertido: fpc_pchar_to_ansistr(puVar4,local_3c);
-    // C: uVar1 = local_3c[0];
+    local_3c := local_3c;  // C convertido: uVar1 = local_3c[0];
     local_4c := 0;
     // C: puVar4 = local_8;
     if (local_8 = '') { C convertido: local_8 == (undefined1 * )0x0 } then begin
     end;
-    // C: fpc_pchar_to_ansistr(puVar4,&local_4c);
-    // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_4c,uVar1,extraout_ECX & 0xffffff00);
+    ;  // apelido: local_4c = local_8  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_4c);
+    CopyFile(local_8, local_3c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_4c,uVar1,extraout_ECX & 0xffffff00);
     Sleep(25);
   end;
   local_4c := 0;
@@ -2221,7 +2221,7 @@ begin
                 if (local_24c = '') { C convertido: local_24c == (undefined1 * )0x0 } then begin
                 end;
                 local_354 := local_24c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_354);
-                // C: uVar1 = local_354;
+                local_354 := local_354;  // C convertido: uVar1 = local_354;
                 local_358 := '';
                 local_35c := '';
                 local_35c := PASTA + 'creditos.txt';
@@ -2229,7 +2229,7 @@ begin
                 if (local_35c = '') { C convertido: local_35c == (undefined1 * )0x0 } then begin
                 end;
                 local_358 := local_35c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_358);
-                // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_358,uVar1,extraout_ECX & 0xffffff00);
+                CopyFile(local_358, local_354, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_358,uVar1,extraout_ECX & 0xffffff00);
               end;
               if 0 < CREDITOSBONUS then begin
                 FORM1.Refresh;
@@ -2840,6 +2840,7 @@ begin
   local_18 := '';
   local_1c := '';
   local_20 := '';
+  Result := local_c;  // completar: local_c é o resultado (ponteiro do C)
 end;
 
 { JUKELINUX1_CRIPTA$ANSISTRING$$ANSISTRING }
@@ -6355,7 +6356,7 @@ begin
           local_c := local_c + 1;
           local_dc := '';
           local_dc := MAT[(local_8 + 5)].Genero;  // C convertido: fpc_shortstr_to_ansistr((local_8 + 5) * 0x240 + 0x8e91128,&local_dc);
-          // C: uVar1 = local_dc;
+          local_dc := local_dc;  // C convertido: uVar1 = local_dc;
           local_e0 := 0;
           // C: ( **(code ** )( **(int ** )(Form1.ComboBoxMG6 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBoxMG6 + 0x36c),local_c,&local_e0 );
           if local_e0 = uVar1 then begin
@@ -6465,7 +6466,7 @@ begin
         if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_34 := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,local_34);
-        // C: uVar4 = local_34[0];
+        local_34 := local_34;  // C convertido: uVar4 = local_34[0];
         local_13c := '';
         local_140 := '';
         local_140 := PASTA + 'tocarx.txt';
@@ -6473,7 +6474,7 @@ begin
         if (local_140 = '') { C convertido: local_140 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_140;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-        // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar4,extraout_ECX & 0xffffff00);
+        CopyFile(local_13c, local_34, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar4,extraout_ECX & 0xffffff00);
         SELECIONADAS := 0;
         local_13c := '';
         local_13c := PASTA + 'tocar.txt';
@@ -6496,7 +6497,7 @@ begin
           if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
           end;
           local_13c := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-          // C: uVar4 = local_13c;
+          local_13c := local_13c;  // C convertido: uVar4 = local_13c;
           local_148 := '';
           local_14c := '';
           local_14c := PASTA + 'tocar.txt';
@@ -6504,7 +6505,7 @@ begin
           if (local_14c = '') { C convertido: local_14c == (undefined1 * )0x0 } then begin
           end;
           local_148 := local_14c;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_148);
-          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_148,uVar4,extraout_ECX_00 & 0xffffff00);
+          CopyFile(local_148, local_13c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_148,uVar4,extraout_ECX_00 & 0xffffff00);
         end;
       end;
       if SELECIONADAS < 100 then begin
@@ -6557,18 +6558,18 @@ begin
         KLJ := KLJ + 1;
         local_3c := '';
         local_3c := UpperCase(local_8);
-        // C: iVar4 = fpc_ansistr_compare_equal (local_3c[0],*(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bf8));
+        iVar4 := Ord(local_3c <> LJ[KLJ].Nome);  // C convertido: iVar4 = fpc_ansistr_compare_equal (local_3c[0],*(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bf8));
         if iVar4 = 0 then begin
           local_3c := '';
           local_48 := PASTA;
           local_44 := 'letras/';
-          // C: local_40 = *(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bfc);
+          local_40 := LJ[KLJ].Jpg;  // C convertido: local_40 = *(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bfc);
           local_3c := local_48 + local_44 + local_40;
           cVar2 := FileExists(local_3c);
           if cVar2 then begin
             local_48 := PASTA;
             local_44 := 'letras/';
-            // C: local_40 = *(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bfc);
+            local_40 := LJ[KLJ].Jpg;  // C convertido: local_40 = *(undefined4 * )(U_JUKELINUX1_KLJ * 8 + 0x9300bfc);
             local_c := local_48 + local_44 + local_40;
           end;
         end;
@@ -6576,6 +6577,7 @@ begin
     end;
   end;
   local_3c := '';
+  Result := local_c;  // completar: local_c é o resultado (ponteiro do C)
 end;
 
 { JUKELINUX1_MOSTRA_JPG_RITMO$ANSISTRING$$ANSISTRING }
@@ -6596,18 +6598,18 @@ begin
       KRJ := 0;
       repeat
         KRJ := KRJ + 1;
-        // C: iVar4 = fpc_ansistr_compare_equal(local_8,*(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008c8));
+        iVar4 := Ord(local_8 <> RJ[KRJ].Nome);  // C convertido: iVar4 = fpc_ansistr_compare_equal(local_8,*(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008c8));
         if iVar4 = 0 then begin
           local_3c := '';
           local_48 := PASTA;
           local_44 := 'ritmos/';
-          // C: local_40 = *(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008cc);
+          local_40 := RJ[KRJ].Jpg;  // C convertido: local_40 = *(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008cc);
           local_3c := local_48 + local_44 + local_40;
           cVar2 := FileExists(local_3c);
           if cVar2 then begin
             local_48 := PASTA;
             local_44 := 'ritmos/';
-            // C: local_40 = *(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008cc);
+            local_40 := RJ[KRJ].Jpg;  // C convertido: local_40 = *(undefined4 * )(U_JUKELINUX1_KRJ * 8 + 0x93008cc);
             local_c := local_48 + local_44 + local_40;
           end;
         end;
@@ -6615,6 +6617,7 @@ begin
     end;
   end;
   local_3c := '';
+  Result := local_c;  // completar: local_c é o resultado (ponteiro do C)
 end;
 
 { JUKELINUX1_MOSTRA_LETRAS }
@@ -7490,7 +7493,7 @@ begin
           if (local_64 = '') { C convertido: local_64[0] == (undefined1 * )0x0 } then begin
           end;
           // C: fpc_pchar_to_ansistr(puVar5,&local_168);
-          // C: uVar1 = local_168;
+          local_168 := local_168;  // C convertido: uVar1 = local_168;
           local_16c := '';
           local_170 := '';
           local_170 := PASTA + 'creditos.txt';
@@ -7498,7 +7501,7 @@ begin
           if (local_170 = '') { C convertido: local_170 == (undefined1 * )0x0 } then begin
           end;
           local_16c := local_170;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_16c);
-          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_16c,uVar1,extraout_ECX & 0xffffff00);
+          CopyFile(local_16c, local_168, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_16c,uVar1,extraout_ECX & 0xffffff00);
         end;
         local_174 := '';
         local_174 := IntToStr(CREDITOS);
@@ -7715,7 +7718,7 @@ begin
         if (local_30 = '') { C convertido: local_30[0] == (undefined1 * )0x0 } then begin
         end;
         // C: fpc_pchar_to_ansistr(puVar3,&local_134);
-        // C: uVar1 = local_134;
+        local_134 := local_134;  // C convertido: uVar1 = local_134;
         local_138 := '';
         local_13c := '';
         local_13c := PASTA + 'creditos.txt';
@@ -7723,7 +7726,7 @@ begin
         if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_138);
-        // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_138,uVar1,extraout_ECX & 0xffffff00);
+        CopyFile(local_138, local_134, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_138,uVar1,extraout_ECX & 0xffffff00);
       end;
       NOMEARQ := PASTA + 'creditosvip.txt';
       local_130 := NOMEARQ;
@@ -7839,7 +7842,7 @@ begin
         if (local_134 = '') { C convertido: local_134 == (undefined1 * )0x0 } then begin
         end;
         local_138 := local_134;  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_138);
-        // C: uVar1 = local_138;
+        local_138 := local_138;  // C convertido: uVar1 = local_138;
         local_13c := '';
         local_140 := '';
         local_140 := PASTA + 'creditos.txt';
@@ -7847,7 +7850,7 @@ begin
         if (local_140 = '') { C convertido: local_140 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_140;  // C convertido: fpc_pchar_to_ansistr(puVar4,&local_13c);
-        // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar1,extraout_ECX & 0xffffff00);
+        CopyFile(local_13c, local_138, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_13c,uVar1,extraout_ECX & 0xffffff00);
       end;
       local_144 := '';
       local_144 := IntToStr(CREDITOS);
@@ -8571,7 +8574,7 @@ begin
             if (local_50 = '') { C convertido: local_50 == (undefined1 * )0x0 } then begin
             end;
             local_154 := local_50;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_154);
-            // C: uVar1 = local_154;
+            local_154 := local_154;  // C convertido: uVar1 = local_154;
             local_158 := '';
             local_15c := '';
             local_15c := PASTA + 'creditos.txt';
@@ -8579,7 +8582,7 @@ begin
             if (local_15c = '') { C convertido: local_15c == (undefined1 * )0x0 } then begin
             end;
             local_158 := local_15c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_158);
-            // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_158,uVar1,extraout_ECX & 0xffffff00);
+            CopyFile(local_158, local_154, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_158,uVar1,extraout_ECX & 0xffffff00);
           end;
           CREDITOSVIP := CREDITOSVIP + QTDCREDITOSGRATISVIP;
           NOMEARQ := PASTA + 'creditosvip.txt';
@@ -8752,7 +8755,7 @@ begin
                 if (local_130 = '') { C convertido: local_130 == (undefined1 * )0x0 } then begin
                 end;
                 local_13c := local_130;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_13c);
-                // C: uVar1 = local_13c;
+                local_13c := local_13c;  // C convertido: uVar1 = local_13c;
                 local_244 := '';
                 local_248 := '';
                 local_248 := PASTA + 'tocar.txt';
@@ -8760,7 +8763,7 @@ begin
                 if (local_248 = '') { C convertido: local_248 == (undefined1 * )0x0 } then begin
                 end;
                 local_244 := local_248;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_244);
-                // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar1,extraout_ECX_00 & 0xffffff00);
+                CopyFile(local_244, local_13c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar1,extraout_ECX_00 & 0xffffff00);
               end;
             end;
             local_244 := '';
@@ -12448,7 +12451,7 @@ begin
       if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
       local_138 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_138);
-      // C: uVar1 = local_138;
+      local_138 := local_138;  // C convertido: uVar1 = local_138;
       local_140 := '';
       local_144 := '';
       local_144 := PASTA + 'interfaceteclado.txt';
@@ -12456,7 +12459,7 @@ begin
       if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
       local_140 := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
-      // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
+      CopyFile(local_140, local_138, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
       Gravalog('Gravou Automaticamente o Arquivo "interfaceteclado.txt" do HD para o Pendrive');
     end;
     local_140 := '';
@@ -12911,7 +12914,7 @@ begin
                           if (ORIGEM = '') { C convertido: U_JUKELINUX1_ORIGEM == (undefined1 * )0x0 } then begin
                           end;
                           local_1138 := ORIGEM;  // C convertido: fpc_pchar_to_ansistr(puVar8,&local_1138);
-                          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_1138,pcVar1,1);
+                          CopyFile(local_1138, local_1134, True);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_1138,pcVar1,1);
                           local_10 := local_10 + 1;
                         end;
                       end;
@@ -13462,11 +13465,12 @@ procedure TForm1.ButtonSalvarFrasesClick(Sender: TObject);
 var
   local_134: AnsiString;
   cVar3: Boolean;
-  iVar1, iVar2, local_138: LongInt;
+  iVar1, iVar2: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_138: AnsiString;  // completar: recebe o texto de um componente
 begin
-  local_138 := 0;
+  local_138 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -13500,44 +13504,44 @@ begin
       local_134 := NOMEARQ;
       AssignFile(ARQTEXTO, local_134);
       Rewrite(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase1,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase1.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase1,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase2,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase2.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase2,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase3,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase3.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase3,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase4,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase4.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase4,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase5,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase5.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase5,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase6,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase6.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase6,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase7,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase7.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase7,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase8,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase8.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase8,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase9,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase9.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase9,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
-      local_138 := 0;
-      // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase10,&local_138);
+      local_138 := '';
+      local_138 := Form1.EditFrase10.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.EditFrase10,&local_138);
       Write(ARQTEXTO, local_138);
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
@@ -13567,7 +13571,7 @@ begin
       Form1.ButtonSalvarFrases.Caption := 'Clique Aqui para Alterar as Frases';
     end;
   end;
-  local_138 := 0;
+  local_138 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__BUTTONUPGRADECLICK$TOBJECT }
@@ -14136,15 +14140,15 @@ begin
       if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
       end;
       local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-      // C: uVar1 = local_13c;
+      local_13c := local_13c;  // C convertido: uVar1 = local_13c;
       local_140 := 0;
       local_144 := '';
       local_144 := PASTA + 'creditos.txt';
       // C: puVar3 = local_144;
       if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
-      // C: fpc_pchar_to_ansistr(puVar3,&local_140);
-      // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
+      ;  // apelido: local_140 = local_144  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_140);
+      CopyFile(local_144, local_13c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
     end;
     local_148 := '';
     local_148 := IntToStr(CREDITOS);
@@ -14187,16 +14191,16 @@ begin
       // C: puVar3 = local_13c;
       if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
       end;
-      // C: fpc_pchar_to_ansistr(puVar3,&local_138);
-      uVar1 := local_138;  // C convertido: uVar1 = local_138;
+      ;  // apelido: local_138 = local_13c  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_138);
+      local_13c := local_13c;  // C convertido: uVar1 = local_138;
       local_140 := 0;
       local_144 := '';
       local_144 := PASTA + 'tocar.txt';
       // C: puVar3 = local_144;
       if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
       end;
-      // C: fpc_pchar_to_ansistr(puVar3,&local_140);
-      // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
+      ;  // apelido: local_140 = local_144  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_140);
+      CopyFile(local_144, local_13c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
     end;
     Mostra_Fila;
     Form1.ButtonZerarFila.Caption := 'Fila Zerada';
@@ -14588,13 +14592,14 @@ end;
 procedure TForm1.ComboBox10Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14605,9 +14610,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox10,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox10.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox10,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox10.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox10 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox10 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14645,20 +14650,21 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX11CHANGE$TOBJECT }
 procedure TForm1.ComboBox11Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14669,9 +14675,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox11,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox11.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox11,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox11.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox11 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox11 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14709,19 +14715,20 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX12CHANGE$TOBJECT }
 procedure TForm1.ComboBox12Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14732,9 +14739,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox12,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox12.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox12,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox12.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox12 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox12 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14767,20 +14774,21 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX13CHANGE$TOBJECT }
 procedure TForm1.ComboBox13Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14791,9 +14799,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox13,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox13.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox13,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox13.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox13 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox13 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14831,20 +14839,21 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX14CHANGE$TOBJECT }
 procedure TForm1.ComboBox14Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14855,9 +14864,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox14,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox14.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox14,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox14.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox14 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox14 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14895,20 +14904,21 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX15CHANGE$TOBJECT }
 procedure TForm1.ComboBox15Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14919,9 +14929,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox15,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox15.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox15,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox15.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox15 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox15 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -14959,20 +14969,21 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX16CHANGE$TOBJECT }
 procedure TForm1.ComboBox16Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -14983,9 +14994,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox16,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox16.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox16,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox16.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox16 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox16 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15023,7 +15034,7 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX18CHANGE$TOBJECT }
@@ -15362,13 +15373,14 @@ end;
 procedure TForm1.ComboBox22Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15379,9 +15391,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox22,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox22.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox22,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox22.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox22 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox22 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15419,20 +15431,21 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX23CHANGE$TOBJECT }
 procedure TForm1.ComboBox23Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15443,9 +15456,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox23,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox23.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox23,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox23.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox23 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox23 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15483,19 +15496,20 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX2CHANGE$TOBJECT }
 procedure TForm1.ComboBox2Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15506,9 +15520,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox2,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox2.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox2,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox2.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox2 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox2 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15542,19 +15556,20 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX3CHANGE$TOBJECT }
 procedure TForm1.ComboBox3Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15565,9 +15580,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox3,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox3.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox3,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox3.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox3 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox3 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15625,19 +15640,20 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX4CHANGE$TOBJECT }
 procedure TForm1.ComboBox4Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15648,9 +15664,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox4,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox4.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox4,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox4.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox4 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox4 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15690,19 +15706,20 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX5CHANGE$TOBJECT }
 procedure TForm1.ComboBox5Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15713,9 +15730,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox5,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox5.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox5,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox5.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox5 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox5 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15749,19 +15766,20 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX6CHANGE$TOBJECT }
 procedure TForm1.ComboBox6Change(Sender: TObject);
 var
   local_13c, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15772,9 +15790,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox6,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox6.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox6,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox6.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox6 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox6 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15822,22 +15840,23 @@ begin
     end;
   end;
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX7CHANGE$TOBJECT }
 procedure TForm1.ComboBox7Change(Sender: TObject);
 var
   local_13c, local_140, local_144, local_148, local_248, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_148 := '';
   local_144 := '';
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15848,9 +15867,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox7,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox7.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox7,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox7.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox7 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox7 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -15926,21 +15945,22 @@ begin
   local_144 := '';
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX8CHANGE$TOBJECT }
 procedure TForm1.ComboBox8Change(Sender: TObject);
 var
   local_13c, local_140, local_144, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_144 := '';
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -15951,9 +15971,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox8,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox8.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox8,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox8.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox8 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox8 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -16007,20 +16027,21 @@ begin
   local_144 := '';
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOX9CHANGE$TOBJECT }
 procedure TForm1.ComboBox9Change(Sender: TObject);
 var
   local_13c, local_140, local_3c, local_40, local_44, local_48, uVar1: AnsiString;
-  iVar3, local_38: LongInt;
+  iVar3: LongInt;
   local_c: TForm1;
   local_8: TObject;
+  local_38: AnsiString;  // completar: recebe o texto de um componente
 begin
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
   local_c := Self;
   local_8 := Sender;
   begin
@@ -16031,9 +16052,9 @@ begin
       KKC := -1;
       repeat
         KKC := KKC + 1;
-        local_38 := 0;
-        // C: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox9,local_38);
-        // C: uVar1 = local_38[0];
+        local_38 := '';
+        local_38 := Form1.ComboBox9.Text;  // C convertido: CONTROLS_TCONTROL____GETTEXT__TTRANSLATESTRING(Form1.ComboBox9,local_38);
+        uVar1 := local_38;  // C convertido: uVar1 = local_38[0];
         local_3c := '';
         local_3c := Form1.ComboBox9.Items[KKC];  // C convertido: ( **(code ** )( **(int ** )(Form1.ComboBox9 + 0x36c) + 0x78)) ( *(undefined4 * )(Form1.ComboBox9 + 0x36c),U_JUKELINUX1_KKC,&local_3c);
         if local_3c = uVar1 then begin
@@ -16069,7 +16090,7 @@ begin
   end;
   local_140 := '';
   local_3c := '';
-  local_38 := 0;
+  local_38 := '';
 end;
 
 { JUKELINUX1_TFORM1_$__COMBOBOXMG1CHANGE$TOBJECT }
@@ -19810,9 +19831,9 @@ begin
           Readln(ARQTEXTO);
           KRJ := KRJ + 1;
           iVar5 := KRJ;
-          // C: *(char ** )(iVar5 * 8 + 0x93008c8) = U_JUKELINUX1_TEXTO1;
+          RJ[iVar5].Nome := TEXTO1;  // C convertido: *(char ** )(iVar5 * 8 + 0x93008c8) = U_JUKELINUX1_TEXTO1;
           iVar5 := KRJ;
-          // C: *(char ** )(iVar5 * 8 + 0x93008cc) = U_JUKELINUX1_TEXTO2;
+          RJ[iVar5].Jpg := TEXTO2;  // C convertido: *(char ** )(iVar5 * 8 + 0x93008cc) = U_JUKELINUX1_TEXTO2;
         end;
         TOTALRJ := KRJ;
         CloseFile(ARQTEXTO);
@@ -19985,9 +20006,9 @@ begin
           Readln(ARQTEXTO);
           KLJ := KLJ + 1;
           iVar5 := KLJ;
-          // C: *(char ** )(iVar5 * 8 + 0x9300bf8) = U_JUKELINUX1_TEXTO1;
+          LJ[iVar5].Nome := TEXTO1;  // C convertido: *(char ** )(iVar5 * 8 + 0x9300bf8) = U_JUKELINUX1_TEXTO1;
           iVar5 := KLJ;
-          // C: *(char ** )(iVar5 * 8 + 0x9300bfc) = U_JUKELINUX1_TEXTO2;
+          LJ[iVar5].Jpg := TEXTO2;  // C convertido: *(char ** )(iVar5 * 8 + 0x9300bfc) = U_JUKELINUX1_TEXTO2;
         end;
         TOTALLJ := KLJ;
         CloseFile(ARQTEXTO);
@@ -20074,8 +20095,8 @@ begin
           // C: puVar6 = local_624;
           if (local_624 = '') { C convertido: local_624 == (undefined1 * )0x0 } then begin
           end;
-          // C: fpc_pchar_to_ansistr(puVar6,&local_62c);
-          uVar2 := local_62c;  // C convertido: uVar2 = local_62c;
+          ;  // apelido: local_62c = local_624  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_62c);
+          local_624 := local_624;  // C convertido: uVar2 = local_62c;
           local_634 := '';
           local_638 := '';
           local_638 := PASTA + 'interfaceteclado.txt';
@@ -20083,7 +20104,7 @@ begin
           if (local_638 = '') { C convertido: local_638 == (undefined1 * )0x0 } then begin
           end;
           local_634 := local_638;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_634);
-          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_634,uVar2,extraout_ECX_00 & 0xffffff00);
+          CopyFile(local_634, local_624, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_634,uVar2,extraout_ECX_00 & 0xffffff00);
           Gravalog('Nao existia o arquivo no Pendrive, entao Gravou Automaticamente o Arquivo "interfaceteclado.txt" da HD para o Pendrive');
         end
         else begin
@@ -20102,8 +20123,8 @@ begin
           // C: puVar7 = local_630;
           if (local_630 = '') { C convertido: local_630 == (undefined1 * )0x0 } then begin
           end;
-          // C: fpc_pchar_to_ansistr(puVar7,&local_62c);
-          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_62c,puVar6,extraout_ECX & 0xffffff00);
+          ;  // apelido: local_62c = local_630  // C convertido: fpc_pchar_to_ansistr(puVar7,&local_62c);
+          CopyFile(local_630, local_624, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_62c,puVar6,extraout_ECX & 0xffffff00);
           Gravalog('Restaurou Automaticamente o Arquivo "interfaceteclado.txt" do Pendrive para a HD');
         end;
       end;
@@ -20260,15 +20281,15 @@ begin
             if (local_740 = '') { C convertido: local_740 == (undefined1 * )0x0 } then begin
             end;
             local_634 := local_740;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_634);
-            // C: uVar2 = local_634;
+            local_634 := local_634;  // C convertido: uVar2 = local_634;
             local_744 := 0;
             local_748 := '';
             local_748 := PASTACHAVE + 'tocar.txt';
             // C: puVar6 = local_748;
             if (local_748 = '') { C convertido: local_748 == (undefined1 * )0x0 } then begin
             end;
-            // C: fpc_pchar_to_ansistr(puVar6,&local_744);
-            // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_744,uVar2,extraout_ECX_01 & 0xffffff00);
+            ;  // apelido: local_744 = local_748  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_744);
+            CopyFile(local_748, local_634, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_744,uVar2,extraout_ECX_01 & 0xffffff00);
             Gravalog('Restaurou o Arquivo Tocar do Pendrive, Nao existia o Arquivo na HD');
           end;
         end;
@@ -20315,8 +20336,8 @@ begin
           // C: puVar6 = local_74c;
           if (local_74c = '') { C convertido: local_74c == (undefined1 * )0x0 } then begin
           end;
-          // C: fpc_pchar_to_ansistr(puVar6,&local_744);
-          uVar2 := local_744;  // C convertido: uVar2 = local_744;
+          ;  // apelido: local_744 = local_74c  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_744);
+          local_74c := local_74c;  // C convertido: uVar2 = local_744;
           local_750 := '';
           local_754 := '';
           local_754 := PASTACHAVE + 'tocar.txt';
@@ -20324,7 +20345,7 @@ begin
           if (local_754 = '') { C convertido: local_754 == (undefined1 * )0x0 } then begin
           end;
           local_750 := local_754;  // C convertido: fpc_pchar_to_ansistr(puVar6,&local_750);
-          // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_750,uVar2,extraout_ECX_02 & 0xffffff00);
+          CopyFile(local_750, local_74c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_750,uVar2,extraout_ECX_02 & 0xffffff00);
           Gravalog('Restaurou o Arquivo Tocar do Pendrive, Arquivo da Em Branco');
         end;
       end;
@@ -23202,15 +23223,15 @@ begin
         if (local_138 = '') { C convertido: local_138 == (undefined1 * )0x0 } then begin
         end;
         local_13c := local_138;  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_13c);
-        // C: uVar1 = local_13c;
+        local_13c := local_13c;  // C convertido: uVar1 = local_13c;
         local_140 := 0;
         local_144 := '';
         local_144 := PASTA + 'creditos.txt';
         // C: puVar3 = local_144;
         if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
         end;
-        // C: fpc_pchar_to_ansistr(puVar3,&local_140);
-        // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
+        ;  // apelido: local_140 = local_144  // C convertido: fpc_pchar_to_ansistr(puVar3,&local_140);
+        CopyFile(local_144, local_13c, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
       end;
       local_148 := '';
       local_148 := IntToStr(CREDITOS);
@@ -23511,7 +23532,7 @@ begin
               if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
               end;
               local_38 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,local_38);
-              // C: uVar1 = local_38[0];
+              local_38 := local_38;  // C convertido: uVar1 = local_38[0];
               local_140 := '';
               local_144 := '';
               local_144 := PASTA + 'tocar.txt';
@@ -23519,7 +23540,7 @@ begin
               if (local_144 = '') { C convertido: local_144 == (undefined1 * )0x0 } then begin
               end;
               local_140 := local_144;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
-              // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
+              CopyFile(local_140, local_38, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_140,uVar1,extraout_ECX & 0xffffff00);
             end;
           end;
         end;
@@ -23568,15 +23589,15 @@ begin
               if (local_148 = '') { C convertido: local_148 == (undefined1 * )0x0 } then begin
               end;
               local_140 := local_148;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_140);
-              // C: uVar1 = local_140;
+              local_140 := local_140;  // C convertido: uVar1 = local_140;
               local_14c := 0;
               local_150 := '';
               local_150 := PASTA + 'tocar.txt';
               // C: puVar5 = local_150;
               if (local_150 = '') { C convertido: local_150 == (undefined1 * )0x0 } then begin
               end;
-              // C: fpc_pchar_to_ansistr(puVar5,&local_14c);
-              // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_14c,uVar1,extraout_ECX_00 & 0xffffff00);
+              ;  // apelido: local_14c = local_150  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_14c);
+              CopyFile(local_150, local_140, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_14c,uVar1,extraout_ECX_00 & 0xffffff00);
             end;
           end;
         end;
@@ -25082,7 +25103,7 @@ begin
             if (local_13c = '') { C convertido: local_13c == (undefined1 * )0x0 } then begin
             end;
             local_240 := local_13c;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_240);
-            // C: uVar7 = local_240;
+            local_240 := local_240;  // C convertido: uVar7 = local_240;
             local_244 := '';
             local_248 := '';
             local_248 := PASTA + 'tocar.txt';
@@ -25090,7 +25111,7 @@ begin
             if (local_248 = '') { C convertido: local_248 == (undefined1 * )0x0 } then begin
             end;
             local_244 := local_248;  // C convertido: fpc_pchar_to_ansistr(puVar5,&local_244);
-            // C: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar7,extraout_ECX & 0xffffff00);
+            CopyFile(local_244, local_240, False);  // C convertido: FILEUTIL_COPYFILE_ANSISTRING_ANSISTRING_BOOLEAN__BOOLEAN (local_244,uVar7,extraout_ECX & 0xffffff00);
           end;
           Mostra_Fila;
           if TOCANDOTIPO = 'CD' then begin

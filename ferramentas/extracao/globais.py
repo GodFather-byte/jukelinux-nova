@@ -43,21 +43,31 @@ def usos(n):
 MANUAL = {
     # 160 bytes = 40 textos: o nome original de cada música da tela (o C lê as posições 2 a 12 como DAT_09301dc4...)
     'NOMEMUSICAORIGINALGRANDE': 'array[1..40] of AnsiString',
-    'MAT': 'array[1..8000] of TIPOCD',
+    'MAT': 'array[1..8000] of TIPOCD',  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
     # 200 bytes = 50 textos: caminho das músicas mais tocadas (o C usa &DAT_0964721c + i * 4, i de 1 a 50)
     'LISTA50MUSICASMAISTOCADAS': 'array[1..50] of AnsiString',
-    'MMRITMO': 'array[1..100] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MMRITMOTOCOU': 'array[1..100] of LongInt',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MMLETRA': 'array[1..100] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MATKARAOKE': 'array[1..9999] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MATPROPAGANDA': 'array[1..500] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MATFRASES': 'array[1..50] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)
-    'MATFRASESORI': 'array[1..50] of AnsiString',  # vetor de 4 bytes por elemento (ver VETORES_GLOBAIS em completar.py)  # 8000 CDs de 576 bytes; o registro está em TIPO_CD abaixo
+    # vetores de 4 bytes por elemento que o Ghidra acessa pelo endereço (ver VETORES_GLOBAIS em completar.py)
+    'MMRITMO': 'array[1..100] of AnsiString',
+    'MMRITMOTOCOU': 'array[1..100] of LongInt',
+    'MMLETRA': 'array[1..100] of AnsiString',
+    'MATKARAOKE': 'array[1..9999] of AnsiString',
+    'MATPROPAGANDA': 'array[1..500] of AnsiString',
+    'MATFRASES': 'array[1..50] of AnsiString',
+    'MATFRASESORI': 'array[1..50] of AnsiString',
+    # ritmo/letra -> imagem (ritmosxjgps.txt, letrasxjgps.txt): 100 registros de 8 bytes (ver VETORES_REGISTRO)
+    'RJ': 'array[1..100] of TIPOJPG',
+    'LJ': 'array[1..100] of TIPOJPG',
 }
 
 # O registro de um CD da original (TIPOCD). Deslocamentos deduzidos dos acessos no código descompilado; completar.py
 # usa a mesma tabela (CAMPOS_CD) para traduzir os acessos.
 TIPO_CD = '''type
+  { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
+  TIPOJPG = record
+    Nome: AnsiString;                         // 0
+    Jpg: AnsiString;                          // 4
+  end;
+
   { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
     deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
   TIPOCD = record

@@ -119,6 +119,12 @@ VETORES_GLOBAIS = {
     'LISTA50MUSICASMAISTOCADAS': ('texto', 0x0964721c, None, 50),  # caminho das 50 mais tocadas
 }
 VETORES_NOME_E_POS1 = ('MATFRASES', 'MATFRASESORI')
+# Vetores globais de registros de 8 bytes (TIPOJPG): nome -> (endereço do registro 0, campos por deslocamento, n).
+# Forma: *(t *)(i * 8 + 0x<registro 0 + deslocamento do campo>).
+VETORES_REGISTRO = {
+    'RJ': (0x093008c8, {0: 'Nome', 4: 'Jpg'}, 100),  # ritmosxjgps.txt
+    'LJ': (0x09300bf8, {0: 'Nome', 4: 'Jpg'}, 100),  # letrasxjgps.txt
+}
 # Outras formas de chegar ao vetor (IDX = o índice): ARQTOCARX + 0x24c é o endereço da posição 0 de MATFRASES.
 APELIDOS_VETORES = {'MATFRASES': (r'U_JUKELINUX1_ARQTOCARX \+ IDX \* 4 \+ 0x24c',)}
 # vetores [1..40]: deslocamento do elemento k = base + 4*k
@@ -247,10 +253,15 @@ class Tradutor:
 
     def substitui_vetores(self, c):
         """Troca cada acesso a um vetor de VETORES_GLOBAIS por um nome CDREF_n (forma 'vglobal')."""
-        def ref(nome_v, idx):
+        def ref(nome_v, idx, campo=None):
             nome = f'CDREF_{len(self.cd)}'
-            self.cd[nome] = ('vglobal', (nome_v, idx), False)
+            self.cd[nome] = ('vglobal', (nome_v, idx, campo), False)
             return nome
+        for nome_v, (base, campos, n) in VETORES_REGISTRO.items():
+            for desl, campo in campos.items():
+                h = f'{base + desl:x}'
+                c = re.sub(CAST + r'\(\s*' + IDX + r' \* 8 \+ 0x' + h + r'\s*\)',
+                           lambda m, nv=nome_v, cp=campo: ref(nv, m.group(1), cp), c)
         for nome_v, (tipo, pos0, antes, n) in VETORES_GLOBAIS.items():
             if antes:
                 c = re.sub(r'\(&U_JUKELINUX1_' + antes + r'\)\s*\[([^\[\]]+)\]',
@@ -278,7 +289,10 @@ class Tradutor:
         forma, g, com_k = self.cd[v]
         k_c = None
         if forma == 'vglobal':
-            return f'{g[0]}[{self.num_de(self.novo().traduz(g[1]))}]', VETORES_GLOBAIS[g[0]][0]
+            idx = self.num_de(self.novo().traduz(g[1]))
+            if g[2]:
+                return f'{g[0]}[{idx}].{g[2]}', 'texto'
+            return f'{g[0]}[{idx}]', VETORES_GLOBAIS[g[0]][0]
         if forma.startswith('mult_'):
             base = f'MAT[{self.mult[g[0].upper()]}]'
             if forma == 'mult_arqlog':
@@ -642,8 +656,10 @@ def booleano_de_registrador(arg):
     """O Ghidra escreve o Boolean passado em registrador como (x & 0xffffff00) = False ou CONCAT31(x, 1) = True."""
     if re.search(r'&\s*0xffffff00\s*$', arg.strip()):
         return 'False'
-    if re.fullmatch(r'CONCAT31\(.*,\s*1\)', arg.strip()):
+    if re.fullmatch(r'CONCAT31\(.*,\s*1\)', arg.strip()) or arg.strip() == '1':
         return 'True'
+    if arg.strip() == '0':
+        return 'False'
     raise Falha('booleano desconhecido: ' + arg)
 
 
@@ -745,6 +761,15 @@ def chamada(nome, args, destino, tr):
         return f'Write({arq}, {e[0]});'
     if nome == 'fpc_pchar_to_ansistr' and n == 2:
         # PChar de um texto (temporária puVar = local_x) de volta para AnsiString
+        md = re.fullmatch(r'&?(local_\w+)', args[1].strip())
+        mo = re.fullmatch(r'\w+', args[0].strip())
+        if md and mo and tr.locais.get(md.group(1).upper()) == 'num' and md.group(1).upper() not in tr.ptrs:
+            # o Ghidra declarou a local como número: ela só guarda o texto para a chamada seguinte (apelido)
+            origem = tr.ptrs.get(mo.group(0).upper(), mo.group(0))
+            if tr.resolve(origem)[1] != 'texto':
+                raise Falha('apelido de algo que não é texto')
+            tr.ptrs[md.group(1).upper()] = origem
+            return f';  // apelido: {md.group(1)} = {origem}'
         return _atribui(tr, args[1], texto_de(args[0], tr), 'texto')
     if nome == 'SYSUTILS_RENAMEFILE_ANSISTRING_ANSISTRING__BOOLEAN' and n == 2:
         return f'RenameFile({texto_de(args[0], tr)}, {texto_de(args[1], tr)});'
@@ -877,7 +902,7 @@ def comando(c, tr):
             return f"{destino} := {alvo}.{'Playing' if metodo.startswith('PLAYING') else 'Running'};"
         raise Falha('chamada do player desconhecida')
     m = re.match(r'^([A-Za-z_]\w*|[^=;]*?\b0x90\b[^=;]*?|[^=;]*?\b0x240\b[^=;]*?'
-                 r'|[^=;]*?(?:&DAT_|\* 4 \+ 0x|\)\s*\[)[^=;]*?) = (.+);$', c)
+                 r'|[^=;]*?(?:&DAT_|\* [48] \+ 0x|\)\s*\[)[^=;]*?) = (.+);$', c)
     if m:
         if m.group(1).upper() in tr.ptrs and m.group(1).upper() not in tr.locais:
             raise Falha('apelido de ponteiro (puVar = x) não é atribuição')
@@ -1011,6 +1036,51 @@ def retipa_temporarias_cd(texto):
     return texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
 
 
+def devolve_resultado(texto):
+    """Função que devolve texto e em que o Ghidra trocou o resultado por uma local (local_c := Result no começo e
+    nenhum Result := depois): a local é o resultado, então ela é devolvida no fim."""
+    cab = texto.split('\n', 1)[0]
+    m = re.search(r'^\s*(local_\w+) := Result;\s*$', texto, re.M)
+    if not cab.startswith('function') or not cab.rstrip().endswith('AnsiString;') or not m \
+            or re.search(r'\bResult :=', texto) or re.search(r'\bExit\b', texto):
+        return texto
+    fim = texto.rstrip().rfind('\nend;')
+    if fim < 0:
+        return texto
+    return (texto[:fim] + f'\n  Result := {m.group(1)};  // completar: {m.group(1)} é o resultado (ponteiro do C)'
+            + texto[fim:])
+
+def retipa_textos(texto):
+    """Local que recebe o texto de um componente (CONTROLS_TCONTROL____GETTEXT) mas que o Ghidra declarou como número
+    (e por isso é zerada com := 0): vira AnsiString, e o := 0 vira := ''."""
+    temps = set(re.findall(r'GETTEXT__TTRANSLATESTRING\s*\(Form1\.\w+,\s*&?(local_\w+)\)', texto))
+    corpo = re.search(r'\nvar\n(.*?)\nbegin\n', texto, re.S)
+    if not temps or not corpo:
+        return texto
+    nums = set()
+    for linha in corpo.group(1).split('\n'):
+        m = re.match(r'\s+([\w, ]+): (LongInt|Integer|Cardinal|Byte);', linha)
+        if m:
+            nums |= {n.strip() for n in m.group(1).split(',')}
+    temps &= nums
+    if not temps:
+        return texto
+    linhas = []
+    for linha in corpo.group(1).split('\n'):
+        m = re.match(r'(\s+)([\w, ]+): (.+);$', linha)
+        if m and m.group(3) in ('LongInt', 'Integer', 'Cardinal', 'Byte'):
+            nomes = [n.strip() for n in m.group(2).split(',') if n.strip() not in temps]
+            if not nomes:
+                continue
+            linha = f'{m.group(1)}{", ".join(nomes)}: {m.group(3)};'
+        linhas.append(linha)
+    linhas += [f'  {t}: AnsiString;  // completar: recebe o texto de um componente' for t in sorted(temps)]
+    texto = texto[:corpo.start(1)] + '\n'.join(linhas) + texto[corpo.end(1):]
+    for t in temps:
+        texto = re.sub(r'^(\s*)' + t + r' := 0;', r"\1" + t + " := '';", texto, flags=re.M)
+    return texto
+
+
 # Contas em ponto flutuante (x87) que o Ghidra perdeu: os divisores sumiram, mas o padrão é sempre o mesmo.
 def _re_horas(primeira):
     return re.compile(
@@ -1083,6 +1153,8 @@ def vetor_nome_grande(texto):
 
 def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
     texto = retipa_temporarias_cd(texto)
+    texto = retipa_textos(texto)
+    texto = devolve_resultado(texto)
     texto = contas_flutuantes(texto)
     # a posição 1 do vetor se traduz como texto comum; vetor_nome_grande põe o [1] no fim
     globais = dict(globais, **{n: 'texto' for n in (NOME_GRANDE,) + VETORES_NOME_E_POS1})
@@ -1112,6 +1184,15 @@ def completa_rotina(texto, globais, estatistica=None, comps=None, rotinas=None):
         m = re.match(r'^\s*// C: (pu?[a-z]*Var\d+) = (local_\w+|U_JUKELINUX1_\w+);\s*$', linha)
         if m and m.group(1).upper() not in tr.locais:
             tr.ptrs[m.group(1).upper()] = m.group(2)
+        # uVar1 = local_354 com uVar1 declarada como número e local_354 texto: o registrador só leva o texto
+        m = re.match(r'^\s*// C: ([a-z]{0,3}Var\d+) = (local_\w+)(?:\[0\])?;\s*$', linha)
+        if m and tr.locais.get(m.group(1).upper()) in ('num', 'char') and (
+                tr.locais.get(m.group(2).upper()) == 'texto' or m.group(2).upper() in tr.ptrs):
+            tr.ptrs[m.group(1).upper()] = tr.ptrs.get(m.group(2).upper(), m.group(2))
+        # atribuição Pascal a um apelido: ele volta a ser a própria variável
+        m = re.match(r'^\s*(\w+) := ', linha)
+        if m and m.group(1).upper() in tr.ptrs and m.group(1).upper() in tr.locais:
+            del tr.ptrs[m.group(1).upper()]
         m = re.match(r'^\s*(\w+) := (.+) \* 576;\s*$', linha)
         if m:
             tr.mult[m.group(1).upper()] = m.group(2)

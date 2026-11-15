@@ -1,6 +1,12 @@
 { Variáveis globais da unit jukelinux1 da original, com o tipo deduzido por ferramentas/extracao/globais.py
   (tamanho do símbolo + uso no código descompilado). Os marcados {revisar} ainda não têm o tipo certo. }
 type
+  { Nome de um ritmo (ou letra) e a imagem dele, das tabelas ritmosxjgps.txt e letrasxjgps.txt (8 bytes na original). }
+  TIPOJPG = record
+    Nome: AnsiString;                         // 0
+    Jpg: AnsiString;                          // 4
+  end;
+
   { Um CD (ou DVD) do acervo, como o registro TIPOCD da original (576 bytes; os números são os deslocamentos lá,
     deduzidos dos acessos no código descompilado: MAT começa em ARQLOG+0x430 e o CD i fica em ARQLOG+0x1f0+i*576). }
   TIPOCD = record
@@ -187,10 +193,10 @@ var
   KKLETRA: LongInt;
   ARQFEC: file;
   AF: array[0..692] of Byte {revisar};
-  RJ: array[0..799] of Byte {revisar};
+  RJ: array[1..100] of TIPOJPG;
   KRJ: LongInt;
   TOTALRJ: LongInt;
-  LJ: array[0..799] of Byte {revisar};
+  LJ: array[1..100] of TIPOJPG;
   KLJ: LongInt;
   TOTALLJ: LongInt;
   BLOQUEARQUANDOTOCAR: LongInt;
