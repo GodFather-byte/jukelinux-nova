@@ -1587,6 +1587,7 @@ var
   local_38, local_3c, local_40, local_c: AnsiString;
   cVar1: Boolean;
   iVar3, local_8: LongInt;
+  NovaCond: Boolean;  // completar: condição com operador vírgula do C
 begin
   local_c := '';
   local_40 := '';
@@ -1759,7 +1760,12 @@ begin
             local_40 := Form1.FileListBox1.Items[local_8];
             local_3c := ExtractFileExt(local_40);
             local_38 := UpperCase(local_3c);
-            if False { C: (STREQ(local_38[0],local_c)) && (U_JUKELINUX1_KPRO = U_JUKELINUX1_KPRO + 1, U_JUKELINUX1_KPRO < 0x1f5) } then begin
+            NovaCond := (local_38 = local_c);
+            if NovaCond then begin
+              KPRO := (KPRO + 1);
+              NovaCond := (KPRO < $1F5);
+            end;
+            if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_38[0],local_c)) && (U_JUKELINUX1_KPRO = U_JUKELINUX1_KPRO + 1, U_JUKELINUX1_KPRO < 0x1f5)
               local_40 := '';
               local_40 := Form1.FileListBox1.Items[local_8];
               // ?: TOTALPRO + KPRO := PASTAPROPAGANDA + local_40;
@@ -4847,6 +4853,7 @@ label
 var
   local_34, local_38, local_8: AnsiString;
   iVar1, iVar2, uVar3: LongInt;
+  NovaCond: Boolean;  // completar: condição com operador vírgula do C
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -4983,7 +4990,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 1)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 1)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMenos4.Hide;
           end;
         end;
@@ -5017,7 +5029,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 2)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 2)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMenos3.Hide;
           end;
         end;
@@ -5051,7 +5068,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 3)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 3)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMenos2.Hide;
           end;
         end;
@@ -5079,7 +5101,12 @@ begin
             end;
             local_34 := '';
             local_34 := MAT[(KMAT + 4)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
-            if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S") , iVar2 == 0) } then begin
+            NovaCond := (local_34 = '50+TOCADOS');
+            if NovaCond then begin
+              iVar2 := Ord(MAT[(KMAT + 4)].Escolha <> 'S');
+              NovaCond := (iVar2 = 0);
+            end;
+            if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S") , iVar2 == 0)
               Form1.ImgLanMenos1.Hide;
             end;
             goto LAB_080a5bd2;
@@ -5145,7 +5172,12 @@ begin
       end;
       local_34 := '';
       local_34 := MAT[(KMAT + 5)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
-      if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+      NovaCond := (local_34 = '50+TOCADOS');
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 5)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
         Form1.ImgLan.Hide;
       end;
       if SEGURANDOTECLA < 8 then begin
@@ -5317,7 +5349,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 6)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 6)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMais1.Hide;
           end;
         end;
@@ -5351,7 +5388,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 7)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 7)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMais2.Hide;
           end;
         end;
@@ -5385,7 +5427,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 8)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 8)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMais3.Hide;
           end;
         end;
@@ -5419,7 +5466,12 @@ begin
           end;
           local_34 := '';
           local_34 := MAT[(KMAT + 9)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
-          if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+          NovaCond := (local_34 = '50+TOCADOS');
+          if NovaCond then begin
+            iVar2 := Ord(MAT[(KMAT + 9)].Escolha <> 'S');
+            NovaCond := (iVar2 = 0);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
             Form1.ImgLanMais4.Hide;
           end;
         end;
@@ -5447,7 +5499,12 @@ begin
             end;
             local_34 := '';
             local_34 := MAT[(KMAT + 10)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
-            if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S" ), iVar2 == 0) } then begin
+            NovaCond := (local_34 = '50+TOCADOS');
+            if NovaCond then begin
+              iVar2 := Ord(MAT[(KMAT + 10)].Escolha <> 'S');
+              NovaCond := (iVar2 = 0);
+            end;
+            if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S" ), iVar2 == 0)
               Form1.ImgLanMais5.Hide;
             end;
             goto LAB_080a733c;
@@ -5494,7 +5551,12 @@ begin
       local_34 := '';
       local_34 := MAT[KMAT].Genero;  // C convertido: fpc_shortstr_to_ansistr(U_JUKELINUX1_KMAT * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL (U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_12, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[KMAT].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL (U_JUKELINUX1_KMAT * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_12, iVar2 == 0)
         Form1.ImgLanMenos5.Hide;
       end;
     end;
@@ -5525,7 +5587,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 1)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_16, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 1)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 1) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_16, iVar2 == 0)
         Form1.ImgLanMenos4.Hide;
       end;
     end;
@@ -5556,7 +5623,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 2)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_20, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 2)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 2) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_20, iVar2 == 0)
         Form1.ImgLanMenos3.Hide;
       end;
     end;
@@ -5587,7 +5659,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 3)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_24, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 3)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 3) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_24, iVar2 == 0)
         Form1.ImgLanMenos2.Hide;
       end;
     end;
@@ -5617,7 +5694,12 @@ begin
       end;
       local_34 := '';
       local_34 := MAT[(KMAT + 4)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e91128,local_34);
-      if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+      NovaCond := (local_34 = '50+TOCADOS');
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 4)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 4) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
         Form1.ImgLanMenos1.Hide;
       end;
     end;
@@ -5676,7 +5758,12 @@ begin
     end;
     local_34 := '';
     local_34 := MAT[(KMAT + 5)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e91128,local_34);
-    if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+    NovaCond := (local_34 = '50+TOCADOS');
+    if NovaCond then begin
+      iVar2 := Ord(MAT[(KMAT + 5)].Escolha <> 'S');
+      NovaCond := (iVar2 = 0);
+    end;
+    if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 5) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
       Form1.ImgLan.Hide;
     end;
     if SEGURANDOTECLA < 4 then begin
@@ -5844,7 +5931,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 6)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_31, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 6)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 6) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_31, iVar2 == 0)
         Form1.ImgLanMais1.Hide;
       end;
     end;
@@ -5875,7 +5967,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 7)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_35, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 7)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 7) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_35, iVar2 == 0)
         Form1.ImgLanMais2.Hide;
       end;
     end;
@@ -5906,7 +6003,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 8)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_39, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 8)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 8) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_39, iVar2 == 0)
         Form1.ImgLanMais3.Hide;
       end;
     end;
@@ -5937,7 +6039,12 @@ begin
       local_34 := '';
       local_34 := MAT[(KMAT + 9)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e91128,local_34);
       iVar2 := Ord(local_34 <> '50+TOCADOS');  // C convertido: iVar2 = fpc_ansistr_compare_equal(local_34[0],"50+TOCADOS");
-      if False { C: (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_43, iVar2 == 0) } then begin
+      NovaCond := (iVar2 = 0);
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 9)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (iVar2 == 0) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 9) * 0x240 + 0x8e9133e,"S"), uVar3 = extraout_EDX_43, iVar2 == 0)
         Form1.ImgLanMais4.Hide;
       end;
     end;
@@ -5967,7 +6074,12 @@ begin
       end;
       local_34 := '';
       local_34 := MAT[(KMAT + 10)].Genero;  // C convertido: fpc_shortstr_to_ansistr((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e91128,local_34);
-      if False { C: (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S"), iVar2 == 0) } then begin
+      NovaCond := (local_34 = '50+TOCADOS');
+      if NovaCond then begin
+        iVar2 := Ord(MAT[(KMAT + 10)].Escolha <> 'S');
+        NovaCond := (iVar2 = 0);
+      end;
+      if NovaCond then begin  // C convertido (operador vírgula): (STREQ(local_34[0],"50+TOCADOS")) && (iVar2 = FPC_SHORTSTR_COMPARE_EQUAL ((U_JUKELINUX1_KMAT + 10) * 0x240 + 0x8e9133e,"S"), iVar2 == 0)
         Form1.ImgLanMais5.Hide;
       end;
     end;
@@ -7757,6 +7869,7 @@ procedure Rotina_Creditos(P1: AnsiString);
 var
   local_130, local_134, local_138, local_13c, local_140, local_144, local_148, local_14c, local_150, local_154, local_158, local_244, local_248, local_24c, local_8: AnsiString;
   uVar1: LongInt;
+  NovaCond: Boolean;  // completar: condição com operador vírgula do C
 begin
   local_8 := P1;
   // C: fpc_ansistr_incr_ref();
@@ -7779,7 +7892,12 @@ begin
         if REAISXMUSICAS = '1x1, 2x3, 5x10' then begin
           CREDITOS := CREDITOS + 1;
         end;
-        if False { C: (STREQ(U_JUKELINUX1_REAISXMUSICAS,"2x1")) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2) } then begin
+        NovaCond := (REAISXMUSICAS = '2x1');
+        if NovaCond then begin
+          CREDITOSTEMP := (CREDITOSTEMP + 1);
+          NovaCond := (CREDITOSTEMP = 2);
+        end;
+        if NovaCond then begin  // C convertido (operador vírgula): (STREQ(U_JUKELINUX1_REAISXMUSICAS,"2x1")) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2)
           CREDITOS := CREDITOS + 1;
           CREDITOSTEMP := 0;
         end;
@@ -7798,7 +7916,12 @@ begin
           Form1.TimerTelaCheia.Interval := 2000;  // C convertido: ( **(code ** )( **(int ** )(U_JUKELINUX1_FORM1 + 0xb88) + 0xdc)) (Form1.TimerTelaCheia,2000);
           Form1.TimerCedulas.Enabled := True;
         end;
-        if False { C: (STREQ(U_JUKELINUX1_REAISXMUSICAS,"2x1")) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2) } then begin
+        NovaCond := (REAISXMUSICAS = '2x1');
+        if NovaCond then begin
+          CREDITOSTEMP := (CREDITOSTEMP + 1);
+          NovaCond := (CREDITOSTEMP = 2);
+        end;
+        if NovaCond then begin  // C convertido (operador vírgula): (STREQ(U_JUKELINUX1_REAISXMUSICAS,"2x1")) && (U_JUKELINUX1_CREDITOSTEMP = U_JUKELINUX1_CREDITOSTEMP + 1, U_JUKELINUX1_CREDITOSTEMP == 2)
           CREDITOS := CREDITOS + 1;
           CREDITOSTEMP := 0;
         end;
@@ -21407,6 +21530,7 @@ var
   local_10: TForm1;
   local_8: TObject;
   local_c: Word;
+  NovaCond: Boolean;  // completar: condição com operador vírgula do C
 begin
   if ALTERANDOFRASES = 0 then begin
     local_10 := Self;
@@ -21465,7 +21589,12 @@ begin
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Anti-Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMRITMOSELECIONADO;
           NUMRITMOSELECIONADO := iVar2;
-          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + -1, U_JUKELINUX1_NUMRITMOSELECIONADO < 1) } then begin
+          NovaCond := (iVar1 = 0);
+          if NovaCond then begin
+            NUMRITMOSELECIONADO := (NUMRITMOSELECIONADO + (-1));
+            NovaCond := (NUMRITMOSELECIONADO < 1);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + -1, U_JUKELINUX1_NUMRITMOSELECIONADO < 1)
             NUMRITMOSELECIONADO := iVar2;
           end;
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -21485,7 +21614,12 @@ begin
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Anti-Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMLETRASELECIONADA;
           NUMLETRASELECIONADA := iVar2;
-          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + -1, U_JUKELINUX1_NUMLETRASELECIONADA < 1) } then begin
+          NovaCond := (iVar1 = 0);
+          if NovaCond then begin
+            NUMLETRASELECIONADA := (NUMLETRASELECIONADA + (-1));
+            NovaCond := (NUMLETRASELECIONADA < 1);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + -1, U_JUKELINUX1_NUMLETRASELECIONADA < 1)
             NUMLETRASELECIONADA := iVar2;
           end;
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -21511,7 +21645,12 @@ begin
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Anti-Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMRITMOSELECIONADO;
           NUMRITMOSELECIONADO := iVar2;
-          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + 1, U_JUKELINUX1_TOTALMMRITMO < U_JUKELINUX1_NUMRITMOSELECIONADO) } then begin
+          NovaCond := (iVar1 = 0);
+          if NovaCond then begin
+            NUMRITMOSELECIONADO := (NUMRITMOSELECIONADO + 1);
+            NovaCond := (TOTALMMRITMO < NUMRITMOSELECIONADO);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (iVar1 == 0) && (U_JUKELINUX1_NUMRITMOSELECIONADO = U_JUKELINUX1_NUMRITMOSELECIONADO + 1, U_JUKELINUX1_TOTALMMRITMO < U_JUKELINUX1_NUMRITMOSELECIONADO)
             NUMRITMOSELECIONADO := iVar2;
           end;
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");
@@ -21531,7 +21670,12 @@ begin
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Anti-Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Anti-Horário");
           iVar2 := NUMLETRASELECIONADA;
           NUMLETRASELECIONADA := iVar2;
-          if False { C: (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + 1, U_JUKELINUX1_TOTALMMLETRA < U_JUKELINUX1_NUMLETRASELECIONADA) } then begin
+          NovaCond := (iVar1 = 0);
+          if NovaCond then begin
+            NUMLETRASELECIONADA := (NUMLETRASELECIONADA + 1);
+            NovaCond := (TOTALMMLETRA < NUMLETRASELECIONADA);
+          end;
+          if NovaCond then begin  // C convertido (operador vírgula): (iVar1 == 0) && (U_JUKELINUX1_NUMLETRASELECIONADA = U_JUKELINUX1_NUMLETRASELECIONADA + 1, U_JUKELINUX1_TOTALMMLETRA < U_JUKELINUX1_NUMLETRASELECIONADA)
             NUMLETRASELECIONADA := iVar2;
           end;
           iVar1 := Ord(SENTIDODAPAGINACAO <> 'Horário');  // C convertido: iVar1 = fpc_ansistr_compare_equal(U_JUKELINUX1_SENTIDODAPAGINACAO,"Horário");

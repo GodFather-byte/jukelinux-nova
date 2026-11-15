@@ -99,7 +99,9 @@ músicas, relógios e `creditos.txt`).
   `FORMCREATE` precisa de nova rodada com mais tempo.
 - `ferramentas/extracao/`: os scripts que geraram tudo isso a partir do binário `jukelinux`. O último passo,
   `completar.py`, converte no Pascal gerado o que o tradutor deixou como `if False { C: ... }` e `// C:` quando
-  todos os nomes têm tipo conhecido (teclas, chamadas do player, textos); roda sozinho com
+  todos os nomes têm tipo conhecido (teclas, chamadas do player, textos). Condições com o operador vírgula do C
+  (`A && (x = x + 1, x == 2)`, como no modo 2x1 de créditos) viram comandos que guardam o resultado em `NovaCond`,
+  mantendo o curto-circuito. Roda sozinho com
   `python3 ferramentas/extracao/completar.py src/globais.inc src/jukelinux1_rotinas.inc`.
 - O acervo de CDs da original (`MAT`, 8000 registros de 576 bytes) é o registro `TIPOCD` em `src/globais.inc`, com
   os campos deduzidos dos acessos no código descompilado (pasta, nome, capas, gênero, as 40 músicas, contadores).
