@@ -7683,6 +7683,7 @@ begin
       MOSTRANDOCREDITO := 1;
       if local_8 = 'Normal' then begin
         RELOGIOTOTAL := RELOGIOTOTAL + 1;
+        Nova_Nuvem_Pulso;  // Nova: R$ 1 do noteiro para a nuvem (o Pix avisa à parte)
         local_13c := '';
         local_13c := PASTA + 'relogiototal.txt';
         local_244 := local_13c;
@@ -8568,6 +8569,7 @@ begin
             local_244 := '';
             local_244 := 'Musica Selecionada ' + MAT[(KMAT + 5)].Musica[MUSICASELECIONADA];  // C convertido: fpc_ansistr_concat(&local_244,"Musica Selecionada ", (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_MUSICASELECIONADA]);
             Gravalog(local_244);
+            Nova_Nuvem_Musica(MAT[(KMAT + 5)].Nome, MAT[(KMAT + 5)].Musica[MUSICASELECIONADA]);  // Nova: para a nuvem
             if RESOLUCAO = 1366 then begin
               Mensagemjpg('mensagem1366-voceselecionouamusica.jpg', 1, MAT[(KMAT + 5)].Musica[MUSICASELECIONADA]);  // C convertido: JUKELINUX1_MENSAGEMJPG_ANSISTRING_LONGINT_ANSISTRING ("mensagem1366-voceselecionouamusica.jpg",1, (&U_JUKELINUX1_PASTACHAVE9) [(U_JUKELINUX1_KMAT + 5) * 0x90 + U_JUKELINUX1_MUSICASELECIONADA]);
             end;
@@ -13995,6 +13997,7 @@ begin
       Writeln(ARQTEXTO);
       Flush(ARQTEXTO);
       CloseFile(ARQTEXTO);
+      Nova_Nuvem_Fechamento(RELOGIOPARCIAL);  // Nova: o fechamento vai para a nuvem (antes de zerar)
       RELOGIOPARCIAL := 0;
       Nova_Zera_Pix_Parcial;  // Nova: o Pix do período vai para o histórico e zera junto
       local_13c := '';

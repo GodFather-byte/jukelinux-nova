@@ -1,20 +1,22 @@
 unit Licenca;
 
-{ Licença da JukeLinux Nova (no lugar do pendrive-chave da original). Usa a tela de ativação da original: a máquina
-  mostra o código dela, o técnico liga para a empresa, a empresa gera a contra-senha e o técnico digita.
+{ Licença da JukeLinux Nova, emitida pela nuvem (no lugar do pendrive-chave da original e da contra-senha).
 
   - Código da máquina: 16 dígitos (NNNN-NNNN-NNNN-NNNN) tirados do número de série do disco onde está o sistema
     (/dev/disk/by-id). Uma imagem do HD clonada para outra máquina tem outro código. Sem serial (máquina virtual),
-    usa o /etc/machine-id.
-  - Contra-senha: 12 dígitos = 5 da validade (dias desde 01/01/2020; 00000 = permanente) + 7 de um HMAC-SHA1 do código
-    e da validade com a chave secreta da empresa. Sem a chave não se gera contra-senha que funcione.
-  - licenca.txt guarda o código, a contra-senha e o último dia visto (também assinado): atrasar o relógio não
-    estende a validade.
+    usa o /etc/machine-id. É ele que aparece no painel da nuvem.
+  - licenca.txt: texto assinado pela nuvem com Ed25519 (formato em nuvem/src/licenca.js): código, situação
+    (ativa/bloqueada), validade, prazo para falar com a nuvem e a data de emissão. A jukebox confere a assinatura com
+    a chave pública embutida (licenca_publica.inc), sem internet: só a nuvem, que tem a chave privada, emite
+    licença. Mexer em qualquer letra do arquivo invalida a assinatura.
+  - A licença chega pela internet (nuvem.pas, a cada contato) ou num pendrive (licenca.txt baixado no painel).
+    Uma licença só substitui outra mais nova ou igual (data de emissão), então não dá para voltar uma antiga.
+  - licenca-dia.txt guarda o último dia visto: atrasar o relógio da máquina não estende a validade. O dia
+    considerado também nunca é anterior ao da emissão da licença.
 
-  A chave secreta fica em licenca_chave.inc, fora do git (ferramentas/licenca/nova_chave.sh cria uma). Sem ela, o
-  build usa licenca_chave.desenvolvimento.inc, que só serve para testes.
+  A assinatura é conferida pela libcrypto do sistema (OpenSSL 3, que o Linux Mint já traz), carregada na hora.
 
-  Sem LCL: usada pela jukebox, pelo gerador de contra-senhas e pelos testes. }
+  Sem LCL: usada pela jukebox e pelos testes. }
 
 {$mode objfpc}{$H+}
 
@@ -23,50 +25,59 @@ interface
 uses
   Classes, SysUtils;
 
-{$I licenca_chave.inc}
+{ A chave pública de verdade fica em licenca_publica.inc. Os testes compilam com -dLICENCA_DESENVOLVIMENTO (modo
+  "Teste" do jukelinux.lpi) para usar a de desenvolvimento, cuja privada está no git. }
+{$IFDEF LICENCA_DESENVOLVIMENTO}
+{$I licenca_publica.desenvolvimento.inc}
+{$ELSE}
+{$I licenca_publica.inc}
+{$ENDIF}
 
 const
   ARQ_LICENCA = 'licenca.txt';
-  LICENCA_PERMANENTE = 0;
+  ARQ_LICENCA_DIA = 'licenca-dia.txt';
+  CABECALHO_LICENCA = 'JUKELINUX NOVA LICENCA 1';
 
 type
-  TEstadoLicenca = (elValida, elSemLicenca, elOutraMaquina, elContraSenhaErrada, elVencida);
+  TEstadoLicenca = (elValida, elSemLicenca, elOutraMaquina, elAssinaturaErrada, elVencida, elBloqueada,
+    elSemContato, elSemOpenSSL);
 
   TLicenca = record
     Estado: TEstadoLicenca;
     Codigo: string;          // da máquina, com os tracinhos
-    ContraSenha: string;
-    Validade: Integer;       // dias desde BASE_LICENCA; 0 = permanente
-    Hoje: TDateTime;         // o dia considerado (nunca antes do último dia visto)
+    Validade: string;        // 'permanente' ou AAAA-MM-DD
+    ContatoAte: string;      // 'nunca' ou AAAA-MM-DD
+    Cliente: string;
+    Emitida: Int64;          // segundos desde 1970 (UTC)
+    Hoje: TDateTime;         // o dia considerado (nunca antes do último dia visto nem da emissão)
   end;
 
 { Texto que identifica a máquina (serial do disco do sistema ou machine-id). }
 function IdentidadeDaMaquina: string;
-{ Código de 16 dígitos mostrado na tela de ativação. }
+{ Código de 16 dígitos mostrado na tela de ativação e no painel da nuvem. }
 function CodigoDaMaquina(const Identidade: string): string;
-{ Contra-senha de 12 dígitos para um código. Validade em dias desde 01/01/2020 (0 = permanente). }
-function GeraContraSenha(const Codigo: string; Validade: Integer; const Chave: string): string;
-{ Confere uma contra-senha digitada. Devolve o estado e, se válida, a validade. }
-function ConfereContraSenha(const Codigo, ContraSenha: string; const Chave: string; Hoje: TDateTime;
-  out Validade: Integer): TEstadoLicenca;
+
+{ Confere a assinatura Ed25519 (base64) de Mensagem com a chave pública da licença. }
+function AssinaturaConfere(const Mensagem, AssinaturaBase64: string; const Chave: array of Byte): Boolean;
+{ Confere um texto de licença para o código da máquina, no dia Hoje. Preenche L. }
+function ConfereTextoLicenca(const Texto, Codigo: string; Hoje: TDateTime; out L: TLicenca): TEstadoLicenca;
 
 { Lê e confere o licenca.txt da pasta. }
 function LeLicenca(const Pasta: string; Agora: TDateTime): TLicenca;
-{ Grava o licenca.txt (depois de uma ativação, ou para atualizar o último dia visto). }
-procedure GravaLicenca(const Pasta, Codigo, ContraSenha: string; UltimoDia: TDateTime);
+{ Instala uma licença nova (vinda da nuvem ou do pendrive) se a assinatura confere, é desta máquina e não é mais
+  velha que a atual. Devolve o estado da licença nova (elAssinaturaErrada/elOutraMaquina quando recusada). }
+function InstalaLicenca(const Pasta, Texto: string; Agora: TDateTime; out Instalou: Boolean): TEstadoLicenca;
+{ Guarda o último dia visto (chamar com a licença válida). }
+procedure GravaUltimoDia(const Pasta: string; Dia: TDateTime);
 
-function ValidadeParaData(Validade: Integer): TDateTime;
-function DataParaValidade(Data: TDateTime): Integer;
 function SoDigitos(const Texto: string): string;
 function DescreveEstado(E: TEstadoLicenca): string;
+function DataDaLicenca(const Texto: string; out Data: TDateTime): Boolean;
 
 implementation
 
 uses
-  BaseUnix, sha1, hmac;
-
-const
-  BASE_LICENCA: TDateTime = 43831;  // 01/01/2020
+  BaseUnix, sha1, base64, dynlibs, ctypes, DateUtils;
 
 function SoDigitos(const Texto: string): string;
 var
@@ -78,49 +89,73 @@ begin
       Result := Result + Texto[i];
 end;
 
-function ValidadeParaData(Validade: Integer): TDateTime;
-begin
-  Result := BASE_LICENCA + Validade;
-end;
-
-function DataParaValidade(Data: TDateTime): Integer;
-begin
-  Result := Trunc(Data) - Trunc(BASE_LICENCA);
-end;
-
 function DescreveEstado(E: TEstadoLicenca): string;
 begin
   case E of
     elValida: Result := 'válida';
     elSemLicenca: Result := 'sem licença';
     elOutraMaquina: Result := 'licença de outra máquina';
-    elContraSenhaErrada: Result := 'contra-senha errada';
+    elAssinaturaErrada: Result := 'licença com assinatura errada';
     elVencida: Result := 'licença vencida';
+    elBloqueada: Result := 'máquina bloqueada pela empresa';
+    elSemContato: Result := 'passou do prazo sem falar com a nuvem';
+    elSemOpenSSL: Result := 'sem a libcrypto (OpenSSL) para conferir a licença';
   end;
 end;
 
 function LeArquivo(const Arquivo: string): string;
 var
-  Linhas: TStringList;
+  F: TFileStream;
 begin
   Result := '';
   if not FileExists(Arquivo) then
     Exit;
-  Linhas := TStringList.Create;
   try
+    F := TFileStream.Create(Arquivo, fmOpenRead or fmShareDenyNone);
     try
-      Linhas.LoadFromFile(Arquivo);
-      if Linhas.Count > 0 then
-        Result := Trim(Linhas[0]);
-    except
-      Result := '';
+      if F.Size > 65536 then
+        Exit;
+      SetLength(Result, F.Size);
+      if F.Size > 0 then
+        F.ReadBuffer(Result[1], F.Size);
+    finally
+      F.Free;
     end;
-  finally
-    Linhas.Free;
+  except
+    Result := '';
   end;
 end;
 
-{ Alvo de um link simbólico, ou vazio se não for link. }
+function PrimeiraLinhaDe(const Arquivo: string): string;
+var
+  i: Integer;
+begin
+  Result := LeArquivo(Arquivo);
+  i := Pos(#10, Result);
+  if i > 0 then
+    SetLength(Result, i - 1);
+  Result := Trim(Result);
+end;
+
+{ Grava inteiro ou nada: escreve num .novo e troca pelo nome certo. }
+procedure GravaArquivo(const Arquivo, Texto: string);
+var
+  F: TFileStream;
+begin
+  F := TFileStream.Create(Arquivo + '.novo', fmCreate);
+  try
+    if Texto <> '' then
+      F.WriteBuffer(Texto[1], Length(Texto));
+  finally
+    F.Free;
+  end;
+  if FpRename(Arquivo + '.novo', Arquivo) <> 0 then
+    raise EInOutError.Create('não consegui gravar ' + Arquivo);
+end;
+
+{ ------------------------------------------------------------------------------------------------------------
+  Código da máquina }
+
 function LeLink(const Caminho: string): string;
 begin
   Result := fpReadLink(Caminho);
@@ -188,7 +223,7 @@ begin
     Result := 'disco:' + Melhor
   else
   begin
-    Result := LeArquivo('/etc/machine-id');
+    Result := PrimeiraLinhaDe('/etc/machine-id');
     if Result <> '' then
       Result := 'maquina:' + Result
     else
@@ -228,114 +263,227 @@ begin
   Result := Agrupa(DigitosDe(SHA1String('JukeLinux Nova|' + Identidade), 0, 8, 16));
 end;
 
-function Assinatura(const Texto, Chave: string; Quantos: Integer): string;
-begin
-  Result := DigitosDe(HMACSHA1Digest(Chave, Texto), 0, 4, Quantos);
-end;
+{ ------------------------------------------------------------------------------------------------------------
+  Ed25519 pela libcrypto (OpenSSL 3), carregada na primeira vez }
 
-function GeraContraSenha(const Codigo: string; Validade: Integer; const Chave: string): string;
+const
+  NID_ED25519 = 1087;
+
+type
+  TNovoPkey = function(Tipo: cint; Motor: Pointer; Chave: PByte; Tamanho: csize_t): Pointer; cdecl;
+  TLiberaPkey = procedure(Pkey: Pointer); cdecl;
+  TNovoCtx = function: Pointer; cdecl;
+  TLiberaCtx = procedure(Ctx: Pointer); cdecl;
+  TVerificaInicio = function(Ctx: Pointer; PCtx: PPointer; Tipo, Motor, Pkey: Pointer): cint; cdecl;
+  TVerifica = function(Ctx: Pointer; Assinatura: PByte; TamAss: csize_t; Dados: PByte; TamDados: csize_t): cint; cdecl;
+
 var
-  V: string;
-begin
-  V := IntToStr(Validade);
-  while Length(V) < 5 do
-    V := '0' + V;
-  Result := Agrupa(V + Assinatura(SoDigitos(Codigo) + '|' + V, Chave, 7));
-end;
+  Libcrypto: TLibHandle = NilHandle;
+  Tentou: Boolean = False;
+  NovoPkey: TNovoPkey;
+  LiberaPkey: TLiberaPkey;
+  NovoCtx: TNovoCtx;
+  LiberaCtx: TLiberaCtx;
+  VerificaInicio: TVerificaInicio;
+  Verifica: TVerifica;
 
-function IguaisSemPressa(const A, B: string): Boolean;
+function CarregaLibcrypto: Boolean;
+const
+  NOMES: array[0..2] of string = ('libcrypto.so.3', 'libcrypto.so', 'libcrypto.so.1.1');
 var
   i: Integer;
-  Diferenca: Integer;
 begin
-  Diferenca := Length(A) xor Length(B);
-  for i := 1 to Length(A) do
-    if i <= Length(B) then
-      Diferenca := Diferenca or (Ord(A[i]) xor Ord(B[i]));
-  Result := Diferenca = 0;
+  if not Tentou then
+  begin
+    Tentou := True;
+    for i := 0 to High(NOMES) do
+    begin
+      Libcrypto := LoadLibrary(NOMES[i]);
+      if Libcrypto <> NilHandle then
+        Break;
+    end;
+    if Libcrypto <> NilHandle then
+    begin
+      Pointer(NovoPkey) := GetProcedureAddress(Libcrypto, 'EVP_PKEY_new_raw_public_key');
+      Pointer(LiberaPkey) := GetProcedureAddress(Libcrypto, 'EVP_PKEY_free');
+      Pointer(NovoCtx) := GetProcedureAddress(Libcrypto, 'EVP_MD_CTX_new');
+      Pointer(LiberaCtx) := GetProcedureAddress(Libcrypto, 'EVP_MD_CTX_free');
+      Pointer(VerificaInicio) := GetProcedureAddress(Libcrypto, 'EVP_DigestVerifyInit');
+      Pointer(Verifica) := GetProcedureAddress(Libcrypto, 'EVP_DigestVerify');
+    end;
+  end;
+  Result := (Libcrypto <> NilHandle) and Assigned(NovoPkey) and Assigned(LiberaPkey) and Assigned(NovoCtx)
+    and Assigned(LiberaCtx) and Assigned(VerificaInicio) and Assigned(Verifica);
 end;
 
-function ConfereContraSenha(const Codigo, ContraSenha: string; const Chave: string; Hoje: TDateTime;
-  out Validade: Integer): TEstadoLicenca;
+function AssinaturaConfere(const Mensagem, AssinaturaBase64: string; const Chave: array of Byte): Boolean;
 var
-  D: string;
+  Assinatura: string;
+  Pkey, Ctx: Pointer;
 begin
-  Validade := -1;
-  D := SoDigitos(ContraSenha);
-  if Length(D) <> 12 then
-    Exit(elContraSenhaErrada);
-  Validade := StrToIntDef(Copy(D, 1, 5), -1);
-  if (Validade < 0) or not IguaisSemPressa(SoDigitos(GeraContraSenha(Codigo, Validade, Chave)), D) then
-    Exit(elContraSenhaErrada);
-  if (Validade <> LICENCA_PERMANENTE) and (Trunc(Hoje) > Trunc(ValidadeParaData(Validade))) then
-    Exit(elVencida);
-  Result := elValida;
+  Result := False;
+  if (Length(Chave) <> 32) or not CarregaLibcrypto then
+    Exit;
+  try
+    Assinatura := DecodeStringBase64(Trim(AssinaturaBase64), True);
+  except
+    Exit;
+  end;
+  if Length(Assinatura) <> 64 then
+    Exit;
+  Pkey := NovoPkey(NID_ED25519, nil, @Chave[0], 32);
+  if Pkey = nil then
+    Exit;
+  Ctx := NovoCtx();
+  try
+    if (Ctx <> nil) and (VerificaInicio(Ctx, nil, nil, nil, Pkey) = 1) then
+      Result := Verifica(Ctx, PByte(PChar(Assinatura)), 64, PByte(PChar(Mensagem)), Length(Mensagem)) = 1;
+  finally
+    if Ctx <> nil then
+      LiberaCtx(Ctx);
+    LiberaPkey(Pkey);
+  end;
 end;
 
-function SeloDoDia(const Codigo: string; Dia: Integer): string;
+{ ------------------------------------------------------------------------------------------------------------
+  Licença }
+
+function DataDaLicenca(const Texto: string; out Data: TDateTime): Boolean;
+var
+  A, M, D: Integer;
 begin
-  Result := IntToStr(Dia) + '|' + Assinatura(SoDigitos(Codigo) + '|dia|' + IntToStr(Dia), NOVA_CHAVE_LICENCA, 8);
+  Result := False;
+  Data := 0;
+  if (Length(Texto) <> 10) or (Texto[5] <> '-') or (Texto[8] <> '-') then
+    Exit;
+  A := StrToIntDef(Copy(Texto, 1, 4), -1);
+  M := StrToIntDef(Copy(Texto, 6, 2), -1);
+  D := StrToIntDef(Copy(Texto, 9, 2), -1);
+  Result := TryEncodeDate(A, M, D, Data);
+end;
+
+function Campo(Linhas: TStrings; const Nome: string): string;
+var
+  i: Integer;
+begin
+  Result := '';
+  for i := 1 to Linhas.Count - 1 do
+    if Pos(Nome + '=', Linhas[i]) = 1 then
+      Exit(Copy(Linhas[i], Length(Nome) + 2, MaxInt));
+end;
+
+function ConfereTextoLicenca(const Texto, Codigo: string; Hoje: TDateTime; out L: TLicenca): TEstadoLicenca;
+var
+  i: Integer;
+  Corpo, Normal: string;
+  Linhas: TStringList;
+  Data, Emitida: TDateTime;
+begin
+  L := Default(TLicenca);
+  L.Codigo := Codigo;
+  L.Hoje := Hoje;
+  Result := elSemLicenca;
+  if Trim(Texto) = '' then
+    Exit;
+  Result := elAssinaturaErrada;
+  Normal := StringReplace(Texto, #13, '', [rfReplaceAll]);
+  i := Pos(#10'assinatura=', Normal);
+  if i = 0 then
+    Exit;
+  Corpo := Copy(Normal, 1, i);  // com o \n final, como foi assinado
+  if not CarregaLibcrypto then
+    Exit(elSemOpenSSL);
+  if not AssinaturaConfere(Corpo, Copy(Normal, i + Length(#10'assinatura='), MaxInt), NOVA_CHAVE_PUBLICA) then
+    Exit;
+
+  Linhas := TStringList.Create;
+  try
+    Linhas.Text := Corpo;
+    if (Linhas.Count < 2) or (Linhas[0] <> CABECALHO_LICENCA) then
+      Exit;
+    if Campo(Linhas, 'codigo') <> SoDigitos(Codigo) then
+      Exit(elOutraMaquina);
+    L.Validade := Campo(Linhas, 'validade');
+    L.ContatoAte := Campo(Linhas, 'contato_ate');
+    L.Cliente := Campo(Linhas, 'cliente');
+    L.Emitida := StrToInt64Def(Campo(Linhas, 'emitida'), 0);
+    { o dia considerado nunca é antes da emissão }
+    if L.Emitida > 0 then
+    begin
+      Emitida := UniversalTimeToLocal(UnixToDateTime(L.Emitida));
+      if Trunc(L.Hoje) < Trunc(Emitida) then
+        L.Hoje := Trunc(Emitida);
+    end;
+    if Campo(Linhas, 'situacao') = 'bloqueada' then
+      Exit(elBloqueada);
+    if Campo(Linhas, 'situacao') <> 'ativa' then
+      Exit;
+    if L.Validade <> 'permanente' then
+    begin
+      if not DataDaLicenca(L.Validade, Data) then
+        Exit;
+      if Trunc(L.Hoje) > Trunc(Data) then
+        Exit(elVencida);
+    end;
+    if L.ContatoAte <> 'nunca' then
+    begin
+      if not DataDaLicenca(L.ContatoAte, Data) then
+        Exit;
+      if Trunc(L.Hoje) > Trunc(Data) then
+        Exit(elSemContato);
+    end;
+    Result := elValida;
+  finally
+    Linhas.Free;
+  end;
+end;
+
+function UltimoDia(const Pasta: string): Integer;
+begin
+  Result := StrToIntDef(PrimeiraLinhaDe(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA_DIA), 0);
+end;
+
+procedure GravaUltimoDia(const Pasta: string; Dia: TDateTime);
+begin
+  if Trunc(Dia) <= UltimoDia(Pasta) then
+    Exit;
+  try
+    GravaArquivo(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA_DIA, IntToStr(Trunc(Dia)) + #10);
+  except
+    { sem gravar o dia, a licença continua valendo }
+  end;
 end;
 
 function LeLicenca(const Pasta: string; Agora: TDateTime): TLicenca;
 var
-  Linhas: TStringList;
-  Selo: TStringArray;
-  UltimoDia: Integer;
+  Hoje: TDateTime;
 begin
-  Result := Default(TLicenca);
-  Result.Codigo := CodigoDaMaquina(IdentidadeDaMaquina);
-  Result.Hoje := Agora;
-  Result.Estado := elSemLicenca;
-  if not FileExists(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA) then
-    Exit;
-  Linhas := TStringList.Create;
-  try
-    try
-      Linhas.LoadFromFile(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA);
-    except
-      Exit;
-    end;
-    if Linhas.Count < 2 then
-      Exit;
-    if SoDigitos(Linhas[0]) <> SoDigitos(Result.Codigo) then
-    begin
-      Result.Estado := elOutraMaquina;
-      Exit;
-    end;
-    Result.ContraSenha := Trim(Linhas[1]);
-    { O último dia visto só vale com o selo certo; o dia considerado nunca é anterior a ele. }
-    if Linhas.Count > 2 then
-    begin
-      Selo := Trim(Linhas[2]).Split(['|']);
-      if Length(Selo) = 2 then
-      begin
-        UltimoDia := StrToIntDef(Selo[0], -1);
-        if (UltimoDia >= 0) and (Trim(Linhas[2]) = SeloDoDia(Result.Codigo, UltimoDia))
-          and (Trunc(Result.Hoje) < UltimoDia) then
-          Result.Hoje := UltimoDia;
-      end;
-    end;
-  finally
-    Linhas.Free;
-  end;
-  Result.Estado := ConfereContraSenha(Result.Codigo, Result.ContraSenha, NOVA_CHAVE_LICENCA, Result.Hoje,
-    Result.Validade);
+  Hoje := Agora;
+  { relógio atrasado: o último dia visto manda }
+  if Trunc(Hoje) < UltimoDia(Pasta) then
+    Hoje := UltimoDia(Pasta);
+  Result.Estado := ConfereTextoLicenca(LeArquivo(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA),
+    CodigoDaMaquina(IdentidadeDaMaquina), Hoje, Result);
 end;
 
-procedure GravaLicenca(const Pasta, Codigo, ContraSenha: string; UltimoDia: TDateTime);
+function InstalaLicenca(const Pasta, Texto: string; Agora: TDateTime; out Instalou: Boolean): TEstadoLicenca;
 var
-  Linhas: TStringList;
+  Nova, Atual: TLicenca;
+  Codigo: string;
 begin
-  Linhas := TStringList.Create;
-  try
-    Linhas.Add(Codigo);
-    Linhas.Add(ContraSenha);
-    Linhas.Add(SeloDoDia(Codigo, Trunc(UltimoDia)));
-    Linhas.SaveToFile(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA);
-  finally
-    Linhas.Free;
-  end;
+  Instalou := False;
+  Codigo := CodigoDaMaquina(IdentidadeDaMaquina);
+  Result := ConfereTextoLicenca(Texto, Codigo, Agora, Nova);
+  if Result in [elSemLicenca, elAssinaturaErrada, elOutraMaquina, elSemOpenSSL] then
+    Exit;
+  { não volta para uma licença mais velha que a atual (por exemplo, a de antes de um bloqueio) }
+  ConfereTextoLicenca(LeArquivo(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA), Codigo, Agora, Atual);
+  if Nova.Emitida < Atual.Emitida then
+    Exit;
+  if LeArquivo(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA) = Texto then
+    Exit;
+  GravaArquivo(IncludeTrailingPathDelimiter(Pasta) + ARQ_LICENCA, Texto);
+  Instalou := True;
 end;
 
 end.

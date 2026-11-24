@@ -209,8 +209,14 @@ begin
     creditos.txt e os relógios e aplica o bônus de cédula do modo REAISXMUSICAS, como faria com dinheiro. }
   Antes := CREDITOS;
   RelogioAntes := RELOGIOPARCIAL;
-  for i := 1 to Reais do
-    Rotina_Creditos('Normal');
+  NovaCreditandoPix := True;  // os pulsos do Pix não vão para a nuvem como noteiro
+  try
+    for i := 1 to Reais do
+      Rotina_Creditos('Normal');
+  finally
+    NovaCreditandoPix := False;
+  end;
+  Nova_Nuvem_Pix(Reais, CREDITOS - Antes);
   { o que entrou no relógio por Pix (o dinheiro foi para a conta do dono, não para o noteiro) }
   Nova_Soma_Pix_Relogio(RELOGIOPARCIAL - RelogioAntes);
   Gravalog('Pix: R$ ' + IntToStr(Reais) + ' viraram créditos (' + IntToStr(Antes) + ' -> ' + IntToStr(CREDITOS) +
@@ -260,8 +266,17 @@ begin
 end;
 
 { ---------------------------------------------------------------------------------------------------------------
-  Licença (licenca.pas). Usa a tela de ativação da original (PanelAtivacao): sem licença válida ela fica por cima, as
-  teclas da jukebox não respondem (só o campo da contra-senha) e a fila não toca. }
+  Licença (licenca.pas) e nuvem (nuvem.pas).
+
+  A licença vem assinada pela nuvem da empresa. Sem licença válida, a tela de ativação da original (PanelAtivacao)
+  fica por cima com o código da máquina, as teclas da jukebox não respondem e a fila não toca. A licença chega:
+  - pela internet: a jukebox fala com a nuvem (nuvem.txt) a cada minuto; assim que a empresa libera a máquina no
+    painel, a licença chega e a jukebox libera sozinha, sem desligar;
+  - por pendrive, sem internet: licenca.txt baixado no painel, na raiz do pendrive (ou copiado para a pasta da
+    jukebox).
+  A jukebox não depende da internet para funcionar: com a licença guardada ela roda normalmente, e o que acontece
+  (dinheiro, Pix, músicas, fechamentos) espera na fila até a internet voltar. A empresa pode bloquear a máquina ou
+  exigir contato a cada N dias no painel; isso só chega à máquina quando ela fala com a nuvem. }
 
 type
   TNovaLicenca = class
@@ -269,23 +284,30 @@ type
     FPasta: string;
     FCodigo: string;
     FBloqueada: Boolean;
+    FEstado: TEstadoLicenca;
     FTimer: TTimer;
     FTicks: Integer;
     FAvisoAte: TDateTime;
     FAntigoKeyDown, FAntigoKeyUp: TKeyEvent;
+    FNuvem: TNuvem;
     procedure Bloqueia(const Titulo: string);
     procedure Libera;
-    procedure Confere;
+    procedure MostraSituacao;
+    procedure ProcuraPendrive;
+    procedure LicencaDaNuvem(const Texto: string);
+    procedure RegistroDaNuvem(const Texto: string);
   public
     constructor Create(const APasta: string);
-    procedure AtivarClick(Sender: TObject);
+    destructor Destroy; override;
+    procedure Confere;
     procedure KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure Tick(Sender: TObject);
+    property Nuvem: TNuvem read FNuvem;
   end;
 
 const
-  TEXTO_ATIVACAO4 = ' Digite o Número Informado pela Empresa no Campo Abaixo e Clique em Ativar';
+  VERSAO_NOVA = 'Nova ' + {$I %DATE%};
 
 var
   NovaLicenca: TNovaLicenca = nil;
@@ -294,18 +316,70 @@ constructor TNovaLicenca.Create(const APasta: string);
 begin
   inherited Create;
   FPasta := APasta;
+  FCodigo := CodigoDaMaquina(IdentidadeDaMaquina);
   FAntigoKeyDown := Form1.OnKeyDown;
   FAntigoKeyUp := Form1.OnKeyUp;
   Form1.OnKeyDown := @KeyDown;
   Form1.OnKeyUp := @KeyUp;
-  Form1.ButtonAtivar.OnClick := @AtivarClick;
+  if NOVA_CHAVE_DESENVOLVIMENTO then
+    Gravalog('Licenca: ATENCAO, compilado com a chave de DESENVOLVIMENTO (qualquer um emite licenca)');
+  try
+    FNuvem := TNuvem.Create(FPasta, FCodigo, VERSAO_NOVA);
+    FNuvem.OnLicenca := @LicencaDaNuvem;
+    FNuvem.OnRegistro := @RegistroDaNuvem;
+    if FNuvem.Ligada then
+    begin
+      Gravalog('Nuvem: ' + FNuvem.Url + ' (maquina ' + FCodigo + ')');
+      FNuvem.Ligou(Now);
+    end
+    else
+      Gravalog('Nuvem: desligada (sem ' + ARQ_NUVEM + ' na pasta da jukebox)');
+  except
+    on E: Exception do
+    begin
+      Gravalog('Nuvem: nao consegui ligar (' + E.Message + ')');
+      FreeAndNil(FNuvem);
+    end;
+  end;
   FTimer := TTimer.Create(Form1);
   FTimer.Interval := 500;
   FTimer.OnTimer := @Tick;
-  if NOVA_CHAVE_DESENVOLVIMENTO then
-    Gravalog('Licenca: ATENCAO, compilado com a chave de DESENVOLVIMENTO (qualquer um gera contra-senha)');
   Confere;
   FTimer.Enabled := True;
+end;
+
+destructor TNovaLicenca.Destroy;
+begin
+  FreeAndNil(FNuvem);
+  inherited Destroy;
+end;
+
+procedure TNovaLicenca.RegistroDaNuvem(const Texto: string);
+begin
+  Gravalog(Texto);
+end;
+
+procedure TNovaLicenca.LicencaDaNuvem(const Texto: string);
+var
+  Instalou: Boolean;
+  Estado: TEstadoLicenca;
+begin
+  try
+    Estado := InstalaLicenca(FPasta, Texto, Now, Instalou);
+  except
+    on E: Exception do
+    begin
+      Gravalog('Licenca: nao consegui gravar a licenca da nuvem (' + E.Message + ')');
+      Exit;
+    end;
+  end;
+  if Instalou then
+  begin
+    Gravalog('Licenca: nova licenca da nuvem (' + DescreveEstado(Estado) + ')');
+    Confere;
+  end
+  else if Estado in [elAssinaturaErrada, elOutraMaquina, elSemOpenSSL] then
+    Gravalog('Licenca: recusei a licenca da nuvem (' + DescreveEstado(Estado) + ')');
 end;
 
 procedure TNovaLicenca.Confere;
@@ -313,29 +387,30 @@ var
   L: TLicenca;
 begin
   L := LeLicenca(FPasta, Now);
-  FCodigo := L.Codigo;
+  FEstado := L.Estado;
   case L.Estado of
     elValida:
       begin
-        if L.Validade = LICENCA_PERMANENTE then
-          Gravalog('Licenca: valida, permanente (maquina ' + FCodigo + ')')
+        if not FBloqueada then
+          Gravalog('Licenca: valida (' + L.Validade + ', cliente ' + L.Cliente + ', maquina ' + FCodigo + ')')
         else
-          Gravalog('Licenca: valida ate ' + FormatDateTime('dd"/"mm"/"yyyy', ValidadeParaData(L.Validade)) +
-            ' (maquina ' + FCodigo + ')');
+          Gravalog('Licenca: liberada (' + L.Validade + ', maquina ' + FCodigo + ')');
         { guarda o dia de hoje: atrasar o relógio depois não estende a validade }
-        GravaLicenca(FPasta, FCodigo, L.ContraSenha, L.Hoje);
+        GravaUltimoDia(FPasta, L.Hoje);
         if FBloqueada then
           Libera;
       end;
     elVencida:
-      begin
-        Gravalog('Licenca: vencida (maquina ' + FCodigo + ')');
-        Bloqueia('Licença Vencida');
-      end;
+      Bloqueia('Licença Vencida');
+    elBloqueada:
+      Bloqueia('Jukebox Bloqueada');
+    elSemContato:
+      Bloqueia('Ligue a Internet');
   else
-    Gravalog('Licenca: ' + DescreveEstado(L.Estado) + ' (maquina ' + FCodigo + ')');
     Bloqueia('Ativação da Jukebox');
   end;
+  if L.Estado <> elValida then
+    Gravalog('Licenca: ' + DescreveEstado(L.Estado) + ' (maquina ' + FCodigo + ')');
 end;
 
 procedure TNovaLicenca.Bloqueia(const Titulo: string);
@@ -343,16 +418,40 @@ begin
   FBloqueada := True;
   Form1.LabelAtivacao1.Caption := Titulo;
   Form1.LabelAtivacao2.Caption := FCodigo;
-  Form1.LabelAtivacao4.Caption := TEXTO_ATIVACAO4;
-  Form1.LabelAtivacao4.Font.Color := clTeal;
-  Form1.EditSenhaAtivacao.Text := '';
+  Form1.LabelAtivacao3.Caption := 'Informe à Empresa o Número Abaixo';
+  MostraSituacao;
+  { a licença chega sozinha (internet ou pendrive): não há o que digitar }
+  Form1.EditSenhaAtivacao.Hide;
+  Form1.ButtonAtivar.Hide;
   Form1.PanelAtivacao.Align := alClient;
   Form1.PanelAtivacao.Show;
   Form1.PanelAtivacao.BringToFront;
   Form1.TimerTocar.Enabled := False;
   if Form1.Play.Running then
     Form1.Play.Stop;
-  { o foco no campo vem no Tick: aqui a janela pode ainda não estar na tela }
+end;
+
+{ A linha de baixo da tela de ativação diz o que falta. }
+procedure TNovaLicenca.MostraSituacao;
+var
+  Texto: string;
+begin
+  if (FNuvem = nil) or not FNuvem.Ligada then
+    Texto := ' Sem nuvem.txt: Coloque no Pendrive o licenca.txt Enviado pela Empresa'
+  else
+    case FNuvem.Situacao of
+      snPendente: Texto := ' Aguardando a Empresa Liberar Esta Máquina...';
+      snBloqueada: Texto := ' Máquina Bloqueada pela Empresa. Ligue para a Empresa';
+      snRecusada: Texto := ' Esta Máquina Foi Recusada pela Empresa. Ligue para a Empresa';
+      snAtiva: Texto := ' Liberada! Recebendo a Licença...';
+    else
+      Texto := ' Sem Internet: Ligue a Internet ou Coloque no Pendrive o licenca.txt da Empresa';
+    end;
+  if FEstado = elVencida then
+    Texto := ' A Licença Venceu. Ligue para a Empresa';
+  if Form1.LabelAtivacao4.Caption <> Texto then
+    Form1.LabelAtivacao4.Caption := Texto;
+  Form1.LabelAtivacao4.Font.Color := clTeal;
 end;
 
 procedure FocaSemErro(Controle: TWinControl);
@@ -369,42 +468,83 @@ procedure TNovaLicenca.Libera;
 begin
   FBloqueada := False;
   Form1.PanelAtivacao.Hide;
+  { a original usa a mesma tela (créditos livres, troca de pendrive) com o campo e o botão }
+  Form1.EditSenhaAtivacao.Show;
+  Form1.ButtonAtivar.Show;
   Form1.TimerTocar.Enabled := True;
-  FocaSemErro(Form1);
+  { a mesma tela de "Ativação OK" da original, por alguns segundos }
+  Form1.PanelErro.Align := alClient;
+  Form1.LabelErro1.Caption := 'Ativação';
+  Form1.LabelErro2.Caption := 'OK';
+  Form1.MemoErro.Caption := 'Ativação OK';
+  Form1.PanelErro.Show;
+  Form1.PanelErro.BringToFront;
+  FAvisoAte := Now + 4 / SecsPerDay;
 end;
 
-procedure TNovaLicenca.AtivarClick(Sender: TObject);
+{ Sem internet: licenca.txt na raiz de um pendrive. O Linux Mint monta em /media/USUARIO/NOME; outros, em
+  /media/NOME ou /mnt/NOME. }
+function NovaSubpastas(const Pasta: string): TStringArray;
 var
-  Validade: Integer;
+  Busca: TSearchRec;
+begin
+  Result := nil;
+  if FindFirst(IncludeTrailingPathDelimiter(Pasta) + '*', faDirectory, Busca) = 0 then
+  begin
+    repeat
+      if (Busca.Name <> '.') and (Busca.Name <> '..') and ((Busca.Attr and faDirectory) <> 0) then
+      begin
+        SetLength(Result, Length(Result) + 1);
+        Result[High(Result)] := IncludeTrailingPathDelimiter(Pasta) + Busca.Name;
+      end;
+    until FindNext(Busca) <> 0;
+    FindClose(Busca);
+  end;
+end;
+
+procedure TNovaLicenca.ProcuraPendrive;
+var
+  Candidatos: TStringList;
+  Raiz, Nivel1, Nivel2: string;
+  i: Integer;
+  Texto: TStringList;
+  Instalou: Boolean;
   Estado: TEstadoLicenca;
 begin
-  Estado := ConfereContraSenha(FCodigo, Form1.EditSenhaAtivacao.Text, NOVA_CHAVE_LICENCA, Now, Validade);
-  if Estado = elValida then
-  begin
-    GravaLicenca(FPasta, FCodigo, Form1.EditSenhaAtivacao.Text, Now);
-    Gravalog('Licenca: ativada (maquina ' + FCodigo + ')');
-    { a mesma tela de "Ativação OK" da original; a Nova libera sem precisar desligar }
-    Form1.PanelAtivacao.Hide;
-    Form1.PanelErro.Align := alClient;
-    Form1.LabelErro1.Caption := 'Ativação';
-    Form1.LabelErro2.Caption := 'OK';
-    Form1.MemoErro.Caption := 'Ativação OK';
-    Form1.PanelErro.Show;
-    Form1.PanelErro.BringToFront;
-    FAvisoAte := Now + 4 / SecsPerDay;
-    FBloqueada := False;
-    Form1.TimerTocar.Enabled := True;
-  end
-  else
-  begin
-    Gravalog('Licenca: tentativa de ativacao recusada: ' + DescreveEstado(Estado));
-    if Estado = elVencida then
-      Form1.LabelAtivacao4.Caption := ' Este Número Já Venceu. Ligue para a Empresa'
-    else
-      Form1.LabelAtivacao4.Caption := ' Número Errado. Confira e Digite de Novo';
-    Form1.LabelAtivacao4.Font.Color := clRed;
-    Form1.EditSenhaAtivacao.Text := '';
-    FAvisoAte := Now + 5 / SecsPerDay;
+  Candidatos := TStringList.Create;
+  try
+    for Raiz in ['/media', '/mnt'] do
+      for Nivel1 in NovaSubpastas(Raiz) do
+      begin
+        Candidatos.Add(Nivel1 + '/' + ARQ_LICENCA);
+        for Nivel2 in NovaSubpastas(Nivel1) do
+          Candidatos.Add(Nivel2 + '/' + ARQ_LICENCA);
+      end;
+    for i := 0 to Candidatos.Count - 1 do
+    begin
+      if not FileExists(Candidatos[i]) then
+        Continue;
+      Texto := TStringList.Create;
+      try
+        try
+          Texto.LoadFromFile(Candidatos[i]);
+          Texto.LineBreak := #10;
+          Estado := InstalaLicenca(FPasta, Texto.Text, Now, Instalou);
+          if Instalou then
+          begin
+            Gravalog('Licenca: instalada do pendrive ' + Candidatos[i] + ' (' + DescreveEstado(Estado) + ')');
+            Confere;
+            Exit;
+          end;
+        except
+          { pendrive saindo no meio da leitura: tenta de novo depois }
+        end;
+      finally
+        Texto.Free;
+      end;
+    end;
+  finally
+    Candidatos.Free;
   end;
 end;
 
@@ -412,16 +552,7 @@ procedure TNovaLicenca.KeyDown(Sender: TObject; var Key: Word; Shift: TShiftStat
 begin
   if FBloqueada then
   begin
-    if Form1.ActiveControl = Form1.EditSenhaAtivacao then
-    begin
-      if Key = VK_RETURN then
-      begin
-        Key := 0;
-        AtivarClick(nil);
-      end;
-    end
-    else
-      Key := 0;  // a jukebox não responde sem licença
+    Key := 0;  // a jukebox não responde sem licença
     Exit;
   end;
   if Assigned(FAntigoKeyDown) then
@@ -432,42 +563,59 @@ procedure TNovaLicenca.KeyUp(Sender: TObject; var Key: Word; Shift: TShiftState)
 begin
   if FBloqueada then
   begin
-    if Form1.ActiveControl <> Form1.EditSenhaAtivacao then
-      Key := 0;
+    Key := 0;
     Exit;
   end;
   if Assigned(FAntigoKeyUp) then
     FAntigoKeyUp(Sender, Key, Shift);
 end;
 
+function Nova_Relogio_Nuvem: TRelogioNuvem;
+begin
+  Result.Total := RELOGIOTOTAL;
+  Result.Parcial := RELOGIOPARCIAL;
+  Result.PixParcial := NovaPixParcial;
+  Result.PixTotal := NovaPixTotal;
+  Result.PontoPct := PORCENTAGEMDOPONTO;
+  Result.Creditos := CREDITOS;
+end;
+
 procedure TNovaLicenca.Tick(Sender: TObject);
 begin
+  { contato com a nuvem a cada segundo (ela mesma decide quando chamar) }
+  if (FNuvem <> nil) and Odd(FTicks) then
+    try
+      FNuvem.Tick(Nova_Relogio_Nuvem, Now);
+    except
+      on E: Exception do
+        Gravalog('Nuvem: erro (' + E.Message + ')');
+    end;
+  if FBloqueada then
+  begin
+    MostraSituacao;
+    if FTicks mod 6 = 0 then
+      ProcuraPendrive;
+    { a original mexe nos painéis e timers por conta própria: a ativação fica por cima }
+    if FBloqueada then
+    begin
+      if not Form1.PanelAtivacao.Visible then
+        Form1.PanelAtivacao.Show;
+      Form1.PanelAtivacao.BringToFront;
+      Form1.TimerTocar.Enabled := False;
+    end;
+  end;
+  Inc(FTicks);
+  { o aviso de "Ativação OK" sai depois de 4 s }
   if (FAvisoAte <> 0) and (Now >= FAvisoAte) then
   begin
     FAvisoAte := 0;
-    if FBloqueada then
-    begin
-      Form1.LabelAtivacao4.Caption := TEXTO_ATIVACAO4;
-      Form1.LabelAtivacao4.Font.Color := clTeal;
-    end
-    else if Form1.PanelErro.Visible and (Form1.LabelErro1.Caption = 'Ativação') then
+    if Form1.PanelErro.Visible and (Form1.LabelErro1.Caption = 'Ativação') then
     begin
       Form1.PanelErro.Hide;
       FocaSemErro(Form1);
     end;
   end;
-  if FBloqueada then
-  begin
-    { a original mexe nos painéis e timers por conta própria: a ativação fica por cima }
-    if not Form1.PanelAtivacao.Visible then
-      Form1.PanelAtivacao.Show;
-    Form1.PanelAtivacao.BringToFront;
-    Form1.TimerTocar.Enabled := False;
-    if Form1.ActiveControl <> Form1.EditSenhaAtivacao then
-      FocaSemErro(Form1.EditSenhaAtivacao);
-  end;
   { confere de novo a cada hora (a licença pode vencer com a jukebox ligada) }
-  Inc(FTicks);
   if FTicks >= 7200 then
   begin
     FTicks := 0;
@@ -483,6 +631,32 @@ begin
   if PastaJuke = '' then
     PastaJuke := PASTA_JUKELINUX;
   NovaLicenca := TNovaLicenca.Create(PastaJuke);
+end;
+
+{ Ganchos chamados pelo código da original (ver correcoes.py). Sem nuvem.txt não fazem nada. }
+procedure Nova_Nuvem_Pulso;
+begin
+  if NovaCreditandoPix or (NovaLicenca = nil) or (NovaLicenca.Nuvem = nil) then
+    Exit;
+  NovaLicenca.Nuvem.Pulso(Now);
+end;
+
+procedure Nova_Nuvem_Pix(Reais, Creditos: LongInt);
+begin
+  if (NovaLicenca <> nil) and (NovaLicenca.Nuvem <> nil) then
+    NovaLicenca.Nuvem.Credito('pix', Reais, Creditos, Now);
+end;
+
+procedure Nova_Nuvem_Musica(const Cd, NomeMusica: string);
+begin
+  if (NovaLicenca <> nil) and (NovaLicenca.Nuvem <> nil) then
+    NovaLicenca.Nuvem.Musica(Cd, NomeMusica, Now);
+end;
+
+procedure Nova_Nuvem_Fechamento(Parcial: LongInt);
+begin
+  if (NovaLicenca <> nil) and (NovaLicenca.Nuvem <> nil) then
+    NovaLicenca.Nuvem.Fechamento(Parcial, NovaPixParcial, Round(PORCENTAGEMDOPONTO * (Parcial / 100)), Now);
 end;
 
 { Horas ligadas a partir dos minutos, como a original mostra: com ponto e até 2 casas ("12.5", "3.33"). A original

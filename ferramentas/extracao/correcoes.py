@@ -142,12 +142,20 @@ CORRECOES = [
      'libera das 9h às 21h59'),
     # Nova: Pix no relógio (quanto do relógio parcial veio por Pix e o acerto com a casa).
     ('TForm1.ButtonZRPClick', '      RELOGIOPARCIAL := 0;\n',
+     '      Nova_Nuvem_Fechamento(RELOGIOPARCIAL);  // Nova: o fechamento vai para a nuvem (antes de zerar)\n'
      '      RELOGIOPARCIAL := 0;\n      Nova_Zera_Pix_Parcial;  // Nova: o Pix do período vai para o histórico e zera junto\n',
-     'fechamento também do Pix'),
+     'fechamento também do Pix e aviso à nuvem'),
     ('TForm1.PanelMenu2Click', '      Form1.LabelVE.Caption := local_70;\n',
      '      Form1.LabelVE.Caption := local_70;\n      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa\n',
      'Pix no menu Relógios'),
     ('TForm1.PanelMenu2Click', '      Form1.LabelVE.Caption := local_198;\n',
      '      Form1.LabelVE.Caption := local_198;\n      Nova_Mostra_Pix_Relogio;  // Nova: Pix, dinheiro no noteiro e acerto com a casa\n',
      'Pix no menu Relógios'),
+    # Nova: o que acontece na máquina vai para a nuvem (nuvem.pas), para o painel da empresa.
+    ('Rotina_Creditos', '        RELOGIOTOTAL := RELOGIOTOTAL + 1;\n',
+     '        RELOGIOTOTAL := RELOGIOTOTAL + 1;\n        Nova_Nuvem_Pulso;  // Nova: R$ 1 do noteiro para a nuvem (o Pix avisa à parte)\n',
+     'cada pulso do relógio vai para a nuvem'),
+    ('Rotina_Tocar', "            Gravalog(local_244);\n            if RESOLUCAO = 1366 then begin\n              Mensagemjpg('mensagem1366-voceselecionouamusica.jpg'",
+     "            Gravalog(local_244);\n            Nova_Nuvem_Musica(MAT[(KMAT + 5)].Nome, MAT[(KMAT + 5)].Musica[MUSICASELECIONADA]);  // Nova: para a nuvem\n            if RESOLUCAO = 1366 then begin\n              Mensagemjpg('mensagem1366-voceselecionouamusica.jpg'",
+     'música pedida vai para a nuvem'),
 ]

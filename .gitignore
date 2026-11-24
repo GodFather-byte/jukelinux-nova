@@ -7,12 +7,17 @@ backup/
 *.res
 *.lps
 /jukelinux
+/jukelinux-teste
 /jukelinux.exe
 __pycache__/
 
 # Testes
 /testes/pix/teste_pix
 
-# Chave secreta da licença (ferramentas/licenca/nova_chave.sh)
+# Chave privada das licenças: nunca no git (ferramentas/licenca/nova_chave.sh grava fora do repositório)
+chave-privada-licencas.pem
 /src/licenca_chave.inc
-/ferramentas/licenca/gerar_contrasenha
+
+# Nuvem
+/nuvem/dados/
+/nuvem/node_modules/
