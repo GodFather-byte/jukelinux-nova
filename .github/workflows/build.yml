@@ -26,12 +26,13 @@ jobs:
           sudo apt-get install -y -qq lazarus-ide lcl-gtk2 lcl-units fpc xvfb xdotool >/dev/null
           lazbuild --version
 
-      # A chave pública das licenças está em src/licenca_publica.inc (ferramentas/licenca/nova_chave.sh).
+      # A chave pública das licenças está em src/licenca_publica.inc (baixada do gerador de licenças,
+      # ferramentas/licenca/gerador-de-licencas.html, que fica só no computador da empresa).
       # Enquanto for a de desenvolvimento, o executável não serve para as máquinas.
       - name: Chave da licença
         run: |
           if grep -q "NOVA_CHAVE_DESENVOLVIMENTO = True" src/licenca_publica.inc; then
-            echo "::warning::src/licenca_publica.inc ainda é a chave de DESENVOLVIMENTO: rode ferramentas/licenca/nova_chave.sh e faça commit da chave pública (não usar este executável nas máquinas)"
+            echo "::warning::src/licenca_publica.inc ainda é a chave de DESENVOLVIMENTO: crie a chave no gerador de licenças e troque src/licenca_publica.inc pelo que ele baixa (não usar este executável nas máquinas)"
           fi
 
       - name: Testes da nuvem

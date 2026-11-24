@@ -268,15 +268,14 @@ end;
 { ---------------------------------------------------------------------------------------------------------------
   Licença (licenca.pas) e nuvem (nuvem.pas).
 
-  A licença vem assinada pela nuvem da empresa. Sem licença válida, a tela de ativação da original (PanelAtivacao)
+  A licença vem assinada pelo gerador de licenças da empresa (só no computador dela). Sem licença válida, a tela de ativação da original (PanelAtivacao)
   fica por cima com o código da máquina, as teclas da jukebox não respondem e a fila não toca. A licença chega:
-  - pela internet: a jukebox fala com a nuvem (nuvem.txt) a cada minuto; assim que a empresa libera a máquina no
-    painel, a licença chega e a jukebox libera sozinha, sem desligar;
-  - por pendrive, sem internet: licenca.txt baixado no painel, na raiz do pendrive (ou copiado para a pasta da
-    jukebox).
+  - pela internet: a jukebox fala com a nuvem (nuvem.txt) a cada minuto; assim que a empresa envia a licença pelo
+    painel, ela chega e a jukebox libera sozinha, sem desligar;
+  - por pendrive, sem internet: o licenca.txt do gerador na raiz do pendrive (ou copiado para a pasta da jukebox).
   A jukebox não depende da internet para funcionar: com a licença guardada ela roda normalmente, e o que acontece
-  (dinheiro, Pix, músicas, fechamentos) espera na fila até a internet voltar. A empresa pode bloquear a máquina ou
-  exigir contato a cada N dias no painel; isso só chega à máquina quando ela fala com a nuvem. }
+  (dinheiro, Pix, músicas, fechamentos) espera na fila até a internet voltar. Para bloquear, a empresa gera uma
+  licença de bloqueio e envia do mesmo jeito; ela só chega à máquina quando a máquina fala com a nuvem. }
 
 type
   TNovaLicenca = class
@@ -404,8 +403,6 @@ begin
       Bloqueia('Licença Vencida');
     elBloqueada:
       Bloqueia('Jukebox Bloqueada');
-    elSemContato:
-      Bloqueia('Ligue a Internet');
   else
     Bloqueia('Ativação da Jukebox');
   end;
@@ -440,10 +437,10 @@ begin
     Texto := ' Sem nuvem.txt: Coloque no Pendrive o licenca.txt Enviado pela Empresa'
   else
     case FNuvem.Situacao of
-      snPendente: Texto := ' Aguardando a Empresa Liberar Esta Máquina...';
+      snPendente: Texto := ' Aguardando a Licença da Empresa...';
       snBloqueada: Texto := ' Máquina Bloqueada pela Empresa. Ligue para a Empresa';
       snRecusada: Texto := ' Esta Máquina Foi Recusada pela Empresa. Ligue para a Empresa';
-      snAtiva: Texto := ' Liberada! Recebendo a Licença...';
+      snAtiva: Texto := ' Recebendo a Licença...';
     else
       Texto := ' Sem Internet: Ligue a Internet ou Coloque no Pendrive o licenca.txt da Empresa';
     end;

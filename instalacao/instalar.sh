@@ -20,8 +20,8 @@
 #   6. com --nuvem (ou nuvem.txt junto do script), grava /home/jkb/jukelinux/nuvem.txt: a jukebox fala com a nuvem
 #      da empresa quando tiver internet (licença, dinheiro, relatórios); sem internet ela funciona do mesmo jeito;
 #   7. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
-# Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina, até a empresa liberar a
-# máquina no painel da nuvem (ou até colocar no pendrive o licenca.txt baixado no painel). Ver README, "Licença".
+# Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina, até chegar a licença feita no
+# gerador de licenças da empresa (pela nuvem ou pelo licenca.txt num pendrive). Ver README, "Licença e nuvem".
 set -e
 
 PASTA=/home/jkb/jukelinux
@@ -114,7 +114,7 @@ elif [ -f "$AQUI/nuvem.txt" ] && [ ! -f "$PASTA/nuvem.txt" ]; then
   cp "$AQUI/nuvem.txt" "$PASTA/nuvem.txt"
   echo "Nuvem: $(grep -v '^#' "$PASTA/nuvem.txt" | head -1)"
 fi
-[ -f "$PASTA/nuvem.txt" ] || echo "Aviso: sem nuvem.txt: a jukebox não fala com a nuvem (licença só por pendrive)"
+[ -f "$PASTA/nuvem.txt" ] || echo "Aviso: sem nuvem.txt: a jukebox não fala com a nuvem (licença só por pendrive, sem relatórios)"
 
 # baixar músicas do YouTube: o script e o yt-dlp na pasta da jukebox (do usuário dela, para ele se atualizar sozinho)
 if [ -f "$AQUI/baixar-youtube.sh" ]; then
@@ -199,5 +199,5 @@ fi
 echo "JukeLinux Nova instalada em $PASTA/jukelinux (usuário: ${USUARIO:-root})."
 echo "Para abrir agora: $PASTA/iniciar-jukebox.sh"
 echo "Ao abrir, se a máquina ainda não tiver licença, aparece a tela de ativação com o código da máquina:"
-echo "libere a máquina no painel da nuvem (ela chega pela internet) ou ponha no pendrive o licenca.txt do painel."
+echo "gere a licença no gerador de licenças e envie pelo painel da nuvem (ou ponha o licenca.txt num pendrive)."
 echo "Para voltar o executável anterior: sudo sh $0 --desfazer"

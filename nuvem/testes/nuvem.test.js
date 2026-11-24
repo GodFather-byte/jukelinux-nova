@@ -1,17 +1,28 @@
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { generateKeyPairSync } from 'node:crypto';
+import { readFileSync } from 'node:fs';
+import { createPublicKey, createPrivateKey } from 'node:crypto';
 import { abrirBanco } from '../src/banco.js';
 import { criarApp } from '../src/app.js';
 import { lerConfig } from '../src/config.js';
-import { conferirLicenca, chavePublicaCrua } from '../src/licenca.js';
+import { conferirLicenca } from '../src/licenca.js';
 import { gerar, paraCsv } from '../src/relatorio.js';
 import { diaDe, inicioDoDia } from '../src/tempo.js';
+import { carregaNucleo, chaveDesenvolvimento } from '../../testes/licenca/gerador.mjs';
 
-const { privateKey, publicKey } = generateKeyPairSync('ed25519');
+// As licenças são feitas pelo próprio gerador de licenças (núcleo do HTML) com a chave de desenvolvimento.
+const Licencas = carregaNucleo();
+const chave = await chaveDesenvolvimento(Licencas);
+const publicaBytes = await Licencas.chavePublica(chave);
+const PUBLICA_B64 = Licencas.paraBase64(publicaBytes);
+const publica = createPublicKey(createPrivateKey(readFileSync(new URL('./chave-desenvolvimento.pem', import.meta.url))));
+
 const SEGREDO = 'segredo-da-maquina-de-teste-com-mais-de-32-letras';
 const CODIGO = '1020737342896379';
+let emitida = Math.floor(Date.now() / 1000) - 100;
+const licenca = (extra = {}) => Licencas.gerarLicenca(chave, { codigo: CODIGO, cliente: 'Bar do Teste', situacao: 'ativa',
+  validade: 'permanente', emitida: ++emitida, ...extra });
 
 let servidor;
 let base;
@@ -21,8 +32,7 @@ let cookie = '';
 let csrf = '';
 
 before(async () => {
-  config = lerConfig({ ADMIN_SENHA: 'senha-forte-de-teste', FUSO_HORARIO: '-03:00', VIRADA_DO_DIA: '6' });
-  config.chavePrivada = privateKey;
+  config = lerConfig({ ADMIN_SENHA: 'senha-forte-de-teste', FUSO_HORARIO: '-03:00', VIRADA_DO_DIA: '6', LICENCA_CHAVE_PUBLICA: PUBLICA_B64 });
   db = abrirBanco(':memory:');
   servidor = createServer(criarApp(db, config));
   await new Promise((r) => servidor.listen(0, '127.0.0.1', r));
@@ -34,22 +44,21 @@ after(() => {
   db.close();
 });
 
-async function contato(corpo, segredo = SEGREDO) {
+async function contato(corpo, segredo = SEGREDO, codigo = CODIGO) {
   const r = await fetch(`${base}/api/v1/contato`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${segredo}` },
-    body: JSON.stringify({ codigo: CODIGO, versao: 'teste', ...corpo }),
+    body: JSON.stringify({ codigo, versao: 'teste', ...corpo }),
   });
   return { status: r.status, corpo: await r.json() };
 }
 
 async function entrar(senha = 'senha-forte-de-teste') {
-  const r = await fetch(`${base}/entrar`, {
+  return fetch(`${base}/entrar`, {
     method: 'POST', redirect: 'manual',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({ usuario: 'admin', senha }),
   });
-  return r;
 }
 
 async function pagina(caminho) {
@@ -65,10 +74,32 @@ async function postar(caminho, campos = {}) {
   });
 }
 
+const enviar = async (texto) => postar('/licencas', { licenca: texto });
+
 // 21/11/2026 23:30 em Brasília (02:30 UTC do dia 22): pela virada das 6h, é a noite do dia 21.
 const NOITE = Date.UTC(2026, 10, 22, 2, 30) / 1000;
 
-test('máquina nova fica aguardando liberação e já guarda os eventos', async () => {
+test('o gerador de licenças faz o licenca_publica.inc da chave de desenvolvimento do repositório', () => {
+  const inc = Licencas.incDaChavePublica(publicaBytes);
+  const repo = readFileSync(new URL('../../src/licenca_publica.desenvolvimento.inc', import.meta.url), 'utf8');
+  const bytes = (t) => /array\[0\.\.31\] of Byte = \(([^)]*)\)/.exec(t)[1].replace(/\s/g, '');
+  assert.equal(bytes(inc), bytes(repo));
+  assert.match(inc, /NOVA_CHAVE_DESENVOLVIMENTO = False/);
+});
+
+test('licença do gerador confere com a chave pública (e mexida não confere)', async () => {
+  const texto = await licenca();
+  const campos = conferirLicenca(texto, publica);
+  assert.equal(campos.codigo, CODIGO);
+  assert.equal(campos.situacao, 'ativa');
+  assert.equal(campos.validade, 'permanente');
+  assert.equal(campos.contato_ate, 'nunca');
+  assert.equal(conferirLicenca(texto.replace('validade=permanente', 'validade=2099-12-31'), publica), null);
+  await assert.rejects(() => licenca({ codigo: '123' }), /16 dígitos/);
+  await assert.rejects(() => licenca({ validade: '2027-02-31' }), /inválida/);
+});
+
+test('máquina nova fica aguardando licença e já guarda os eventos', async () => {
   const r = await contato({
     nome: 'Bar do Teste',
     relogio: { total: 500, parcial: 120, pix_parcial: 20, ponto_pct: 30, creditos: 3 },
@@ -121,58 +152,58 @@ test('painel pede login e recusa senha errada', async () => {
   assert.equal(p.status, 200);
   csrf = /name="csrf" value="([^"]+)"/.exec(p.texto)[1];
   assert.match(p.texto, /Bar do Teste/);
-  assert.match(p.texto, /aguardando liberação/);
+  assert.match(p.texto, /aguardando licença/);
   assert.match(p.texto, /1020-7373-4289-6379/);
   assert.match(p.texto, /outro aparelho tentou/);
 });
 
 test('formulário sem o token CSRF é recusado', async () => {
-  const r = await fetch(`${base}/maquinas/1/liberar`, {
+  const r = await fetch(`${base}/licencas`, {
     method: 'POST', redirect: 'manual',
-    headers: { Cookie: cookie, 'Content-Type': 'application/x-www-form-urlencoded' }, body: 'csrf=errado',
+    headers: { Cookie: cookie, 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ csrf: 'errado', licenca: await licenca() }),
   });
   assert.equal(r.status, 403);
   assert.equal(db.prepare('SELECT situacao FROM maquinas').get().situacao, 'pendente');
 });
 
-test('liberar: a máquina recebe a licença assinada no próximo contato', async () => {
-  assert.equal((await postar('/maquinas/1/liberar')).status, 303);
-  const aviso = await pagina('/maquinas/1');
-  assert.match(aviso.texto, /Máquina liberada/);
-  assert.doesNotMatch((await pagina('/maquinas/1')).texto, /Máquina liberada/, 'o aviso aparece uma vez só');
-
-  // o mesmo aparelho continua falando (o outro foi recusado)
-  const r = await contato({ eventos: [] });
-  assert.equal(r.corpo.situacao, 'ativa');
-  const campos = conferirLicenca(r.corpo.licenca, publicKey);
-  assert.ok(campos, 'assinatura confere com a chave pública');
-  assert.equal(campos.codigo, CODIGO);
-  assert.equal(campos.situacao, 'ativa');
-  assert.equal(campos.validade, 'permanente');
-  assert.equal(campos.contato_ate, 'nunca');
-
-  // nada mudou: o contato seguinte (mesmo segundos depois) traz a mesma licença, e a jukebox não regrava
-  await new Promise((ok) => setTimeout(ok, 1100));
-  assert.equal((await contato({ eventos: [] })).corpo.licenca, r.corpo.licenca);
-
-  const adulterada = r.corpo.licenca.replace('validade=permanente', 'validade=2099-12-31');
-  assert.equal(conferirLicenca(adulterada, publicKey), null, 'licença mexida não confere');
+test('licença de outra chave ou mexida é recusada pelo painel', async () => {
+  const outra = await Licencas.novaChave();
+  const deOutraChave = await Licencas.gerarLicenca(outra, { codigo: CODIGO, situacao: 'ativa', validade: 'permanente' });
+  const r = await enviar(deOutraChave);
+  assert.equal(r.status, 400);
+  assert.match(await r.text(), /assinatura não confere/);
+  assert.equal((await enviar('qualquer coisa')).status, 400);
+  assert.equal(db.prepare('SELECT situacao FROM maquinas').get().situacao, 'pendente');
 });
 
-test('validade e contato obrigatório vão na licença', async () => {
-  await postar('/maquinas/1/licenca', { validade: '2027-12-31', contato_dias: '15' });
-  const r = await contato({ eventos: [] });
-  const campos = conferirLicenca(r.corpo.licenca, publicKey);
-  assert.equal(campos.validade, '2027-12-31');
-  assert.match(campos.contato_ate, /^\d{4}-\d{2}-\d{2}$/);
-  assert.equal((await postar('/maquinas/1/licenca', { validade: '2027-02-31', contato_dias: '0' })).status, 303);
-  assert.equal(db.prepare('SELECT validade FROM maquinas').get().validade, '2027-12-31', 'data inválida não grava');
+test('enviar a licença: a máquina recebe no próximo contato, e a mesma até vir outra', async () => {
+  const texto = await licenca();
+  const r = await enviar(texto);
+  assert.equal(r.status, 303);
+  assert.equal(r.headers.get('location'), '/maquinas/1');
+  assert.match((await pagina('/maquinas/1')).texto, /Licença guardada para 1020-7373-4289-6379/);
+  assert.doesNotMatch((await pagina('/maquinas/1')).texto, /Licença guardada/, 'o aviso aparece uma vez só');
+
+  const c = await contato({ eventos: [] });
+  assert.equal(c.corpo.situacao, 'ativa');
+  assert.equal(c.corpo.licenca, texto);
+  assert.equal(Buffer.from(c.corpo.licenca_b64, 'base64').toString('utf8'), texto);
+  assert.equal((await contato({ eventos: [] })).corpo.licenca, texto, 'a mesma licença enquanto não vier outra');
+  assert.equal((await pagina('/maquinas/1/licenca.txt')).texto, texto);
 });
 
-test('licença para baixar (máquina sem internet)', async () => {
-  const r = await pagina('/maquinas/1/licenca.txt');
-  assert.equal(r.status, 200);
-  assert.ok(conferirLicenca(r.texto, publicKey));
+test('licença mais velha que a atual é recusada', async () => {
+  const velha = await Licencas.gerarLicenca(chave, { codigo: CODIGO, situacao: 'ativa', validade: 'permanente', emitida: 1_700_000_000 });
+  await enviar(velha);
+  assert.match((await pagina('/maquinas/1')).texto, /mais antiga/);
+});
+
+test('validade vai na licença e aparece no painel', async () => {
+  await enviar(await licenca({ validade: '2027-12-31' }));
+  const c = await contato({ eventos: [] });
+  assert.equal(conferirLicenca(c.corpo.licenca, publica).validade, '2027-12-31');
+  assert.match((await pagina('/maquinas/1')).texto, /até 31\/12\/2027/);
 });
 
 test('relatório soma noteiro e Pix na noite certa, com a parte da casa', async () => {
@@ -211,12 +242,23 @@ test('fechamento aparece no relatório', async () => {
   assert.equal(r.fechamentos[0].pix, 20);
 });
 
-test('bloquear: a licença seguinte vem bloqueada', async () => {
-  await postar('/maquinas/1/bloquear');
-  const r = await contato({ eventos: [] });
-  assert.equal(r.corpo.situacao, 'bloqueada');
-  assert.equal(conferirLicenca(r.corpo.licenca, publicKey).situacao, 'bloqueada');
-  await postar('/maquinas/1/liberar');
+test('licença de bloqueio: a máquina recebe e o painel mostra bloqueada', async () => {
+  await enviar(await licenca({ situacao: 'bloqueada' }));
+  const c = await contato({ eventos: [] });
+  assert.equal(c.corpo.situacao, 'bloqueada');
+  assert.equal(conferirLicenca(c.corpo.licenca, publica).situacao, 'bloqueada');
+  await enviar(await licenca());
+  assert.equal((await contato({ eventos: [] })).corpo.situacao, 'ativa');
+});
+
+test('licença de máquina que ainda não falou com a nuvem: fica guardada e o primeiro aparelho pareia', async () => {
+  const outro = '5555444433332222';
+  const texto = await Licencas.gerarLicenca(chave, { codigo: outro, cliente: 'Bar Novo', situacao: 'ativa', validade: 'permanente' });
+  assert.equal((await enviar(texto)).status, 303);
+  const r = await contato({ eventos: [] }, 'segredo-da-maquina-nova-com-mais-de-32-letras!!', outro);
+  assert.equal(r.status, 200);
+  assert.equal(r.corpo.licenca, texto);
+  assert.match((await pagina('/maquinas')).texto, /Bar Novo/);
 });
 
 test('esquecer o aparelho deixa uma jukebox reinstalada parear de novo', async () => {
@@ -229,11 +271,8 @@ test('esquecer o aparelho deixa uma jukebox reinstalada parear de novo', async (
   assert.equal((await contato({ eventos: [] })).status, 403, 'o aparelho antigo não fala mais');
 });
 
-test('chave pública crua tem 32 bytes', () => {
-  assert.equal(chavePublicaCrua(privateKey).length, 32);
-});
-
-test('em produção, sem senha ou sem chave, a nuvem não sobe', () => {
+test('em produção, sem senha a nuvem não sobe; chave pública errada também não', () => {
   assert.throws(() => lerConfig({ NODE_ENV: 'production', ADMIN_SENHA: 'curta' }), /ADMIN_SENHA/);
-  assert.throws(() => lerConfig({ NODE_ENV: 'production', ADMIN_SENHA: 'uma-senha-bem-grande' }), /LICENCA_CHAVE_PRIVADA/);
+  assert.throws(() => lerConfig({ ADMIN_SENHA: 'uma-senha-bem-grande', LICENCA_CHAVE_PUBLICA: 'abc' }), /32 bytes/);
+  assert.ok(lerConfig({ NODE_ENV: 'production', ADMIN_SENHA: 'uma-senha-bem-grande' }), 'a chave pública é opcional');
 });

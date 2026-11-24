@@ -8,22 +8,22 @@ autorização do desenvolvedor da original.
   (`referencia/funcoes.txt`, 266 funções da unit `jukelinux1.pas`).
 - **Troca direta:** usa os mesmos arquivos das máquinas atuais (`/home/jkb/jukelinux`, as configurações `.txt`,
   `/home/jkb/musicas` com `ARTISTA - CD`, `genero.txt` e `capa.jpg`, `tocados.txt`, relógios).
-- **Licença emitida pela nuvem da empresa** no lugar da trava do pendrive-chave da original, com **painel das
-  máquinas, dinheiro e relatórios** (`nuvem/`). A jukebox não depende da internet para funcionar.
+- **Licença feita pelo gerador de licenças da empresa** (só no computador dela) no lugar da trava do pendrive-chave
+  da original, entregue pela **nuvem**, que tem o **painel das máquinas, dinheiro e relatórios** (`nuvem/`), ou
+  por pendrive. A jukebox não depende da internet para funcionar.
 - 64 bits, GTK2, roda no Linux Mint 22.
 
 ## Compilar
 
 ```bash
 sudo apt install lazarus-ide lcl-gtk2 lcl-units fpc
-sh ferramentas/licenca/nova_chave.sh   # uma vez: chave das licenças (a pública vai para src/licenca_publica.inc)
 lazbuild --widgetset=gtk2 jukelinux.lpi
 ```
 
 A CI (GitHub Actions → **Build**) roda os testes, compila a cada push e publica o executável em *Artifacts*. O
 executável confere as licenças com a chave pública de `src/licenca_publica.inc`, que fica no git (ela só confere, não
-emite). Enquanto ela for a de desenvolvimento, o CI avisa e o executável não serve para as máquinas: rode
-`nova_chave.sh` uma vez, faça commit de `src/licenca_publica.inc` e ponha a chave privada na nuvem.
+emite). Enquanto ela for a de desenvolvimento, o CI avisa e o executável não serve para as máquinas: crie a chave no
+gerador de licenças (ver "Licença e nuvem") e troque `src/licenca_publica.inc` pelo arquivo que ele baixa.
 
 O modo **Teste** (`lazbuild --build-mode=Teste jukelinux.lpi`) gera `jukelinux-teste`, que usa a chave de
 desenvolvimento. É o executável dos testes de integração; não vai para as máquinas.
@@ -73,30 +73,45 @@ O instalador cria as pastas `/home/jkb/musicas`, `ritmos/` e `letras/`. O que ve
 
 ## Licença e nuvem
 
-A licença é emitida pela **nuvem da empresa** (`nuvem/`, um servidor Node sem dependências). A mesma nuvem tem o
-painel das máquinas, o dinheiro e os relatórios. Instalação e hospedagem: [nuvem/LEIA-ME.md](nuvem/LEIA-ME.md).
+As licenças são feitas pelo **gerador de licenças**, `ferramentas/licenca/gerador-de-licencas.html`. Ele fica **só no
+computador da empresa**: abre no navegador (Chrome, Edge ou Firefox), funciona sem internet e não precisa instalar
+nada. Só quem tem a chave dele cria licença; nem a nuvem tem essa chave. A **nuvem** (`nuvem/`) entrega a licença às
+máquinas e tem o painel, o dinheiro e os relatórios ([nuvem/LEIA-ME.md](nuvem/LEIA-ME.md)).
 
-- **Código da máquina:** 16 dígitos tirados do número de série do disco do sistema. Uma imagem clonada em outro HD
+**Uma vez só, no gerador:**
+1. **Criar chave nova.** O navegador guarda a chave e baixa uma cópia (`chave-privada-licencas.json`). Guarde a cópia
+   num pendrive: sem ela não dá para gerar licenças para as jukeboxes já instaladas.
+2. **Baixar licenca_publica.inc** e trocar o `src/licenca_publica.inc` do repositório por ele. No GitHub: *Add file
+   → Upload files*, na pasta `src`. O CI passa a gerar o executável com a sua chave.
+3. Pôr a chave pública que o gerador mostra em `LICENCA_CHAVE_PUBLICA` na nuvem. Ela não é segredo: serve para a
+   nuvem recusar licença que não seja sua.
+
+**Para cada máquina:**
+- **Código da máquina:** são 16 dígitos tirados do número de série do disco do sistema. Uma imagem clonada em outro HD
   tem outro código. Ele aparece na tela de ativação e no painel.
 - **Ativação:** sem licença válida, a jukebox abre em **Ativação da Jukebox**, mostra o código e não responde às
-  teclas. Com internet (e `nuvem.txt`), ela aparece no painel **aguardando liberação**; a empresa clica em Liberar e
-  em até um minuto a licença chega e a jukebox libera sozinha, com o "Ativação OK" da original. Sem internet, o
-  `licenca.txt` baixado no painel vai num pendrive: a jukebox procura na raiz dos pendrives e instala sozinha.
-- **Licença assinada:** o `licenca.txt` é um texto assinado com Ed25519 (código, situação, validade, prazo de
-  contato, data de emissão). A jukebox confere com a chave pública embutida (`src/licenca_publica.inc`), pela
-  libcrypto do sistema, sem internet. Só a nuvem, que tem a chave privada, emite. Mexer no arquivo invalida a
-  assinatura, e o código-fonte aberto não ajuda a falsificar.
-- **Pelo painel:** validade (permanente ou até uma data), bloquear e desbloquear, e "exigir contato a cada N dias"
-  (para máquina alugada). Essas mudanças chegam no próximo contato. Uma licença só é trocada por outra mais nova, e
-  o `licenca-dia.txt` guarda o último dia visto, então atrasar o relógio não estende a validade.
-- **Sem internet a jukebox funciona normalmente:** o que acontece vai para `nuvem-fila.txt` e é mandado quando a
+  teclas.
+  - No gerador: digite o código, escolha **Liberar**, permanente ou até uma data, e clique em **Gerar licença**.
+  - Com internet: no painel, **Enviar licença**, cole e envie. Em até um minuto a jukebox recebe e libera sozinha, com
+    o "Ativação OK" da original.
+  - Sem internet: grave o `licenca.txt` na raiz de um pendrive. A jukebox procura nos pendrives e instala sozinha.
+- **Bloquear:** gere no gerador uma licença de **Bloquear** e envie do mesmo jeito. A máquina trava no próximo
+  contato, ou quando o pendrive for colocado.
+- **Licença assinada:** o `licenca.txt` é um texto assinado com Ed25519 (código, situação, validade, data de
+  emissão). A jukebox confere com a chave pública embutida (`src/licenca_publica.inc`), pela libcrypto do sistema,
+  sem internet. Mexer no arquivo invalida a assinatura, e o código-fonte aberto não ajuda a falsificar.
+  - Uma licença só é trocada por outra mais nova.
+  - O `licenca-dia.txt` guarda o último dia visto, então atrasar o relógio não estende a validade.
+- **Sem internet a jukebox funciona normalmente.** O que acontece vai para `nuvem-fila.txt` e é mandado quando a
   internet volta: dinheiro do noteiro (pulsos juntados por nota), Pix, música pedida, fechamento do relógio e
   "ligou". Cada evento tem um id, então nada conta duas vezes. A cada contato vão também os relógios.
 - **Segredo do aparelho:** no primeiro uso a jukebox sorteia `nuvem-segredo.txt`. A nuvem amarra o código a ele e
-  recusa outro aparelho com o mesmo código ("Esquecer o aparelho" no painel, para uma jukebox reinstalada).
+  recusa outro aparelho com o mesmo código. Para uma jukebox reinstalada, use "Esquecer o aparelho" no painel.
 
-Testes: `testes/licenca/rodar.sh` (licença), `testes/nuvem/rodar.sh` (jukebox × nuvem de verdade) e
-`cd nuvem && npm test` (nuvem).
+Testes:
+- `testes/licenca/rodar.sh`: licença, com licenças feitas pelo próprio núcleo do gerador.
+- `testes/nuvem/rodar.sh`: jukebox × nuvem de verdade.
+- `cd nuvem && npm test`: nuvem.
 
 Máquina antiga trocada pela Nova continua com o serial da chave antiga (lido dos arquivos dela); máquina nova recebe um
 serial tirado do código da máquina.
@@ -176,8 +191,8 @@ falta de exceções. Roda também no CI.
 3. Créditos, fila e player (mplayer). **Feito:** acervo, fila, músicas cifradas e player tocando em sequência.
 4. Regras: palhinha, música grátis, VIP, sorteio, volume, propaganda e vídeos na TV. Vídeo dentro da tela (`-wid`) feito.
 5. Menu do operador. Senha e as cinco seções abrem com a configuração da máquina; falta testar cada opção.
-6. Licença nova. **Feito:** licença assinada pela nuvem (Ed25519), ativação pela tela da original, liberação pelo
-   painel ou por pendrive.
+6. Licença nova. **Feito:** gerador de licenças (Ed25519) só no computador da empresa, ativação pela tela da
+   original, licença entregue pela nuvem ou por pendrive.
 7. Pacote de instalação e piloto. **Feito:** instalador com troca direta e desfazer; falta o piloto numa máquina real.
 8. Nuvem da empresa. **Feito:** painel das máquinas, dinheiro (noteiro e Pix), relatórios com CSV, fechamentos e
    histórico das licenças. Próximos, no modelo do Jukebox Pix: alertas no Telegram, fechamento diário automático,

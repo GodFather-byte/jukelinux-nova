@@ -5,11 +5,13 @@ unit Licenca;
   - Código da máquina: 16 dígitos (NNNN-NNNN-NNNN-NNNN) tirados do número de série do disco onde está o sistema
     (/dev/disk/by-id). Uma imagem do HD clonada para outra máquina tem outro código. Sem serial (máquina virtual),
     usa o /etc/machine-id. É ele que aparece no painel da nuvem.
-  - licenca.txt: texto assinado pela nuvem com Ed25519 (formato em nuvem/src/licenca.js): código, situação
-    (ativa/bloqueada), validade, prazo para falar com a nuvem e a data de emissão. A jukebox confere a assinatura com
-    a chave pública embutida (licenca_publica.inc), sem internet: só a nuvem, que tem a chave privada, emite
-    licença. Mexer em qualquer letra do arquivo invalida a assinatura.
-  - A licença chega pela internet (nuvem.pas, a cada contato) ou num pendrive (licenca.txt baixado no painel).
+  - licenca.txt: texto assinado com Ed25519 pelo gerador de licenças da empresa
+    (ferramentas/licenca/gerador-de-licencas.html, que fica só no computador da empresa): código, situação
+    (ativa/bloqueada), validade e a data de emissão. A jukebox confere a assinatura com a chave pública embutida
+    (licenca_publica.inc), sem internet. Só quem tem a chave privada emite licença: nem a nuvem tem. Mexer em
+    qualquer letra do arquivo invalida a assinatura.
+  - A licença chega pela internet (a empresa envia pelo painel e a nuvem repassa no contato, nuvem.pas) ou num
+    pendrive (licenca.txt na raiz).
     Uma licença só substitui outra mais nova ou igual (data de emissão), então não dá para voltar uma antiga.
   - licenca-dia.txt guarda o último dia visto: atrasar o relógio da máquina não estende a validade. O dia
     considerado também nunca é anterior ao da emissão da licença.
@@ -40,13 +42,12 @@ const
 
 type
   TEstadoLicenca = (elValida, elSemLicenca, elOutraMaquina, elAssinaturaErrada, elVencida, elBloqueada,
-    elSemContato, elSemOpenSSL);
+    elSemOpenSSL);
 
   TLicenca = record
     Estado: TEstadoLicenca;
     Codigo: string;          // da máquina, com os tracinhos
     Validade: string;        // 'permanente' ou AAAA-MM-DD
-    ContatoAte: string;      // 'nunca' ou AAAA-MM-DD
     Cliente: string;
     Emitida: Int64;          // segundos desde 1970 (UTC)
     Hoje: TDateTime;         // o dia considerado (nunca antes do último dia visto nem da emissão)
@@ -98,7 +99,6 @@ begin
     elAssinaturaErrada: Result := 'licença com assinatura errada';
     elVencida: Result := 'licença vencida';
     elBloqueada: Result := 'máquina bloqueada pela empresa';
-    elSemContato: Result := 'passou do prazo sem falar com a nuvem';
     elSemOpenSSL: Result := 'sem a libcrypto (OpenSSL) para conferir a licença';
   end;
 end;
@@ -404,7 +404,6 @@ begin
     if Campo(Linhas, 'codigo') <> SoDigitos(Codigo) then
       Exit(elOutraMaquina);
     L.Validade := Campo(Linhas, 'validade');
-    L.ContatoAte := Campo(Linhas, 'contato_ate');
     L.Cliente := Campo(Linhas, 'cliente');
     L.Emitida := StrToInt64Def(Campo(Linhas, 'emitida'), 0);
     { o dia considerado nunca é antes da emissão }
@@ -424,13 +423,6 @@ begin
         Exit;
       if Trunc(L.Hoje) > Trunc(Data) then
         Exit(elVencida);
-    end;
-    if L.ContatoAte <> 'nunca' then
-    begin
-      if not DataDaLicenca(L.ContatoAte, Data) then
-        Exit;
-      if Trunc(L.Hoje) > Trunc(Data) then
-        Exit(elSemContato);
     end;
     Result := elValida;
   finally

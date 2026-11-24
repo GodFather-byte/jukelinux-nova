@@ -1,6 +1,7 @@
 #!/bin/sh
 # Testa a conversa da jukebox com a nuvem (src/nuvem.pas + src/licenca.pas) contra a nuvem rodando de verdade
-# (nuvem/servidor.js), com a chave de desenvolvimento. Precisa de fpc, node 22.13+ e curl.
+# (nuvem/servidor.js). As licenças são feitas pelo gerador de licenças com a chave de desenvolvimento e enviadas pelo
+# painel. Precisa de fpc, node 22.13+ e curl.
 set -e
 AQUI=$(cd "$(dirname "$0")" && pwd)
 RAIZ=$(cd "$AQUI/../.." && pwd)
@@ -25,7 +26,7 @@ echo "--- sem a nuvem no ar"
 
 echo "--- nuvem no ar"
 PORTA=$PORTA BANCO="$T/nuvem.db" ADMIN_SENHA=$SENHA INTERVALO_CONTATO=10 \
-  LICENCA_CHAVE_PRIVADA_ARQUIVO="$RAIZ/nuvem/testes/chave-desenvolvimento.pem" \
+  LICENCA_CHAVE_PUBLICA="$(node "$RAIZ/testes/nuvem/painel.mjs" - - publica)" \
   node --disable-warning=ExperimentalWarning "$RAIZ/nuvem/servidor.js" >"$T/nuvem.log" 2>&1 &
 NUVEM=$!
 for i in $(seq 1 50); do curl -s "http://127.0.0.1:$PORTA/saude" >/dev/null 2>&1 && break; sleep 0.1; done

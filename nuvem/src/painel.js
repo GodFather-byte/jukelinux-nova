@@ -1,11 +1,11 @@
 // Páginas do painel da empresa.
 import { html, cru, reais, esc } from './html.js';
 import { registrar } from './banco.js';
-import { emitirLicenca } from './licenca.js';
+import { conferirLicenca } from './licenca.js';
 import { gerar, ErroRelatorio } from './relatorio.js';
-import { dataHora, dataBr, hoje, somaDias, inicioDoDia, validaDia } from './tempo.js';
+import { dataHora, dataBr, hoje, somaDias, inicioDoDia } from './tempo.js';
 
-const SITUACAO = { pendente: 'aguardando liberação', ativa: 'liberada', bloqueada: 'bloqueada' };
+const SITUACAO = { pendente: 'aguardando licença', ativa: 'liberada', bloqueada: 'bloqueada' };
 
 export function codigoBonito(c) {
   return String(c).replace(/(\d{4})(?=\d)/g, '$1-');
@@ -39,9 +39,9 @@ const seloRede = (m, config, agora) => (online(m, config, agora)
   : html`<span class="selo offline">sem contato</span>`);
 
 function validadeTexto(m, config, agora) {
-  const partes = [m.validade ? `até ${dataBr(m.validade)}` : 'permanente'];
-  if (m.contato_dias > 0) partes.push(`precisa falar com a nuvem a cada ${m.contato_dias} dias`);
-  if (m.validade && m.validade < hoje(config, agora)) partes.push('VENCIDA');
+  if (m.situacao === 'pendente') return 'nenhuma ainda';
+  const partes = [m.situacao === 'bloqueada' ? 'de bloqueio' : m.validade ? `até ${dataBr(m.validade)}` : 'permanente'];
+  if (m.situacao === 'ativa' && m.validade && m.validade < hoje(config, agora)) partes.push('VENCIDA');
   return partes.join(' · ');
 }
 
@@ -88,7 +88,8 @@ export function paginaMaquinas(db, config, agora = Date.now()) {
 
   return html`
     <h1>Máquinas</h1>
-    ${pendentes ? html`<p class="erro">${pendentes} máquina(s) aguardando liberação: abra e clique em <b>Liberar</b>.</p>` : ''}
+    ${pendentes ? html`<p class="erro">${pendentes} máquina(s) aguardando licença: gere a licença no gerador com o código
+      dela e envie em <a href="/licencas"><b>Enviar licença</b></a>.</p>` : ''}
     <div class="grade">
       <div class="numero"><span>Hoje (${dataBr(dia)}): total</span><b>${reais(tNoteiro + tPix)}</b></div>
       <div class="numero"><span>Noteiro</span><b>${reais(tNoteiro)}</b></div>
@@ -100,7 +101,7 @@ export function paginaMaquinas(db, config, agora = Date.now()) {
       <thead><tr><th>Máquina</th><th>Licença</th><th>Internet</th><th class="n">Noteiro hoje</th><th class="n">Pix hoje</th>
         <th class="n">Total hoje</th><th class="n">Músicas hoje</th><th class="n">Relógio parcial</th></tr></thead>
       <tbody>${linhas.length ? linhas : html`<tr><td colspan="8" class="suave">Nenhuma máquina ainda. Quando uma jukebox com
-        <code>nuvem.txt</code> ligar com internet, ela aparece aqui aguardando liberação.</td></tr>`}</tbody>
+        <code>nuvem.txt</code> ligar com internet, ela aparece aqui aguardando licença.</td></tr>`}</tbody>
     </table></div>
     <p class="suave">O dia vai das ${config.viradaDoDia}h às ${config.viradaDoDia}h. As máquinas mandam o que aconteceu a cada
       ${config.intervaloContato} s quando têm internet; sem internet elas funcionam normalmente e mandam tudo depois.</p>`;
@@ -131,9 +132,6 @@ export function paginaMaquina(db, config, id, csrf, agora = Date.now()) {
       <input type="hidden" name="csrf" value="${csrf}"><button class="${classe}">${texto}</button></form>`;
 
   const acoes = [];
-  if (m.situacao === 'pendente') acoes.push(botao('liberar', 'Liberar a máquina'));
-  if (m.situacao === 'ativa') acoes.push(botao('bloquear', 'Bloquear', 'perigo', 'Bloquear esta máquina? Ela trava no próximo contato com a nuvem.'));
-  if (m.situacao === 'bloqueada') acoes.push(botao('liberar', 'Desbloquear'));
   if (m.segredo_hash) {
     acoes.push(botao('esquecer-aparelho', 'Esquecer o aparelho', 'neutro',
       'Use quando a jukebox for reinstalada: o próximo aparelho com este código fica pareado. Continuar?'));
@@ -156,9 +154,10 @@ export function paginaMaquina(db, config, id, csrf, agora = Date.now()) {
     <div class="cartao">
       <p>Código: <code>${codigoBonito(m.codigo)}</code> · versão ${m.versao || '?'} · IP ${m.ip || '?'} ·
         cadastrada em ${dataHora(m.criada_em, config)}${m.liberada_em ? ` · liberada em ${dataHora(m.liberada_em, config)}` : ''}</p>
-      <p>Licença: ${validadeTexto(m, config, agora)}${m.licenca_emitida ? ` · última enviada ${tempoAtras(m.licenca_emitida, agora)}` : ''}</p>
+      <p>Licença: ${validadeTexto(m, config, agora)}${m.licenca_emitida ? ` · gerada em ${dataHora(m.licenca_emitida, config)}` : ''}</p>
       <div class="acoes">${acoes}
-        ${m.situacao !== 'pendente' && config.chavePrivada ? html`<a href="/maquinas/${m.id}/licenca.txt">Baixar licenca.txt (para máquina sem internet)</a>` : ''}
+        <a href="/licencas">Enviar licença</a>
+        ${m.licenca_texto ? html`<a href="/maquinas/${m.id}/licenca.txt">Baixar a licença enviada (licenca.txt)</a>` : ''}
         <a href="/relatorio?de=${de}&ate=${dia}&maquina=${m.id}">Relatório da máquina</a>
       </div>
     </div>
@@ -168,19 +167,9 @@ export function paginaMaquina(db, config, id, csrf, agora = Date.now()) {
       <input type="hidden" name="csrf" value="${csrf}">
       <label>Nome<input name="nome" value="${m.nome}" maxlength="60" required></label>
       <label>Local (bar)<input name="local" value="${m.local}" maxlength="80"></label>
-      <label>Cliente (sai na licença)<input name="cliente" value="${m.cliente}" maxlength="80"></label>
+      <label>Cliente<input name="cliente" value="${m.cliente}" maxlength="80"></label>
       <label style="flex-basis:100%">Observação<textarea name="observacao" maxlength="500">${m.observacao}</textarea></label>
       <button>Salvar</button>
-    </form>
-
-    <h2>Validade da licença</h2>
-    <form class="cartao linha" method="post" action="/maquinas/${m.id}/licenca">
-      <input type="hidden" name="csrf" value="${csrf}">
-      <label>Vale até (vazio = permanente)<input type="date" name="validade" value="${m.validade || ''}"></label>
-      <label>Exigir contato com a nuvem a cada (dias, 0 = nunca)<input type="number" name="contato_dias" min="0" max="365" value="${m.contato_dias}"></label>
-      <button>Salvar</button>
-      <p class="suave" style="flex-basis:100%">A licença nova chega na máquina no próximo contato. "Exigir contato" trava a jukebox se ela
-        passar tantos dias sem internet (bom para máquina alugada); com 0 ela nunca depende da internet.</p>
     </form>
 
     <h2>Últimos acontecimentos</h2>
@@ -201,14 +190,6 @@ export function acaoMaquina(db, config, id, acao, campos, agora = Date.now()) {
   const m = db.prepare('SELECT * FROM maquinas WHERE id = ?').get(id);
   if (!m) return { erro: 'Máquina não encontrada.' };
   switch (acao) {
-    case 'liberar':
-      db.prepare(`UPDATE maquinas SET situacao = 'ativa', liberada_em = COALESCE(liberada_em, ?) WHERE id = ?`).run(agora, id);
-      registrar(db, id, m.situacao === 'bloqueada' ? 'desbloqueada' : 'liberada', validadeTexto(m, config, agora));
-      return { aviso: 'Máquina liberada. A licença chega na jukebox no próximo contato (em até um minuto, se ela estiver com internet).' };
-    case 'bloquear':
-      db.prepare(`UPDATE maquinas SET situacao = 'bloqueada' WHERE id = ?`).run(id);
-      registrar(db, id, 'bloqueada');
-      return { aviso: 'Máquina bloqueada. Ela trava no próximo contato com a nuvem.' };
     case 'esquecer-aparelho':
       db.prepare('UPDATE maquinas SET segredo_hash = NULL, intruso_em = NULL WHERE id = ?').run(id);
       registrar(db, id, 'aparelho esquecido', 'o próximo aparelho com este código fica pareado');
@@ -224,26 +205,67 @@ export function acaoMaquina(db, config, id, acao, campos, agora = Date.now()) {
         String(campos.observacao ?? '').trim().slice(0, 500), id);
       return { aviso: 'Dados salvos.' };
     }
-    case 'licenca': {
-      const validade = String(campos.validade ?? '').trim();
-      if (validade && !validaDia(validade)) return { erro: 'Data de validade inválida.' };
-      const dias = Number(campos.contato_dias ?? 0);
-      if (!Number.isInteger(dias) || dias < 0 || dias > 365) return { erro: 'Os dias de contato vão de 0 a 365.' };
-      db.prepare('UPDATE maquinas SET validade = ?, contato_dias = ? WHERE id = ?').run(validade || null, dias, id);
-      const nova = db.prepare('SELECT * FROM maquinas WHERE id = ?').get(id);
-      registrar(db, id, 'validade alterada', validadeTexto(nova, config, agora));
-      return { aviso: 'Validade salva. A licença nova chega na jukebox no próximo contato.' };
-    }
     default:
       return { erro: 'Ação desconhecida.' };
   }
 }
 
-export function licencaParaBaixar(db, config, id, agora = Date.now()) {
-  const m = db.prepare('SELECT * FROM maquinas WHERE id = ?').get(id);
-  if (!m || m.situacao === 'pendente' || !config.chavePrivada) return null;
-  registrar(db, id, 'licença baixada', 'para instalar sem internet');
-  return emitirLicenca(m, config.chavePrivada, agora, config.fusoMinutos);
+export function licencaParaBaixar(db, id) {
+  return db.prepare('SELECT licenca_texto FROM maquinas WHERE id = ?').get(id)?.licenca_texto || null;
+}
+
+/** Página "Enviar licença": cola (ou abre) o licenca.txt feito no gerador de licenças. */
+export function paginaEnviarLicenca(config, csrf) {
+  return html`
+    <h1>Enviar licença</h1>
+    <form class="cartao" method="post" action="/licencas">
+      <input type="hidden" name="csrf" value="${csrf}">
+      <p>Gere a licença no <b>gerador de licenças</b> (no seu computador) com o código da máquina e cole aqui, ou abra o
+        <code>licenca.txt</code>. A nuvem guarda e manda para a jukebox no próximo contato (em até um minuto, se ela estiver
+        com internet). Para bloquear, gere uma licença de bloqueio e envie do mesmo jeito.</p>
+      <label>Licença<textarea name="licenca" id="campo-licenca" rows="9" required
+        placeholder="JUKELINUX NOVA LICENCA 1&#10;codigo=...&#10;assinatura=..."></textarea></label>
+      <div class="acoes" style="margin-top:10px">
+        <button>Enviar</button>
+        <label class="suave" style="flex-direction:row;align-items:center;gap:6px">ou abrir o arquivo:
+          <input type="file" accept=".txt" data-preenche="campo-licenca"></label>
+      </div>
+      ${config.chavePublica ? '' : html`<p class="erro">A nuvem está sem LICENCA_CHAVE_PUBLICA: ela não consegue conferir se a
+        licença é mesmo sua antes de mandar (a jukebox confere de qualquer jeito). Ponha a chave pública que o gerador mostra.</p>`}
+    </form>`;
+}
+
+/** Recebe uma licença do gerador: confere, acha (ou cria) a máquina pelo código e guarda para o próximo contato. */
+export function enviarLicenca(db, config, texto, agora = Date.now()) {
+  const campos = conferirLicenca(texto, config.chavePublica);
+  if (!campos) {
+    return { erro: config.chavePublica
+      ? 'Licença recusada: não é do seu gerador de licenças (assinatura não confere) ou o texto está incompleto.'
+      : 'Licença recusada: o texto não está no formato do gerador de licenças (copie tudo, até a linha "assinatura=").' };
+  }
+  const emitidaMs = Number(campos.emitida) * 1000;
+  let m = db.prepare('SELECT * FROM maquinas WHERE codigo = ?').get(campos.codigo);
+  if (!m) {
+    // máquina que ainda não falou com a nuvem: fica cadastrada; o primeiro aparelho com este código pareia
+    db.prepare('INSERT INTO maquinas (codigo, nome, cliente, criada_em) VALUES (?, ?, ?, ?)')
+      .run(campos.codigo, campos.cliente || `Máquina ${campos.codigo.slice(-4)}`, campos.cliente || '', agora);
+    m = db.prepare('SELECT * FROM maquinas WHERE codigo = ?').get(campos.codigo);
+  } else if (m.licenca_emitida && emitidaMs < m.licenca_emitida) {
+    return { erro: 'Esta licença é mais antiga que a que a máquina já tem: a jukebox não aceitaria. Gere outra.', id: m.id };
+  }
+  db.prepare(`UPDATE maquinas SET situacao = ?, validade = ?, licenca_texto = ?, licenca_emitida = ?,
+                liberada_em = CASE WHEN ? = 'ativa' THEN COALESCE(liberada_em, ?) ELSE liberada_em END WHERE id = ?`)
+    .run(campos.situacao, campos.validade === 'permanente' ? null : campos.validade, campos.texto, emitidaMs,
+      campos.situacao, agora, m.id);
+  const nova = db.prepare('SELECT * FROM maquinas WHERE id = ?').get(m.id);
+  registrar(db, m.id, campos.situacao === 'bloqueada' ? 'licença de bloqueio enviada' : 'licença enviada',
+    validadeTexto(nova, config, agora) + (campos.cliente ? ` · ${campos.cliente}` : ''));
+  return {
+    id: m.id,
+    aviso: campos.situacao === 'bloqueada'
+      ? `Bloqueio guardado para ${codigoBonito(m.codigo)}: a jukebox trava no próximo contato.`
+      : `Licença guardada para ${codigoBonito(m.codigo)}: a jukebox recebe no próximo contato (em até um minuto, se estiver com internet).`,
+  };
 }
 
 function barras(lista, campo, rotulo) {

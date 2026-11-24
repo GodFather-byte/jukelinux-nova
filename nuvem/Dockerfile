@@ -1,7 +1,7 @@
 # Nuvem da JukeLinux Nova. Sem dependências: só o Node (SQLite embutido).
 #   docker build -t jukelinux-nuvem nuvem/
 #   docker run -d --name nuvem -p 8080:8080 -v jukelinux-dados:/dados \
-#     -e ADMIN_SENHA=... -e LICENCA_CHAVE_PRIVADA="$(cat chave-privada-licencas.pem)" jukelinux-nuvem
+#     -e ADMIN_SENHA=... -e LICENCA_CHAVE_PUBLICA=<a chave pública que o gerador de licenças mostra> jukelinux-nuvem
 # Ponha um HTTPS na frente (Caddy, Cloudflare, o do provedor): a senha do painel e o segredo das máquinas passam por aqui.
 FROM node:22-alpine
 WORKDIR /app

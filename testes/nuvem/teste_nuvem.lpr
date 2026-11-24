@@ -90,7 +90,7 @@ begin
     else if Fase = 'pendente' then
     begin
       Contato(N);
-      Confere(N.Situacao = snPendente, 'máquina nova fica aguardando liberação: ' + N.DescreveSituacao);
+      Confere(N.Situacao = snPendente, 'máquina nova fica aguardando a licença: ' + N.DescreveSituacao);
       Confere(N.TamanhoDaFila = 0, 'a nuvem confirmou e a fila esvaziou');
       Confere(Rec.Recebida = '', 'pendente não recebe licença');
       N.Fechamento(120, 20, 36, Now);
@@ -100,7 +100,7 @@ begin
     else if Fase = 'liberada' then
     begin
       Contato(N);
-      Confere(N.Situacao = snAtiva, 'liberada no painel: ' + N.DescreveSituacao);
+      Confere(N.Situacao = snAtiva, 'licença enviada pelo painel: ' + N.DescreveSituacao);
       Confere(Rec.Instalou and (Rec.Estado = elValida), 'licença chegou e foi instalada: ' + DescreveEstado(Rec.Estado));
       Confere(LeLicenca(Pasta, Now).Estado = elValida, 'licenca.txt vale');
       Sleep(1100);  // outro segundo: a nuvem manda a mesma licença enquanto nada muda
@@ -111,7 +111,7 @@ begin
     begin
       Sleep(1100);  // a licença de bloqueio é emitida num segundo depois da anterior
       Contato(N);
-      Confere(N.Situacao = snBloqueada, 'bloqueada no painel: ' + N.DescreveSituacao);
+      Confere(N.Situacao = snBloqueada, 'licença de bloqueio enviada pelo painel: ' + N.DescreveSituacao);
       Confere(LeLicenca(Pasta, Now).Estado = elBloqueada, 'licenca.txt agora diz bloqueada');
     end
     else if Fase = 'intruso' then

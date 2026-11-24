@@ -71,8 +71,6 @@ begin
   Confere(Estado('trinta-dias.txt', Date + 31) = elVencida, 'com prazo: vence no dia seguinte');
   Confere(Estado('vencida.txt', Date) = elVencida, 'vencida não vale');
   Confere(Estado('bloqueada.txt', Date) = elBloqueada, 'bloqueada pela empresa trava');
-  Confere(Estado('contato-7.txt', Date) = elValida, 'contato obrigatório: vale dentro do prazo');
-  Confere(Estado('contato-7.txt', Date + 8) = elSemContato, 'contato obrigatório: trava depois do prazo sem internet');
   Confere(Estado('outra-maquina.txt', Date) = elOutraMaquina, 'licença de outra máquina não vale');
   Confere(Estado('adulterada.txt', Date) = elAssinaturaErrada, 'trocar a validade no arquivo invalida a assinatura');
   Confere(ConfereTextoLicenca('', Cod, Date, L) = elSemLicenca, 'arquivo vazio: sem licença');

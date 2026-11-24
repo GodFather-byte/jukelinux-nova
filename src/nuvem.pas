@@ -684,7 +684,7 @@ begin
   case Situacao of
     snDesligada: Result := 'nuvem desligada (sem nuvem.txt)';
     snSemContato: Result := 'sem contato com a nuvem';
-    snPendente: Result := 'aguardando liberação pela empresa';
+    snPendente: Result := 'aguardando a licença da empresa';
     snAtiva: Result := 'liberada';
     snBloqueada: Result := 'bloqueada pela empresa';
     snRecusada: Result := 'recusada pela nuvem';

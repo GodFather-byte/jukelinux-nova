@@ -10,8 +10,8 @@ if (!config.adminSenha) {
   config.adminSenha = randomBytes(9).toString('base64url');
   console.warn(`ATENÇÃO: sem ADMIN_SENHA. Senha provisória desta execução: ${config.adminSenha} (usuário ${config.adminUsuario})`);
 }
-if (!config.chavePrivada) {
-  console.warn('ATENÇÃO: sem LICENCA_CHAVE_PRIVADA: as máquinas conversam com a nuvem, mas não recebem licença.');
+if (!config.chavePublica) {
+  console.warn('ATENÇÃO: sem LICENCA_CHAVE_PUBLICA: a nuvem não confere se as licenças enviadas são da empresa (a jukebox confere).');
 }
 
 const db = abrirBanco(config.banco);

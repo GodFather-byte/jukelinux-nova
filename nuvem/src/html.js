@@ -36,6 +36,7 @@ export function pagina({ titulo, csrf, ativo, conteudo, aviso, erro }) {
   const menu = csrf
     ? html`<nav>
         <a href="/maquinas" class="${ativo === 'maquinas' ? 'ativo' : ''}">Máquinas</a>
+        <a href="/licencas" class="${ativo === 'licencas' ? 'ativo' : ''}">Enviar licença</a>
         <a href="/relatorio" class="${ativo === 'relatorio' ? 'ativo' : ''}">Relatório</a>
         <a href="/historico" class="${ativo === 'historico' ? 'ativo' : ''}">Histórico</a>
         <form method="post" action="/sair"><input type="hidden" name="csrf" value="${csrf}"><button class="link">Sair</button></form>
@@ -126,5 +127,9 @@ document.addEventListener('submit', (e) => {
 });
 document.addEventListener('click', (e) => {
   if (e.target.matches('[data-imprimir]')) window.print();
+});
+document.addEventListener('change', async (e) => {
+  const alvo = e.target.getAttribute && e.target.getAttribute('data-preenche');
+  if (alvo && e.target.files && e.target.files[0]) document.getElementById(alvo).value = await e.target.files[0].text();
 });
 `;

@@ -36,12 +36,12 @@ mkdir -p "$JUKE" "$MUS"
 python3 -I "$AQUI/dados.py" "$JUKE" "$MUS"
 rm -f /tmp/jukelinux-nova-erros.log
 
-# a nuvem, com a chave de desenvolvimento; a jukebox fala com ela a cada 10 s
+# a nuvem (confere as licenças com a chave pública de desenvolvimento); a jukebox fala com ela a cada 10 s
 PORTA=$(node -e "const s=require('net').createServer().listen(0,()=>{console.log(s.address().port);s.close()})")
 SENHA=senha-do-teste-de-integracao
 BASE="http://127.0.0.1:$PORTA"
 PORTA=$PORTA BANCO="$T/nuvem.db" ADMIN_SENHA=$SENHA INTERVALO_CONTATO=10 \
-  LICENCA_CHAVE_PRIVADA_ARQUIVO="$RAIZ/nuvem/testes/chave-desenvolvimento.pem" \
+  LICENCA_CHAVE_PUBLICA="$(node "$RAIZ/testes/nuvem/painel.mjs" - - publica)" \
   node --disable-warning=ExperimentalWarning "$RAIZ/nuvem/servidor.js" >"$T/nuvem.log" 2>&1 &
 NUVEM=$!
 for i in $(seq 1 50); do curl -s "$BASE/saude" >/dev/null 2>&1 && break; sleep 0.1; done
@@ -52,7 +52,8 @@ espera_log() {  # espera_log TEXTO SEGUNDOS
   return 1
 }
 
-# abre a jukebox SEM licença: ela fica na tela de ativação e aparece no painel aguardando liberação
+# abre a jukebox SEM licença: ela fica na tela de ativação e aparece no painel aguardando licença;
+# a "empresa" gera a licença no gerador e envia pelo painel
 for N in 91 92 93 94 95; do [ -e "/tmp/.X$N-lock" ] || break; done
 Xvfb ":$N" -screen 0 1024x768x24 >/dev/null 2>&1 &
 XVFB=$!
@@ -108,9 +109,9 @@ FALHAS=0
 confere() { if eval "$2"; then echo "OK    $1"; else echo "FALHA $1"; FALHAS=$((FALHAS + 1)); fi; }
 confere "a jukebox abriu (Inicio da Operacao no log)" 'grep -q "Inicio da Operacao" "$JUKE/log.txt"'
 confere "sem exceção" '[ ! -s /tmp/jukelinux-nova-erros.log ]'
-confere "sem licença: tela de ativação e máquina aguardando liberação na nuvem" \
+confere "sem licença: tela de ativação e máquina aguardando licença na nuvem" \
   'grep -q "Licenca: sem licença" "$JUKE/log.txt" && [ -n "$LIBEROU" ]'
-confere "liberada no painel: a licença chegou pela internet e a jukebox liberou sozinha" \
+confere "licença enviada pelo painel: chegou pela internet e a jukebox liberou sozinha" \
   'grep -q "Licenca: nova licenca da nuvem" "$JUKE/log.txt" && grep -q "Licenca: liberada" "$JUKE/log.txt"'
 confere "licenca.txt gravado" 'grep -q "^JUKELINUX NOVA LICENCA 1" "$JUKE/licenca.txt"'
 confere "configurações padrão criadas (pastas.txt, creditos.txt)" '[ -f "$JUKE/pastas.txt" ] && [ -f "$JUKE/creditos.txt" ]'

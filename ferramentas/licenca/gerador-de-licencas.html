@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gerador de Licenças</title>
+<!--
+  Gerador de licenças da JukeLinux Nova. Fica SÓ no computador da empresa: abra este arquivo no navegador
+  (Chrome, Edge ou Firefox atualizados), não precisa de internet nem de instalar nada.
+
+  - A chave privada é criada aqui e fica guardada neste navegador (e na cópia que você baixa e guarda).
+    Quem tem a chave cria licenças: não mande esse arquivo para ninguém e não coloque na nuvem nem no git.
+  - A chave pública (licenca_publica.inc) vai para o código da jukebox: com ela a jukebox só CONFERE licenças.
+  - A licença (licenca.txt) vai para a máquina pela nuvem (painel → Enviar licença) ou por pendrive.
+
+  O formato da licença é o mesmo de src/licenca.pas e nuvem/src/licenca.js. O bloco <script id="nucleo"> é usado
+  também pelos testes (testes/licenca/licencas.mjs).
+-->
+<style>
+:root { --fundo: #f4f5f7; --cartao: #fff; --texto: #1d2230; --suave: #667085; --borda: #dfe3ea; --marca: #6d28d9;
+  --verde: #0f7b3f; --verde-fundo: #e3f6ea; --vermelho: #b42318; --vermelho-fundo: #fde8e6; --amarelo: #8a5a00; --amarelo-fundo: #fff4d6; }
+@media (prefers-color-scheme: dark) {
+  :root { --fundo: #111318; --cartao: #1b1e26; --texto: #e7e9ee; --suave: #9aa3b2; --borda: #2c313c; --marca: #a78bfa;
+    --verde: #5fd394; --verde-fundo: #13301f; --vermelho: #ff8a80; --vermelho-fundo: #3a1714; --amarelo: #f5c451; --amarelo-fundo: #33290f; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--fundo); color: var(--texto); }
+main { max-width: 760px; margin: 0 auto; padding: 20px 16px 40px; }
+h1 { font-size: 22px; margin: 4px 0 4px; }
+h1 b { color: var(--marca); }
+h2 { font-size: 17px; margin: 0 0 10px; }
+p { margin: 6px 0; }
+.suave { color: var(--suave); }
+.cartao { background: var(--cartao); border: 1px solid var(--borda); border-radius: 10px; padding: 16px; margin: 14px 0; }
+label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--suave); }
+input, textarea { font: inherit; color: var(--texto); background: var(--fundo); border: 1px solid var(--borda); border-radius: 8px; padding: 8px 10px; min-width: 0; }
+input.codigo { font-size: 22px; letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+textarea { width: 100%; min-height: 170px; font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; }
+.campos { display: grid; gap: 12px; }
+.opcoes { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; }
+.opcoes label { flex-direction: row; align-items: center; gap: 6px; color: var(--texto); font-size: 15px; }
+.acoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+button { font: inherit; border: 0; border-radius: 8px; padding: 9px 14px; background: var(--marca); color: #fff; cursor: pointer; }
+button.neutro { background: var(--borda); color: var(--texto); }
+button.perigo { background: var(--vermelho); }
+button:disabled { opacity: .5; cursor: default; }
+.aviso, .erro, .alerta { padding: 10px 12px; border-radius: 8px; margin: 10px 0; }
+.aviso { background: var(--verde-fundo); color: var(--verde); }
+.erro { background: var(--vermelho-fundo); color: var(--vermelho); }
+.alerta { background: var(--amarelo-fundo); color: var(--amarelo); }
+code { font-size: 13px; word-break: break-all; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--borda); }
+th { color: var(--suave); font-weight: 600; font-size: 12px; }
+.escondido { display: none !important; }
+ol { margin: 6px 0; padding-left: 20px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Gerador de Licenças · JukeLinux <b>Nova</b></h1>
+  <p class="suave">Fica só no seu computador. Não precisa de internet.</p>
+
+  <section class="cartao" id="secao-chave">
+    <h2>1. Sua chave</h2>
+    <div id="sem-chave">
+      <p>Nenhuma chave neste navegador. Na primeira vez, crie a chave. Se já tem uma (cópia guardada), abra o arquivo.</p>
+      <div class="acoes">
+        <button id="criar-chave">Criar chave nova</button>
+        <button class="neutro" id="abrir-chave">Abrir arquivo da chave</button>
+        <input type="file" id="arquivo-chave" accept=".json,.pem,.txt" class="escondido">
+      </div>
+    </div>
+    <div id="com-chave" class="escondido">
+      <p>Chave carregada. Impressão digital: <code id="digital"></code></p>
+      <div class="acoes">
+        <button class="neutro" id="baixar-copia">Baixar cópia da chave (guarde!)</button>
+        <button class="neutro" id="baixar-inc">Baixar licenca_publica.inc</button>
+        <button class="neutro" id="esquecer">Esquecer neste navegador</button>
+      </div>
+      <details>
+        <summary class="suave">Primeira vez com esta chave?</summary>
+        <ol>
+          <li>Guarde a cópia da chave (o arquivo <code>chave-privada-licencas.json</code>) num pendrive ou lugar seguro,
+            fora da nuvem e do git. Sem ela não dá para gerar licenças para as jukeboxes já instaladas.</li>
+          <li>Ponha o <code>licenca_publica.inc</code> no código da jukebox, na pasta <code>src/</code> (no GitHub:
+            <i>Add file → Upload files</i>, na pasta src). O CI gera o executável já com a sua chave.</li>
+          <li>Na nuvem, ponha a chave pública abaixo em <code>LICENCA_CHAVE_PUBLICA</code> (ela confere as licenças
+            que você envia; não é segredo):<br><code id="publica-b64"></code></li>
+        </ol>
+      </details>
+    </div>
+    <p id="msg-chave"></p>
+  </section>
+
+  <section class="cartao" id="secao-licenca">
+    <h2>2. Gerar licença</h2>
+    <div class="campos">
+      <label>Código da máquina (aparece na tela de ativação e no painel)
+        <input id="codigo" class="codigo" inputmode="numeric" autocomplete="off" placeholder="0000-0000-0000-0000" maxlength="19">
+      </label>
+      <label>Cliente / bar (só para identificar)
+        <input id="cliente" maxlength="80" placeholder="Bar do Zé">
+      </label>
+      <div class="opcoes">
+        <label><input type="radio" name="situacao" value="ativa" checked> Liberar</label>
+        <label><input type="radio" name="situacao" value="bloqueada"> Bloquear</label>
+      </div>
+      <div class="opcoes" id="opcoes-validade">
+        <label><input type="radio" name="validade" value="permanente" checked> Permanente</label>
+        <label><input type="radio" name="validade" value="data"> Vale até</label>
+        <input type="date" id="data" disabled>
+        <span class="suave">
+          <button class="neutro" type="button" data-dias="30">30 dias</button>
+          <button class="neutro" type="button" data-dias="90">90 dias</button>
+          <button class="neutro" type="button" data-dias="365">1 ano</button>
+        </span>
+      </div>
+    </div>
+    <div class="acoes"><button id="gerar" disabled>Gerar licença</button></div>
+    <p id="msg-licenca"></p>
+    <div id="resultado" class="escondido">
+      <textarea id="texto-licenca" readonly></textarea>
+      <div class="acoes">
+        <button id="baixar-licenca">Baixar licenca.txt</button>
+        <button class="neutro" id="copiar">Copiar</button>
+      </div>
+      <p class="suave"><b>Com internet:</b> no painel da nuvem, <i>Enviar licença</i>, cole e envie: a jukebox recebe em até um
+        minuto. <b>Sem internet:</b> grave o <code>licenca.txt</code> na raiz de um pendrive e espete na jukebox.</p>
+    </div>
+  </section>
+
+  <section class="cartao">
+    <h2>Licenças geradas neste computador</h2>
+    <table><thead><tr><th>Quando</th><th>Código</th><th>Cliente</th><th>Situação</th><th>Validade</th></tr></thead>
+      <tbody id="historico"></tbody></table>
+  </section>
+</main>
+
+<script id="nucleo">
+// Núcleo: formato e assinatura da licença (sem tela). Usado pela página e pelos testes.
+const Licencas = (() => {
+  const CABECALHO = 'JUKELINUX NOVA LICENCA 1';
+  const sutil = () => {
+    if (!globalThis.crypto || !globalThis.crypto.subtle) {
+      throw new Error('Este navegador não tem a criptografia necessária. Use Chrome, Edge ou Firefox atualizados.');
+    }
+    return globalThis.crypto.subtle;
+  };
+  const umaLinha = (t) => String(t ?? '').replace(/[\r\n]+/g, ' ').trim().slice(0, 80);
+  const paraBase64 = (bytes) => {
+    let s = '';
+    for (const b of new Uint8Array(bytes)) s += String.fromCharCode(b);
+    return btoa(s);
+  };
+  const deBase64 = (t) => Uint8Array.from(atob(t.replace(/-/g, '+').replace(/_/g, '/').replace(/\s+/g, '') +
+    '='.repeat((4 - (t.replace(/\s+/g, '').length % 4)) % 4)), (c) => c.charCodeAt(0));
+
+  function normalizaCodigo(texto) {
+    const d = String(texto ?? '').replace(/\D/g, '');
+    if (d.length !== 16) throw new Error('O código da máquina tem 16 dígitos.');
+    return d;
+  }
+
+  function validaData(texto) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(texto)) return false;
+    const d = new Date(`${texto}T00:00:00Z`);
+    return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === texto;
+  }
+
+  /** Corpo assinado (com o \n final). dados: { codigo, situacao, validade, cliente, emitida (segundos) } */
+  function corpoLicenca(dados) {
+    const situacao = dados.situacao === 'bloqueada' ? 'bloqueada' : 'ativa';
+    const validade = dados.validade || 'permanente';
+    if (validade !== 'permanente' && !validaData(validade)) throw new Error('Data de validade inválida.');
+    const emitida = dados.emitida ?? Math.floor(Date.now() / 1000);
+    return [
+      CABECALHO,
+      `codigo=${normalizaCodigo(dados.codigo)}`,
+      `situacao=${situacao}`,
+      `validade=${validade}`,
+      'contato_ate=nunca',
+      `cliente=${umaLinha(dados.cliente)}`,
+      `emitida=${emitida}`,
+    ].join('\n') + '\n';
+  }
+
+  async function gerarLicenca(chavePrivada, dados) {
+    const corpo = corpoLicenca(dados);
+    const assinatura = await sutil().sign('Ed25519', chavePrivada, new TextEncoder().encode(corpo));
+    return `${corpo}assinatura=${paraBase64(assinatura)}\n`;
+  }
+
+  async function novaChave() {
+    const par = await sutil().generateKey('Ed25519', true, ['sign', 'verify']);
+    return par.privateKey;
+  }
+
+  /** A chave privada em JWK (o arquivo de cópia). Traz a pública em "x". */
+  async function exportaChave(chavePrivada) {
+    return sutil().exportKey('jwk', chavePrivada);
+  }
+
+  /** Lê a chave: JWK (o arquivo de cópia) ou PEM PKCS#8 ("-----BEGIN PRIVATE KEY-----", do openssl). */
+  async function importaChave(texto) {
+    const t = String(texto).trim();
+    if (t.startsWith('{')) {
+      const jwk = JSON.parse(t);
+      if (jwk.kty !== 'OKP' || jwk.crv !== 'Ed25519' || !jwk.d) throw new Error('Este arquivo não é uma chave privada Ed25519.');
+      return sutil().importKey('jwk', jwk, 'Ed25519', true, ['sign']);
+    }
+    const m = /-----BEGIN PRIVATE KEY-----([\s\S]+?)-----END PRIVATE KEY-----/.exec(t);
+    if (!m) throw new Error('Não reconheci o arquivo da chave.');
+    return sutil().importKey('pkcs8', deBase64(m[1]), 'Ed25519', true, ['sign']);
+  }
+
+  /** Os 32 bytes da chave pública. */
+  async function chavePublica(chavePrivada) {
+    const jwk = await exportaChave(chavePrivada);
+    return deBase64(jwk.x);
+  }
+
+  /** O src/licenca_publica.inc da jukebox. */
+  function incDaChavePublica(bytes) {
+    return '{ Chave pública das licenças da JukeLinux Nova (Ed25519), criada pelo gerador de licenças.\n' +
+      '  Pode ir para o git: só confere licenças. A privada fica só no computador da empresa. }\n' +
+      'const\n' +
+      `  NOVA_CHAVE_PUBLICA: array[0..31] of Byte = (${Array.from(bytes).join(', ')});\n` +
+      '  NOVA_CHAVE_DESENVOLVIMENTO = False;\n';
+  }
+
+  /** Lê os campos de uma licença (sem conferir a assinatura). */
+  function campos(texto) {
+    const saida = {};
+    for (const linha of String(texto).replace(/\r/g, '').split('\n').slice(1)) {
+      const i = linha.indexOf('=');
+      if (i > 0) saida[linha.slice(0, i)] = linha.slice(i + 1);
+    }
+    return saida;
+  }
+
+  return { CABECALHO, corpoLicenca, gerarLicenca, novaChave, exportaChave, importaChave, chavePublica,
+    incDaChavePublica, campos, normalizaCodigo, paraBase64, validaData };
+})();
+globalThis.Licencas = Licencas;
+</script>
+
+<script id="tela">
+(() => {
+  const $ = (id) => document.getElementById(id);
+  let chave = null;
+
+  // ---- guarda a chave neste navegador (IndexedDB); sem ele, abre o arquivo a cada vez
+  const BANCO = 'gerador-licencas-jukelinux';
+  function abreBanco() {
+    return new Promise((ok, erro) => {
+      const r = indexedDB.open(BANCO, 1);
+      r.onupgradeneeded = () => r.result.createObjectStore('chave');
+      r.onsuccess = () => ok(r.result);
+      r.onerror = () => erro(r.error);
+    });
+  }
+  async function guardaJwk(jwk) {
+    try {
+      const db = await abreBanco();
+      await new Promise((ok, erro) => {
+        const t = db.transaction('chave', 'readwrite');
+        if (jwk) t.objectStore('chave').put(jwk, 'privada'); else t.objectStore('chave').delete('privada');
+        t.oncomplete = ok;
+        t.onerror = () => erro(t.error);
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+  async function leJwk() {
+    try {
+      const db = await abreBanco();
+      return await new Promise((ok, erro) => {
+        const r = db.transaction('chave').objectStore('chave').get('privada');
+        r.onsuccess = () => ok(r.result || null);
+        r.onerror = () => erro(r.error);
+      });
+    } catch {
+      return null;
+    }
+  }
+
+  function baixa(nome, texto, tipo = 'text/plain') {
+    const url = URL.createObjectURL(new Blob([texto], { type: `${tipo};charset=utf-8` }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = nome;
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  function mensagem(onde, texto, classe = 'aviso') {
+    const p = $(onde);
+    p.className = texto ? classe : '';
+    p.textContent = texto;
+  }
+
+  async function usaChave(nova, origem) {
+    chave = nova;
+    const publica = await Licencas.chavePublica(chave);
+    $('digital').textContent = Licencas.paraBase64(publica).slice(0, 12);
+    $('publica-b64').textContent = Licencas.paraBase64(publica);
+    $('sem-chave').classList.add('escondido');
+    $('com-chave').classList.remove('escondido');
+    $('gerar').disabled = false;
+    if (origem) mensagem('msg-chave', origem);
+  }
+
+  $('criar-chave').onclick = async () => {
+    try {
+      const nova = await Licencas.novaChave();
+      const jwk = await Licencas.exportaChave(nova);
+      const guardou = await guardaJwk(jwk);
+      baixa('chave-privada-licencas.json', JSON.stringify(jwk, null, 2), 'application/json');
+      await usaChave(nova, (guardou ? 'Chave criada e guardada neste navegador. ' : 'Chave criada (este navegador não guarda: abra o arquivo da próxima vez). ') +
+        'A cópia foi baixada: guarde em lugar seguro. Agora baixe o licenca_publica.inc (veja "Primeira vez").');
+    } catch (e) {
+      mensagem('msg-chave', e.message, 'erro');
+    }
+  };
+  $('abrir-chave').onclick = () => $('arquivo-chave').click();
+  $('arquivo-chave').onchange = async (ev) => {
+    const arquivo = ev.target.files[0];
+    if (!arquivo) return;
+    try {
+      const nova = await Licencas.importaChave(await arquivo.text());
+      const guardou = await guardaJwk(await Licencas.exportaChave(nova));
+      await usaChave(nova, guardou ? 'Chave aberta e guardada neste navegador.' : 'Chave aberta.');
+    } catch (e) {
+      mensagem('msg-chave', e.message, 'erro');
+    }
+    ev.target.value = '';
+  };
+  $('baixar-copia').onclick = async () => baixa('chave-privada-licencas.json',
+    JSON.stringify(await Licencas.exportaChave(chave), null, 2), 'application/json');
+  $('baixar-inc').onclick = async () => baixa('licenca_publica.inc', Licencas.incDaChavePublica(await Licencas.chavePublica(chave)));
+  $('esquecer').onclick = async () => {
+    if (!confirm('Esquecer a chave neste navegador? Para gerar licenças de novo vai precisar do arquivo da cópia.')) return;
+    await guardaJwk(null);
+    chave = null;
+    $('com-chave').classList.add('escondido');
+    $('sem-chave').classList.remove('escondido');
+    $('gerar').disabled = true;
+    mensagem('msg-chave', 'Chave esquecida neste navegador.', 'alerta');
+  };
+
+  // ---- formulário da licença
+  $('codigo').oninput = (ev) => {
+    const d = ev.target.value.replace(/\D/g, '').slice(0, 16);
+    ev.target.value = d.replace(/(\d{4})(?=\d)/g, '$1-');
+  };
+  const atualizaValidade = () => {
+    const comData = document.querySelector('input[name=validade]:checked').value === 'data';
+    $('data').disabled = !comData;
+  };
+  for (const r of document.querySelectorAll('input[name=validade]')) r.onchange = atualizaValidade;
+  for (const b of document.querySelectorAll('[data-dias]')) {
+    b.onclick = () => {
+      document.querySelector('input[name=validade][value=data]').checked = true;
+      const d = new Date(Date.now() + Number(b.dataset.dias) * 86_400_000);
+      $('data').value = new Date(d.getTime() - d.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
+      atualizaValidade();
+    };
+  }
+
+  const HISTORICO = 'gerador-licencas-historico';
+  function historico() {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORICO) || '[]');
+    } catch {
+      return [];
+    }
+  }
+  function mostraHistorico() {
+    const linhas = historico().slice(-30).reverse();
+    const tbody = $('historico');
+    tbody.replaceChildren();
+    if (!linhas.length) {
+      const tr = tbody.insertRow();
+      const td = tr.insertCell();
+      td.colSpan = 5;
+      td.className = 'suave';
+      td.textContent = 'Nenhuma ainda.';
+      return;
+    }
+    for (const h of linhas) {
+      const tr = tbody.insertRow();
+      for (const v of [new Date(h.quando).toLocaleString('pt-BR'), h.codigo, h.cliente, h.situacao === 'bloqueada' ? 'bloqueada' : 'liberada',
+        h.validade === 'permanente' ? 'permanente' : h.validade.split('-').reverse().join('/')]) {
+        tr.insertCell().textContent = v;
+      }
+    }
+  }
+
+  let ultima = '';
+  $('gerar').onclick = async () => {
+    mensagem('msg-licenca', '');
+    try {
+      const situacao = document.querySelector('input[name=situacao]:checked').value;
+      const comData = document.querySelector('input[name=validade]:checked').value === 'data';
+      if (comData && !$('data').value) throw new Error('Escolha a data da validade.');
+      const dados = {
+        codigo: $('codigo').value,
+        cliente: $('cliente').value,
+        situacao,
+        validade: comData ? $('data').value : 'permanente',
+      };
+      ultima = await Licencas.gerarLicenca(chave, dados);
+      $('texto-licenca').value = ultima;
+      $('resultado').classList.remove('escondido');
+      const codigo = Licencas.normalizaCodigo(dados.codigo).replace(/(\d{4})(?=\d)/g, '$1-');
+      try {
+        localStorage.setItem(HISTORICO, JSON.stringify([...historico(), { quando: Date.now(), codigo, cliente: dados.cliente.trim(), situacao, validade: dados.validade }].slice(-200)));
+      } catch { /* sem histórico neste navegador */ }
+      mostraHistorico();
+      mensagem('msg-licenca', `${situacao === 'bloqueada' ? 'Licença de BLOQUEIO' : 'Licença'} gerada para ${codigo}.`);
+    } catch (e) {
+      $('resultado').classList.add('escondido');
+      mensagem('msg-licenca', e.message, 'erro');
+    }
+  };
+  $('baixar-licenca').onclick = () => baixa('licenca.txt', ultima);
+  $('copiar').onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(ultima);
+      mensagem('msg-licenca', 'Copiada. Cole no painel da nuvem, em Enviar licença.');
+    } catch {
+      $('texto-licenca').select();
+      mensagem('msg-licenca', 'Selecionei o texto: aperte Ctrl+C.', 'alerta');
+    }
+  };
+
+  mostraHistorico();
+  (async () => {
+    if (!globalThis.crypto || !globalThis.crypto.subtle) {
+      mensagem('msg-chave', 'Este navegador não tem a criptografia necessária. Abra o arquivo no Chrome, Edge ou Firefox atualizados.', 'erro');
+      $('criar-chave').disabled = true;
+      $('abrir-chave').disabled = true;
+      return;
+    }
+    const jwk = await leJwk();
+    if (jwk) {
+      try {
+        await usaChave(await Licencas.importaChave(JSON.stringify(jwk)));
+      } catch (e) {
+        mensagem('msg-chave', `Não consegui usar a chave guardada: ${e.message}`, 'erro');
+      }
+    }
+  })();
+})();
+</script>
+</body>
+</html>

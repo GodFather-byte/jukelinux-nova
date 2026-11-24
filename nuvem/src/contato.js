@@ -2,14 +2,14 @@
 //
 // A jukebox chama a cada INTERVALO_CONTATO segundos (quando tem internet) e manda o que juntou na fila desde o
 // último contato. A nuvem guarda os eventos (cada um só uma vez, pelo id), atualiza os relógios e devolve a licença
-// da máquina assinada. Sem internet a jukebox continua funcionando: a fila espera e vai no próximo contato.
+// da máquina, se a empresa já enviou uma. Sem internet a jukebox continua funcionando: a fila espera e vai no próximo contato.
 //
 // Identificação: a máquina manda o código dela (16 dígitos) e um segredo que ela mesma sorteou na primeira vez
 // (Authorization: Bearer). A nuvem guarda o hash do segredo no 1º contato; depois disso, outro aparelho com o
 // mesmo código é recusado (e o painel avisa). "Esquecer o aparelho" no painel libera para uma máquina reinstalada.
+// A licença não é feita aqui: a nuvem só repassa a que a empresa enviou pelo painel (gerador de licenças).
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { transacao, registrar } from './banco.js';
-import { licencaAtual } from './licenca.js';
 
 export const MAX_EVENTOS = 500;
 const TIPOS = new Set(['credito', 'musica', 'fechamento', 'ligou']);
@@ -107,7 +107,7 @@ export function tratarContato(db, config, { corpo, segredo, ip }, agoraMs = Date
       db.prepare(`INSERT INTO maquinas (codigo, segredo_hash, nome, criada_em) VALUES (?, ?, ?, ?)`)
         .run(codigo, hash, nome, agoraMs);
       maquina = db.prepare('SELECT * FROM maquinas WHERE codigo = ?').get(codigo);
-      registrar(db, maquina.id, 'primeiro contato', `aguardando liberação (IP ${ip || '?'})`);
+      registrar(db, maquina.id, 'primeiro contato', `aguardando licença (IP ${ip || '?'})`);
     } else if (!maquina.segredo_hash) {
       db.prepare('UPDATE maquinas SET segredo_hash = ? WHERE id = ?').run(hash, maquina.id);
       registrar(db, maquina.id, 'aparelho novo', `pareado de novo (IP ${ip || '?'})`);
@@ -136,14 +136,8 @@ export function tratarContato(db, config, { corpo, segredo, ip }, agoraMs = Date
     db.prepare(`UPDATE maquinas SET ultimo_contato = ?, versao = ?, ip = ?, relogio = COALESCE(?, relogio) WHERE id = ?`)
       .run(agoraMs, versao, ip || '', relogio, maquina.id);
 
-    let licenca = null;
-    if (maquina.situacao !== 'pendente' && config.chavePrivada) {
-      const atual = licencaAtual(maquina, config.chavePrivada, agoraMs, config.fusoMinutos);
-      licenca = atual.texto;
-      if (atual.nova) {
-        db.prepare('UPDATE maquinas SET licenca_emitida = ?, licenca_texto = ? WHERE id = ?').run(agoraMs, licenca, maquina.id);
-      }
-    }
+    // a licença que a empresa enviou pelo painel (assinada no computador dela); a mesma até ela enviar outra
+    const licenca = maquina.licenca_texto || null;
 
     return {
       situacao: maquina.situacao,

@@ -6,6 +6,7 @@ import {
 } from './sessao.js';
 import {
   paginaMaquinas, paginaMaquina, acaoMaquina, licencaParaBaixar, paginaRelatorio, paginaHistorico,
+  paginaEnviarLicenca, enviarLicenca,
 } from './painel.js';
 import { gerar, paraCsv, ErroRelatorio } from './relatorio.js';
 import { hoje, somaDias } from './tempo.js';
@@ -70,6 +71,17 @@ export function criarApp(db, config) {
 
     if (req.method === 'GET' && (p === '/' || p === '/maquinas')) return mostra('Máquinas', 'maquinas', paginaMaquinas(db, config));
     if (req.method === 'GET' && p === '/historico') return mostra('Histórico', 'historico', paginaHistorico(db, config));
+    if (req.method === 'GET' && p === '/licencas') return mostra('Enviar licença', 'licencas', paginaEnviarLicenca(config, sessao.csrf));
+    if (req.method === 'POST' && p === '/licencas') {
+      const campos = Object.fromEntries(new URLSearchParams(await lerCorpo(req)));
+      if (!csrfConfere(sessao, campos.csrf)) return responder(res, 403, 'Formulário vencido: volte e tente de novo.', 'text/plain; charset=utf-8');
+      const r = enviarLicenca(db, config, campos.licenca);
+      if (r.erro && !r.id) {
+        return responder(res, 400, pagina({ titulo: 'Enviar licença', csrf: sessao.csrf, ativo: 'licencas',
+          conteudo: paginaEnviarLicenca(config, sessao.csrf), erro: r.erro }));
+      }
+      return redirecionar(res, comMensagem(sessao, `/maquinas/${r.id}`, { aviso: r.aviso, erro: r.erro }));
+    }
     if (req.method === 'GET' && p === '/relatorio') {
       const r = paginaRelatorio(db, config, url.searchParams);
       return mostra('Relatório', 'relatorio', r.conteudo, r.erro ? { erro: r.erro } : {});
@@ -100,8 +112,8 @@ export function criarApp(db, config) {
         return mostra('Máquina', 'maquinas', conteudo);
       }
       if (req.method === 'GET' && acao === 'licenca.txt') {
-        const texto = licencaParaBaixar(db, config, id);
-        if (!texto) return redirecionar(res, comMensagem(sessao, `/maquinas/${id}`, { erro: 'Esta máquina ainda não tem licença (libere primeiro).' }));
+        const texto = licencaParaBaixar(db, id);
+        if (!texto) return redirecionar(res, comMensagem(sessao, `/maquinas/${id}`, { erro: 'Ainda não foi enviada licença para esta máquina.' }));
         return responder(res, 200, texto, 'text/plain; charset=utf-8', { 'Content-Disposition': 'attachment; filename="licenca.txt"' });
       }
       if (req.method === 'POST' && acao) {

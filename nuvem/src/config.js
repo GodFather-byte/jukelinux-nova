@@ -1,6 +1,5 @@
 // Configuração da nuvem, tirada das variáveis de ambiente (veja LEIA-ME.md).
-import { readFileSync } from 'node:fs';
-import { createPrivateKey } from 'node:crypto';
+import { createPublicKey } from 'node:crypto';
 
 const FUSO = /^([+-])(\d{2}):(\d{2})$/;
 
@@ -18,14 +17,17 @@ function inteiro(nome, texto, padrao, min, max) {
   return n;
 }
 
-function chavePrivada(env) {
-  let pem = env.LICENCA_CHAVE_PRIVADA;
-  if (!pem && env.LICENCA_CHAVE_PRIVADA_ARQUIVO) pem = readFileSync(env.LICENCA_CHAVE_PRIVADA_ARQUIVO, 'utf8');
-  if (!pem) return null;
-  // Em painéis de hospedagem a quebra de linha às vezes vira "\n" literal.
-  const chave = createPrivateKey(pem.replace(/\\n/g, '\n'));
-  if (chave.asymmetricKeyType !== 'ed25519') throw new Error('A chave das licenças precisa ser Ed25519');
-  return chave;
+/**
+ * Chave PÚBLICA das licenças (a que o gerador de licenças mostra, em base64). A nuvem não tem a privada: só confere
+ * se a licença enviada pelo painel foi mesmo assinada pela empresa antes de repassar à máquina.
+ */
+function chavePublica(env) {
+  const texto = (env.LICENCA_CHAVE_PUBLICA || '').trim();
+  if (!texto) return null;
+  if (texto.includes('BEGIN PUBLIC KEY')) return createPublicKey(texto.replace(/\\n/g, '\n'));
+  const bytes = Buffer.from(texto, 'base64');
+  if (bytes.length !== 32) throw new Error('LICENCA_CHAVE_PUBLICA deve ter 32 bytes em base64 (como o gerador de licenças mostra)');
+  return createPublicKey({ key: { kty: 'OKP', crv: 'Ed25519', x: bytes.toString('base64url') }, format: 'jwk' });
 }
 
 /** Monta a configuração. `env` é process.env (ou um objeto nos testes). */
@@ -38,7 +40,7 @@ export function lerConfig(env = process.env) {
     banco: env.BANCO || 'dados/nuvem.db',
     adminUsuario: env.ADMIN_USUARIO || 'admin',
     adminSenha: env.ADMIN_SENHA || '',
-    chavePrivada: chavePrivada(env),
+    chavePublica: chavePublica(env),
     fusoMinutos: minutosDoFuso(env.FUSO_HORARIO || '-03:00'),
     viradaDoDia: inteiro('VIRADA_DO_DIA', env.VIRADA_DO_DIA, 6, 0, 12),
     intervaloContato: inteiro('INTERVALO_CONTATO', env.INTERVALO_CONTATO, 60, 10, 3600),
@@ -48,9 +50,6 @@ export function lerConfig(env = process.env) {
   };
   if (config.adminSenha.length < 10) {
     if (producao) throw new Error('Defina ADMIN_SENHA com pelo menos 10 caracteres');
-  }
-  if (!config.chavePrivada && producao) {
-    throw new Error('Defina LICENCA_CHAVE_PRIVADA (ou LICENCA_CHAVE_PRIVADA_ARQUIVO): sem ela a nuvem não emite licenças');
   }
   return config;
 }

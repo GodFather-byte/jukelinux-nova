@@ -13,14 +13,14 @@ JukeLinux Nova - instalação (Linux Mint 21/22, Ubuntu 22.04/24.04 ou máquina 
 
 3. Abra a jukebox (ou reinicie):  /home/jkb/jukelinux/iniciar-jukebox.sh
    Na primeira vez aparece "Ativação da Jukebox" com o código da máquina (16 dígitos).
-   - Com internet: a máquina aparece no painel da nuvem aguardando liberação. A empresa clica em Liberar e em até
-     um minuto a jukebox libera sozinha (aparece "Ativação OK").
-   - Sem internet: a empresa libera no painel e baixa o licenca.txt. Copie para a raiz de um pendrive e espete na
-     jukebox: ela instala sozinha em poucos segundos.
+   A empresa gera a licença no gerador de licenças com esse código.
+   - Com internet: a empresa envia a licença pelo painel da nuvem e em até um minuto a jukebox libera sozinha
+     (aparece "Ativação OK").
+   - Sem internet: copie o licenca.txt que a empresa mandar para a raiz de um pendrive e espete na jukebox: ela
+     instala sozinha em poucos segundos.
    Depois disso a jukebox funciona sem internet. O dinheiro, os Pix e as músicas vão para a nuvem quando a internet
    voltar.
-   Atenção: o código muda se trocar o disco (ex.: da VM para o SSD); a máquina aparece de novo no painel com o
-   código novo.
+   Atenção: o código muda se trocar o disco (ex.: da VM para o SSD); a licença tem que ser gerada para o código novo.
 
 4. Baixar músicas do YouTube: atalho "Baixar músicas do YouTube" no menu (ou /home/jkb/jukelinux/baixar-youtube.sh).
    Cole o link de um vídeo ou de uma playlist, dê o nome do CD (ARTISTA - CD), escolha o ritmo e se é música (mp3)

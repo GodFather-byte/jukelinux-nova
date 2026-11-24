@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS maquinas (
   observacao TEXT NOT NULL DEFAULT '',
   situacao TEXT NOT NULL DEFAULT 'pendente' CHECK (situacao IN ('pendente', 'ativa', 'bloqueada')),
   validade TEXT,                        -- AAAA-MM-DD; NULL = permanente
-  contato_dias INTEGER NOT NULL DEFAULT 0, -- 0 = nunca exige contato; N = bloqueia após N dias sem falar com a nuvem
+  contato_dias INTEGER NOT NULL DEFAULT 0, -- sem uso (versão antiga)
   criada_em INTEGER NOT NULL,
   liberada_em INTEGER,
   ultimo_contato INTEGER,
