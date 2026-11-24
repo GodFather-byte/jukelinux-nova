@@ -1,9 +1,12 @@
 #!/bin/sh
 # Instala a JukeLinux Nova numa máquina (troca direta da JukeLinux antiga ou máquina nova, ex. Linux Mint).
 #
-#   sudo sh instalar.sh                    instala o ./jukelinux que veio junto com este script
-#   sudo sh instalar.sh --iniciar-sozinha  idem, e põe a jukebox para abrir sozinha ao entrar no Linux
-#   sudo sh instalar.sh --desfazer         volta o executável anterior (a cópia guardada na última instalação)
+#   sudo sh instalar.sh                         instala o ./jukelinux que veio junto com este script
+#   sudo sh instalar.sh --nuvem https://...     idem, e liga a jukebox à nuvem da empresa (grava nuvem.txt)
+#   sudo sh instalar.sh --iniciar-sozinha       idem, e põe a jukebox para abrir sozinha ao entrar no Linux
+#   sudo sh instalar.sh --desfazer              volta o executável anterior (a cópia guardada na última instalação)
+# As opções podem ir juntas (ex.: --nuvem https://... --iniciar-sozinha). Um nuvem.txt junto deste script também
+# vale (sem --nuvem); um nuvem.txt que já esteja na máquina só é trocado com --nuvem.
 #
 # O que faz:
 #   1. instala o que a Nova usa: mplayer, curl, xrandr e as bibliotecas do GTK2 (nomes do Ubuntu/Mint antigo e novo);
@@ -14,8 +17,11 @@
 #      que vai rodar a jukebox (jkb, ou quem rodou o sudo se não houver jkb) e põe a jukebox para abrir sozinha ao
 #      entrar no Linux, com a tela sem apagar nem bloquear (iniciar-jukebox.sh). As configurações a Nova cria ao abrir;
 #   5. instala o baixador de músicas do YouTube (baixar-youtube.sh, yt-dlp, ffmpeg) com um atalho no menu;
-#   6. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
-# Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina (ver README, "Licença").
+#   6. com --nuvem (ou nuvem.txt junto do script), grava /home/jkb/jukelinux/nuvem.txt: a jukebox fala com a nuvem
+#      da empresa quando tiver internet (licença, dinheiro, relatórios); sem internet ela funciona do mesmo jeito;
+#   7. não mexe em nada mais: músicas, configurações (.txt), relógios e créditos ficam como estão.
+# Na primeira vez que abrir, a Nova mostra a tela de ativação com o código da máquina, até chegar a licença feita no
+# gerador de licenças da empresa (pela nuvem ou pelo licenca.txt num pendrive). Ver README, "Licença e nuvem".
 set -e
 
 PASTA=/home/jkb/jukelinux
@@ -27,15 +33,33 @@ falha() { echo "ERRO: $*" >&2; exit 1; }
 
 [ "$(id -u)" = "0" ] || falha "rode com sudo: sudo sh $0"
 
-if [ "$1" = "--desfazer" ]; then
+INICIAR_SOZINHA=""
+DESFAZER=""
+URL_NUVEM=""
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --desfazer) DESFAZER=sim ;;
+    --iniciar-sozinha) INICIAR_SOZINHA=sim ;;
+    --nuvem) shift; URL_NUVEM=$1 ;;
+    --nuvem=*) URL_NUVEM=${1#--nuvem=} ;;
+    *) falha "opção desconhecida: $1 (veja o começo do instalar.sh)" ;;
+  esac
+  shift
+done
+if [ -n "$URL_NUVEM" ]; then
+  case "$URL_NUVEM" in
+    https://*|http://*) ;;
+    *) falha "o endereço da nuvem precisa começar com https:// (recebi: $URL_NUVEM)" ;;
+  esac
+fi
+
+if [ -n "$DESFAZER" ]; then
   ANTERIOR=$(ls -1t "$PASTA"/jukelinux.antes-da-nova-* 2>/dev/null | head -1)
   [ -n "$ANTERIOR" ] || falha "não achei cópia do executável anterior em $PASTA"
   cp -p "$ANTERIOR" "$PASTA/jukelinux"
   echo "Voltou o executável anterior: $ANTERIOR"
   exit 0
 fi
-INICIAR_SOZINHA=""
-[ "$1" = "--iniciar-sozinha" ] && INICIAR_SOZINHA=sim
 
 [ -f "$NOVO" ] || falha "não achei o executável da Nova em $NOVO"
 head -c 4 "$NOVO" | grep -q "ELF" || falha "$NOVO não é um executável Linux"
@@ -62,6 +86,8 @@ fi
 for programa in mplayer curl xrandr; do
   command -v "$programa" >/dev/null 2>&1 || falha "falta o programa $programa"
 done
+# a licença é conferida pela libcrypto do OpenSSL 3 (já vem no Mint 21/22 e no Ubuntu 22.04/24.04, junto do curl)
+ldconfig -p 2>/dev/null | grep -q "libcrypto.so.3" || echo "Aviso: não achei a libcrypto.so.3 (OpenSSL 3): sem ela a licença não é conferida"
 
 MAQUINA_NOVA=""
 [ -f "$PASTA/jukelinux" ] || MAQUINA_NOVA=sim
@@ -79,6 +105,16 @@ mv -f "$PASTA/jukelinux.novo" "$PASTA/jukelinux"
 if [ -f "$AQUI/pix.txt.exemplo" ] && [ ! -f "$PASTA/pix.txt.exemplo" ]; then
   cp "$AQUI/pix.txt.exemplo" "$PASTA/pix.txt.exemplo"
 fi
+
+# nuvem da empresa: --nuvem troca; nuvem.txt junto do script só entra se a máquina ainda não tiver um
+if [ -n "$URL_NUVEM" ]; then
+  printf 'url = %s\n' "$URL_NUVEM" > "$PASTA/nuvem.txt"
+  echo "Nuvem: $URL_NUVEM"
+elif [ -f "$AQUI/nuvem.txt" ] && [ ! -f "$PASTA/nuvem.txt" ]; then
+  cp "$AQUI/nuvem.txt" "$PASTA/nuvem.txt"
+  echo "Nuvem: $(grep -v '^#' "$PASTA/nuvem.txt" | head -1)"
+fi
+[ -f "$PASTA/nuvem.txt" ] || echo "Aviso: sem nuvem.txt: a jukebox não fala com a nuvem (licença só por pendrive, sem relatórios)"
 
 # baixar músicas do YouTube: o script e o yt-dlp na pasta da jukebox (do usuário dela, para ele se atualizar sozinho)
 if [ -f "$AQUI/baixar-youtube.sh" ]; then
@@ -118,6 +154,7 @@ if [ -n "$USUARIO" ]; then
     chown "$USUARIO": "$PASTA" "$PASTA/ritmos" "$PASTA/letras" "$MUSICAS" "$PASTA/jukelinux" "$PASTA/iniciar-jukebox.sh"
     for f in baixar-youtube.sh yt-dlp; do [ -f "$PASTA/$f" ] && chown "$USUARIO": "$PASTA/$f"; done
     [ -f "$PASTA/pix.txt.exemplo" ] && chown "$USUARIO": "$PASTA/pix.txt.exemplo"
+    [ -f "$PASTA/nuvem.txt" ] && chown "$USUARIO": "$PASTA/nuvem.txt"
   fi
 fi
 
@@ -161,5 +198,6 @@ fi
 
 echo "JukeLinux Nova instalada em $PASTA/jukelinux (usuário: ${USUARIO:-root})."
 echo "Para abrir agora: $PASTA/iniciar-jukebox.sh"
-echo "Ao abrir, se a máquina ainda não tiver licença, aparece a tela de ativação com o código da máquina."
+echo "Ao abrir, se a máquina ainda não tiver licença, aparece a tela de ativação com o código da máquina:"
+echo "gere a licença no gerador de licenças e envie pelo painel da nuvem (ou ponha o licenca.txt num pendrive)."
 echo "Para voltar o executável anterior: sudo sh $0 --desfazer"

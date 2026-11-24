@@ -44,7 +44,7 @@ procedure Nova_Inicia_Pesquisa;
 implementation
 
 uses
-  Types, Process, FileUtil, Variants, LCLType, DateUtils, BaseUnix, Pix, PixTela, MusicaCifra, Licenca;
+  Types, Process, FileUtil, Variants, LCLType, DateUtils, BaseUnix, Pix, PixTela, MusicaCifra, Licenca, Nuvem;
 
 {$R *.lfm}
 

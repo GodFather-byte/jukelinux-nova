@@ -1,0 +1,14 @@
+{
+  "name": "jukelinux-nuvem",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nuvem da JukeLinux Nova: licenças das máquinas, painel, dinheiro e relatórios",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning servidor.js",
+    "test": "node --disable-warning=ExperimentalWarning --test testes/*.test.js"
+  }
+}
