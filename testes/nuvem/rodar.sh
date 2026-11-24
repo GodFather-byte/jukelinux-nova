@@ -7,8 +7,9 @@ RAIZ=$(cd "$AQUI/../.." && pwd)
 T=$(mktemp -d)
 NUVEM=""
 limpa() {
-  [ -n "$NUVEM" ] && kill "$NUVEM" 2>/dev/null || true
-  [ -n "$T" ] && [ -d "$T" ] && rm -r "$T"
+  # espera a nuvem fechar o banco (ela apaga o -wal e o -shm ao sair) antes de apagar a pasta
+  if [ -n "$NUVEM" ]; then kill "$NUVEM" 2>/dev/null || true; wait "$NUVEM" 2>/dev/null || true; fi
+  if [ -n "$T" ] && [ -d "$T" ]; then rm -rf "$T"; fi
 }
 trap limpa EXIT
 

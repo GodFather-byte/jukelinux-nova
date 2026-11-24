@@ -21,7 +21,7 @@ XVFB=""
 guarda() { if [ -e "$1" ]; then mv "$1" "$T/guardado.$(basename "$1")"; fi; }
 devolve() {
   pkill -f "^$EXE" 2>/dev/null || true
-  [ -n "$NUVEM" ] && kill "$NUVEM" 2>/dev/null || true
+  if [ -n "$NUVEM" ]; then kill "$NUVEM" 2>/dev/null || true; wait "$NUVEM" 2>/dev/null || true; fi
   [ -n "$XVFB" ] && kill "$XVFB" 2>/dev/null || true
   if [ -n "$MANTER" ]; then rm -rf "$MANTER"; mkdir -p "$MANTER"; cp -a "$JUKE" "$MUS" "$T/nuvem.db" "$MANTER/" 2>/dev/null || true; fi
   rm -rf "$JUKE" "$MUS"
