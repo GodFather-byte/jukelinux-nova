@@ -43,6 +43,19 @@ export function emitirLicenca(maquina, chavePrivada, agoraMs, fusoMinutos) {
   return `${corpo}assinatura=${assinatura}\n`;
 }
 
+/**
+ * A licença para mandar agora: a última enviada, se nada mudou (situação, validade, cliente e o dia do prazo de
+ * contato), ou uma nova. Assim a jukebox só regrava o licenca.txt quando há mudança, e não a cada contato.
+ */
+export function licencaAtual(maquina, chavePrivada, agoraMs, fusoMinutos) {
+  const semEmissao = (t) => t.split('\n').filter((l) => !l.startsWith('emitida=') && !l.startsWith('assinatura=')).join('\n');
+  const candidata = corpoLicenca(maquina, agoraMs, fusoMinutos);
+  if (maquina.licenca_texto && semEmissao(maquina.licenca_texto) === semEmissao(candidata)) {
+    return { texto: maquina.licenca_texto, nova: false };
+  }
+  return { texto: emitirLicenca(maquina, chavePrivada, agoraMs, fusoMinutos), nova: true };
+}
+
 /** Confere uma licença (usado nos testes e na tela da máquina). Devolve os campos ou null. */
 export function conferirLicenca(texto, chavePublica) {
   const i = texto.lastIndexOf('assinatura=');

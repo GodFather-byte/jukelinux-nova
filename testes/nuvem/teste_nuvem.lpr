@@ -103,6 +103,7 @@ begin
       Confere(N.Situacao = snAtiva, 'liberada no painel: ' + N.DescreveSituacao);
       Confere(Rec.Instalou and (Rec.Estado = elValida), 'licença chegou e foi instalada: ' + DescreveEstado(Rec.Estado));
       Confere(LeLicenca(Pasta, Now).Estado = elValida, 'licenca.txt vale');
+      Sleep(1100);  // outro segundo: a nuvem manda a mesma licença enquanto nada muda
       Contato(N);
       Confere(not Rec.Instalou, 'a mesma licença de novo não regrava (só muda quando a nuvem emite outra)');
     end

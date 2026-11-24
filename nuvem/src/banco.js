@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS maquinas (
   ip TEXT NOT NULL DEFAULT '',
   relogio TEXT,                         -- JSON: o que a máquina mandou no último contato (relógios, créditos)
   licenca_emitida INTEGER,
+  licenca_texto TEXT,                   -- a última licença enviada: reenviada igual enquanto nada mudar
   intruso_em INTEGER                    -- outro aparelho tentou falar com este código
 );
 
@@ -63,6 +64,9 @@ export function abrirBanco(caminho) {
   const db = new DatabaseSync(caminho);
   db.exec('PRAGMA journal_mode = WAL; PRAGMA foreign_keys = ON; PRAGMA busy_timeout = 5000;');
   db.exec(ESQUEMA);
+  // bancos criados antes desta coluna
+  const colunas = db.prepare('PRAGMA table_info(maquinas)').all().map((c) => c.name);
+  if (!colunas.includes('licenca_texto')) db.exec('ALTER TABLE maquinas ADD COLUMN licenca_texto TEXT');
   return db;
 }
 

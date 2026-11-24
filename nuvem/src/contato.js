@@ -9,7 +9,7 @@
 // mesmo código é recusado (e o painel avisa). "Esquecer o aparelho" no painel libera para uma máquina reinstalada.
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { transacao, registrar } from './banco.js';
-import { emitirLicenca } from './licenca.js';
+import { licencaAtual } from './licenca.js';
 
 export const MAX_EVENTOS = 500;
 const TIPOS = new Set(['credito', 'musica', 'fechamento', 'ligou']);
@@ -138,8 +138,11 @@ export function tratarContato(db, config, { corpo, segredo, ip }, agoraMs = Date
 
     let licenca = null;
     if (maquina.situacao !== 'pendente' && config.chavePrivada) {
-      licenca = emitirLicenca(maquina, config.chavePrivada, agoraMs, config.fusoMinutos);
-      db.prepare('UPDATE maquinas SET licenca_emitida = ? WHERE id = ?').run(agoraMs, maquina.id);
+      const atual = licencaAtual(maquina, config.chavePrivada, agoraMs, config.fusoMinutos);
+      licenca = atual.texto;
+      if (atual.nova) {
+        db.prepare('UPDATE maquinas SET licenca_emitida = ?, licenca_texto = ? WHERE id = ?').run(agoraMs, licenca, maquina.id);
+      }
     }
 
     return {

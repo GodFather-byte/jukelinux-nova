@@ -151,6 +151,10 @@ test('liberar: a máquina recebe a licença assinada no próximo contato', async
   assert.equal(campos.validade, 'permanente');
   assert.equal(campos.contato_ate, 'nunca');
 
+  // nada mudou: o contato seguinte (mesmo segundos depois) traz a mesma licença, e a jukebox não regrava
+  await new Promise((ok) => setTimeout(ok, 1100));
+  assert.equal((await contato({ eventos: [] })).corpo.licenca, r.corpo.licenca);
+
   const adulterada = r.corpo.licenca.replace('validade=permanente', 'validade=2099-12-31');
   assert.equal(conferirLicenca(adulterada, publicKey), null, 'licença mexida não confere');
 });
